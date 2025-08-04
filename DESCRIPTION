@@ -1,0 +1,35 @@
+Package: ekioplot
+Type: Package
+Title: EKIO 
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "EKIO", "Analytics",
+      email = "contact@ekio.com",
+      role = c("aut", "cre")
+    ),
+    person(
+      "Reginatto", "Vinicius",
+      email = "vreginatto@ekio.com",
+      role = c("aut")
+    )
+  )
+Description: A comprehensive R package implementing EKIO's visual identity
+    in a ggplot2 framework. Following principles of clarity, purposeful color
+    usage and professional presentation standards for economic and business 
+    analysis.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.2
+Imports: 
+    cli,
+    extrafont,
+    ggplot2 (>= 3.5.0),
+    scales,
+    showtext,
+    sysfonts
+Roxygen: list(markdown = TRUE)
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
