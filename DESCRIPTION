@@ -24,8 +24,10 @@ LazyData: true
 RoxygenNote: 7.3.2
 Imports: 
     cli,
+    dplyr,
     extrafont,
     ggplot2 (>= 3.5.0),
+    rlang,
     scales,
     showtext,
     sysfonts

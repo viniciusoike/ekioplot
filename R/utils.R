@@ -4,13 +4,16 @@
 #' @importFrom grDevices colorRampPalette
 #' @importFrom grDevices pdfFonts
 #' @importFrom utils installed.packages
+#' @importFrom rlang enquo quo_is_null
+#' @importFrom dplyr pull
+#' @importFrom stats na.omit
 NULL
 
 #' List All Available EKIO Palettes
 #'
 #' Returns a comprehensive list of all available EKIO color palettes
 #'
-#' @param category Filter by category: "all", "ekio", "scientific", "categorical", "mapping"
+#' @param category Filter by category: "all", "ekio", "scientific", "categorical", "mapping", "accent", "diverging"
 #' @return Character vector of palette names
 #' @examples
 #' # See all available palettes
@@ -18,7 +21,8 @@ NULL
 #'
 #' # Filter by category
 #' list_ekio_palettes("categorical")
-#' list_ekio_palettes("scientific")
+#' list_ekio_palettes("accent")
+#' list_ekio_palettes("diverging")
 #'
 #' @export
 list_ekio_palettes <- function(category = "all") {
@@ -41,13 +45,24 @@ list_ekio_palettes <- function(category = "all") {
   mapping_palettes <- c(
     "RdBu", "BrBG", "PuBuGn", "YlOrRd", "Greens", "Blues"
   )
+  
+  accent_palettes <- c(
+    "accent_blue", "accent_teal", "accent_orange", "accent_red", 
+    "accent_red_warm", "accent_red_cool", "accent_purple"
+  )
+  
+  diverging_palettes <- c(
+    "red_blue_diverging"
+  )
 
   switch(category,
          "ekio" = ekio_palettes,
          "categorical" = categorical_palettes,
          "scientific" = scientific_palettes,
          "mapping" = mapping_palettes,
-         "all" = c(ekio_palettes, categorical_palettes, scientific_palettes, mapping_palettes)
+         "accent" = accent_palettes,
+         "diverging" = diverging_palettes,
+         "all" = c(ekio_palettes, categorical_palettes, scientific_palettes, mapping_palettes, accent_palettes, diverging_palettes)
   )
 }
 

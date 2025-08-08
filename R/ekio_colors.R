@@ -385,6 +385,91 @@ ekio_colors <- function(palette = "all") {
     "#2c3e50"
   )
 
+  # Accent palettes (1-2 strong + 3-5 muted colors)
+  accent_blue <- c(
+    "#2C6BB3",  # Strong: modern premium blue
+    "#3498db",  # Strong: peter river
+    "#ecf4f9",  # Muted: very light blue
+    "#d1e5f0",  # Muted: light blue
+    "#a8c8e1",  # Muted: medium light blue
+    "#7f8c8d",  # Muted: neutral gray
+    "#95a5a6"   # Muted: concrete
+  )
+  
+  accent_teal <- c(
+    "#1abc9c",  # Strong: turquoise
+    "#16a085",  # Strong: green sea
+    "#e8f6f3",  # Muted: very light teal
+    "#c7eae5",  # Muted: light teal
+    "#a1d9d0",  # Muted: medium light teal
+    "#7f8c8d",  # Muted: neutral gray
+    "#95a5a6"   # Muted: concrete
+  )
+  
+  accent_orange <- c(
+    "#f39c12",  # Strong: orange
+    "#e67e22",  # Strong: carrot
+    "#fdf2e7",  # Muted: very light orange
+    "#f7e6d1",  # Muted: light orange
+    "#f0d0a0",  # Muted: medium light orange
+    "#7f8c8d",  # Muted: neutral gray
+    "#95a5a6"   # Muted: concrete
+  )
+  
+  accent_red <- c(
+    "#e74c3c",  # Strong: alizarin
+    "#c0392b",  # Strong: pomegranate
+    "#fbeaea",  # Muted: very light red
+    "#f5c6cb",  # Muted: light red
+    "#e8999f",  # Muted: medium light red
+    "#7f8c8d",  # Muted: neutral gray
+    "#95a5a6"   # Muted: concrete
+  )
+  
+  accent_purple <- c(
+    "#9b59b6",  # Strong: amethyst
+    "#8e44ad",  # Strong: wisteria
+    "#f4f1f6",  # Muted: very light purple
+    "#e8d5f0",  # Muted: light purple
+    "#d1ade0",  # Muted: medium light purple
+    "#7f8c8d",  # Muted: neutral gray
+    "#95a5a6"   # Muted: concrete
+  )
+  
+  # Alternative red tones (warmer/cooler variants)
+  accent_red_warm <- c(
+    "#d35400",  # Strong: warm orange-red
+    "#e67e22",  # Strong: carrot (warm)
+    "#fdeee6",  # Muted: very light warm red
+    "#f8d3b0",  # Muted: light warm red
+    "#f2a365",  # Muted: medium warm red
+    "#7f8c8d",  # Muted: neutral gray
+    "#95a5a6"   # Muted: concrete
+  )
+  
+  accent_red_cool <- c(
+    "#a93226",  # Strong: cool deep red
+    "#922b21",  # Strong: darker cool red
+    "#f7e6e6",  # Muted: very light cool red
+    "#eab3b3",  # Muted: light cool red
+    "#d17a7a",  # Muted: medium cool red
+    "#7f8c8d",  # Muted: neutral gray
+    "#95a5a6"   # Muted: concrete
+  )
+  
+  # Red to Blue diverging palette (alternative to RdBu)
+  red_blue_diverging <- c(
+    "#a93226",  # Deep red (strong)
+    "#c0392b",  # Red (strong)
+    "#e74c3c",  # Light red
+    "#f5b7b1",  # Very light red
+    "#ecf0f1",  # Neutral center
+    "#aed6f1",  # Very light blue
+    "#5dade2",  # Light blue
+    "#2980b9",  # Blue (strong)
+    "#1f618d"   # Deep blue (strong)
+  )
+
   # Neutrals (enhanced)
   neutrals <- c(
     "white" = "#ffffff",
@@ -443,6 +528,18 @@ ekio_colors <- function(palette = "all") {
     "hokusai1" = setNames(hokusai1, paste0("hok1_", 1:12)),
     "hokusai2" = setNames(hokusai2, paste0("hok2_", 1:12)),
     "okabe_ito" = setNames(okabe_ito, paste0("oi_", 1:8)),
+
+    # Accent palettes
+    "accent_blue" = setNames(accent_blue, paste0("ab_", 1:7)),
+    "accent_teal" = setNames(accent_teal, paste0("at_", 1:7)),
+    "accent_orange" = setNames(accent_orange, paste0("ao_", 1:7)),
+    "accent_red" = setNames(accent_red, paste0("ar_", 1:7)),
+    "accent_red_warm" = setNames(accent_red_warm, paste0("arw_", 1:7)),
+    "accent_red_cool" = setNames(accent_red_cool, paste0("arc_", 1:7)),
+    "accent_purple" = setNames(accent_purple, paste0("ap_", 1:7)),
+    
+    # Diverging palettes
+    "red_blue_diverging" = setNames(red_blue_diverging, paste0("rbd_", 1:9)),
 
     # Neutrals
     "neutrals" = neutrals,
