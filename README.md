@@ -7,7 +7,7 @@
 `ekioplot` is a comprehensive R package that implements EKIO's visual identity system, making it effortless for analysts and economists to create publication-ready charts following EKIO's design principles:
 
 - **Minimalist Clarity**: Every element serves a purpose
-- **Purposeful Color**: Strategic use of color to highlight and guide  
+- **Purposeful Color**: Strategic use of color to highlight and guide
 - **Professional Standards**: Consistent typography and spacing
 - **Economic Focus**: Optimized for business and economic analysis
 - **Enhanced Typography**: Smart font management with Google Fonts integration
@@ -17,11 +17,8 @@
 ## Installation
 
 ```r
-# Install dependencies
-install.packages(c("ggplot2", "scales", "extrafont", "showtext"))
-
 # Install from GitHub
-devtools::install_github("ekio/ekioplot")
+devtools::install_github("viniciusoike/ekioplot")
 
 # Load fonts (one-time setup)
 library(ekioplot)
@@ -40,7 +37,7 @@ ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
   scale_color_ekio_d("categorical") +
   theme_ekio("modern_premium") +
   labs(
-    title = "Vehicle Fuel Efficiency Analysis", 
+    title = "Vehicle Fuel Efficiency Analysis",
     subtitle = "Weight vs MPG by engine configuration",
     x = "Weight (1000 lbs)",
     y = "Miles per Gallon",
@@ -49,15 +46,6 @@ ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
 ```
 
 ## Enhanced Features
-
-### 🎨 Extensive Color System
-
-**35+ Professional Palettes:**
-- **6 EKIO Sequential**: Modern Premium, Academic Authority, Sophisticated Unique, etc.
-- **6 Categorical Variants**: Including warm, cool, mixed, and muted options
-- **6 Scientific Palettes**: Viridis, Inferno, Plasma, Hokusai1/2, Okabe-Ito
-- **6 Mapping Palettes**: RdBu, BrBG, PuBuGn, YlOrRd, Greens, Blues
-- **3 Custom EKIO**: Midnight Steel, Midnight Warm, Asphalt Gradient
 
 ```r
 # Explore all available palettes
@@ -99,42 +87,6 @@ ggplot(data, aes(x = var1, y = var2, color = category)) +
 
 # Perfect for when you need: color_pal[c(9, 7, 5, 4)]
 ```
-
-## Strategic Color Selection
-
-### EKIO Themes for Different Contexts
-
-- **Modern Premium** (Primary): 80% of use cases, standard business presentations
-- **Academic Authority**: Government reports, white papers, institutional analysis
-- **Sophisticated Unique**: International clients, environmental studies  
-- **Institutional Oxford**: Banking, traditional corporate environments
-- **Professional Deep**: Technical documentation, serious economic analysis
-- **Premium Steel**: Executive presentations, high-stakes proposals
-
-### Scientific & Mapping Palettes
-
-```r
-# For choropleth maps
-ggplot(brazil_data, aes(fill = gdp_index)) +
-  geom_sf() +
-  scale_fill_ekio_c("RdBu") +
-  theme_ekio("academic_authority")
-
-# For scientific visualization  
-ggplot(data, aes(x, y, color = temperature)) +
-  geom_point() +
-  scale_color_ekio_c("viridis") +
-  theme_ekio("institutional_oxford")
-```
-
-## Advanced Typography
-
-Font hierarchy optimized for economic analysis:
-
-- **Primary**: Avenir (macOS default) → Lato (Google) → Helvetica Neue
-- **Monospace**: Fira Code (Google) → Monaco → Courier
-- **Condensed**: Roboto Condensed (Google) → Arial Narrow
-- **Automatic Detection**: Works across macOS, Windows, Linux
 
 ---
 
