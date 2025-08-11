@@ -1,6 +1,6 @@
 > EKIO Visual Identity for R Data Visualization
 
-[![R-CMD-check](https://github.com/ekio/ekioplot/workflows/R-CMD-check/badge.svg)](https://github.com/ekio/ekioplot/actions)
+[![R-CMD-check](https://github.com/ekio/ekioplot/workflows/R-CMD-check/badge.svg)](https://github.com/viniciusoike/ekioplot/actions)
 
 ## Overview
 
