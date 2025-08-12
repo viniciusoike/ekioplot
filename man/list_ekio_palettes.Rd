@@ -7,7 +7,7 @@
 list_ekio_palettes(category = "all")
 }
 \arguments{
-\item{category}{Filter by category: "all", "ekio", "scientific", "categorical", "mapping"}
+\item{category}{Filter by category: "all", "ekio", "scientific", "categorical", "mapping", "accent", "diverging"}
 }
 \value{
 Character vector of palette names
@@ -21,6 +21,7 @@ list_ekio_palettes()
 
 # Filter by category
 list_ekio_palettes("categorical")
-list_ekio_palettes("scientific")
+list_ekio_palettes("accent")
+list_ekio_palettes("diverging")
 
 }

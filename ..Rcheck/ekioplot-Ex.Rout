@@ -1,0 +1,106 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "ekioplot"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('ekioplot')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("check_ekio_fonts")
+> ### * check_ekio_fonts
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: check_ekio_fonts
+> ### Title: Check Font Availability
+> ### Aliases: check_ekio_fonts
+> 
+> ### ** Examples
+> 
+> check_ekio_fonts()
+$system_available
+character(0)
+
+$google_available
+[1] "Lato"             "Fira Code"        "Roboto Condensed"
+
+> check_ekio_fonts(detailed = TRUE)
+              Font      Type         Source Available
+1           Avenir   Primary System (macOS)     FALSE
+2   Helvetica Neue   Primary System (macOS)     FALSE
+3             Lato Secondary   Google Fonts      TRUE
+4        Fira Code Monospace   Google Fonts      TRUE
+5 Roboto Condensed Condensed   Google Fonts      TRUE
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ekio_barplot")
+> ### * ekio_barplot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ekio_barplot
+> ### Title: EKIO Bar Plot with Professional Styling
+> ### Aliases: ekio_barplot
+> 
+> ### ** Examples
+> 
+> library(ggplot2)
+> library(dplyr)
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+> 
+> # Basic bar plot
+> ekio_barplot(mtcars |> count(cyl), cyl, n)
+> 
+> # With fill grouping
+> ekio_barplot(mtcars |> count(cyl, gear), cyl, n, fill = factor(gear))
+> 
+> # Horizontal with labels
+> ekio_barplot(mtcars |> count(cyl), cyl, n,
++              horizontal = TRUE,
++              add_labels = TRUE)
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  font family 'Avenir' not found in PostScript font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  font family 'Avenir' not found in PostScript font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  font family 'Avenir' not found in PostScript font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  font family 'Avenir' not found in PostScript font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  font family 'Avenir' not found in PostScript font database
+Error in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  : 
+  invalid font type
+Calls: <Anonymous> ... drawDetails -> drawDetails.text -> grid.Call.graphics
+Execution halted

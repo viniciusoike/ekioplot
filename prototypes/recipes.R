@@ -4,7 +4,7 @@ ekioplot::list_ekio_palettes()
 
 # Let's make some nice examples and tests
 
-install.packages("maddison")
+# install.packages("maddison")
 
 library(maddison)
 
@@ -21,7 +21,25 @@ ggplot(brazil, aes(year, rgdpnapc)) +
   scale_y_continuous(
     labels = scales::label_number(decimal.mark = ",", big.mark = ".")
   ) +
-  theme_ekio()
+  theme_ekio("premium_steel")
+
+ekio_lineplot(
+  brazil,
+  year,
+  rgdpnapc,
+  palette = "premium_steel",
+  single_color_index = 8
+)
+
+brazil
+
+ekio_lineplot(
+  economics,
+  date,
+  unemploy,
+  palette = "academic_authority",
+  single_color_index = 6
+)
 
 latam <- maddison |>
   filter(
@@ -299,8 +317,150 @@ ggplot(brazil_recent, aes(pop_growth, gdp_growth)) +
 
 
 ggplot(brazil_recent, aes(as.factor(decade), gdp_growth, group = decade)) +
-  geom_boxplot(fill = ekio_palette()[8]) +
+  geom_boxplot(
+    fill = ekio_palette("modern_premium")[7],
+    alpha = 0.9,
+    width = 0.75
+  ) +
   theme_ekio()
+
+ggplot(brazil_recent, aes(as.factor(decade), gdp_growth, group = decade)) +
+  geom_boxplot(
+    fill = ekio_palette("premium_steel")[7],
+    width = 0.75
+  ) +
+  theme_ekio()
+
+ggplot(brazil_recent, aes(as.factor(decade), gdp_growth, group = decade)) +
+  geom_boxplot(
+    fill = ekio_palette("institutional_oxford")[6],
+    width = 0.75
+  ) +
+  theme_ekio()
+
+# A simple implemntation of boxplot with jitter
+
+latam <- latam |>
+  mutate(decade = floor(year / 10) * 10) |>
+  group_by(decade) |>
+  mutate(
+    gdp_growth = (rgdpnapc / lag(rgdpnapc) - 1) * 100
+  )
+
+nsample <- min(sapply(split(latam, latam$decade), nrow)) * 0.8
+minvals <- c(nsample, 100)
+njitter <- minvals[which.min(minvals)]
+
+ggplot(latam, aes(as.factor(decade), gdp_growth, group = decade)) +
+  geom_boxplot(
+    fill = ekio_palette("sophisticated_unique")[7],
+    width = 0.5,
+    outlier.shape = 21,
+    outlier.colour = "gray80",
+    outlier.fill = ekio_palette("sophisticated_unique")[7],
+    outlier.alpha = 1,
+    outlier.size = 2
+  ) +
+  geom_jitter(
+    data = dplyr::sample_n(latam, njitter),
+    height = 0.3,
+    width = 0.3,
+    alpha = 0.5,
+    shape = 21,
+    size = 2,
+    color = "gray80",
+    fill = ekio_palette("sophisticated_unique")[7]
+  ) +
+  scale_y_continuous(
+    limits = c(-10, 10)
+  ) +
+  theme_ekio()
+
+
+geom_boxplot(
+  data = subdat,
+  aes(x = 1, y = lgdp),
+  fill = col1,
+  size = 0.5,
+  alpha = 0.7,
+  outlier.shape = 21,
+  outlier.colour = "white",
+  outlier.fill = col2,
+  outlier.alpha = 1,
+  outlier.size = 3
+) +
+  geom_jitter(
+    data = sample_n(dplyr::filter(subdat, lgdp < 5), 100),
+    aes(x = 1, y = lgdp),
+    shape = 21,
+    color = "white",
+    fill = col1,
+    size = 2,
+    alpha = 0.7,
+    height = 0.3,
+    width = 0.3
+  )
+
+
+waterfall_data <- data.frame(
+  category = c("Start", "Q1", "Q2", "Q3", "Q4", "End"),
+  value = c(100, 25, -12, 13, -9, NA),
+  type = c("total", "positive", "negative", "positive", "negative", "total")
+)
+
+waterfall_data <- waterfall_data |>
+  mutate(
+    category = factor(
+      category,
+      levels = c("Start", "Q1", "Q2", "Q3", "Q4", "End")
+    )
+  )
+
+ekio_waterfall(
+  waterfall_data,
+  category,
+  value
+)
+
+ekio_palette("accent_blue")
+
+ggplot() +
+  geom_rect(
+    data = dat,
+    aes(
+      xmin = as.numeric(category) - 0.4,
+      xmax = as.numeric(category) + 0.4,
+      ymin = ystart,
+      ymax = yend
+    )
+  )
+
+
+ekio_waterfall(
+  waterfall_data,
+  category,
+  value,
+  start_value = 0,
+  palette = "modern_premium",
+  positive_color_index = 3,
+  negative_color_index = 1,
+  total_color_index = 6,
+  show_labels = TRUE,
+  label_accuracy = 1,
+  theme_style = "modern_premium"
+)
+
+
+ekio_palette("academic_authority")
+ekio_palette("premium_steel")
+
+ekio_boxplot(
+  brazil_recent,
+  as.factor(decade),
+  gdp_growth,
+  palette = "modern_premium",
+  single_color_index = 8,
+)
 
 
 list_ekio_palettes()

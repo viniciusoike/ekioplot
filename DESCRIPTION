@@ -2,6 +2,8 @@ Package: ekioplot
 Type: Package
 Title: EKIO 
 Version: 0.1.0
+Author: EKIO Analytics [aut, cre], Vinicius Reginatto [aut]
+Maintainer: EKIO Analytics <contact@ekio.com>
 Authors@R: c(
     person(
       "EKIO", "Analytics",
@@ -19,6 +21,7 @@ Description: A comprehensive R package implementing EKIO's visual identity
     usage and professional presentation standards for economic and business 
     analysis.
 License: MIT + file LICENSE
+Depends: R (>= 4.1.0)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.2
@@ -26,12 +29,16 @@ Imports:
     cli,
     dplyr,
     extrafont,
+    ggbump,
     ggplot2 (>= 3.5.0),
+    ggridges,
     rlang,
     scales,
     showtext,
-    sysfonts
-Roxygen: list(markdown = TRUE)
-Suggests: 
+    sysfonts,
+    tidyr
+Suggests:
+    hexbin,
     testthat (>= 3.0.0)
+Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3

@@ -145,9 +145,9 @@ ekio_lineplot <- function(
   color = NULL,
   add_zero = TRUE,
   palette = "categorical_extended",
-  single_color_index = 9,
+  single_color_index = 1,
   theme_style = "modern_premium",
-  line_size = 1
+  line_size = 0.8
 ) {
   # Capture variables using data-masking
   x_var <- rlang::enquo(x)

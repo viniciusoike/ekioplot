@@ -1,0 +1,165 @@
+* using log directory ‘/Users/viniciusreginatto/GitHub/ekioplot/..Rcheck’
+* using R version 4.5.1 (2025-06-13)
+* using platform: aarch64-apple-darwin20
+* R was compiled by
+    Apple clang version 16.0.0 (clang-1600.0.26.6)
+    GNU Fortran (GCC) 14.2.0
+* running under: macOS Sequoia 15.6
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘./DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘ekioplot’ version ‘0.1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... INFO
+Package suggested but not available for checking: ‘hexbin’
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... NOTE
+Found the following hidden files and directories:
+  .DS_Store
+  .Rprofile
+  .gitignore
+  prototypes/.DS_Store
+  prototypes/refs/.DS_Store
+  ..Rcheck
+  .Rproj.user
+  .claude
+  .git
+These were most likely included in error. See section ‘Package
+structure’ in the ‘Writing R Extensions’ manual.
+* checking for portable file names ... WARNING
+Found the following files with non-portable file names:
+  prototypes/refs/3_circles_Porto Alegre.png
+  prototypes/refs/3_circles_São Paulo.png
+  prototypes/refs/Screenshot 2025-08-08 at 19.42.53.png
+  prototypes/refs/Screenshot 2025-08-09 at 12.49.05.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.10.27.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.10.44.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.11.05.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.11.35.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.11.47.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.12.19.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.12.25.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.12.39.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.12.54.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.13.00.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.13.24.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.13.34.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.13.42.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.14.22.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.14.31.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.14.52.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.15.11.png
+  prototypes/refs/Screenshot 2025-08-09 at 15.15.44.png
+  prototypes/refs/dashboard_centro oeste.png
+  prototypes/refs/map_centro oeste.png
+These are not fully portable file names.
+See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘ekioplot’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Checking should be performed on sources prepared by ‘R CMD build’.
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... WARNING
+Found the following directory with the name of a check directory:
+  ./..Rcheck
+Most likely, these were included erroneously.
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+ekio_parallel: no visible binding for global variable ‘variable’
+ekio_parallel: no visible binding for global variable ‘variable_num’
+ekio_parallel: no visible binding for global variable ‘value’
+ekio_parallel: no visible binding for global variable ‘id’
+ekio_pie: no visible binding for global variable ‘percentage’
+ekio_pie: no visible binding for global variable ‘ypos’
+ekio_waterfall: no visible binding for global variable ‘cumulative’
+ekio_waterfall: no visible binding for global variable ‘ystart’
+ekio_waterfall: no visible binding for global variable ‘yend’
+ekio_waterfall: no visible binding for global variable ‘fill_color’
+show_ekio_palette: no visible binding for global variable ‘x’
+show_ekio_palette: no visible binding for global variable ‘y’
+show_ekio_palette: no visible binding for global variable ‘color’
+Undefined global functions or variables:
+  color cumulative fill_color id percentage value variable variable_num
+  x y yend ypos ystart
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking LazyData ... INFO
+  'LazyData' is specified without a 'data' directory
+* checking examples ... ERROR
+Running examples in ‘ekioplot-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: ekio_barplot
+> ### Title: EKIO Bar Plot with Professional Styling
+> ### Aliases: ekio_barplot
+> 
+> ### ** Examples
+> 
+> library(ggplot2)
+> library(dplyr)
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+> 
+> # Basic bar plot
+> ekio_barplot(mtcars |> count(cyl), cyl, n)
+> 
+> # With fill grouping
+> ekio_barplot(mtcars |> count(cyl, gear), cyl, n, fill = factor(gear))
+> 
+> # Horizontal with labels
+> ekio_barplot(mtcars |> count(cyl), cyl, n,
++              horizontal = TRUE,
++              add_labels = TRUE)
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  font family 'Avenir' not found in PostScript font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  font family 'Avenir' not found in PostScript font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  font family 'Avenir' not found in PostScript font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  font family 'Avenir' not found in PostScript font database
+Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  font family 'Avenir' not found in PostScript font database
+Error in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  : 
+  invalid font type
+Calls: <Anonymous> ... drawDetails -> drawDetails.text -> grid.Call.graphics
+Execution halted
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘testthat.R’
+* DONE
+Status: 1 ERROR, 2 WARNINGs, 3 NOTEs

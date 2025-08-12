@@ -28,13 +28,14 @@
 #' }
 #'
 #' @export
-theme_ekio <- function(style = "modern_premium",
-                       base_size = 12,
-                       base_family = "",
-                       base_line_size = base_size/22,
-                       base_rect_size = base_size/22,
-                       use_ekio_fonts = FALSE) {
-
+theme_ekio <- function(
+  style = "modern_premium",
+  base_size = 12,
+  base_family = "",
+  base_line_size = base_size / 22,
+  base_rect_size = base_size / 22,
+  use_ekio_fonts = FALSE
+) {
   # Define style-specific colors
   style_colors <- list(
     "modern_premium" = list(primary = "#2C6BB3", grid = "#e3ecf5"),
@@ -46,31 +47,44 @@ theme_ekio <- function(style = "modern_premium",
   )
 
   colors <- style_colors[[style]]
-  if (is.null(colors)) colors <- style_colors[["modern_premium"]]
+  if (is.null(colors)) {
+    colors <- style_colors[["modern_premium"]]
+  }
 
   # Enhanced font selection
   font_family <- if (base_family == "" && use_ekio_fonts) {
     # Try to get best EKIO font
-    tryCatch({
-      get_ekio_font("primary")
-    }, error = function(e) {
-      # Fallback font selection
-      if (.Platform$OS.type == "unix" && Sys.info()["sysname"] == "Darwin") {
-        # macOS - prefer Avenir, fallback to Helvetica Neue
-        if ("Avenir" %in% names(grDevices::pdfFonts())) "Avenir"
-        else if ("Helvetica Neue" %in% names(grDevices::pdfFonts())) "Helvetica Neue"
-        else "sans"
-      } else {
-        # Other systems
-        "sans"
+    tryCatch(
+      {
+        get_ekio_font("primary")
+      },
+      error = function(e) {
+        # Fallback font selection
+        if (.Platform$OS.type == "unix" && Sys.info()["sysname"] == "Darwin") {
+          # macOS - prefer Avenir, fallback to Helvetica Neue
+          if ("Avenir" %in% names(grDevices::pdfFonts())) {
+            "Avenir"
+          } else if ("Helvetica Neue" %in% names(grDevices::pdfFonts())) {
+            "Helvetica Neue"
+          } else {
+            "sans"
+          }
+        } else {
+          # Other systems
+          "sans"
+        }
       }
-    })
+    )
   } else if (base_family == "") {
     # Standard font detection without EKIO system
     if (.Platform$OS.type == "unix" && Sys.info()["sysname"] == "Darwin") {
-      if ("Avenir" %in% names(grDevices::pdfFonts())) "Avenir"
-      else if ("Helvetica Neue" %in% names(grDevices::pdfFonts())) "Helvetica Neue"
-      else "sans"
+      if ("Avenir" %in% names(grDevices::pdfFonts())) {
+        "Avenir"
+      } else if ("Helvetica Neue" %in% names(grDevices::pdfFonts())) {
+        "Helvetica Neue"
+      } else {
+        "sans"
+      }
     } else {
       "sans"
     }
@@ -94,8 +108,8 @@ theme_ekio <- function(style = "modern_premium",
 
       # Plot title: 16px, normal weight, primary color
       plot.title = ggplot2::element_text(
-        size = ggplot2::rel(1.33),  # 16px relative to base_size=12
-        color = colors$primary,
+        size = ggplot2::rel(1.33), # 16px relative to base_size=12
+        color = "#000000",
         face = "plain",
         hjust = 0,
         margin = ggplot2::margin(b = base_size * 0.8)
@@ -103,7 +117,7 @@ theme_ekio <- function(style = "modern_premium",
 
       # Plot subtitle: 12px, gray
       plot.subtitle = ggplot2::element_text(
-        size = ggplot2::rel(1),     # 12px
+        size = ggplot2::rel(1), # 12px
         color = "#7f8c8d",
         hjust = 0,
         margin = ggplot2::margin(b = base_size * 1.2)
@@ -119,7 +133,7 @@ theme_ekio <- function(style = "modern_premium",
 
       # Axis titles: 11px, gray
       axis.title = ggplot2::element_text(
-        size = ggplot2::rel(0.92),  # 11px
+        size = ggplot2::rel(0.92), # 11px
         color = "#7f8c8d"
       ),
       axis.title.x = ggplot2::element_text(
@@ -132,7 +146,7 @@ theme_ekio <- function(style = "modern_premium",
 
       # Axis text: 10px, gray
       axis.text = ggplot2::element_text(
-        size = ggplot2::rel(0.83),  # 10px
+        size = ggplot2::rel(0.83), # 10px
         color = "#7f8c8d"
       ),
 
@@ -165,8 +179,12 @@ theme_ekio <- function(style = "modern_premium",
         size = ggplot2::rel(0.92),
         color = "white",
         face = "bold",
-        margin = ggplot2::margin(base_size * 0.4, base_size * 0.4,
-                                 base_size * 0.4, base_size * 0.4)
+        margin = ggplot2::margin(
+          base_size * 0.4,
+          base_size * 0.4,
+          base_size * 0.4,
+          base_size * 0.4
+        )
       ),
       strip.background = ggplot2::element_rect(
         fill = colors$primary,
@@ -178,10 +196,10 @@ theme_ekio <- function(style = "modern_premium",
 
       # Plot margins following 8px grid system
       plot.margin = ggplot2::margin(
-        t = base_size * 1.5,  # 18px top
-        r = base_size * 1.5,  # 18px right
-        b = base_size * 1.5,  # 18px bottom
-        l = base_size * 1.5   # 18px left
+        t = base_size * 1.5, # 18px top
+        r = base_size * 1.5, # 18px right
+        b = base_size * 1.5, # 18px bottom
+        l = base_size * 1.5 # 18px left
       ),
 
       # Remove axis ticks for cleaner look
