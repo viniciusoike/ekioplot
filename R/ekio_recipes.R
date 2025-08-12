@@ -13,6 +13,7 @@
 #' @param theme_style EKIO theme style (default: "modern_premium")
 #' @return ggplot2 object
 #' @examples
+#' \dontrun{
 #' library(ggplot2)
 #'
 #' # Basic histogram
@@ -26,6 +27,7 @@
 #' ekio_histogram(mtcars, mpg,
 #'                fill_palette = "academic_authority",
 #'                fill_index = 6)
+#' }
 #'
 #' @export
 ekio_histogram <- function(
@@ -123,6 +125,7 @@ ekio_histogram <- function(
 #' @param line_size Line thickness (default: 1)
 #' @return ggplot2 object
 #' @examples
+#' \dontrun{
 #' library(ggplot2)
 #' library(dplyr)
 #'
@@ -136,6 +139,7 @@ ekio_histogram <- function(
 #' ekio_lineplot(economics, date, unemploy,
 #'               palette = "academic_authority",
 #'               single_color_index = 6)
+#' }
 #'
 #' @export
 ekio_lineplot <- function(
@@ -210,6 +214,7 @@ ekio_lineplot <- function(
 #' @param theme_style EKIO theme style (default: "modern_premium")
 #' @return ggplot2 object
 #' @examples
+#' \dontrun{
 #' library(ggplot2)
 #' library(dplyr)
 #'
@@ -231,6 +236,7 @@ ekio_lineplot <- function(
 #'                  point_shape = 19,
 #'                  add_smooth = TRUE,
 #'                  smooth_method = "gam")
+#' }
 #'
 #' @export
 ekio_scatterplot <- function(
@@ -421,6 +427,7 @@ ekio_scatterplot <- function(
 #' @param theme_style EKIO theme style (default: "modern_premium")
 #' @return ggplot2 object
 #' @examples
+#' \dontrun{
 #' library(ggplot2)
 #' library(dplyr)
 #'
@@ -440,6 +447,7 @@ ekio_scatterplot <- function(
 #'              palette = "sophisticated_unique",
 #'              single_color_index = 6,
 #'              add_labels = TRUE)
+#' }
 #'
 #' @export
 ekio_barplot <- function(

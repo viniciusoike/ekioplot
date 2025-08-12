@@ -42,6 +42,7 @@ ggplot2 object
 Creates a professionally styled line plot following EKIO design principles
 }
 \examples{
+\dontrun{
 library(ggplot2)
 library(dplyr)
 
@@ -55,5 +56,6 @@ ekio_lineplot(mtcars, wt, mpg, color = factor(cyl))
 ekio_lineplot(economics, date, unemploy,
               palette = "academic_authority",
               single_color_index = 6)
+}
 
 }

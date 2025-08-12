@@ -38,15 +38,3 @@ ggplot2 object
 \description{
 Creates parallel coordinates plot with straight lines or smooth bumps
 }
-\examples{
-library(ggplot2)
-library(dplyr)
-
-# Basic parallel coordinates
-ekio_parallel(iris, c("Sepal.Length", "Sepal.Width", "Petal.Length"))
-
-# Grouped with bumps
-ekio_parallel(iris, c("Sepal.Length", "Sepal.Width", "Petal.Length"),
-              group = Species, use_bumps = TRUE)
-
-}

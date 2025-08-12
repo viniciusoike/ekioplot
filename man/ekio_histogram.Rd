@@ -42,6 +42,7 @@ ggplot2 object
 Creates a professionally styled histogram following EKIO design principles
 }
 \examples{
+\dontrun{
 library(ggplot2)
 
 # Basic histogram
@@ -55,5 +56,6 @@ ekio_histogram(mtcars, mpg, binwidth = 2)
 ekio_histogram(mtcars, mpg,
                fill_palette = "academic_authority",
                fill_index = 6)
+}
 
 }

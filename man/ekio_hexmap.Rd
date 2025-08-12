@@ -41,14 +41,3 @@ ggplot2 object
 \description{
 Creates a professionally styled hexagonal binned map following EKIO design principles
 }
-\examples{
-library(ggplot2)
-library(dplyr)
-
-# Basic hexbin map
-ekio_hexmap(faithful, waiting, eruptions)
-
-# With point overlay
-ekio_hexmap(faithful, waiting, eruptions, show_points = TRUE)
-
-}

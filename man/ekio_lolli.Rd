@@ -53,17 +53,3 @@ ggplot2 object
 \description{
 Creates professionally styled lollipop plots using base ggplot2
 }
-\examples{
-library(ggplot2)
-library(dplyr)
-
-# Basic lollipop plot
-mtcars |> slice_head(n = 10) |>
-  ekio_lolli(reorder(rownames(.), mpg), mpg)
-
-# Horizontal with colors
-mtcars |> slice_head(n = 8) |>
-  ekio_lolli(reorder(rownames(.), mpg), mpg,
-             color = factor(cyl), horizontal = TRUE)
-
-}

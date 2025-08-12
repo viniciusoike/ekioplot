@@ -15,16 +15,6 @@
 #' @param point_alpha Point transparency when shown (default: 0.3)
 #' @param theme_style EKIO theme style (default: "modern_premium")
 #' @return ggplot2 object
-#' @examples
-#' library(ggplot2)
-#' library(dplyr)
-#'
-#' # Basic hexbin map
-#' ekio_hexmap(faithful, waiting, eruptions)
-#'
-#' # With point overlay
-#' ekio_hexmap(faithful, waiting, eruptions, show_points = TRUE)
-#'
 ekio_hexmap <- function(
   data,
   x,
@@ -112,17 +102,6 @@ ekio_hexmap <- function(
 #' @param line_size Line thickness (default: 0.8)
 #' @param theme_style EKIO theme style (default: "modern_premium")
 #' @return ggplot2 object
-#' @examples
-#' library(ggplot2)
-#' library(dplyr)
-#'
-#' # Basic parallel coordinates
-#' ekio_parallel(iris, c("Sepal.Length", "Sepal.Width", "Petal.Length"))
-#'
-#' # Grouped with bumps
-#' ekio_parallel(iris, c("Sepal.Length", "Sepal.Width", "Petal.Length"),
-#'               group = Species, use_bumps = TRUE)
-#'
 ekio_parallel <- function(
   data,
   variables,
@@ -274,19 +253,6 @@ ekio_parallel <- function(
 #' @param label_accuracy Accuracy for value labels (default: 1)
 #' @param theme_style EKIO theme style (default: "modern_premium")
 #' @return ggplot2 object
-#' @examples
-#' library(ggplot2)
-#' library(dplyr)
-#'
-#' # Basic lollipop plot
-#' mtcars |> slice_head(n = 10) |>
-#'   ekio_lolli(reorder(rownames(.), mpg), mpg)
-#'
-#' # Horizontal with colors
-#' mtcars |> slice_head(n = 8) |>
-#'   ekio_lolli(reorder(rownames(.), mpg), mpg,
-#'              color = factor(cyl), horizontal = TRUE)
-#'
 ekio_lolli <- function(
   data,
   x,

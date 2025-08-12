@@ -63,6 +63,7 @@ ggplot2 object
 Creates a professionally styled scatter plot following EKIO design principles
 }
 \examples{
+\dontrun{
 library(ggplot2)
 library(dplyr)
 
@@ -84,5 +85,6 @@ ekio_scatterplot(mtcars, wt, mpg,
                  point_shape = 19,
                  add_smooth = TRUE,
                  smooth_method = "gam")
+}
 
 }
