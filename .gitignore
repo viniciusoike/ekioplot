@@ -17,3 +17,6 @@ inst/doc
 *.swp
 *.swo
 Thumbs.db
+
+# Editor files
+.vscode/

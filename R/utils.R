@@ -2,11 +2,14 @@
 #' @import ggplot2
 #' @import scales
 #' @importFrom grDevices colorRampPalette
-#' @importFrom grDevices pdfFonts
+#' @importFrom grDevices pdfFonts nclass.Sturges nclass.FD nclass.scott
 #' @importFrom utils installed.packages
 #' @importFrom rlang enquo quo_is_null
-#' @importFrom dplyr pull
+#' @importFrom dplyr pull if_else
 #' @importFrom stats na.omit
+#' @importFrom grDevices rgb
+#' @importFrom graphics image par rect text
+#' @importFrom stats setNames
 NULL
 
 #' List All Available EKIO Palettes
