@@ -38,12 +38,60 @@ theme_ekio <- function(
 ) {
   # Define style-specific colors
   style_colors <- list(
-    "modern_premium" = list(primary = "#2C6BB3", grid = "#e3ecf5"),
-    "academic_authority" = list(primary = "#0F3A65", grid = "#e0e6ed"),
-    "sophisticated_unique" = list(primary = "#5F9EA0", grid = "#e8f4f4"),
-    "institutional_oxford" = list(primary = "#1E5F9F", grid = "#e2eaf4"),
-    "professional_deep" = list(primary = "#0F3A65", grid = "#e0e6ed"),
-    "premium_steel" = list(primary = "#4682B4", grid = "#e1eaf2")
+    "modern_premium" = list(
+      primary = "#2C6BB3",
+      grid = "#e3ecf5",
+      black = "#000000",
+      text = "#2c3e50",
+      text_light = "#7a838c",
+      text_lightest = "#b3b3b3",
+      text_dark = "#18222d"
+    ),
+    "academic_authority" = list(
+      primary = "#0F3A65",
+      grid = "#e0e6ed",
+      black = "#000000",
+      text = "#2c3e50",
+      text_light = "#7a838c",
+      text_lightest = "#b3b3b3",
+      text_dark = "#0a2544"
+    ),
+    "sophisticated_unique" = list(
+      primary = "#5F9EA0",
+      grid = "#e8f4f4",
+      black = "#000000",
+      text = "#2c3e50",
+      text_light = "#7a838c",
+      text_lightest = "#b3b3b3",
+      text_dark = "#4a7d80"
+    ),
+    "institutional_oxford" = list(
+      primary = "#1E5F9F",
+      grid = "#e2eaf4",
+      black = "#000000",
+      text = "#2c3e50",
+      text_light = "#7a838c",
+      text_lightest = "#b3b3b3",
+      text_dark = "#164c7f"
+    ),
+    "professional_deep" = list(
+      primary = "#0F3A65",
+      grid = "#e0e6ed",
+      black = "#000000",
+      text = "#2c3e50",
+      text_light = "#7a838c",
+      text_lightest = "#b3b3b3",
+      text_dark = "#0a2544"
+    ),
+    "premium_steel" = list(
+      primary = "#4682B4",
+      grid = "#e1eaf2",
+      black = "#000000",
+      text = "#2c3e50",
+      text_light = "#7a838c",
+      text_lightest = "#b3b3b3",
+      text_dark = "#3a6b94"
+    )
   )
 
   colors <- style_colors[[style]]
@@ -103,13 +151,13 @@ theme_ekio <- function(
       # Text elements following EKIO hierarchy
       text = ggplot2::element_text(
         family = font_family,
-        color = "#2c3e50"
+        color = colors$text
       ),
 
       # Plot title: 16px, normal weight, primary color
       plot.title = ggplot2::element_text(
         size = ggplot2::rel(1.33), # 16px relative to base_size=12
-        color = "#000000",
+        color = colors$black,
         face = "plain",
         hjust = 0,
         margin = ggplot2::margin(b = base_size * 0.8)
@@ -118,7 +166,7 @@ theme_ekio <- function(
       # Plot subtitle: 12px, gray
       plot.subtitle = ggplot2::element_text(
         size = ggplot2::rel(1), # 12px
-        color = "#7f8c8d",
+        color = colors$text_light,
         hjust = 0,
         margin = ggplot2::margin(b = base_size * 1.2)
       ),
@@ -126,7 +174,7 @@ theme_ekio <- function(
       # Caption: smaller, gray, left-aligned
       plot.caption = ggplot2::element_text(
         size = ggplot2::rel(0.8),
-        color = "#7f8c8d",
+        color = colors$text_lightest,
         hjust = 0,
         margin = ggplot2::margin(t = base_size * 0.8)
       ),
@@ -134,20 +182,20 @@ theme_ekio <- function(
       # Axis titles: 11px, gray
       axis.title = ggplot2::element_text(
         size = ggplot2::rel(0.92), # 11px
-        color = "#7f8c8d"
+        color = colors$text_light
       ),
-      axis.title.x = ggplot2::element_text(
-        margin = ggplot2::margin(t = base_size * 0.6)
-      ),
-      axis.title.y = ggplot2::element_text(
-        margin = ggplot2::margin(r = base_size * 0.6),
-        angle = 90
-      ),
+      # axis.title.x = ggplot2::element_text(
+      #   margin = ggplot2::margin(t = base_size * 0.6)
+      # ),
+      # axis.title.y = ggplot2::element_text(
+      #   margin = ggplot2::margin(r = base_size * 0.6),
+      #   angle = 90
+      # ),
 
       # Axis text: 10px, gray
       axis.text = ggplot2::element_text(
         size = ggplot2::rel(0.83), # 10px
-        color = "#7f8c8d"
+        color = colors$text
       ),
 
       # Grid lines: light gray, major only
@@ -176,19 +224,14 @@ theme_ekio <- function(
 
       # Strip text for facets (dark blue background, white text)
       strip.text = ggplot2::element_text(
-        size = ggplot2::rel(0.92),
+        size = ggplot2::rel(1),
         color = "white",
         face = "bold",
-        margin = ggplot2::margin(
-          base_size * 0.4,
-          base_size * 0.4,
-          base_size * 0.4,
-          base_size * 0.4
-        )
+        margin = ggplot2::margin(5, 5, 5, 5)
       ),
       strip.background = ggplot2::element_rect(
         fill = colors$primary,
-        colour = NA
+        colour = colors$black
       ),
 
       # Panel spacing and borders

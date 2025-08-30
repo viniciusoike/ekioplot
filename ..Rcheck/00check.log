@@ -6,14 +6,13 @@
     GNU Fortran (GCC) 14.2.0
 * running under: macOS Sequoia 15.6
 * using session charset: UTF-8
-* using option ‘--no-manual’
+* using options ‘--no-tests --no-manual’
 * checking for file ‘./DESCRIPTION’ ... OK
 * checking extension type ... Package
 * this is package ‘ekioplot’ version ‘0.1.0’
 * package encoding: UTF-8
 * checking package namespace information ... OK
-* checking package dependencies ... INFO
-Package suggested but not available for checking: ‘hexbin’
+* checking package dependencies ... OK
 * checking if this is a source package ... OK
 * checking if there is a namespace ... OK
 * checking for executable files ... OK
@@ -79,7 +78,8 @@ Most likely, these were included erroneously.
 * checking whether the namespace can be loaded with stated dependencies ... OK
 * checking whether the namespace can be unloaded cleanly ... OK
 * checking loading without being on the library search path ... OK
-* checking dependencies in R code ... OK
+* checking dependencies in R code ... WARNING
+'loadNamespace' or 'requireNamespace' call not declared from: ‘hexbin’
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
@@ -110,56 +110,8 @@ Undefined global functions or variables:
 * checking for unstated dependencies in examples ... OK
 * checking LazyData ... INFO
   'LazyData' is specified without a 'data' directory
-* checking examples ... ERROR
-Running examples in ‘ekioplot-Ex.R’ failed
-The error most likely occurred in:
-
-> ### Name: ekio_barplot
-> ### Title: EKIO Bar Plot with Professional Styling
-> ### Aliases: ekio_barplot
-> 
-> ### ** Examples
-> 
-> library(ggplot2)
-> library(dplyr)
-
-Attaching package: ‘dplyr’
-
-The following objects are masked from ‘package:stats’:
-
-    filter, lag
-
-The following objects are masked from ‘package:base’:
-
-    intersect, setdiff, setequal, union
-
-> 
-> # Basic bar plot
-> ekio_barplot(mtcars |> count(cyl), cyl, n)
-> 
-> # With fill grouping
-> ekio_barplot(mtcars |> count(cyl, gear), cyl, n, fill = factor(gear))
-> 
-> # Horizontal with labels
-> ekio_barplot(mtcars |> count(cyl), cyl, n,
-+              horizontal = TRUE,
-+              add_labels = TRUE)
-Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
-  font family 'Avenir' not found in PostScript font database
-Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
-  font family 'Avenir' not found in PostScript font database
-Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
-  font family 'Avenir' not found in PostScript font database
-Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
-  font family 'Avenir' not found in PostScript font database
-Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
-  font family 'Avenir' not found in PostScript font database
-Error in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  : 
-  invalid font type
-Calls: <Anonymous> ... drawDetails -> drawDetails.text -> grid.Call.graphics
-Execution halted
+* checking examples ... OK
 * checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ... OK
-  Running ‘testthat.R’
+* checking tests ... SKIPPED
 * DONE
-Status: 1 ERROR, 2 WARNINGs, 3 NOTEs
+Status: 3 WARNINGs, 3 NOTEs

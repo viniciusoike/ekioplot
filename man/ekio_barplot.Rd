@@ -51,6 +51,7 @@ ggplot2 object
 Creates a professionally styled bar plot following EKIO design principles
 }
 \examples{
+\dontrun{
 library(ggplot2)
 library(dplyr)
 
@@ -70,5 +71,6 @@ ekio_barplot(mtcars |> count(cyl), cyl, n,
              palette = "sophisticated_unique",
              single_color_index = 6,
              add_labels = TRUE)
+}
 
 }

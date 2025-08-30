@@ -32,13 +32,13 @@ Imports:
     ggbump,
     ggplot2 (>= 3.5.0),
     ggridges,
+    gt,
     rlang,
     scales,
     showtext,
     sysfonts,
     tidyr
 Suggests:
-    hexbin,
     testthat (>= 3.0.0)
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3

@@ -27,7 +27,7 @@ LazyData: true
 RoxygenNote: 7.3.2
 Imports: cli, dplyr, extrafont, ggbump, ggplot2 (>= 3.5.0), ggridges,
         rlang, scales, showtext, sysfonts, tidyr
-Suggests: hexbin, testthat (>= 3.0.0)
+Suggests: testthat (>= 3.0.0)
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
-Built: R 4.5.1; ; 2025-08-12 01:33:28 UTC; unix
+Built: R 4.5.1; ; 2025-08-12 01:43:46 UTC; unix

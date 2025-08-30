@@ -66,41 +66,518 @@ $google_available
 > 
 > ### ** Examples
 > 
+> ## Not run: 
+> ##D library(ggplot2)
+> ##D library(dplyr)
+> ##D 
+> ##D # Basic bar plot
+> ##D ekio_barplot(mtcars |> count(cyl), cyl, n)
+> ##D 
+> ##D # With fill grouping
+> ##D ekio_barplot(mtcars |> count(cyl, gear), cyl, n, fill = factor(gear))
+> ##D 
+> ##D # Horizontal with labels
+> ##D ekio_barplot(mtcars |> count(cyl), cyl, n,
+> ##D              horizontal = TRUE,
+> ##D              add_labels = TRUE)
+> ##D 
+> ##D # Custom styling
+> ##D ekio_barplot(mtcars |> count(cyl), cyl, n,
+> ##D              palette = "sophisticated_unique",
+> ##D              single_color_index = 6,
+> ##D              add_labels = TRUE)
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ekio_colors")
+> ### * ekio_colors
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ekio_colors
+> ### Title: Enhanced EKIO Color System
+> ### Aliases: ekio_colors
+> 
+> ### ** Examples
+> 
+> # EKIO palettes
+> ekio_colors("modern_premium")
+     mp_1      mp_2      mp_3      mp_4      mp_5      mp_6      mp_7      mp_8 
+"#f4f7fb" "#e3ecf5" "#d2e1ef" "#a0bfdb" "#6d9dc7" "#2C6BB3" "#265c9a" "#204d81" 
+     mp_9 
+"#1a3e68" 
+> 
+> # Mapping palettes
+> ekio_colors("RdBu")
+   RdBu_1    RdBu_2    RdBu_3    RdBu_4    RdBu_5    RdBu_6    RdBu_7    RdBu_8 
+"#67001f" "#b2182b" "#d6604d" "#f4a582" "#fddbc7" "#f7f7f7" "#d1e5f0" "#92c5de" 
+   RdBu_9   RdBu_10   RdBu_11 
+"#4393c3" "#2166ac" "#053061" 
+> ekio_colors("viridis")
+viridis_1 viridis_2 viridis_3 viridis_4 viridis_5 viridis_6 viridis_7 viridis_8 
+"#440154" "#482677" "#3f4a8a" "#31678e" "#26838f" "#1f9d8a" "#6cce5a" "#b6de2b" 
+viridis_9 
+"#fee825" 
+> 
+> # Scientific palettes
+> ekio_colors("hokusai1")
+   hok1_1    hok1_2    hok1_3    hok1_4    hok1_5    hok1_6    hok1_7    hok1_8 
+"#2d70b4" "#388bc0" "#5ba3c7" "#7db8cd" "#9ecbd2" "#bfdbd7" "#dde9dc" "#f4f4e1" 
+   hok1_9   hok1_10   hok1_11   hok1_12 
+"#f1e7b3" "#edd985" "#e9cb57" "#e5bd29" 
+> 
+> # Custom EKIO combinations
+> ekio_colors("midnight_steel")
+     ms_1      ms_2      ms_3      ms_4      ms_5      ms_6      ms_7      ms_8 
+"#f4f7fa" "#e8eef3" "#d3dee8" "#a8bdd2" "#7d9cbd" "#2c3e50" "#34495e" "#273445" 
+     ms_9 
+"#1a252f" 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ekio_histogram")
+> ### * ekio_histogram
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ekio_histogram
+> ### Title: EKIO Histogram with Professional Styling
+> ### Aliases: ekio_histogram
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D library(ggplot2)
+> ##D 
+> ##D # Basic histogram
+> ##D ekio_histogram(mtcars, mpg)
+> ##D 
+> ##D # With custom binning
+> ##D ekio_histogram(mtcars, mpg, bins = "FD")
+> ##D ekio_histogram(mtcars, mpg, binwidth = 2)
+> ##D 
+> ##D # Custom styling
+> ##D ekio_histogram(mtcars, mpg,
+> ##D                fill_palette = "academic_authority",
+> ##D                fill_index = 6)
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ekio_lineplot")
+> ### * ekio_lineplot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ekio_lineplot
+> ### Title: EKIO Line Plot with Professional Styling
+> ### Aliases: ekio_lineplot
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D library(ggplot2)
+> ##D library(dplyr)
+> ##D 
+> ##D # Single line plot
+> ##D ekio_lineplot(economics, date, unemploy)
+> ##D 
+> ##D # Multiple lines with grouping
+> ##D ekio_lineplot(mtcars, wt, mpg, color = factor(cyl))
+> ##D 
+> ##D # Custom styling
+> ##D ekio_lineplot(economics, date, unemploy,
+> ##D               palette = "academic_authority",
+> ##D               single_color_index = 6)
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ekio_palette")
+> ### * ekio_palette
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ekio_palette
+> ### Title: Generate EKIO Color Palettes with Custom Indexing
+> ### Aliases: ekio_palette
+> 
+> ### ** Examples
+> 
+> # Generate discrete palette
+> ekio_palette("modern_premium", n = 5)
+> 
+> # Generate categorical colors
+> ekio_palette("categorical", n = 4)
+> 
+> # Continuous palette
+> ekio_palette("academic_authority", n = 20, type = "continuous")
+> 
+> # Custom indexing for non-obvious orders
+> ekio_palette("modern_premium", indices = c(9, 7, 5, 4))
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ekio_scatterplot")
+> ### * ekio_scatterplot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ekio_scatterplot
+> ### Title: EKIO Scatter Plot with Professional Styling
+> ### Aliases: ekio_scatterplot
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D library(ggplot2)
+> ##D library(dplyr)
+> ##D 
+> ##D # Basic scatter plot
+> ##D ekio_scatterplot(mtcars, wt, mpg)
+> ##D 
+> ##D # With color grouping
+> ##D ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl))
+> ##D 
+> ##D # With size and smooth line
+> ##D ekio_scatterplot(mtcars, wt, mpg,
+> ##D                  color = factor(cyl),
+> ##D                  size = hp,
+> ##D                  add_smooth = TRUE)
+> ##D 
+> ##D # Custom styling
+> ##D ekio_scatterplot(mtcars, wt, mpg,
+> ##D                  palette = "categorical_warm",
+> ##D                  point_shape = 19,
+> ##D                  add_smooth = TRUE,
+> ##D                  smooth_method = "gam")
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get_ekio_font")
+> ### * get_ekio_font
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get_ekio_font
+> ### Title: Get Best Available EKIO Font
+> ### Aliases: get_ekio_font
+> 
+> ### ** Examples
+> 
+> fonts <- load_ekio_fonts()
+ℹ Loading EKIO fonts...
+! System font not found:
+! System font not found:
+ℹ Using system default fonts
+ℹ Font loading complete. Available fonts: system.
+> get_ekio_font("primary", fonts)
+[1] "sans"
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("import_fira_code")
+> ### * import_fira_code
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: import_fira_code
+> ### Title: Import Fira Code Font Family
+> ### Aliases: import_fira_code
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D import_fira_code()
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("import_lato")
+> ### * import_lato
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: import_lato
+> ### Title: Import Lato Font Family
+> ### Aliases: import_lato
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D import_lato()
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("import_roboto_condensed")
+> ### * import_roboto_condensed
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: import_roboto_condensed
+> ### Title: Import Roboto Condensed Font Family
+> ### Aliases: import_roboto_condensed
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D import_roboto_condensed()
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("list_ekio_palettes")
+> ### * list_ekio_palettes
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: list_ekio_palettes
+> ### Title: List All Available EKIO Palettes
+> ### Aliases: list_ekio_palettes
+> 
+> ### ** Examples
+> 
+> # See all available palettes
+> list_ekio_palettes()
+ [1] "modern_premium"       "academic_authority"   "sophisticated_unique"
+ [4] "institutional_oxford" "professional_deep"    "premium_steel"       
+ [7] "midnight_steel"       "midnight_warm"        "asphalt_gradient"    
+[10] "categorical"          "categorical_extended" "categorical_warm"    
+[13] "categorical_cool"     "categorical_mixed"    "categorical_muted"   
+[16] "viridis"              "inferno"              "plasma"              
+[19] "hokusai1"             "hokusai2"             "okabe_ito"           
+[22] "RdBu"                 "BrBG"                 "PuBuGn"              
+[25] "YlOrRd"               "Greens"               "Blues"               
+[28] "accent_blue"          "accent_teal"          "accent_orange"       
+[31] "accent_red"           "accent_red_warm"      "accent_red_cool"     
+[34] "accent_purple"        "red_blue_diverging"  
+> 
+> # Filter by category
+> list_ekio_palettes("categorical")
+[1] "categorical"          "categorical_extended" "categorical_warm"    
+[4] "categorical_cool"     "categorical_mixed"    "categorical_muted"   
+> list_ekio_palettes("accent")
+[1] "accent_blue"     "accent_teal"     "accent_orange"   "accent_red"     
+[5] "accent_red_warm" "accent_red_cool" "accent_purple"  
+> list_ekio_palettes("diverging")
+[1] "red_blue_diverging"
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("load_ekio_fonts")
+> ### * load_ekio_fonts
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: load_ekio_fonts
+> ### Title: Load EKIO Fonts
+> ### Aliases: load_ekio_fonts
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # Load fonts at start of session
+> ##D load_ekio_fonts()
+> ##D 
+> ##D # Install missing fonts and load
+> ##D load_ekio_fonts(install_missing = TRUE)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("scale_color_ekio_c")
+> ### * scale_color_ekio_c
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: scale_color_ekio_c
+> ### Title: EKIO Continuous Color Scale
+> ### Aliases: scale_color_ekio_c scale_colour_ekio_c
+> 
+> ### ** Examples
+> 
 > library(ggplot2)
-> library(dplyr)
-
-Attaching package: ‘dplyr’
-
-The following objects are masked from ‘package:stats’:
-
-    filter, lag
-
-The following objects are masked from ‘package:base’:
-
-    intersect, setdiff, setequal, union
-
+> ggplot(mtcars, aes(x = wt, y = mpg, color = hp)) +
++   geom_point() +
++   scale_color_ekio_c("modern_premium")
 > 
-> # Basic bar plot
-> ekio_barplot(mtcars |> count(cyl), cyl, n)
 > 
-> # With fill grouping
-> ekio_barplot(mtcars |> count(cyl, gear), cyl, n, fill = factor(gear))
 > 
-> # Horizontal with labels
-> ekio_barplot(mtcars |> count(cyl), cyl, n,
-+              horizontal = TRUE,
-+              add_labels = TRUE)
-Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
-  font family 'Avenir' not found in PostScript font database
-Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
-  font family 'Avenir' not found in PostScript font database
-Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
-  font family 'Avenir' not found in PostScript font database
-Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
-  font family 'Avenir' not found in PostScript font database
-Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
-  font family 'Avenir' not found in PostScript font database
-Error in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  : 
-  invalid font type
-Calls: <Anonymous> ... drawDetails -> drawDetails.text -> grid.Call.graphics
-Execution halted
+> 
+> cleanEx()
+
+detaching ‘package:ggplot2’
+
+> nameEx("scale_color_ekio_d")
+> ### * scale_color_ekio_d
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: scale_color_ekio_d
+> ### Title: Enhanced EKIO Discrete Color Scale with Custom Indexing
+> ### Aliases: scale_color_ekio_d scale_colour_ekio_d
+> 
+> ### ** Examples
+> 
+> library(ggplot2)
+> 
+> # Standard usage
+> ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
++   geom_point() +
++   scale_color_ekio_d("categorical")
+> 
+> # Custom indexing for specific colors
+> ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
++   geom_point() +
++   scale_color_ekio_d("modern_premium", indices = c(9, 6, 3))
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:ggplot2’
+
+> nameEx("scale_fill_ekio_c")
+> ### * scale_fill_ekio_c
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: scale_fill_ekio_c
+> ### Title: EKIO Continuous Fill Scale
+> ### Aliases: scale_fill_ekio_c
+> 
+> ### ** Examples
+> 
+> library(ggplot2)
+> ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
++   geom_tile() +
++   scale_fill_ekio_c("academic_authority")
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:ggplot2’
+
+> nameEx("scale_fill_ekio_d")
+> ### * scale_fill_ekio_d
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: scale_fill_ekio_d
+> ### Title: Enhanced EKIO Discrete Fill Scale with Custom Indexing
+> ### Aliases: scale_fill_ekio_d
+> 
+> ### ** Examples
+> 
+> library(ggplot2)
+> ggplot(mtcars, aes(x = factor(cyl), fill = factor(cyl))) +
++   geom_bar() +
++   scale_fill_ekio_d("categorical_cool", indices = c(7, 4, 1))
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:ggplot2’
+
+> nameEx("show_ekio_palette")
+> ### * show_ekio_palette
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: show_ekio_palette
+> ### Title: Display EKIO Palette Visually
+> ### Aliases: show_ekio_palette
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # Basic palette display
+> ##D show_ekio_palette("modern_premium")
+> ##D 
+> ##D # Show specific colors
+> ##D show_ekio_palette("modern_premium", indices = c(9, 7, 5, 3))
+> ##D 
+> ##D # Show with color codes
+> ##D show_ekio_palette("categorical", show_names = TRUE)
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("theme_ekio")
+> ### * theme_ekio
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: theme_ekio
+> ### Title: Enhanced EKIO ggplot2 Theme with Font Management
+> ### Aliases: theme_ekio
+> 
+> ### ** Examples
+> 
+> library(ggplot2)
+> 
+> # Basic usage
+> ggplot(mtcars, aes(x = wt, y = mpg)) +
++   geom_point() +
++   theme_ekio() +
++   labs(title = "Brazilian Vehicle Analysis")
+> 
+> # With font loading
+> ## Not run: 
+> ##D load_ekio_fonts()
+> ##D ggplot(mtcars, aes(x = wt, y = mpg)) +
+> ##D   geom_point() +
+> ##D   theme_ekio("academic_authority", use_ekio_fonts = TRUE)
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+
+detaching ‘package:ggplot2’
+
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  0.539 0.036 0.585 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

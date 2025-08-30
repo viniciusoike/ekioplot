@@ -1,18 +1,18 @@
-> EKIO Visual Identity for R Data Visualization
+# EKIO Plot
 
-[![R-CMD-check](https://github.com/ekio/ekioplot/workflows/R-CMD-check/badge.svg)](https://github.com/viniciusoike/ekioplot/actions)
+[![R-CMD-check](https://github.com/viniciusoike/ekioplot/workflows/R-CMD-check/badge.svg)](https://github.com/viniciusoike/ekioplot/actions)
 
 ## Overview
 
-`ekioplot` is a comprehensive R package that implements EKIO's visual identity system, making it effortless for analysts and economists to create publication-ready charts following EKIO's design principles:
+`ekioplot` is a comprehensive R package implementing EKIO's visual identity system for data visualization. The package provides themes, color palettes, and font management to create professional charts following EKIO design principles.
 
-- **Minimalist Clarity**: every element serves a purpose
-- **Purposeful Color**: strategic use of color to highlight and guide
-- **Professional Standards**: consistent typography and spacing
-- **Economic Focus**: optimized for business and economic analysis
-- **Enhanced Typography**: smart font management with Google Fonts integration
-- **Extensive Color System**: 35+ palettes including scientific and mapping options
-- **Custom Color Indexing**: advanced palette customization for precise control
+### Key Features
+
+- **Professional Themes**: Six distinct theme variations optimized for different contexts
+- **Smart Font Management**: Automatic font detection with safe fallbacks
+- **Comprehensive Color System**: 35+ curated palettes for various chart types
+- **Ready-to-Use Charts**: Pre-built functions for common visualization patterns
+- **GT Table Themes**: Professional table formatting for reports
 
 ## Installation
 
@@ -31,61 +31,55 @@ load_ekio_fonts(install_missing = TRUE)
 library(ekioplot)
 library(ggplot2)
 
-# Basic usage with enhanced features
+# Basic usage
 ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
-  geom_point(size = 3, alpha = 0.8) +
-  scale_color_ekio_d("categorical") +
-  theme_ekio("modern_premium") +
+  geom_point() +
+  scale_color_ekio_d("modern_premium") +
+  theme_ekio() +
   labs(
     title = "Vehicle Fuel Efficiency Analysis",
-    subtitle = "Weight vs MPG by engine configuration",
     x = "Weight (1000 lbs)",
     y = "Miles per Gallon",
     color = "Cylinders"
   )
 ```
 
-## Enhanced Features
+## Theme Styles
+
+The package includes six professional theme variations:
 
 ```r
-# Explore all available palettes
+# Available theme styles
+theme_ekio("modern_premium")      # Default blue theme
+theme_ekio("academic_authority")  # Deep blue for academic work
+theme_ekio("sophisticated_unique") # Teal for distinctive presentations
+theme_ekio("institutional_oxford") # Oxford blue for formal reports  
+theme_ekio("professional_deep")   # Deep blue for business contexts
+theme_ekio("premium_steel")       # Steel blue for premium feel
+```
+
+## Color Palettes
+
+```r
+# Explore available palettes
 list_ekio_palettes("all")
-list_ekio_palettes("scientific")
+show_ekio_palette("modern_premium")
 
-# Visual palette exploration
-show_ekio_palette("hokusai1")
-show_ekio_palette("categorical_warm", show_names = TRUE)
+# Apply palettes
+scale_color_ekio_d("categorical")
+scale_fill_ekio_c("sequential_blue")
 ```
 
-### 🔤 Smart Font Management
+## Font Management
 
-Automatic font detection with Google Fonts integration:
-
-```r
-# Load EKIO fonts with Google Fonts fallback
-load_ekio_fonts(install_missing = TRUE)
-
-# Import specific fonts
-import_lato()
-import_fira_code()
-import_roboto_condensed()
-
-# Check font availability
-check_ekio_fonts(detailed = TRUE)
-```
-
-### 🎯 Custom Color Indexing
-
-Advanced palette customization for non-obvious color orders:
+Smart font detection with automatic fallbacks:
 
 ```r
-# Use specific colors from sequential palette
-ggplot(data, aes(x = var1, y = var2, color = category)) +
-  geom_point() +
-  scale_color_ekio_d("modern_premium", indices = c(9, 7, 5, 4)) +
-  theme_ekio()
+# Load EKIO fonts (optional)
+load_ekio_fonts()
 
-# Perfect for when you need: color_pal[c(9, 7, 5, 4)]
+# Check available fonts
+check_ekio_fonts()
 ```
 
 ---

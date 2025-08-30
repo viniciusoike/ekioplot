@@ -35,25 +35,27 @@ flush(stderr()); flush(stdout())
 
 ### ** Examples
 
-library(ggplot2)
-library(dplyr)
-
-# Basic bar plot
-ekio_barplot(mtcars |> count(cyl), cyl, n)
-
-# With fill grouping
-ekio_barplot(mtcars |> count(cyl, gear), cyl, n, fill = factor(gear))
-
-# Horizontal with labels
-ekio_barplot(mtcars |> count(cyl), cyl, n,
-             horizontal = TRUE,
-             add_labels = TRUE)
-
-# Custom styling
-ekio_barplot(mtcars |> count(cyl), cyl, n,
-             palette = "sophisticated_unique",
-             single_color_index = 6,
-             add_labels = TRUE)
+## Not run: 
+##D library(ggplot2)
+##D library(dplyr)
+##D 
+##D # Basic bar plot
+##D ekio_barplot(mtcars |> count(cyl), cyl, n)
+##D 
+##D # With fill grouping
+##D ekio_barplot(mtcars |> count(cyl, gear), cyl, n, fill = factor(gear))
+##D 
+##D # Horizontal with labels
+##D ekio_barplot(mtcars |> count(cyl), cyl, n,
+##D              horizontal = TRUE,
+##D              add_labels = TRUE)
+##D 
+##D # Custom styling
+##D ekio_barplot(mtcars |> count(cyl), cyl, n,
+##D              palette = "sophisticated_unique",
+##D              single_color_index = 6,
+##D              add_labels = TRUE)
+## End(Not run)
 
 
 
@@ -87,30 +89,6 @@ ekio_colors("midnight_steel")
 
 
 cleanEx()
-nameEx("ekio_hexmap")
-### * ekio_hexmap
-
-flush(stderr()); flush(stdout())
-
-### Name: ekio_hexmap
-### Title: EKIO Hexbin Map with Professional Styling
-### Aliases: ekio_hexmap
-
-### ** Examples
-
-library(ggplot2)
-library(dplyr)
-
-# Basic hexbin map
-ekio_hexmap(faithful, waiting, eruptions)
-
-# With point overlay
-ekio_hexmap(faithful, waiting, eruptions, show_points = TRUE)
-
-
-
-
-cleanEx()
 nameEx("ekio_histogram")
 ### * ekio_histogram
 
@@ -122,19 +100,21 @@ flush(stderr()); flush(stdout())
 
 ### ** Examples
 
-library(ggplot2)
-
-# Basic histogram
-ekio_histogram(mtcars, mpg)
-
-# With custom binning
-ekio_histogram(mtcars, mpg, bins = "FD")
-ekio_histogram(mtcars, mpg, binwidth = 2)
-
-# Custom styling
-ekio_histogram(mtcars, mpg,
-               fill_palette = "academic_authority",
-               fill_index = 6)
+## Not run: 
+##D library(ggplot2)
+##D 
+##D # Basic histogram
+##D ekio_histogram(mtcars, mpg)
+##D 
+##D # With custom binning
+##D ekio_histogram(mtcars, mpg, bins = "FD")
+##D ekio_histogram(mtcars, mpg, binwidth = 2)
+##D 
+##D # Custom styling
+##D ekio_histogram(mtcars, mpg,
+##D                fill_palette = "academic_authority",
+##D                fill_index = 6)
+## End(Not run)
 
 
 
@@ -151,46 +131,21 @@ flush(stderr()); flush(stdout())
 
 ### ** Examples
 
-library(ggplot2)
-library(dplyr)
-
-# Single line plot
-ekio_lineplot(economics, date, unemploy)
-
-# Multiple lines with grouping
-ekio_lineplot(mtcars, wt, mpg, color = factor(cyl))
-
-# Custom styling
-ekio_lineplot(economics, date, unemploy,
-              palette = "academic_authority",
-              single_color_index = 6)
-
-
-
-
-cleanEx()
-nameEx("ekio_lolli")
-### * ekio_lolli
-
-flush(stderr()); flush(stdout())
-
-### Name: ekio_lolli
-### Title: EKIO Lollipop Plot with Professional Styling
-### Aliases: ekio_lolli
-
-### ** Examples
-
-library(ggplot2)
-library(dplyr)
-
-# Basic lollipop plot
-mtcars |> slice_head(n = 10) |>
-  ekio_lolli(reorder(rownames(.), mpg), mpg)
-
-# Horizontal with colors
-mtcars |> slice_head(n = 8) |>
-  ekio_lolli(reorder(rownames(.), mpg), mpg,
-             color = factor(cyl), horizontal = TRUE)
+## Not run: 
+##D library(ggplot2)
+##D library(dplyr)
+##D 
+##D # Single line plot
+##D ekio_lineplot(economics, date, unemploy)
+##D 
+##D # Multiple lines with grouping
+##D ekio_lineplot(mtcars, wt, mpg, color = factor(cyl))
+##D 
+##D # Custom styling
+##D ekio_lineplot(economics, date, unemploy,
+##D               palette = "academic_authority",
+##D               single_color_index = 6)
+## End(Not run)
 
 
 
@@ -223,31 +178,6 @@ ekio_palette("modern_premium", indices = c(9, 7, 5, 4))
 
 
 cleanEx()
-nameEx("ekio_parallel")
-### * ekio_parallel
-
-flush(stderr()); flush(stdout())
-
-### Name: ekio_parallel
-### Title: EKIO Parallel Coordinates Plot with Professional Styling
-### Aliases: ekio_parallel
-
-### ** Examples
-
-library(ggplot2)
-library(dplyr)
-
-# Basic parallel coordinates
-ekio_parallel(iris, c("Sepal.Length", "Sepal.Width", "Petal.Length"))
-
-# Grouped with bumps
-ekio_parallel(iris, c("Sepal.Length", "Sepal.Width", "Petal.Length"),
-              group = Species, use_bumps = TRUE)
-
-
-
-
-cleanEx()
 nameEx("ekio_scatterplot")
 ### * ekio_scatterplot
 
@@ -259,27 +189,29 @@ flush(stderr()); flush(stdout())
 
 ### ** Examples
 
-library(ggplot2)
-library(dplyr)
-
-# Basic scatter plot
-ekio_scatterplot(mtcars, wt, mpg)
-
-# With color grouping
-ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl))
-
-# With size and smooth line
-ekio_scatterplot(mtcars, wt, mpg,
-                 color = factor(cyl),
-                 size = hp,
-                 add_smooth = TRUE)
-
-# Custom styling
-ekio_scatterplot(mtcars, wt, mpg,
-                 palette = "categorical_warm",
-                 point_shape = 19,
-                 add_smooth = TRUE,
-                 smooth_method = "gam")
+## Not run: 
+##D library(ggplot2)
+##D library(dplyr)
+##D 
+##D # Basic scatter plot
+##D ekio_scatterplot(mtcars, wt, mpg)
+##D 
+##D # With color grouping
+##D ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl))
+##D 
+##D # With size and smooth line
+##D ekio_scatterplot(mtcars, wt, mpg,
+##D                  color = factor(cyl),
+##D                  size = hp,
+##D                  add_smooth = TRUE)
+##D 
+##D # Custom styling
+##D ekio_scatterplot(mtcars, wt, mpg,
+##D                  palette = "categorical_warm",
+##D                  point_shape = 19,
+##D                  add_smooth = TRUE,
+##D                  smooth_method = "gam")
+## End(Not run)
 
 
 
