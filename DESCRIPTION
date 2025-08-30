@@ -32,6 +32,7 @@ Imports:
     ggbump,
     ggplot2 (>= 3.5.0),
     ggridges,
+    gt,
     rlang,
     scales,
     showtext,
