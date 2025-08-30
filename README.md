@@ -1,18 +1,18 @@
-> EKIO Visual Identity System for R Data Visualization - Enhanced Edition
+> EKIO Visual Identity for R Data Visualization
 
-[![R-CMD-check](https://github.com/ekio/ekioplot/workflows/R-CMD-check/badge.svg)](https://github.com/ekio/ekioplot/actions)
+[![R-CMD-check](https://github.com/ekio/ekioplot/workflows/R-CMD-check/badge.svg)](https://github.com/viniciusoike/ekioplot/actions)
 
 ## Overview
 
 `ekioplot` is a comprehensive R package that implements EKIO's visual identity system, making it effortless for analysts and economists to create publication-ready charts following EKIO's design principles:
 
-- **Minimalist Clarity**: Every element serves a purpose
-- **Purposeful Color**: Strategic use of color to highlight and guide
-- **Professional Standards**: Consistent typography and spacing
-- **Economic Focus**: Optimized for business and economic analysis
-- **Enhanced Typography**: Smart font management with Google Fonts integration
+- **Minimalist Clarity**: every element serves a purpose
+- **Purposeful Color**: strategic use of color to highlight and guide
+- **Professional Standards**: consistent typography and spacing
+- **Economic Focus**: optimized for business and economic analysis
+- **Enhanced Typography**: smart font management with Google Fonts integration
 - **Extensive Color System**: 35+ palettes including scientific and mapping options
-- **Custom Color Indexing**: Advanced palette customization for precise control
+- **Custom Color Indexing**: advanced palette customization for precise control
 
 ## Installation
 
@@ -90,4 +90,4 @@ ggplot(data, aes(x = var1, y = var2, color = category)) +
 
 ---
 
-*EKIO Analytics - Transforming Data into Professional Insights*
+*EKIO*
