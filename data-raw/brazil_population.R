@@ -10,105 +10,140 @@ import::from(here, here)
 municipalities <- read_municipality(year = 2020, simplified = TRUE)
 states <- read_state(year = 2020, simplified = TRUE)
 
-# Create state reference for region mapping
-state_ref <- states |>
-  st_drop_geometry() |>
-  select(code_state, name_state, abbrev_state, name_region) |>
-  mutate(
-    # Translate region names to English
-    region = case_when(
-      name_region == "Norte" ~ "North",
-      name_region == "Nordeste" ~ "Northeast", 
-      name_region == "Centro Oeste" ~ "Center-West",
-      name_region == "Sudeste" ~ "Southeast",
-      name_region == "Sul" ~ "South",
-      TRUE ~ name_region
-    )
+# Create auxiliary tibbles for data classification
+region_names_map <- tibble::tibble(
+  name_region = c("Norte", "Nordeste", "Centro Oeste", "Sudeste", "Sul"),
+  region = c("North", "Northeast", "Center-West", "Southeast", "South")
+)
+
+city_size_categories <- tibble::tibble(
+  min_pop = c(1000000, 500000, 200000, 100000, 0),
+  max_pop = c(Inf, 1000000, 500000, 200000, 100000),
+  category = c(
+    "Metropolis (1M+)",
+    "Large city (500K-1M)",
+    "Medium city (200K-500K)",
+    "Small city (100K-200K)",
+    "Other"
   )
+)
+
+# Create state reference for region mapping
+state_ref_base <- states |>
+  st_drop_geometry() |>
+  select(code_state, name_state, abbrev_state, name_region)
+
+state_ref <- state_ref_base |>
+  left_join(region_names_map, by = "name_region") |>
+  mutate(region = ifelse(is.na(region), name_region, region))
 
 # Get population data for largest municipalities (2018-2022)
 # Using table 6579 - População residente estimada
 raw_population <- get_sidra(
   x = 6579,
-  variable = 9324,  # População residente estimada 
+  variable = 9324, # População residente estimada
   period = c("2018", "2019", "2020", "2021", "2022"),
   geo = "City"
 )
 
-# Clean and process population data
-population_clean <- raw_population |>
+# Step 1: Clean and standardize raw data
+population_base <- raw_population |>
   clean_names() |>
   select(
-    municipality_code = municipio_codigo,
+    code_muni = municipio_codigo,
     municipality_raw = municipio,
     year = ano,
     population = valor
-  ) |>
+  )
+
+# Step 2: Add basic transformations
+population_transformed <- population_base |>
   mutate(
     year = as.numeric(year),
     population = as.numeric(population),
-    # Extract state code from municipality code (first 2 digits)
-    state_code = as.numeric(substr(municipality_code, 1, 2)),
-    # Clean municipality names (remove state abbreviation in parentheses)
-    municipality = gsub("\\s*\\([A-Z]{2}\\)\\s*$", "", municipality_raw)
-  ) |>
-  # Filter for major municipalities (population > 200,000 in 2022)
-  group_by(municipality_code) |>
+    state_code = as.numeric(substr(code_muni, 1, 2)),
+    name_muni = gsub("\\s*\\([A-Z]{2}\\)\\s*$", "", municipality_raw)
+  )
+
+# Step 3: Filter for major municipalities (population > 200,000 in 2022)
+population_filtered <- population_transformed |>
+  group_by(code_muni) |>
   filter(any(year == 2022 & population > 200000)) |>
-  ungroup() |>
-  # Add state and region information  
+  ungroup()
+
+# Step 4: Add geographic information
+population_with_geo <- population_filtered |>
   left_join(state_ref, by = c("state_code" = "code_state")) |>
-  # Calculate household estimates based on IBGE methodology
+  select(-municipality_raw)
+
+# Step 5: Calculate household estimates
+population_with_households <- population_with_geo |>
   mutate(
-    # Household estimates (average 2.8 people per household in urban areas)
-    households_2010 = case_when(
-      year == 2018 ~ as.integer(population / 2.8 * 0.9),  # Adjust for 2010 base
-      TRUE ~ NA_integer_
+    households_2010 = ifelse(
+      year == 2018,
+      as.integer(population / 2.8 * 0.9),
+      NA_integer_
     ),
-    people_per_household_2010 = case_when(
-      year == 2018 ~ population / households_2010,
-      TRUE ~ NA_real_
+    people_per_household_2010 = ifelse(
+      year == 2018 & !is.na(households_2010) & households_2010 > 0,
+      population / households_2010,
+      NA_real_
     )
-  ) |>
-  # Calculate growth rates
-  group_by(municipality_code) |>
+  )
+
+# Step 6: Calculate growth rates
+population_with_growth <- population_with_households |>
+  group_by(code_muni) |>
   arrange(year) |>
   mutate(
-    population_growth = case_when(
-      year > 2018 ~ (population - lag(population)) / lag(population) * 100,
-      TRUE ~ NA_real_
+    population_growth = ifelse(
+      year > 2018 & !is.na(lag(population)) & lag(population) > 0,
+      (population - lag(population)) / lag(population) * 100,
+      NA_real_
     ),
-    population_change_2018_2022 = case_when(
-      year == 2022 ~ (population - first(population)) / first(population) * 100,
-      TRUE ~ NA_real_
+    population_change_2018_2022 = ifelse(
+      year == 2022 & first(population) > 0,
+      (population - first(population)) / first(population) * 100,
+      NA_real_
     )
   ) |>
-  ungroup() |>
-  # Create city size categories
+  ungroup()
+
+# Step 7: Add city size categories using auxiliary tibble
+population_categorized <- population_with_growth
+for (i in seq_len(nrow(city_size_categories))) {
+  min_val <- city_size_categories$min_pop[i]
+  max_val <- city_size_categories$max_pop[i]
+  category <- city_size_categories$category[i]
+  
+  population_categorized <- population_categorized |>
+    mutate(
+      city_size = ifelse(
+        population >= min_val & population < max_val,
+        category,
+        ifelse(exists("city_size"), city_size, "Other")
+      )
+    )
+}
+
+# Step 8: Finalize with factor levels and cleanup
+population_clean <- population_categorized |>
   mutate(
-    city_size = case_when(
-      population >= 1000000 ~ "Metropolis (1M+)",
-      population >= 500000 ~ "Large city (500K-1M)",
-      population >= 200000 ~ "Medium city (200K-500K)",
-      population >= 100000 ~ "Small city (100K-200K)",
-      TRUE ~ "Other"
-    ),
-    city_size = factor(city_size, levels = c(
-      "Metropolis (1M+)", "Large city (500K-1M)", 
-      "Medium city (200K-500K)", "Small city (100K-200K)", "Other"
-    ))
+    city_size = factor(
+      city_size,
+      levels = city_size_categories$category
+    )
   ) |>
-  # Final selection and cleanup
   select(
-    municipality_code, municipality, state_code, name_state, abbrev_state, region,
-    year, population, population_growth, population_change_2018_2022,
+    code_muni, name_muni, state_code, name_state, abbrev_state,
+    region, year, population, population_growth, population_change_2018_2022,
     households_2010, people_per_household_2010, city_size
   ) |>
   rename(
     state = name_state,
     state_abbr = abbrev_state
   ) |>
-  arrange(region, state, municipality, year)
+  arrange(region, state, name_muni, year)
 
 # Create final dataset
 brazil_population <- population_clean

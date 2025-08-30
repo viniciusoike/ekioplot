@@ -10,93 +10,118 @@ import::from(here, here)
 municipalities <- read_municipality(year = 2020, simplified = TRUE)
 states <- read_state(year = 2020, simplified = TRUE)
 
-# Create state reference for region mapping
-state_ref <- states |>
-  st_drop_geometry() |>
-  select(code_state, name_state, abbrev_state, name_region) |>
-  mutate(
-    # Translate region names to English
-    region = case_when(
-      name_region == "Norte" ~ "North",
-      name_region == "Nordeste" ~ "Northeast", 
-      name_region == "Centro Oeste" ~ "Center-West",
-      name_region == "Sudeste" ~ "Southeast",
-      name_region == "Sul" ~ "South",
-      TRUE ~ name_region
-    )
-  )
+# Create auxiliary tibbles for data classification
+region_names_map <- tibble::tibble(
+  name_region = c("Norte", "Nordeste", "Centro Oeste", "Sudeste", "Sul"),
+  region = c("North", "Northeast", "Center-West", "Southeast", "South")
+)
 
-# Get municipal GDP data (2021) - most recent year only 
+gdp_size_categories <- tibble::tibble(
+  min_gdp = c(50000, 10000, 2000, 500, 0),
+  max_gdp = c(Inf, 50000, 10000, 2000, 500),
+  category = c(
+    "Very large (50B+ BRL)",
+    "Large (10B-50B BRL)", 
+    "Medium (2B-10B BRL)",
+    "Small (500M-2B BRL)",
+    "Very small (<500M BRL)"
+  ),
+  estimated_population = c(8000000, 3000000, 1500000, 800000, 400000)
+)
+
+# Create state reference for region mapping
+state_ref_base <- states |>
+  st_drop_geometry() |>
+  select(code_state, name_state, abbrev_state, name_region)
+
+state_ref <- state_ref_base |>
+  left_join(region_names_map, by = "name_region") |>
+  mutate(region = ifelse(is.na(region), name_region, region))
+
+# Get municipal GDP data (2021) - most recent year only
 # Using table 5938 - Contas Nacionais Municipais
 # Start with just GDP total to test
 raw_gdp <- get_sidra(
   x = 5938,
-  variable = 37,    # PIB total (Produto Interno Bruto a preços correntes)
+  variable = 37, # PIB total (Produto Interno Bruto a preços correntes)
   period = "2021",
   geo = "City"
 )
 
-# Clean and process GDP data
-gdp_clean <- raw_gdp |>
+# Step 1: Clean and standardize raw data
+gdp_base <- raw_gdp |>
   clean_names() |>
   select(
-    municipality_code = municipio_codigo,
+    code_muni = municipio_codigo,
     municipality_raw = municipio,
     year = ano,
     gdp_thousands_brl = valor
-  ) |>
+  )
+
+# Step 2: Add basic transformations
+gdp_transformed <- gdp_base |>
   mutate(
     year = as.numeric(year),
     gdp_thousands_brl = as.numeric(gdp_thousands_brl),
-    # Extract state code from municipality code (first 2 digits)
-    state_code = as.numeric(substr(municipality_code, 1, 2)),
-    # Clean municipality names (remove state abbreviation in parentheses)
-    municipality = gsub("\\s*\\([A-Z]{2}\\)\\s*$", "", municipality_raw)
-  ) |>
-  # Filter for major municipalities (GDP > 500M BRL)
-  filter(gdp_thousands_brl > 500000) |>
-  # Add state and region information
+    state_code = as.numeric(substr(code_muni, 1, 2)),
+    name_muni = gsub("\\s*\\([A-Z]{2}\\)\\s*$", "", municipality_raw)
+  )
+
+# Step 3: Filter for major municipalities
+gdp_filtered <- gdp_transformed |>
+  filter(gdp_thousands_brl > 500000)
+
+# Step 4: Add geographic information
+gdp_with_geo <- gdp_filtered |>
   left_join(state_ref, by = c("state_code" = "code_state")) |>
+  select(-municipality_raw)
+
+# Step 5: Calculate GDP metrics
+gdp_with_metrics <- gdp_with_geo |>
+  mutate(gdp_current_brl_millions = gdp_thousands_brl / 1000)
+
+# Step 6: Add GDP size categories using auxiliary tibble
+gdp_categorized <- gdp_with_metrics
+for (i in seq_len(nrow(gdp_size_categories))) {
+  min_val <- gdp_size_categories$min_gdp[i]
+  max_val <- gdp_size_categories$max_gdp[i]
+  category <- gdp_size_categories$category[i]
+  pop_estimate <- gdp_size_categories$estimated_population[i]
+  
+  gdp_categorized <- gdp_categorized |>
+    mutate(
+      gdp_size_category = ifelse(
+        gdp_current_brl_millions >= min_val & gdp_current_brl_millions < max_val,
+        category,
+        ifelse(exists("gdp_size_category"), gdp_size_category, NA_character_)
+      ),
+      estimated_population = ifelse(
+        gdp_current_brl_millions >= min_val & gdp_current_brl_millions < max_val,
+        pop_estimate,
+        ifelse(exists("estimated_population"), estimated_population, 200000)
+      )
+    )
+}
+
+# Step 7: Calculate per capita GDP and finalize
+gdp_clean <- gdp_categorized |>
+  mutate(
+    gdp_per_capita_current_brl = (gdp_current_brl_millions * 1000000) / estimated_population,
+    gdp_size_category = factor(
+      gdp_size_category,
+      levels = gdp_size_categories$category
+    )
+  ) |>
+  select(
+    code_muni, name_muni, state_code, name_state, abbrev_state,
+    region, year, gdp_current_brl_millions, gdp_per_capita_current_brl,
+    gdp_size_category
+  ) |>
   rename(
     state = name_state,
     state_abbr = abbrev_state
   ) |>
-  # Calculate metrics
-  mutate(
-    # Convert to millions for readability
-    gdp_current_brl_millions = gdp_thousands_brl / 1000,
-    
-    # Estimate GDP per capita based on typical population sizes
-    # Note: This is estimated - for precise values would need population data
-    estimated_population = case_when(
-      gdp_current_brl_millions >= 50000 ~ 8000000,  # Very large cities
-      gdp_current_brl_millions >= 10000 ~ 3000000,  # Large cities
-      gdp_current_brl_millions >= 5000 ~ 1500000,   # Medium-large cities
-      gdp_current_brl_millions >= 2000 ~ 800000,    # Medium cities
-      gdp_current_brl_millions >= 1000 ~ 400000,    # Small-medium cities
-      TRUE ~ 200000                                  # Small cities
-    ),
-    gdp_per_capita_current_brl = (gdp_current_brl_millions * 1000000) / estimated_population,
-    
-    # GDP size categories
-    gdp_size_category = case_when(
-      gdp_current_brl_millions >= 50000 ~ "Very large (50B+ BRL)",
-      gdp_current_brl_millions >= 10000 ~ "Large (10B-50B BRL)",
-      gdp_current_brl_millions >= 2000 ~ "Medium (2B-10B BRL)",
-      gdp_current_brl_millions >= 500 ~ "Small (500M-2B BRL)",
-      TRUE ~ "Very small (<500M BRL)"
-    ),
-    gdp_size_category = factor(gdp_size_category, levels = c(
-      "Very large (50B+ BRL)", "Large (10B-50B BRL)", "Medium (2B-10B BRL)",
-      "Small (500M-2B BRL)", "Very small (<500M BRL)"
-    ))
-  ) |>
-  # Final selection and cleanup
-  select(
-    municipality_code, municipality, state_code, state, state_abbr, region,
-    year, gdp_current_brl_millions, gdp_per_capita_current_brl, gdp_size_category
-  ) |>
-  arrange(region, state, municipality)
+  arrange(region, state, name_muni)
 
 # Create final dataset
 brazil_gdp <- gdp_clean
