@@ -115,7 +115,7 @@ for (i in seq_len(nrow(city_size_categories))) {
   min_val <- city_size_categories$min_pop[i]
   max_val <- city_size_categories$max_pop[i]
   category <- city_size_categories$category[i]
-  
+
   population_categorized <- population_categorized |>
     mutate(
       city_size = ifelse(
@@ -135,9 +135,19 @@ population_clean <- population_categorized |>
     )
   ) |>
   select(
-    code_muni, name_muni, state_code, name_state, abbrev_state,
-    region, year, population, population_growth, population_change_2018_2022,
-    households_2010, people_per_household_2010, city_size
+    code_muni,
+    name_muni,
+    state_code,
+    name_state,
+    abbrev_state,
+    region,
+    year,
+    population,
+    population_growth,
+    population_change_2018_2022,
+    households_2010,
+    people_per_household_2010,
+    city_size
   ) |>
   rename(
     state = name_state,
