@@ -11,6 +11,7 @@
 inst/doc
 /doc/
 /Meta/
+..Rcheck/
 
 # System files
 *~
