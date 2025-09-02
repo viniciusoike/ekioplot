@@ -3,28 +3,17 @@
 \docType{data}
 \name{brazil_gdp}
 \alias{brazil_gdp}
-\title{Brazilian Municipal GDP and Economic Structure (2017-2021)}
+\title{Brazilian Municipal GDP and Economic Structure (2021)}
 \format{
-A data frame with approximately 1,500+ rows and 16 variables:
+A tibble with 5,570 rows and 7 variables:
 \describe{
-\item{municipality_code}{IBGE municipality code (character)}
-\item{municipality}{Municipality name (character)}
-\item{state}{Full state name (character)}
-\item{state_abbr}{State abbreviation (character)}
-\item{region}{Brazilian geographic region (character)}
-\item{year}{Year of observation (2017-2021, numeric)}
-\item{gdp_current_brl_millions}{GDP in millions of Brazilian reais (numeric)}
-\item{gdp_per_capita_current_brl}{GDP per capita in Brazilian reais (numeric)}
-\item{gdp_growth_rate}{Annual GDP growth rate (\%, numeric)}
-\item{gdp_per_capita_growth_rate}{Annual GDP per capita growth rate (\%, numeric)}
-\item{agriculture_value_added_brl_thousands}{Agriculture value added (thousands BRL, numeric)}
-\item{industry_value_added_brl_thousands}{Industry value added (thousands BRL, numeric)}
-\item{services_value_added_brl_thousands}{Services value added (thousands BRL, numeric)}
-\item{agriculture_share}{Agriculture share of economy (\%, numeric)}
-\item{industry_share}{Industry share of economy (\%, numeric)}
-\item{services_share}{Services share of economy (\%, numeric)}
-\item{economic_profile}{Economic specialization category (factor)}
-\item{gdp_size_category}{GDP size classification (factor)}
+\item{code_muni}{IBGE municipality code (numeric)}
+\item{name_muni}{Municipality name (character)}
+\item{code_state}{IBGE state code (numeric)}
+\item{name_state}{State name (character)}
+\item{year}{Year of observation (2021, numeric)}
+\item{gdp_brl_k}{GDP in thousands of Brazilian reais (numeric)}
+\item{gdp_brl_m}{GDP in millions of Brazilian reais (numeric)}
 }
 }
 \source{
@@ -37,43 +26,26 @@ Table 5938: GDP and other aggregates by municipality
 brazil_gdp
 }
 \description{
-A dataset containing municipal GDP data and economic sector composition for
-Brazilian municipalities with significant economic activity, based on IBGE's
-Municipal National Accounts (Contas Nacionais Municipais).
+A dataset containing municipal GDP data for all Brazilian municipalities
+based on IBGE's Municipal National Accounts (Contas Nacionais Municipais).
 }
 \details{
-The dataset includes municipalities with GDP above 100 million BRL,
-covering Brazil's most economically significant urban centers.
-
-\strong{Economic profile categories:}
-\itemize{
-\item \strong{Agriculture-oriented}: Agriculture share ≥ 15\%
-\item \strong{Industry-oriented}: Industry share ≥ 30\%
-\item \strong{Services-oriented}: Services share ≥ 70\%
-\item \strong{Mixed economy}: No single sector dominance
-}
-
-\strong{GDP size categories:}
-\itemize{
-\item \strong{Very large}: 50+ billion BRL
-\item \strong{Large}: 10-50 billion BRL
-\item \strong{Medium}: 2-10 billion BRL
-\item \strong{Small}: 500M-2 billion BRL
-\item \strong{Very small}: <500 million BRL
-}
+The dataset includes GDP data for all 5,570 Brazilian municipalities for 2021,
+the most recent year available in IBGE's Municipal National Accounts.
+GDP values are provided in both thousands (gdp_brl_k) and millions (gdp_brl_m)
+of Brazilian reais at current prices.
 }
 \examples{
 \dontrun{
 # Load the dataset
 data(brazil_gdp)
 
-# View economic profile distribution
-table(brazil_gdp$economic_profile)
-
-# Top 10 municipalities by GDP per capita in 2021
+# Top 10 municipalities by GDP in 2021
 brazil_gdp |>
-  filter(year == 2021) |>
-  slice_max(gdp_per_capita_current_brl, n = 10)
+  slice_max(gdp_brl_m, n = 10)
+
+# View structure
+str(brazil_gdp)
 }
 }
 \references{

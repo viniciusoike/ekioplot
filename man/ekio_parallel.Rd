@@ -2,7 +2,7 @@
 % Please edit documentation in R/recipes_test_2.R
 \name{ekio_parallel}
 \alias{ekio_parallel}
-\title{EKIO Hexbin Map with Professional Styling}
+\title{EKIO Parallel Coordinates Plot with Professional Styling}
 \usage{
 ekio_parallel(
   data,
@@ -31,24 +31,10 @@ ekio_parallel(
 \item{line_size}{Line thickness (default: 0.8)}
 
 \item{theme_style}{EKIO theme style (default: "modern_premium")}
-
-\item{x}{X-coordinate variable (supports data-masking)}
-
-\item{y}{Y-coordinate variable (supports data-masking)}
-
-\item{z}{Optional value variable for coloring hexbins (supports data-masking)}
-
-\item{bins}{Number of hexagonal bins (default: 30)}
-
-\item{show_points}{Logical, overlay original points (default: FALSE)}
-
-\item{point_alpha}{Point transparency when shown (default: 0.3)}
 }
 \value{
 ggplot2 object
-
-ggplot2 object
 }
 \description{
-Creates a professionally styled hexagonal binned map following EKIO design principles
+Creates parallel coordinates plot with straight lines or smooth bumps
 }

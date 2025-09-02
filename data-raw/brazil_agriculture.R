@@ -1,8 +1,12 @@
+# Brazilian Agricultural Production Data Processing
+# Data source: IBGE SIDRA Table 1612 - PAM (Produção Agrícola Municipal)
+
 library(dplyr)
-library(sidrar)
 library(geobr)
-library(sf)
 library(stringr)
+
+import::from(sf, st_drop_geometry)
+import::from(sidrar, get_sidra)
 import::from(tidyr, pivot_longer, pivot_wider)
 import::from(janitor, clean_names)
 import::from(here, here)
@@ -11,8 +15,11 @@ import::from(here, here)
 municipalities <- read_municipality(year = 2020, simplified = TRUE)
 states <- read_state(year = 2020, simplified = TRUE)
 
+dim_muni <- as_tibble(st_drop_geometry(municipalities))
+dim_state <- as_tibble(st_drop_geometry(states))
+
 # Create state reference for region mapping
-state_ref <- states |>
+dim_state <- states |>
   st_drop_geometry() |>
   select(code_state, name_state, abbrev_state, name_region) |>
   mutate(
@@ -20,7 +27,7 @@ state_ref <- states |>
     region = case_when(
       name_region == "Norte" ~ "North",
       name_region == "Nordeste" ~ "Northeast",
-      name_region == "Centro Oeste" ~ "Center-West",
+      name_region == "Centro Oeste" ~ "Mid-West",
       name_region == "Sudeste" ~ "Southeast",
       name_region == "Sul" ~ "South",
       TRUE ~ name_region
@@ -39,40 +46,87 @@ major_crops <- c(
 )
 
 # Create auxiliary tibbles for data classification
-crop_names_map <- tibble::tibble(
-  crop_raw_pattern = c(
-    "Soja", "Milho", "Cana", "Algodão", 
-    "Arroz", "Trigo", "Feijão"
+crop_names_map <- tibble(
+  crop_ibge = c(
+    "Soja (em grão)",
+    "Milho (em grão)",
+    "Cana-de-açúcar",
+    "Algodão herbáceo (em caroço)",
+    "Arroz (em casca)",
+    "Trigo (em grão)",
+    "Feijão (em grão)"
   ),
-  crop_clean = c(
-    "soybeans", "corn", "sugarcane", "cotton",
-    "rice", "wheat", "beans"
+  crop_pt = c(
+    "Soja",
+    "Milho",
+    "Cana",
+    "Algodão",
+    "Arroz",
+    "Trigo",
+    "Feijão"
+  ),
+  crop_en = c(
+    "soybeans",
+    "corn",
+    "sugarcane",
+    "cotton",
+    "rice",
+    "wheat",
+    "beans"
   )
 )
 
-variable_map <- tibble::tibble(
+variable_map <- tibble(
   variable_pattern = c(
-    "Área colhida", "Quantidade produzida", 
-    "Rendimento", "Valor"
+    "Área colhida",
+    "Quantidade produzida",
+    "Rendimento médio da produção",
+    "Valor da produção"
   ),
   variable_id = c(
-    "area_harvested_ha", "production_tonnes",
-    "yield_kg_per_ha", "production_value_brl_thousands"
+    "area_harvested_ha",
+    "production_tonnes",
+    "yield_kg_per_ha",
+    "production_value_brl_k"
   )
 )
 
-crop_classifications <- tibble::tibble(
+crop_classifications <- tibble(
   crop = c(
-    "soybeans", "corn", "rice", "wheat", "beans", "cotton", "sugarcane"
+    "soybeans",
+    "corn",
+    "rice",
+    "wheat",
+    "beans",
+    "cotton",
+    "sugarcane"
   ),
   crop_type = c(
-    "annual", "annual", "annual", "annual", "annual", "annual", "semi-perennial"
+    "annual",
+    "annual",
+    "annual",
+    "annual",
+    "annual",
+    "annual",
+    "semi-perennial"
   ),
   crop_category = c(
-    "grains", "grains", "grains", "grains", "grains", "fiber", "industrial"
+    "grains",
+    "grains",
+    "grains",
+    "grains",
+    "grains",
+    "fiber",
+    "industrial"
   ),
   crop_importance = c(
-    "major", "major", "food-security", "food-security", "food-security", "high-value", "major"
+    "major",
+    "major",
+    "food-security",
+    "food-security",
+    "food-security",
+    "high-value",
+    "major"
   )
 )
 
@@ -100,160 +154,83 @@ raw_agriculture_states <- get_sidra(
     112, # Rendimento médio (kg/ha)
     215 # Valor da produção (mil reais)
   ),
-  period = c("2018", "2019", "2020", "2021", "2022"),
+  period = c("1974-2023"),
   geo = "State",
   classific = "c81",
+  # All major crops
   category = list(
     c81 = c("2713", "2711", "2696", "2689", "2692", "2716", "2702")
-  ) # All major crops
+  )
 )
 
-# Step 1: Clean and standardize raw data
-agriculture_base <- raw_agriculture |>
+# Clean and standardize raw data
+agri_muni <- raw_agriculture |>
   clean_names() |>
+  as_tibble() |>
   select(
     code_muni = municipio_codigo,
-    municipality_raw = municipio,
     year = ano,
     variable = variavel,
-    crop_raw = produto_das_lavouras_temporarias,
+    crop_ibge = produto_das_lavouras_temporarias,
     value = valor
   )
 
-# Step 2: Add basic transformations
-agriculture_transformed <- agriculture_base |>
+agri_muni <- agri_muni |>
+  # Convert columns
   mutate(
-    year = as.numeric(year),
-    value = as.numeric(value),
-    state_code = as.numeric(substr(code_muni, 1, 2)),
-    name_muni = str_remove(municipality_raw, "\\s*\\([A-Z]{2}\\)\\s*$")
-  )
+    code_muni = as.numeric(code_muni),
+    year = as.numeric(year)
+  ) |>
+  # Join with crop names
+  left_join(crop_names_map, by = "crop_ibge") |>
+  # Join with variable names
+  left_join(variable_map, by = c("variable" = "variable_pattern")) |>
+  # Join with city identifiers
+  left_join(dim_muni, by = "code_muni")
 
-# Step 3: Map crop names using auxiliary tibble
-agriculture_with_crops <- agriculture_transformed
-for (i in seq_len(nrow(crop_names_map))) {
-  pattern <- crop_names_map$crop_raw_pattern[i]
-  clean_name <- crop_names_map$crop_clean[i]
-  agriculture_with_crops <- agriculture_with_crops |>
-    mutate(
-      crop = ifelse(
-        str_detect(crop_raw, regex(pattern, ignore_case = TRUE)),
-        clean_name,
-        ifelse(exists("crop"), crop, str_to_lower(crop_raw))
-      )
-    )
-}
-
-# Step 4: Map variable identifiers
-agriculture_with_vars <- agriculture_with_crops
-for (i in seq_len(nrow(variable_map))) {
-  pattern <- variable_map$variable_pattern[i]
-  var_id <- variable_map$variable_id[i]
-  agriculture_with_vars <- agriculture_with_vars |>
-    mutate(
-      variable_id = ifelse(
-        str_detect(variable, regex(pattern, ignore_case = TRUE)),
-        var_id,
-        ifelse(exists("variable_id"), variable_id, "other")
-      )
-    )
-}
-
-# Step 5: Filter valid data
-agriculture_filtered <- agriculture_with_vars |>
-  filter(
-    !is.na(value),
-    value > 0,
-    !(variable_id == "production_tonnes" & value < 1000)
-  )
-
-# Step 6: Add geographic information
-agriculture_with_geo <- agriculture_filtered |>
-  left_join(state_ref, by = c("state_code" = "code_state")) |>
-  select(-municipality_raw, -crop_raw, -variable)
-
-# Step 7: Pivot to wide format
-agriculture_wide <- agriculture_with_geo |>
-  group_by(code_muni, year, state_code, name_muni, crop, name_state, abbrev_state, name_region, region, variable_id) |>
-  summarise(value = sum(value, na.rm = TRUE), .groups = "drop") |>
+# fmt: skip
+agri_wide <- agri_muni |>
   pivot_wider(
-    names_from = variable_id,
-    values_from = value,
-    values_fill = 0
-  ) |>
-  filter(production_tonnes >= 1000)
-
-# Step 8: Ensure all expected columns exist
-if (!"area_harvested_ha" %in% names(agriculture_wide)) {
-  agriculture_wide$area_harvested_ha <- 0
-}
-if (!"production_tonnes" %in% names(agriculture_wide)) {
-  agriculture_wide$production_tonnes <- 0
-}
-
-# Add crop classifications using auxiliary tibble
-agriculture_classified <- agriculture_wide |>
-  left_join(crop_classifications, by = "crop")
-
-# Step 9: Calculate metrics and scales
-agriculture_with_metrics <- agriculture_classified |>
-  mutate(
-    yield_tonnes_per_ha = ifelse(
-      area_harvested_ha > 0,
-      production_tonnes / area_harvested_ha,
-      NA_real_
+    id_cols = c(
+      "code_muni", "name_muni", "name_state", "name_region", "crop_en"
     ),
-    production_scale = case_when(
-      production_tonnes >= 1000000 ~ "Very large (1M+ tonnes)",
-      production_tonnes >= 100000 ~ "Large (100K-1M tonnes)",
-      production_tonnes >= 10000 ~ "Medium (10K-100K tonnes)",
-      production_tonnes >= 1000 ~ "Small (1K-10K tonnes)",
-      TRUE ~ "Very small (<1K tonnes)"
-    )
+    names_from = "variable_id",
+    values_from = "value"
+  ) |>
+  # Add yield column
+  mutate(yield = production_tonnes / area_harvested_ha)
+
+agri_wide <- left_join(
+  agri_wide,
+  crop_classifications,
+  by = c("crop_en" = "crop")
+)
+
+# Helper function to classify data according to Jenks algorithm
+get_jenks_breaks <- function(x, k = 7) {
+  breaks <- BAMMtools::getJenksBreaks(x, k = 7)
+  groups <- findInterval(x, breaks)
+  return(groups)
+}
+
+# Classify production scale
+agri_wide <- agri_wide |>
+  mutate(
+    production_scale = get_jenks_breaks(production_tonnes, k = 7),
+    .by = "crop_en"
   )
 
-# Step 10: Add factor levels and rankings
-agriculture_clean <- agriculture_with_metrics |>
-  mutate(
-    production_scale = factor(
-      production_scale,
-      levels = c(
-        "Very large (1M+ tonnes)",
-        "Large (100K-1M tonnes)",
-        "Medium (10K-100K tonnes)",
-        "Small (1K-10K tonnes)",
-        "Very small (<1K tonnes)"
-      )
-    )
-  ) |>
-  group_by(crop) |>
-  mutate(
-    production_rank = rank(-production_tonnes, ties.method = "min"),
-    area_rank = rank(-area_harvested_ha, ties.method = "min"),
-    yield_rank = rank(-yield_tonnes_per_ha, ties.method = "min", na.last = TRUE)
-  ) |>
-  ungroup() |>
-  select(
-    code_muni, name_muni, state_code, name_state, abbrev_state,
-    region, year, crop, crop_type, crop_category, crop_importance,
-    area_harvested_ha, production_tonnes, yield_tonnes_per_ha,
-    production_rank, area_rank, yield_rank, production_scale
-  ) |>
-  rename(
-    state = name_state,
-    state_abbr = abbrev_state
-  ) |>
-  arrange(region, state, name_muni, crop)
 
 # State-level data processing - Step 1: Base cleaning
 states_base <- raw_agriculture_states |>
   clean_names() |>
+  as_tibble() |>
   select(
-    state_code = unidade_da_federacao_codigo,
-    state_raw = unidade_da_federacao,
+    code_state = unidade_da_federacao_codigo,
+    name_state = unidade_da_federacao,
     year = ano,
     variable = variavel,
-    crop_raw = produto_das_lavouras_temporarias,
+    crop_ibge = produto_das_lavouras_temporarias,
     value = valor
   )
 
@@ -262,187 +239,25 @@ states_transformed <- states_base |>
   mutate(
     year = as.numeric(year),
     value = as.numeric(value),
-    state_code = as.numeric(state_code),
-    state = str_remove(state_raw, "\\s*\\([A-Z]{2}\\)\\s*$")
+    code_state = as.numeric(code_state)
   )
 
-# Step 3: Map crop names using auxiliary tibble
-states_with_crops <- states_transformed
-for (i in seq_len(nrow(crop_names_map))) {
-  pattern <- crop_names_map$crop_raw_pattern[i]
-  clean_name <- crop_names_map$crop_clean[i]
-  states_with_crops <- states_with_crops |>
-    mutate(
-      crop = ifelse(
-        str_detect(crop_raw, regex(pattern, ignore_case = TRUE)),
-        clean_name,
-        ifelse(exists("crop"), crop, str_to_lower(crop_raw))
-      )
-    )
-}
-
-# Step 4: Map variable identifiers
-states_with_vars <- states_with_crops
-for (i in seq_len(nrow(variable_map))) {
-  pattern <- variable_map$variable_pattern[i]
-  var_id <- variable_map$variable_id[i]
-  states_with_vars <- states_with_vars |>
-    mutate(
-      variable_id = ifelse(
-        str_detect(variable, regex(pattern, ignore_case = TRUE)),
-        var_id,
-        ifelse(exists("variable_id"), variable_id, "other")
-      )
-    )
-}
-
-# Step 5: Filter valid data
-states_filtered <- states_with_vars |>
-  filter(
-    !is.na(value),
-    value > 0,
-    !(variable_id == "production_tonnes" & value < 10000)
-  )
-
-# Step 6: Add geographic information
-states_with_geo <- states_filtered |>
-  left_join(state_ref, by = c("state_code" = "code_state")) |>
-  select(-state_raw, -crop_raw, -variable)
-
-# Step 7: Pivot to wide format
-states_wide <- states_with_geo |>
-  group_by(state_code, year, crop, name_state, abbrev_state, name_region, region, variable_id) |>
-  summarise(value = sum(value, na.rm = TRUE), .groups = "drop") |>
+# Step 3: Join with identfiers and convert to wide
+states_clean <- states_transformed |>
+  left_join(crop_names_map, by = "crop_ibge") |>
+  left_join(variable_map, by = c("variable" = "variable_pattern")) |>
   pivot_wider(
-    names_from = variable_id,
-    values_from = value,
-    values_fill = 0
-  ) |>
-  filter(production_tonnes >= 10000)
-
-# Step 8: Ensure all expected columns exist
-if (!"area_harvested_ha" %in% names(states_wide)) {
-  states_wide$area_harvested_ha <- 0
-}
-if (!"production_tonnes" %in% names(states_wide)) {
-  states_wide$production_tonnes <- 0
-}
-if (!"yield_kg_per_ha" %in% names(states_wide)) {
-  states_wide$yield_kg_per_ha <- 0
-}
-if (!"production_value_brl_thousands" %in% names(states_wide)) {
-  states_wide$production_value_brl_thousands <- 0
-}
-
-# Add crop classifications
-states_classified <- states_wide |>
-  left_join(crop_classifications, by = "crop")
-
-# Step 9: Calculate basic metrics
-states_with_metrics <- states_classified |>
-  mutate(
-    yield_tonnes_per_ha = case_when(
-      yield_kg_per_ha > 0 ~ yield_kg_per_ha / 1000,
-      area_harvested_ha > 0 ~ production_tonnes / area_harvested_ha,
-      TRUE ~ NA_real_
-    ),
-    production_value_brl_millions = production_value_brl_thousands / 1000,
-    value_per_ha_brl = ifelse(
-      area_harvested_ha > 0,
-      (production_value_brl_thousands * 1000) / area_harvested_ha,
-      NA_real_
-    ),
-    value_per_tonne_brl = ifelse(
-      production_tonnes > 0,
-      (production_value_brl_thousands * 1000) / production_tonnes,
-      NA_real_
-    )
+    id_cols = c("code_state", "name_state", "year", "crop_en"),
+    names_from = "variable_id",
+    values_from = "value"
   )
 
-# Step 10: Add production scale categories
-states_with_scale <- states_with_metrics |>
-  mutate(
-    production_scale = case_when(
-      production_tonnes >= 10000000 ~ "Very large (10M+ tonnes)",
-      production_tonnes >= 1000000 ~ "Large (1M-10M tonnes)",
-      production_tonnes >= 100000 ~ "Medium (100K-1M tonnes)",
-      production_tonnes >= 10000 ~ "Small (10K-100K tonnes)",
-      TRUE ~ "Very small (<10K tonnes)"
-    ),
-    production_scale = factor(
-      production_scale,
-      levels = c(
-        "Very large (10M+ tonnes)",
-        "Large (1M-10M tonnes)",
-        "Medium (100K-1M tonnes)",
-        "Small (10K-100K tonnes)",
-        "Very small (<10K tonnes)"
-      )
-    )
-  )
-
-# Step 11: Calculate growth rates
-states_with_growth <- states_with_scale |>
-  group_by(state_code, crop) |>
-  arrange(year) |>
-  mutate(
-    production_growth_rate = ifelse(
-      year > 2018 & !is.na(lag(production_tonnes)) & lag(production_tonnes) > 0,
-      (production_tonnes - lag(production_tonnes)) / lag(production_tonnes) * 100,
-      NA_real_
-    ),
-    area_growth_rate = ifelse(
-      year > 2018 & !is.na(lag(area_harvested_ha)) & lag(area_harvested_ha) > 0,
-      (area_harvested_ha - lag(area_harvested_ha)) / lag(area_harvested_ha) * 100,
-      NA_real_
-    ),
-    value_growth_rate = ifelse(
-      year > 2018 & !is.na(lag(production_value_brl_millions)) & lag(production_value_brl_millions) > 0,
-      (production_value_brl_millions - lag(production_value_brl_millions)) / lag(production_value_brl_millions) * 100,
-      NA_real_
-    ),
-    yield_growth_rate = ifelse(
-      year > 2018 & !is.na(lag(yield_tonnes_per_ha)) & lag(yield_tonnes_per_ha) > 0,
-      (yield_tonnes_per_ha - lag(yield_tonnes_per_ha)) / lag(yield_tonnes_per_ha) * 100,
-      NA_real_
-    ),
-    production_change_2018_2022 = ifelse(
-      year == 2022 & first(production_tonnes) > 0,
-      (production_tonnes - first(production_tonnes)) / first(production_tonnes) * 100,
-      NA_real_
-    )
-  ) |>
-  ungroup()
-
-# Step 12: Add rankings and finalize
-agriculture_states_clean <- states_with_growth |>
-  group_by(crop, year) |>
-  mutate(
-    production_rank = rank(-production_tonnes, ties.method = "min"),
-    area_rank = rank(-area_harvested_ha, ties.method = "min"),
-    value_rank = rank(-production_value_brl_millions, ties.method = "min"),
-    yield_rank = rank(-yield_tonnes_per_ha, ties.method = "min", na.last = TRUE)
-  ) |>
-  ungroup() |>
-  select(
-    state_code, name_state, abbrev_state, region, year, crop,
-    crop_type, crop_category, crop_importance, area_harvested_ha,
-    production_tonnes, yield_tonnes_per_ha, yield_kg_per_ha,
-    production_value_brl_millions, production_value_brl_thousands,
-    value_per_ha_brl, value_per_tonne_brl, production_growth_rate,
-    area_growth_rate, value_growth_rate, yield_growth_rate,
-    production_change_2018_2022, production_rank, area_rank,
-    value_rank, yield_rank, production_scale
-  ) |>
-  rename(
-    state = name_state,
-    state_abbr = abbrev_state
-  ) |>
-  arrange(region, state, crop, year)
+agri_wide <- rename(agri_wide, crop = crop_en)
+states_clean <- rename(states_clean, crop = crop_en)
 
 # Create final datasets
-brazil_agriculture <- agriculture_clean
-brazil_agriculture_states <- agriculture_states_clean
+brazil_agriculture <- agri_wide
+brazil_agriculture_states <- states_clean
 
 usethis::use_data(brazil_agriculture, overwrite = TRUE)
 usethis::use_data(brazil_agriculture_states, overwrite = TRUE)
