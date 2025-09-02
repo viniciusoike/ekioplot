@@ -66,168 +66,72 @@
 #' }
 "ips_brasil"
 
-#' World Development Indicators - Key Global Economic and Social Metrics
-#'
-#' A dataset containing key development indicators from the World Bank for major
-#' economies and regions worldwide. This dataset provides a comprehensive view
-#' of global economic and social development trends from 2010 to 2023.
-#'
-#' @format A data frame with approximately 2,500+ rows and 8 variables:
-#' \describe{
-#'   \item{country_code}{ISO3 country code (character)}
-#'   \item{country}{Country name (character)}
-#'   \item{region}{Geographic region classification (character)}
-#'   \item{income_group}{World Bank income classification (character)}
-#'   \item{year}{Year of observation (2010-2023, numeric)}
-#'   \item{indicator}{Development indicator name (character)}
-#'   \item{indicator_id}{World Bank indicator code (character)}
-#'   \item{value}{Indicator value (numeric)}
-#' }
-#'
-#' @details
-#' The dataset includes 8 key development indicators for 42 major economies:
-#'
-#' \strong{Indicators included:}
-#' \itemize{
-#'   \item \strong{GDP per capita}: GDP per capita in current US dollars
-#'   \item \strong{Population}: Total population
-#'   \item \strong{Life expectancy}: Life expectancy at birth (years)
-#'   \item \strong{Unemployment rate}: Unemployment as % of total labor force
-#'   \item \strong{Inflation rate}: Consumer price inflation (annual %)
-#'   \item \strong{Trade openness}: Trade as % of GDP
-#'   \item \strong{Urban population share}: Urban population as % of total
-#'   \item \strong{CO2 emissions per capita}: CO2 emissions in metric tons per capita
-#' }
-#'
-#' \strong{Geographic coverage:}
-#' Includes G20 countries plus selected major economies across all regions:
-#' North America, South America, Europe, Asia, Eurasia, Oceania, Middle East, and Africa.
-#'
-#' \strong{Income group classification:}
-#' Countries are classified into World Bank income groups: High income, Upper middle income,
-#' Lower middle income, and Low income.
-#'
-#' @source
-#' World Bank Open Data
-#' \url{https://data.worldbank.org/}
-#'
-#' Data retrieved using the wbstats R package which provides access to the
-#' World Bank's World Development Indicators API.
-#'
-#' @references
-#' World Bank. (2024). World Development Indicators.
-#' \url{https://datatopics.worldbank.org/world-development-indicators/}
-#'
-#' @examples
-#' \dontrun{
-#' # Load the dataset
-#' data(world_indicators)
-#'
-#' # View available indicators
-#' unique(world_indicators$indicator)
-#'
-#' # Filter for Brazil's GDP per capita over time
-#' brazil_gdp <- world_indicators |>
-#'   filter(country == "Brazil", indicator == "GDP per capita")
-#' }
-"world_indicators"
 
-#' Brazilian Municipal Population and Demographics (2018-2022)
+#' Brazilian Municipal Population Data (2025)
 #'
-#' A comprehensive dataset containing population data and demographic indicators
-#' for Brazilian municipalities with over 100,000 inhabitants, based on IBGE
-#' Census data and inter-census estimates.
+#' A dataset containing population data for Brazilian municipalities with over 
+#' 100,000 inhabitants, based on IBGE population estimates for 2025.
 #'
-#' @format A data frame with approximately 1,200+ rows and 12 variables:
+#' @format A tibble with 338 rows and 5 variables:
 #' \describe{
-#'   \item{code_muni}{IBGE municipality code (character)}
+#'   \item{rank}{Population ranking among all municipalities (numeric)}
 #'   \item{name_muni}{Municipality name (character)}
-#'   \item{state}{Full state name (character)}
-#'   \item{state_abbr}{State abbreviation (character)}
-#'   \item{region}{Brazilian geographic region (character)}
-#'   \item{year}{Year of observation (2018-2022, numeric)}
-#'   \item{population}{Total population (numeric)}
-#'   \item{population_growth}{Annual population growth rate (%, numeric)}
-#'   \item{population_change_2018_2022}{Total population change 2018-2022 (%, numeric)}
-#'   \item{households_2010}{Number of households in 2010 Census (numeric)}
-#'   \item{people_per_household_2010}{Average people per household in 2010 (numeric)}
-#'   \item{city_size}{City size category based on population (factor)}
+#'   \item{abbrev_state}{State abbreviation (character)}
+#'   \item{population}{Total population in 2025 (numeric)}
+#'   \item{category}{City size category based on population (ordered factor)}
 #' }
 #'
 #' @details
-#' This dataset focuses on Brazil's larger municipalities (population > 100,000)
-#' and provides insights into demographic trends and household composition.
-#'
-#' \strong{Geographic coverage:}
-#' All five Brazilian regions: North, Northeast, Center-West, Southeast, and South.
+#' The dataset focuses on Brazil's 338 largest municipalities (population > 100,000)
+#' and provides population ranking and size classification for 2025.
 #'
 #' \strong{City size categories:}
 #' \itemize{
-#'   \item \strong{Metropolis}: 1 million+ inhabitants
-#'   \item \strong{Large city}: 500,000 to 1 million inhabitants
-#'   \item \strong{Medium city}: 200,000 to 500,000 inhabitants
-#'   \item \strong{Small city}: 100,000 to 200,000 inhabitants
+#'   \item \strong{Metropolis (1M+)}: 1 million+ inhabitants
+#'   \item \strong{Large city (500K-1M)}: 500,000 to 1 million inhabitants
+#'   \item \strong{Medium city (200K-500K)}: 200,000 to 500,000 inhabitants
+#'   \item \strong{Small city (100K-200K)}: 100,000 to 200,000 inhabitants
 #' }
-#'
-#' \strong{Data sources:}
-#' Population estimates are based on IBGE's annual municipal population estimates,
-#' while household data comes from the 2010 Demographic Census.
 #'
 #' @source
 #' IBGE - Instituto Brasileiro de Geografia e Estatística
-#' \itemize{
-#'   \item Table 6579: Population by municipality (2018-2022 estimates)
-#'   \item Table 3175: Households by municipality (2010 Census)
-#' }
+#' Table 6579: Municipal population estimates
 #' \url{https://www.ibge.gov.br/}
-#'
-#' @references
-#' IBGE. (2023). Estimativas da população residente no Brasil e unidades da federação
-#' com data de referência em 1º de julho de 2022.
 #'
 #' @examples
 #' \dontrun{
 #' # Load the dataset
 #' data(brazil_population)
-#'
-#' # View largest cities in 2022
-#' brazil_population |>
-#'   filter(year == 2022) |>
-#'   slice_max(population, n = 10)
+#' 
+#' # View the largest cities
+#' head(brazil_population)
+#' 
+#' # Count cities by category
+#' table(brazil_population$category)
 #' }
 "brazil_population"
 
-#' Brazilian Municipal GDP and Economic Structure (2017-2021)
+#' Brazilian Municipal GDP and Economic Structure (2021)
 #'
-#' A dataset containing municipal GDP data and economic sector composition for
-#' Brazilian municipalities with significant economic activity, based on IBGE's
-#' Municipal National Accounts (Contas Nacionais Municipais).
+#' A dataset containing municipal GDP data for all Brazilian municipalities
+#' based on IBGE's Municipal National Accounts (Contas Nacionais Municipais).
 #'
-#' @format A data frame with approximately 250+ rows and 10 variables:
+#' @format A tibble with 5,570 rows and 7 variables:
 #' \describe{
-#'   \item{code_muni}{IBGE municipality code (character)}
+#'   \item{code_muni}{IBGE municipality code (numeric)}
 #'   \item{name_muni}{Municipality name (character)}
-#'   \item{state}{Full state name (character)}
-#'   \item{state_abbr}{State abbreviation (character)}
-#'   \item{region}{Brazilian geographic region (character)}
+#'   \item{code_state}{IBGE state code (numeric)}
+#'   \item{name_state}{State name (character)}
 #'   \item{year}{Year of observation (2021, numeric)}
-#'   \item{gdp_current_brl_millions}{GDP in millions of Brazilian reais (numeric)}
-#'   \item{gdp_per_capita_current_brl}{GDP per capita in Brazilian reais (numeric)}
-#'   \item{gdp_size_category}{GDP size classification (factor)}
+#'   \item{gdp_brl_k}{GDP in thousands of Brazilian reais (numeric)}
+#'   \item{gdp_brl_m}{GDP in millions of Brazilian reais (numeric)}
 #' }
 #'
 #' @details
-#' The dataset includes municipalities with GDP above 500 million BRL,
-#' covering Brazil's major urban centers and economic hubs.
-#'
-#' \strong{GDP size categories:}
-#' \itemize{
-#'   \item \strong{Very large}: 50+ billion BRL
-#'   \item \strong{Large}: 10-50 billion BRL
-#'   \item \strong{Medium}: 2-10 billion BRL
-#'   \item \strong{Small}: 500M-2 billion BRL
-#'   \item \strong{Very small}: <500 million BRL
-#' }
+#' The dataset includes GDP data for all 5,570 Brazilian municipalities for 2021,
+#' the most recent year available in IBGE's Municipal National Accounts.
+#' GDP values are provided in both thousands (gdp_brl_k) and millions (gdp_brl_m)
+#' of Brazilian reais at current prices.
 #'
 #' @source
 #' IBGE - Instituto Brasileiro de Geografia e Estatística
@@ -244,72 +148,52 @@
 #' # Load the dataset
 #' data(brazil_gdp)
 #'
-#' # Top 10 municipalities by GDP per capita in 2021
+#' # Top 10 municipalities by GDP in 2021
 #' brazil_gdp |>
-#'   filter(year == 2021) |>
-#'   slice_max(gdp_per_capita_current_brl, n = 10)
+#'   slice_max(gdp_brl_m, n = 10)
+#'
+#' # View structure
+#' str(brazil_gdp)
 #' }
 "brazil_gdp"
 
-#' Brazilian Agricultural Production by State and Crop (2018-2022)
+#' Brazilian Municipal Agricultural Production (2022)
 #'
 #' A comprehensive dataset containing agricultural production data for Brazil's
-#' eight major crops by state, based on IBGE's Municipal Agricultural Production
+#' three major crops by municipality, based on IBGE's Municipal Agricultural Production
 #' survey (PAM - Produção Agrícola Municipal).
 #'
-#' @format A data frame with approximately 1,400+ rows and 21 variables:
+#' @format A tibble with 16,689 rows and 12 variables:
 #' \describe{
-#'   \item{state_code}{IBGE state code (character)}
-#'   \item{state}{Full state name (character)}
-#'   \item{state_abbr}{State abbreviation (character)}
-#'   \item{region}{Brazilian geographic region (character)}
-#'   \item{year}{Year of observation (2018-2022, numeric)}
+#'   \item{code_muni}{IBGE municipality code (numeric)}
+#'   \item{name_muni}{Municipality name (character)}
+#'   \item{name_state}{State name (character)}
+#'   \item{name_region}{Region name in Portuguese (character)}
 #'   \item{crop}{Crop name in English (character)}
-#'   \item{crop_type}{Crop cultivation type: annual, perennial, semi-perennial (character)}
-#'   \item{crop_category}{Crop category: grains, fiber, beverage, industrial (character)}
-#'   \item{crop_importance}{Economic importance: major, high-value, food-security (character)}
-#'   \item{area_planted_ha}{Area planted in hectares (numeric)}
-#'   \item{area_harvested_ha}{Area harvested in hectares (numeric)}
 #'   \item{production_tonnes}{Production quantity in tonnes (numeric)}
-#'   \item{production_value_brl_millions}{Production value in millions of BRL (numeric)}
-#'   \item{yield_tonnes_per_ha}{Productivity in tonnes per hectare (numeric)}
-#'   \item{value_per_ha_brl}{Value per hectare in BRL (numeric)}
-#'   \item{value_per_tonne_brl}{Value per tonne in BRL (numeric)}
-#'   \item{production_growth_rate}{Annual production growth rate (%, numeric)}
-#'   \item{area_growth_rate}{Annual area growth rate (%, numeric)}
-#'   \item{value_growth_rate}{Annual value growth rate (%, numeric)}
-#'   \item{production_rank}{State ranking by production volume (numeric)}
-#'   \item{area_rank}{State ranking by planted area (numeric)}
-#'   \item{value_rank}{State ranking by production value (numeric)}
-#'   \item{yield_rank}{State ranking by productivity (numeric)}
+#'   \item{area_harvested_ha}{Area harvested in hectares (numeric)}
+#'   \item{yield}{Calculated productivity in tonnes per hectare (numeric)}
+#'   \item{crop_type}{Crop cultivation type: annual, semi-perennial (character)}
+#'   \item{crop_category}{Crop category: grains, industrial (character)}
+#'   \item{crop_importance}{Economic importance: major (character)}
+#'   \item{production_scale}{Production scale category (integer)}
 #' }
 #'
 #' @details
-#' The dataset covers Brazil's eight most important crops by production value
-#' and economic significance in global markets.
+#' The dataset covers Brazil's three major crops by municipality in 2022:
+#' soybeans, corn, and sugarcane. This represents municipal-level agricultural
+#' production data for analysis of regional agricultural patterns.
 #'
 #' \strong{Crops included:}
 #' \itemize{
-#'   \item \strong{Soybeans}: Brazil's top agricultural export
-#'   \item \strong{Sugarcane}: Major industrial crop for sugar and ethanol
-#'   \item \strong{Corn}: Second most important grain crop
-#'   \item \strong{Cotton}: Key fiber crop and export commodity
-#'   \item \strong{Coffee}: Traditional Brazilian export crop
-#'   \item \strong{Rice}: Important food security crop
-#'   \item \strong{Wheat}: Food grain crop, mainly in southern states
-#'   \item \strong{Beans}: Traditional protein source and food security crop
+#'   \item \strong{Soybeans}: Brazil's top agricultural export (annual grain crop)
+#'   \item \strong{Corn}: Major grain crop for domestic and export markets (annual)
+#'   \item \strong{Sugarcane}: Industrial crop for sugar and ethanol (semi-perennial)
 #' }
 #'
 #' \strong{Geographic coverage:}
-#' All Brazilian states and regions, with focus on states producing
-#' minimum quantities (1,000+ tonnes) of each crop.
-#'
-#' \strong{Economic importance classification:}
-#' \itemize{
-#'   \item \strong{Major crops}: Soybeans, sugarcane, corn (highest value/volume)
-#'   \item \strong{High-value crops}: Cotton, coffee (export-oriented, high value per unit)
-#'   \item \strong{Food-security crops}: Rice, wheat, beans (domestic consumption focus)
-#' }
+#' All Brazilian municipalities with production data for these crops across
+#' all regions.
 #'
 #' @source
 #' IBGE - Instituto Brasileiro de Geografia e Estatística
@@ -326,78 +210,56 @@
 #' # Load the dataset
 #' data(brazil_agriculture)
 #'
-#' # View soybean production leaders in 2022
+#' # View top soybean producing municipalities
 #' brazil_agriculture |>
-#'   filter(crop == "soybeans", year == 2022) |>
-#'   slice_min(production_rank, n = 5)
+#'   filter(crop == "soybeans") |>
+#'   slice_max(production_tonnes, n = 10)
 #'
-#' # Compare productivity across crops
-#' brazil_agriculture |>
-#'   filter(year == 2022) |>
-#'   group_by(crop) |>
-#'   summarize(avg_yield = mean(yield_tonnes_per_ha, na.rm = TRUE))
+#' # Check available crops
+#' unique(brazil_agriculture$crop)
+#'
+#' # View structure
+#' str(brazil_agriculture)
 #' }
 "brazil_agriculture"
 
-#' Brazilian State-Level Agricultural Production Time Series (2018-2022)
+#' Brazilian State-Level Agricultural Production Time Series (1974-2023)
 #'
 #' A time series dataset containing agricultural production data for Brazil's
-#' major crops by state, including production metrics, value, and growth rates
-#' based on IBGE's Municipal Agricultural Production survey (PAM).
+#' major crops by state, based on IBGE's Municipal Agricultural Production
+#' survey (PAM).
 #'
-#' @format A data frame with approximately 1,400+ rows and 25 variables:
+#' @format A tibble with 9,450 rows and 8 variables:
 #' \describe{
-#'   \item{state_code}{IBGE state code (numeric)}
-#'   \item{state}{Full state name (character)}
-#'   \item{state_abbr}{State abbreviation (character)}
-#'   \item{region}{Brazilian geographic region (character)}
-#'   \item{year}{Year of observation (2018-2022, numeric)}
+#'   \item{code_state}{IBGE state code (numeric)}
+#'   \item{name_state}{State name (character)}
+#'   \item{year}{Year of observation (1974-2023, numeric)}
 #'   \item{crop}{Crop name in English (character)}
-#'   \item{crop_type}{Crop cultivation type (character)}
-#'   \item{crop_category}{Crop category (character)}
-#'   \item{crop_importance}{Economic importance classification (character)}
-#'   \item{area_harvested_ha}{Area harvested in hectares (numeric)}
 #'   \item{production_tonnes}{Production quantity in tonnes (numeric)}
-#'   \item{yield_tonnes_per_ha}{Productivity in tonnes per hectare (numeric)}
+#'   \item{area_harvested_ha}{Area harvested in hectares (numeric)}
 #'   \item{yield_kg_per_ha}{Productivity in kg per hectare (numeric)}
-#'   \item{production_value_brl_millions}{Production value in millions of BRL (numeric)}
-#'   \item{production_value_brl_thousands}{Production value in thousands of BRL (numeric)}
-#'   \item{value_per_ha_brl}{Value per hectare in BRL (numeric)}
-#'   \item{value_per_tonne_brl}{Value per tonne in BRL (numeric)}
-#'   \item{production_growth_rate}{Annual production growth rate (%, numeric)}
-#'   \item{area_growth_rate}{Annual area growth rate (%, numeric)}
-#'   \item{value_growth_rate}{Annual value growth rate (%, numeric)}
-#'   \item{yield_growth_rate}{Annual productivity growth rate (%, numeric)}
-#'   \item{production_change_2018_2022}{Total production change 2018-2022 (%, numeric)}
-#'   \item{production_rank}{State ranking by production volume (numeric)}
-#'   \item{area_rank}{State ranking by harvested area (numeric)}
-#'   \item{value_rank}{State ranking by production value (numeric)}
-#'   \item{yield_rank}{State ranking by productivity (numeric)}
-#'   \item{production_scale}{Production scale category (factor)}
+#'   \item{production_value_brl_k}{Production value in thousands of BRL (numeric)}
 #' }
 #'
 #' @details
 #' This dataset provides state-level time series for Brazil's seven most
-#' important crops, enabling analysis of agricultural trends and regional
-#' specialization patterns.
+#' important crops from 1974 to 2023, enabling analysis of long-term
+#' agricultural trends and regional specialization patterns.
 #'
 #' \strong{Crops included:}
 #' \itemize{
 #'   \item \strong{Soybeans}: Brazil's top agricultural export
-#'   \item \strong{Sugarcane}: Major industrial crop for sugar and ethanol
-#'   \item \strong{Corn}: Second most important grain crop
+#'   \item \strong{Corn}: Major grain crop for domestic and export markets
+#'   \item \strong{Sugarcane}: Industrial crop for sugar and ethanol
 #'   \item \strong{Cotton}: Key fiber crop and export commodity
 #'   \item \strong{Rice}: Important food security crop
 #'   \item \strong{Wheat}: Food grain crop, mainly in southern states
 #'   \item \strong{Beans}: Traditional protein source and food security crop
 #' }
 #'
-#' \strong{Economic importance classification:}
-#' \itemize{
-#'   \item \strong{Major crops}: Soybeans, sugarcane, corn
-#'   \item \strong{High-value crops}: Cotton
-#'   \item \strong{Food-security crops}: Rice, wheat, beans
-#' }
+#' \strong{Time coverage:}
+#' Nearly 50 years of data (1974-2023) providing comprehensive historical
+#' perspective on Brazilian agricultural development.
 #'
 #' @source
 #' IBGE - Instituto Brasileiro de Geografia e Estatística
@@ -414,10 +276,14 @@
 #' # Load the dataset
 #' data(brazil_agriculture_states)
 #'
-#' # Soybean production trends by top states
+#' # Soybean production trends by top states (recent years)
 #' brazil_agriculture_states |>
-#'   filter(crop == "soybeans", production_rank <= 5) |>
-#'   ggplot(aes(year, production_tonnes, color = state)) +
+#'   filter(crop == "soybeans", year >= 2010, !is.na(production_tonnes)) |>
+#'   slice_max(production_tonnes, n = 50) |>
+#'   ggplot(aes(year, production_tonnes, color = name_state)) +
 #'   geom_line()
+#'
+#' # View structure
+#' str(brazil_agriculture_states)
 #' }
 "brazil_agriculture_states"
