@@ -39,6 +39,7 @@ Imports:
     sysfonts,
     tidyr
 Suggests:
+    hexbin,
     testthat (>= 3.0.0)
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3

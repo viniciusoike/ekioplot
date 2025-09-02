@@ -16,3 +16,10 @@ A comprehensive R package that provides EKIO-branded themes, color palettes, and
     - Don't make pipe chains too long (max 5-6 functions, max 15-20 lines)
     - Follow tidyverse guide style
     - Avoid cat, always prefer cli. Don't be too verbose, always be sparing with messages and write concise messages.
+
+## Comment style
+- Be concise
+- Use # ---- to separate sections
+
+## General observations
+- After making changes, run check() and fix only erros and warnings. Ignore notes
