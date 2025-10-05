@@ -385,6 +385,73 @@ ekio_colors <- function(palette = "all") {
     "#2c3e50"
   )
 
+  # ---- Additional categorical palettes ----
+
+  cool_spectrum <- c(
+    "#003f5c",
+    "#2f4b7c",
+    "#665191",
+    "#a05195",
+    "#d45087",
+    "#f95d6a"
+  )
+
+  muted_elegant <- c(
+    "#264653",
+    "#2A9D8F",
+    "#E76F51",
+    "#E9C46A"
+  )
+
+  vibrant_professional <- c(
+    "#E63946",
+    "#F77F00",
+    "#06AED5",
+    "#073B4C",
+    "#118AB2"
+  )
+
+  academic_classic <- c(
+    "#0173B2",
+    "#DE8F05",
+    "#029E73",
+    "#CC78BC",
+    "#CA9161",
+    "#949494"
+  )
+
+  earth_tones <- c(
+    "#8B4513",
+    "#CD853F",
+    "#556B2F",
+    "#BC8F8F",
+    "#2F4F4F"
+  )
+
+  tech_modern <- c(
+    "#0066CC",
+    "#00C896",
+    "#FF6B35",
+    "#5B2C6F",
+    "#FFD23F",
+    "#1A1A1A"
+  )
+
+  nordic_minimal <- c(
+    "#4C72B0",
+    "#55A868",
+    "#C44E52",
+    "#8172B2"
+  )
+
+  corporate_standard <- c(
+    "#1f77b4",
+    "#ff7f0e",
+    "#2ca02c",
+    "#d62728",
+    "#9467bd"
+  )
+
   # Accent palettes (1-2 strong + 3-5 muted colors)
   accent_blue <- c(
     "#2C6BB3",  # Strong: modern premium blue
@@ -510,6 +577,14 @@ ekio_colors <- function(palette = "all") {
     "categorical_cool" = categorical_cool,
     "categorical_mixed" = categorical_mixed,
     "categorical_muted" = categorical_muted,
+    "cool_spectrum" = setNames(cool_spectrum, paste0("cs_", 1:6)),
+    "muted_elegant" = setNames(muted_elegant, paste0("me_", 1:4)),
+    "vibrant_professional" = setNames(vibrant_professional, paste0("vp_", 1:5)),
+    "academic_classic" = setNames(academic_classic, paste0("ac_", 1:6)),
+    "earth_tones" = setNames(earth_tones, paste0("et_", 1:5)),
+    "tech_modern" = setNames(tech_modern, paste0("tm_", 1:6)),
+    "nordic_minimal" = setNames(nordic_minimal, paste0("nm_", 1:4)),
+    "corporate_standard" = setNames(corporate_standard, paste0("cst_", 1:5)),
 
     # RColorBrewer
     "RdBu" = setNames(RdBu, paste0("RdBu_", 1:11)),

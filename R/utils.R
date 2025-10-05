@@ -38,7 +38,10 @@ list_ekio_palettes <- function(category = "all") {
 
   categorical_palettes <- c(
     "categorical", "categorical_extended", "categorical_warm",
-    "categorical_cool", "categorical_mixed", "categorical_muted"
+    "categorical_cool", "categorical_mixed", "categorical_muted",
+    "cool_spectrum", "muted_elegant", "vibrant_professional",
+    "academic_classic", "earth_tones", "tech_modern",
+    "nordic_minimal", "corporate_standard"
   )
 
   scientific_palettes <- c(
