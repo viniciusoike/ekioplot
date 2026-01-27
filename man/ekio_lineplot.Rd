@@ -2,18 +2,17 @@
 % Please edit documentation in R/ekio_recipes.R
 \name{ekio_lineplot}
 \alias{ekio_lineplot}
-\title{EKIO Line Plot with Professional Styling}
+\title{EKIO Line Plot}
 \usage{
 ekio_lineplot(
   data,
   x,
   y,
   color = NULL,
+  palette = NULL,
   add_zero = TRUE,
-  palette = "categorical_extended",
-  single_color_index = 1,
-  theme_style = "modern_premium",
-  line_size = 0.8
+  line_width = 0.8,
+  ...
 )
 }
 \arguments{
@@ -23,39 +22,28 @@ ekio_lineplot(
 
 \item{y}{Y-axis variable (supports data-masking)}
 
-\item{color}{Optional grouping variable for multiple lines (supports data-masking)}
+\item{color}{Color aesthetic. Can be a color string or variable name.}
 
-\item{add_zero}{Logical, add horizontal line at y=0 (default: TRUE)}
+\item{palette}{Character. Palette name for variable mappings.}
 
-\item{palette}{EKIO palette name for line colors}
+\item{add_zero}{Logical. Add horizontal line at y=0 (default: TRUE)}
 
-\item{single_color_index}{If no color grouping, which palette index to use (default: 9)}
+\item{line_width}{Line thickness (default: 0.8)}
 
-\item{theme_style}{EKIO theme style (default: "modern_premium")}
-
-\item{line_size}{Line thickness (default: 1)}
+\item{...}{Additional arguments passed to \code{ggplot2::geom_line()}}
 }
 \value{
 ggplot2 object
 }
 \description{
-Creates a professionally styled line plot following EKIO design principles
+Creates a professionally styled line plot following EKIO design principles.
 }
 \examples{
-\dontrun{
-library(ggplot2)
-library(dplyr)
-
+\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
 # Single line plot
 ekio_lineplot(economics, date, unemploy)
 
 # Multiple lines with grouping
-ekio_lineplot(mtcars, wt, mpg, color = factor(cyl))
-
-# Custom styling
-ekio_lineplot(economics, date, unemploy,
-              palette = "academic_authority",
-              single_color_index = 6)
-}
-
+ekio_lineplot(economics_long, date, value, color = variable)
+\dontshow{\}) # examplesIf}
 }

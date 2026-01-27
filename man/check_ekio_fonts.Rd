@@ -4,19 +4,14 @@
 \alias{check_ekio_fonts}
 \title{Check Font Availability}
 \usage{
-check_ekio_fonts(detailed = FALSE)
-}
-\arguments{
-\item{detailed}{Logical, whether to return detailed information}
+check_ekio_fonts()
 }
 \value{
-List or data frame of font availability
+Named list with font information by platform.
 }
 \description{
-Checks which EKIO fonts are available on the system
+Reports which fonts are likely available on the current system.
 }
 \examples{
 check_ekio_fonts()
-check_ekio_fonts(detailed = TRUE)
-
 }

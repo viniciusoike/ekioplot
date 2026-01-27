@@ -2,23 +2,25 @@
 % Please edit documentation in R/fonts.R
 \name{get_ekio_font}
 \alias{get_ekio_font}
-\title{Get Best Available EKIO Font}
+\title{Get EKIO Font}
 \usage{
-get_ekio_font(type = "primary", loaded_fonts = NULL)
+get_ekio_font(type = "primary")
 }
 \arguments{
-\item{type}{Font type: "primary", "secondary", "mono", "condensed"}
-
-\item{loaded_fonts}{List of loaded fonts (from load_ekio_fonts)}
+\item{type}{Character. Font type to retrieve:
+\itemize{
+\item "primary": Main text font (default)
+\item "mono": Monospace font for code
+}}
 }
 \value{
-Font family name
+Character. Font family name to use.
 }
 \description{
-Returns the best available font from EKIO hierarchy
+Returns the best available font for the specified type.
+Uses simple system font detection with sensible fallbacks.
 }
 \examples{
-fonts <- load_ekio_fonts()
-get_ekio_font("primary", fonts)
-
+get_ekio_font()
+get_ekio_font("mono")
 }

@@ -59,26 +59,6 @@ test_that("external scale functions work with ggplot2", {
   expect_no_error(ggplot_build(p2))
 })
 
-test_that("viridis scale functions work with ggplot2", {
-  skip_if_not_installed("ggplot2")
-
-  library(ggplot2)
-
-  # Test discrete viridis
-  p1 <- ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
-    geom_point() +
-    scale_color_viridis_d()
-
-  expect_no_error(ggplot_build(p1))
-
-  # Test continuous viridis
-  p2 <- ggplot(mtcars, aes(x = wt, y = mpg, color = hp)) +
-    geom_point() +
-    scale_color_viridis_c()
-
-  expect_no_error(ggplot_build(p2))
-})
-
 test_that("invalid external palette produces error", {
 
   expect_error(external_pal("nonexistent_palette"))

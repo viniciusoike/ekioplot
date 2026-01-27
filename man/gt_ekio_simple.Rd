@@ -4,16 +4,19 @@
 \alias{gt_ekio_simple}
 \title{Simple EKIO Table Theme}
 \usage{
-gt_ekio_simple(data, style = "modern_premium")
+gt_ekio_simple(data)
 }
 \arguments{
 \item{data}{A gt table object}
-
-\item{style}{Character. Theme style (default: "modern_premium")}
 }
 \value{
 A styled gt table object
 }
 \description{
 Quick styling function for common table use cases with minimal footer.
+}
+\examples{
+\dontrun{
+mtcars |> head(5) |> gt() |> gt_ekio_simple()
+}
 }

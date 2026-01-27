@@ -2,7 +2,7 @@
 % Please edit documentation in R/ekio_recipes.R
 \name{ekio_scatterplot}
 \alias{ekio_scatterplot}
-\title{EKIO Scatter Plot with Professional Styling}
+\title{EKIO Scatter Plot}
 \usage{
 ekio_scatterplot(
   data,
@@ -10,17 +10,13 @@ ekio_scatterplot(
   y,
   color = NULL,
   size = NULL,
+  palette = NULL,
   add_zero = TRUE,
   add_smooth = FALSE,
   smooth_method = "lm",
-  smooth_se = FALSE,
-  palette = "categorical_extended",
-  single_color_index = 6,
-  point_shape = 21,
   point_size = 2.5,
   point_alpha = 0.8,
-  outline_color = "gray20",
-  theme_style = "modern_premium"
+  ...
 )
 }
 \arguments{
@@ -30,61 +26,39 @@ ekio_scatterplot(
 
 \item{y}{Y-axis variable (supports data-masking)}
 
-\item{color}{Optional grouping variable for point colors (supports data-masking)}
+\item{color}{Color aesthetic. Can be a color string or variable name.}
 
-\item{size}{Optional variable for point sizes (supports data-masking)}
+\item{size}{Size aesthetic (optional variable)}
 
-\item{add_zero}{Logical, add horizontal line at y=0 (default: TRUE)}
+\item{palette}{Character. Palette name for variable mappings.}
 
-\item{add_smooth}{Logical, add smooth trend line (default: FALSE)}
+\item{add_zero}{Logical. Add horizontal line at y=0 (default: TRUE)}
+
+\item{add_smooth}{Logical. Add smooth trend line (default: FALSE)}
 
 \item{smooth_method}{Smoothing method: "lm", "gam", "loess" (default: "lm")}
-
-\item{smooth_se}{Show confidence interval for smooth line (default: FALSE)}
-
-\item{palette}{EKIO palette name for point colors}
-
-\item{single_color_index}{If no color grouping, which palette index to use (default: 6)}
-
-\item{point_shape}{Point shape (default: 21 for filled circles)}
 
 \item{point_size}{Base point size (default: 2.5)}
 
 \item{point_alpha}{Point transparency (default: 0.8)}
 
-\item{outline_color}{Point outline color when using shape 21 (default: "gray20")}
-
-\item{theme_style}{EKIO theme style (default: "modern_premium")}
+\item{...}{Additional arguments passed to \code{ggplot2::geom_point()}}
 }
 \value{
 ggplot2 object
 }
 \description{
-Creates a professionally styled scatter plot following EKIO design principles
+Creates a professionally styled scatter plot following EKIO design principles.
 }
 \examples{
-\dontrun{
-library(ggplot2)
-library(dplyr)
-
+\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
 # Basic scatter plot
 ekio_scatterplot(mtcars, wt, mpg)
 
 # With color grouping
 ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl))
 
-# With size and smooth line
-ekio_scatterplot(mtcars, wt, mpg,
-                 color = factor(cyl),
-                 size = hp,
-                 add_smooth = TRUE)
-
-# Custom styling
-ekio_scatterplot(mtcars, wt, mpg,
-                 palette = "categorical_warm",
-                 point_shape = 19,
-                 add_smooth = TRUE,
-                 smooth_method = "gam")
-}
-
+# With smooth line
+ekio_scatterplot(mtcars, wt, mpg, add_smooth = TRUE)
+\dontshow{\}) # examplesIf}
 }
