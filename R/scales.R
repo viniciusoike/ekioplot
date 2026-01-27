@@ -41,7 +41,6 @@
 scale_color_ekio_d <- function(palette = "contrast", reverse = FALSE, ...) {
   ggplot2::discrete_scale(
     aesthetics = "colour",
-    scale_name = "ekio",
     palette = function(n) ekio_pal(palette, n, reverse),
     ...
   )
@@ -56,7 +55,6 @@ scale_colour_ekio_d <- scale_color_ekio_d
 scale_fill_ekio_d <- function(palette = "contrast", reverse = FALSE, ...) {
   ggplot2::discrete_scale(
     aesthetics = "fill",
-    scale_name = "ekio",
     palette = function(n) ekio_pal(palette, n, reverse),
     ...
   )

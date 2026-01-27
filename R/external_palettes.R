@@ -155,7 +155,6 @@ list_external_palettes <- function() {
 scale_color_okabe_ito <- function(reverse = FALSE, ...) {
   ggplot2::discrete_scale(
     aesthetics = "colour",
-    scale_name = "okabe_ito",
     palette = function(n) external_pal("okabe_ito", n, reverse),
     ...
   )
@@ -170,7 +169,6 @@ scale_colour_okabe_ito <- scale_color_okabe_ito
 scale_fill_okabe_ito <- function(reverse = FALSE, ...) {
   ggplot2::discrete_scale(
     aesthetics = "fill",
-    scale_name = "okabe_ito",
     palette = function(n) external_pal("okabe_ito", n, reverse),
     ...
   )
@@ -204,7 +202,6 @@ scale_fill_okabe_ito <- function(reverse = FALSE, ...) {
 scale_color_viridis_d <- function(reverse = FALSE, ...) {
   ggplot2::discrete_scale(
     aesthetics = "colour",
-    scale_name = "viridis",
     palette = function(n) external_pal("viridis", n, reverse),
     ...
   )
@@ -219,7 +216,6 @@ scale_colour_viridis_d <- scale_color_viridis_d
 scale_fill_viridis_d <- function(reverse = FALSE, ...) {
   ggplot2::discrete_scale(
     aesthetics = "fill",
-    scale_name = "viridis",
     palette = function(n) external_pal("viridis", n, reverse),
     ...
   )
