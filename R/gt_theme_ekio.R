@@ -18,10 +18,8 @@
 #' @examples
 #' \dontrun{
 #' library(gt)
-#' library(dplyr)
 #'
-#' mtcars |>
-#'   head(10) |>
+#' head(mtcars, 10) |>
 #'   gt() |>
 #'   gt_theme_ekio()
 #' }

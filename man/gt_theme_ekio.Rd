@@ -4,20 +4,10 @@
 \alias{gt_theme_ekio}
 \title{Apply EKIO Theme to GT Tables}
 \usage{
-gt_theme_ekio(
-  data,
-  style = "modern_premium",
-  table_width = "100\%",
-  font_size = 14,
-  add_footer = TRUE
-)
+gt_theme_ekio(data, table_width = "100\%", font_size = 14, add_footer = TRUE)
 }
 \arguments{
 \item{data}{A gt table object}
-
-\item{style}{Character. Theme style to apply. Options: "modern_premium",
-"academic_authority", "sophisticated_unique", "institutional_oxford",
-"professional_deep", "premium_steel"}
 
 \item{table_width}{Character. Width of the table (default: "100\%")}
 
@@ -29,17 +19,15 @@ gt_theme_ekio(
 A styled gt table object
 }
 \description{
-Applies professional EKIO branding and styling to gt table objects with various
-predefined themes optimized for different presentation contexts.
+Applies professional EKIO branding and styling to gt table objects.
+Uses a single consistent color scheme matching the ggplot2 theme.
 }
 \examples{
 \dontrun{
 library(gt)
-library(dplyr)
 
-mtcars \%>\%
-  head(10) \%>\%
-  gt() \%>\%
-  gt_theme_ekio(style = "modern_premium")
+head(mtcars, 10) |>
+  gt() |>
+  gt_theme_ekio()
 }
 }

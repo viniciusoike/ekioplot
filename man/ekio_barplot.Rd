@@ -2,21 +2,18 @@
 % Please edit documentation in R/ekio_recipes.R
 \name{ekio_barplot}
 \alias{ekio_barplot}
-\title{EKIO Bar Plot with Professional Styling}
+\title{EKIO Bar Plot}
 \usage{
 ekio_barplot(
   data,
   x,
   y,
   fill = NULL,
+  palette = NULL,
   add_zero = TRUE,
-  add_labels = FALSE,
-  label_accuracy = 1,
   horizontal = FALSE,
-  palette = "categorical_extended",
-  single_color_index = 7,
   bar_width = 0.8,
-  theme_style = "modern_premium"
+  ...
 )
 }
 \arguments{
@@ -26,51 +23,34 @@ ekio_barplot(
 
 \item{y}{Y-axis variable (supports data-masking)}
 
-\item{fill}{Optional grouping variable for bar colors (supports data-masking)}
+\item{fill}{Fill aesthetic. Can be a color string or variable name.}
 
-\item{add_zero}{Logical, add horizontal line at y=0 (default: TRUE)}
+\item{palette}{Character. Palette name for variable mappings.}
 
-\item{add_labels}{Logical, add data labels on bars (default: FALSE)}
+\item{add_zero}{Logical. Add horizontal line at y=0 (default: TRUE)}
 
-\item{label_accuracy}{Number accuracy for labels (default: 1)}
-
-\item{horizontal}{Logical, create horizontal bar plot (default: FALSE)}
-
-\item{palette}{EKIO palette name for bar colors}
-
-\item{single_color_index}{If no fill grouping, which palette index to use (default: 7)}
+\item{horizontal}{Logical. Create horizontal bar plot (default: FALSE)}
 
 \item{bar_width}{Bar width (default: 0.8)}
 
-\item{theme_style}{EKIO theme style (default: "modern_premium")}
+\item{...}{Additional arguments passed to \code{ggplot2::geom_col()}}
 }
 \value{
 ggplot2 object
 }
 \description{
-Creates a professionally styled bar plot following EKIO design principles
+Creates a professionally styled bar plot following EKIO design principles.
 }
 \examples{
-\dontrun{
-library(ggplot2)
-library(dplyr)
+\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
+# Prepare summary data
+cyl_counts <- as.data.frame(table(cyl = mtcars$cyl))
+names(cyl_counts)[2] <- "n"
 
 # Basic bar plot
-ekio_barplot(mtcars |> count(cyl), cyl, n)
+ekio_barplot(cyl_counts, cyl, n)
 
-# With fill grouping
-ekio_barplot(mtcars |> count(cyl, gear), cyl, n, fill = factor(gear))
-
-# Horizontal with labels
-ekio_barplot(mtcars |> count(cyl), cyl, n,
-             horizontal = TRUE,
-             add_labels = TRUE)
-
-# Custom styling
-ekio_barplot(mtcars |> count(cyl), cyl, n,
-             palette = "sophisticated_unique",
-             single_color_index = 6,
-             add_labels = TRUE)
-}
-
+# Horizontal bars
+ekio_barplot(cyl_counts, cyl, n, horizontal = TRUE)
+\dontshow{\}) # examplesIf}
 }

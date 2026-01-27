@@ -28,7 +28,7 @@
 #' @return ggplot2 object
 #' @export
 #'
-#' @examples
+#' @examplesIf rlang::is_interactive()
 #' # Basic histogram
 #' ekio_histogram(mtcars, mpg)
 #'
@@ -68,7 +68,7 @@ ekio_histogram <- function(
   if (is.null(palette)) palette <- "contrast"
 
   # Extract x values for bin calculation
-  x_values <- dplyr::pull(data, !!x_var)
+  x_values <- data[[rlang::as_name(x_var)]]
   x_values <- stats::na.omit(x_values)
 
   # Determine number of bins
@@ -154,7 +154,7 @@ ekio_histogram <- function(
 #' @return ggplot2 object
 #' @export
 #'
-#' @examples
+#' @examplesIf rlang::is_interactive()
 #' # Single line plot
 #' ekio_lineplot(economics, date, unemploy)
 #'
@@ -230,7 +230,7 @@ ekio_lineplot <- function(
 #' @return ggplot2 object
 #' @export
 #'
-#' @examples
+#' @examplesIf rlang::is_interactive()
 #' # Basic scatter plot
 #' ekio_scatterplot(mtcars, wt, mpg)
 #'
@@ -352,17 +352,16 @@ ekio_scatterplot <- function(
 #' @return ggplot2 object
 #' @export
 #'
-#' @examples
-#' library(dplyr)
+#' @examplesIf rlang::is_interactive()
+#' # Prepare summary data
+#' cyl_counts <- as.data.frame(table(cyl = mtcars$cyl))
+#' names(cyl_counts)[2] <- "n"
 #'
 #' # Basic bar plot
-#' ekio_barplot(mtcars |> count(cyl), cyl, n)
-#'
-#' # With fill grouping
-#' ekio_barplot(mtcars |> count(cyl, gear), cyl, n, fill = factor(gear))
+#' ekio_barplot(cyl_counts, cyl, n)
 #'
 #' # Horizontal bars
-#' ekio_barplot(mtcars |> count(cyl), cyl, n, horizontal = TRUE)
+#' ekio_barplot(cyl_counts, cyl, n, horizontal = TRUE)
 ekio_barplot <- function(
   data,
   x,

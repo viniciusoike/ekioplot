@@ -2,18 +2,18 @@
 % Please edit documentation in R/ekio_recipes.R
 \name{ekio_histogram}
 \alias{ekio_histogram}
-\title{EKIO Histogram with Professional Styling}
+\title{EKIO Histogram}
 \usage{
 ekio_histogram(
   data,
   x,
+  fill = NULL,
+  palette = NULL,
   bins = "sturges",
   binwidth = NULL,
   add_zero = TRUE,
-  fill_palette = "institutional_oxford",
-  fill_index = 7,
-  outline_color = "white",
-  theme_style = "modern_premium"
+  border_color = "white",
+  ...
 )
 }
 \arguments{
@@ -21,41 +21,47 @@ ekio_histogram(
 
 \item{x}{Variable to plot (supports data-masking)}
 
-\item{bins}{Method for determining number of bins. Options: "sturges", "FD", "scott", or numeric value}
+\item{fill}{Fill aesthetic. Can be:
+\itemize{
+\item A color string: \code{fill = "blue"} or \code{fill = "#1E3A5F"}
+\item A variable name: \code{fill = category} or \code{fill = factor(cyl)}
+}
+If NULL (default), uses EKIO blue.}
+
+\item{palette}{Character. Palette name for variable mappings.
+Options: "contrast", "cool", "full", etc. See \code{\link{ekio_pal}}.
+Ignored when fill is a static color.}
+
+\item{bins}{Method for determining number of bins: "sturges", "FD", "scott",
+or a numeric value.}
 
 \item{binwidth}{Width of bins (overrides bins if specified)}
 
-\item{add_zero}{Logical, add horizontal line at y=0 (default: TRUE)}
+\item{add_zero}{Logical. Add horizontal line at y=0 (default: TRUE)}
 
-\item{fill_palette}{EKIO palette name for fill color}
+\item{border_color}{Color for histogram outline (default: "white")}
 
-\item{fill_index}{Index of color to use from palette (default: 7)}
-
-\item{outline_color}{Color for histogram outline (default: "white")}
-
-\item{theme_style}{EKIO theme style (default: "modern_premium")}
+\item{...}{Additional arguments passed to \code{ggplot2::geom_histogram()}}
 }
 \value{
 ggplot2 object
 }
 \description{
-Creates a professionally styled histogram following EKIO design principles
+Creates a professionally styled histogram following EKIO design principles.
+Supports smart aesthetic detection: pass either a color string or a variable.
 }
 \examples{
-\dontrun{
-library(ggplot2)
-
+\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
 # Basic histogram
 ekio_histogram(mtcars, mpg)
 
+# With static color
+ekio_histogram(mtcars, mpg, fill = "steelblue")
+
+# With variable mapping
+ekio_histogram(mtcars, mpg, fill = factor(cyl), palette = "cool")
+
 # With custom binning
 ekio_histogram(mtcars, mpg, bins = "FD")
-ekio_histogram(mtcars, mpg, binwidth = 2)
-
-# Custom styling
-ekio_histogram(mtcars, mpg,
-               fill_palette = "academic_authority",
-               fill_index = 6)
-}
-
+\dontshow{\}) # examplesIf}
 }
