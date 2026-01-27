@@ -1,0 +1,391 @@
+---
+title: "ekioplot v2.0 Visual Tests"
+subtitle: "Palette and Theme Gallery"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    theme: cosmo
+execute:
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(ekioplot)
+library(ggplot2)
+library(dplyr)
+```
+
+# Color Palettes
+
+## EKIO Qualitative Palettes
+
+```{r}
+#| label: qualitative-palettes
+#| fig-height: 6
+#| fig-width: 10
+
+palettes <- list_ekio_palettes("qualitative")
+
+par(mfrow = c(length(palettes), 1), mar = c(1, 8, 1, 1))
+for (pal in palettes) {
+  cols <- ekio_pal(pal)
+  barplot(rep(1, length(cols)), col = cols, border = NA, axes = FALSE,
+          names.arg = rep("", length(cols)), horiz = TRUE)
+  mtext(pal, side = 2, las = 1, line = 1, cex = 0.9)
+}
+```
+
+### Individual Palette Display
+
+```{r}
+#| label: show-contrast
+#| fig-height: 2
+show_ekio_palette("contrast")
+```
+
+```{r}
+#| label: show-cool
+#| fig-height: 2
+show_ekio_palette("cool")
+```
+
+```{r}
+#| label: show-full
+#| fig-height: 2
+show_ekio_palette("full")
+```
+
+```{r}
+#| label: show-muted
+#| fig-height: 2
+show_ekio_palette("muted")
+```
+
+## EKIO Sequential Palettes
+
+```{r}
+#| label: sequential-palettes
+#| fig-height: 4
+#| fig-width: 10
+
+seq_palettes <- list_ekio_palettes("sequential")
+
+par(mfrow = c(length(seq_palettes), 1), mar = c(1, 8, 1, 1))
+for (pal in seq_palettes) {
+  cols <- ekio_seq_pal(pal, n = 9)
+  barplot(rep(1, length(cols)), col = cols, border = NA, axes = FALSE,
+          names.arg = rep("", length(cols)), horiz = TRUE)
+  mtext(pal, side = 2, las = 1, line = 1, cex = 0.9)
+}
+```
+
+```{r}
+#| label: show-seq-blue
+#| fig-height: 2
+show_ekio_palette("blue", type = "sequential")
+```
+
+```{r}
+#| label: show-seq-teal
+#| fig-height: 2
+show_ekio_palette("teal", type = "sequential")
+```
+
+## EKIO Diverging Palettes
+
+```{r}
+#| label: diverging-palettes
+#| fig-height: 3
+#| fig-width: 10
+
+div_palettes <- list_ekio_palettes("diverging")
+
+par(mfrow = c(length(div_palettes), 1), mar = c(1, 8, 1, 1))
+for (pal in div_palettes) {
+  cols <- ekio_div_pal(pal, n = 9)
+  barplot(rep(1, length(cols)), col = cols, border = NA, axes = FALSE,
+          names.arg = rep("", length(cols)), horiz = TRUE)
+  mtext(pal, side = 2, las = 1, line = 1, cex = 0.9)
+}
+```
+
+```{r}
+#| label: show-div-blue-orange
+#| fig-height: 2
+show_ekio_palette("blue_orange", type = "diverging")
+```
+
+## External Palettes (Non-EKIO)
+
+```{r}
+#| label: external-palettes
+#| fig-height: 4
+#| fig-width: 10
+
+ext_palettes <- names(list_external_palettes())
+
+par(mfrow = c(length(ext_palettes), 1), mar = c(1, 8, 1, 1))
+for (pal in ext_palettes) {
+  cols <- external_pal(pal, n = 9)
+  barplot(rep(1, length(cols)), col = cols, border = NA, axes = FALSE,
+          names.arg = rep("", length(cols)), horiz = TRUE)
+  mtext(pal, side = 2, las = 1, line = 1, cex = 0.9)
+}
+```
+
+# Scale Functions in Action
+
+## Discrete Scales
+
+```{r}
+#| label: discrete-scatter
+#| fig-height: 4
+#| fig-width: 8
+
+p_base <- ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
+  geom_point(size = 3) +
+  labs(title = "Discrete Color Scale", color = "Cylinders") +
+  theme_ekio()
+
+p_base + scale_color_ekio_d("contrast")
+```
+
+```{r}
+#| label: discrete-bar
+#| fig-height: 4
+#| fig-width: 8
+
+ggplot(mtcars, aes(factor(cyl), fill = factor(cyl))) +
+  geom_bar() +
+  labs(title = "Discrete Fill Scale: cool", x = "Cylinders", fill = "Cylinders") +
+  scale_fill_ekio_d("cool") +
+  theme_ekio()
+```
+
+## Continuous Scales
+
+```{r}
+#| label: continuous-scatter
+#| fig-height: 4
+#| fig-width: 8
+
+ggplot(mtcars, aes(wt, mpg, color = hp)) +
+  geom_point(size = 4) +
+  labs(title = "Continuous Color Scale: blue", color = "Horsepower") +
+  scale_color_ekio_c("blue") +
+  theme_ekio()
+```
+
+```{r}
+#| label: continuous-teal
+#| fig-height: 4
+#| fig-width: 8
+
+ggplot(mtcars, aes(wt, mpg, color = hp)) +
+  geom_point(size = 4) +
+  labs(title = "Continuous Color Scale: teal", color = "Horsepower") +
+  scale_color_ekio_c("teal") +
+  theme_ekio()
+```
+
+## Diverging Scales
+
+```{r}
+#| label: diverging-scatter
+#| fig-height: 4
+#| fig-width: 8
+
+# Create centered data
+df <- mtcars |>
+  mutate(mpg_centered = mpg - mean(mpg))
+
+ggplot(df, aes(wt, mpg_centered, color = mpg_centered)) +
+  geom_point(size = 4) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray50") +
+  labs(
+    title = "Diverging Color Scale: blue_orange",
+    color = "MPG (centered)",
+    y = "MPG (deviation from mean)"
+  ) +
+  scale_color_ekio_div("blue_orange") +
+  theme_ekio()
+```
+
+```{r}
+#| label: diverging-heatmap
+#| fig-height: 5
+#| fig-width: 8
+
+# Correlation heatmap
+cor_mat <- cor(mtcars[, c("mpg", "disp", "hp", "wt", "qsec")])
+cor_df <- as.data.frame(as.table(cor_mat))
+names(cor_df) <- c("Var1", "Var2", "Correlation")
+
+ggplot(cor_df, aes(Var1, Var2, fill = Correlation)) +
+  geom_tile(color = "white") +
+  geom_text(aes(label = round(Correlation, 2)), size = 3, color = "white") +
+  labs(title = "Correlation Heatmap with Diverging Scale") +
+  scale_fill_ekio_div("blue_red") +
+  theme_ekio(grid = "none") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+# Theme Variations
+
+## Grid Options
+
+```{r}
+#| label: theme-grid-y
+#| fig-height: 3.5
+#| fig-width: 6
+
+p <- ggplot(mtcars, aes(wt, mpg)) +
+  geom_point(color = ekio_accent["blue"], size = 3) +
+  labs(title = "grid = \"y\" (default)")
+
+p + theme_ekio(grid = "y")
+```
+
+```{r}
+#| label: theme-grid-x
+#| fig-height: 3.5
+#| fig-width: 6
+
+p + labs(title = "grid = \"x\"") + theme_ekio(grid = "x")
+```
+
+```{r}
+#| label: theme-grid-xy
+#| fig-height: 3.5
+#| fig-width: 6
+
+p + labs(title = "grid = \"xy\"") + theme_ekio(grid = "xy")
+```
+
+```{r}
+#| label: theme-grid-none
+#| fig-height: 3.5
+#| fig-width: 6
+
+p + labs(title = "grid = \"none\"") + theme_ekio(grid = "none")
+```
+
+## Theme Variants
+
+```{r}
+#| label: theme-presentation
+#| fig-height: 4
+#| fig-width: 8
+
+ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
+  geom_point(size = 4) +
+  scale_color_ekio_d("contrast") +
+  labs(
+    title = "Presentation Theme",
+    subtitle = "Larger text and margins for slides",
+    color = "Cylinders"
+  ) +
+  theme_ekio_presentation()
+```
+
+```{r}
+#| label: theme-map
+#| fig-height: 4
+#| fig-width: 6
+
+# Simulated map-like plot
+ggplot(mtcars, aes(wt, mpg, color = hp)) +
+  geom_point(size = 4) +
+  scale_color_ekio_c("blue") +
+  labs(title = "Map Theme (no axes)", color = "HP") +
+  theme_ekio_map()
+```
+
+# Recipe Functions
+
+## Histogram with Aesthetic Detection
+
+```{r}
+#| label: recipe-histogram-static
+#| fig-height: 4
+#| fig-width: 7
+
+# Static color
+ekio_histogram(mtcars, x = mpg, fill = "steelblue", title = "Static fill color")
+```
+
+```{r}
+#| label: recipe-histogram-variable
+#| fig-height: 4
+#| fig-width: 7
+
+# Variable mapping
+ekio_histogram(mtcars, x = mpg, fill = factor(cyl), title = "Fill by variable")
+```
+
+## Bar Plot
+
+```{r}
+#| label: recipe-barplot
+#| fig-height: 4
+#| fig-width: 7
+
+ekio_barplot(mtcars, x = factor(cyl), fill = factor(cyl), title = "Bar plot with EKIO palette")
+```
+
+## Scatter Plot
+
+```{r}
+#| label: recipe-scatter
+#| fig-height: 4
+#| fig-width: 7
+
+ekio_scatterplot(mtcars, x = wt, y = mpg, color = factor(cyl), title = "Scatter plot by group")
+```
+
+## Line Plot
+
+```{r}
+#| label: recipe-line
+#| fig-height: 4
+#| fig-width: 7
+
+# Create time series-like data
+df_line <- data.frame(
+  time = rep(1:10, 3),
+  value = c(cumsum(rnorm(10)), cumsum(rnorm(10)), cumsum(rnorm(10))),
+  group = rep(c("A", "B", "C"), each = 10)
+)
+
+ekio_lineplot(df_line, x = time, y = value, color = group, title = "Line plot by group")
+```
+
+# Color Scale Vectors
+
+```{r}
+#| label: color-vectors
+
+# Display ekio_blue
+cat("ekio_blue:\n")
+print(ekio_blue)
+
+# Display ekio_accent
+cat("\nekio_accent:\n")
+print(ekio_accent)
+```
+
+# Summary
+
+This document showcases all visual elements of ekioplot v2.0:
+
+- **Qualitative palettes**: `r length(list_ekio_palettes("qualitative"))` palettes for categorical data
+- **Sequential palettes**: `r length(list_ekio_palettes("sequential"))` palettes for continuous data
+- **Diverging palettes**: `r length(list_ekio_palettes("diverging"))` palettes for centered data
+- **External palettes**: `r length(list_external_palettes())` non-EKIO palettes for accessibility
+- **Theme variations**: `theme_ekio()` with grid options, plus `theme_ekio_presentation()` and `theme_ekio_map()`
+- **Recipe functions**: Smart aesthetic detection for intuitive plotting
