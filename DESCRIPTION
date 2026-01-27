@@ -1,9 +1,7 @@
 Package: ekioplot
 Type: Package
-Title: EKIO 
-Version: 0.1.0
-Author: EKIO Analytics [aut, cre], Vinicius Reginatto [aut]
-Maintainer: EKIO Analytics <contact@ekio.com>
+Title: EKIO Visual Identity System for R Data Visualization
+Version: 2.0.0
 Authors@R: c(
     person(
       "EKIO", "Analytics",
@@ -11,35 +9,29 @@ Authors@R: c(
       role = c("aut", "cre")
     ),
     person(
-      "Reginatto", "Vinicius",
+      "Vinicius", "Reginatto",
       email = "vreginatto@ekio.com",
       role = c("aut")
     )
   )
-Description: A comprehensive R package implementing EKIO's visual identity
-    in a ggplot2 framework. Following principles of clarity, purposeful color
-    usage and professional presentation standards for economic and business 
-    analysis.
+Description: Comprehensive implementation of EKIO's visual identity system for
+    data visualization. Provides professional themes, color palettes, and scale
+    functions for ggplot2. Includes qualitative, sequential, and diverging
+    palettes optimized for consulting deliverables.
 License: MIT + file LICENSE
 Depends: R (>= 4.1.0)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.2
-Imports: 
+Imports:
     cli,
     dplyr,
-    extrafont,
-    ggbump,
     ggplot2 (>= 3.5.0),
-    ggridges,
+    grDevices,
     gt,
     rlang,
-    scales,
-    showtext,
-    sysfonts,
-    tidyr
+    scales
 Suggests:
-    hexbin,
     testthat (>= 3.0.0)
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
