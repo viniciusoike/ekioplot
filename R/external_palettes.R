@@ -92,14 +92,7 @@ external_pal <- function(palette = "okabe_ito", n = NULL, reverse = FALSE) {
   )
 
   pal <- palettes[[palette]]
-
-  if (is.null(pal)) {
-    cli::cli_abort(c(
-      "External palette {.val {palette}} not found.",
-      "i" = "Available external palettes: {.val {names(palettes)}}",
-      "i" = "For EKIO palettes, use {.fn ekio_pal}, {.fn ekio_seq_pal}, or {.fn ekio_div_pal}"
-    ))
-  }
+  .validate_palette(pal, palette, names(palettes), prefix = "External ")
 
   if (reverse) pal <- rev(pal)
   if (!is.null(n)) {

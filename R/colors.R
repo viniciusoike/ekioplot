@@ -116,6 +116,27 @@ ekio_accent <- c(
   gray   = "#718096"
 )
 
+# ---- Internal Helper ----
+
+#' Validate Palette Exists
+#'
+#' @param pal The palette value (possibly NULL if not found)
+#' @param palette_name Name requested by user
+#' @param available Character vector of available palette names
+#' @param prefix Optional prefix for error message (e.g., "Sequential ", "External ")
+#' @return The palette (invisibly) if valid
+#' @keywords internal
+#' @noRd
+.validate_palette <- function(pal, palette_name, available, prefix = "") {
+  if (is.null(pal)) {
+    cli::cli_abort(c(
+      "{prefix}palette {.val {palette_name}} not found.",
+      "i" = "Available: {.val {available}}"
+    ))
+  }
+  invisible(pal)
+}
+
 # ---- Qualitative Palette Function ----
 
 #' Get EKIO Qualitative Palette
@@ -172,13 +193,7 @@ ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
   )
 
   pal <- palettes[[palette]]
-
-  if (is.null(pal)) {
-    cli::cli_abort(c(
-      "Palette {.val {palette}} not found.",
-      "i" = "Available palettes: {.val {names(palettes)}}"
-    ))
-  }
+  .validate_palette(pal, palette, names(palettes))
 
   if (reverse) pal <- rev(pal)
   if (!is.null(n)) pal <- pal[seq_len(min(n, length(pal)))]
@@ -232,13 +247,7 @@ ekio_seq_pal <- function(palette = "blue", n = 9, reverse = FALSE) {
   )
 
   pal <- palettes[[palette]]
-
-  if (is.null(pal)) {
-    cli::cli_abort(c(
-      "Sequential palette {.val {palette}} not found.",
-      "i" = "Available palettes: {.val {names(palettes)}}"
-    ))
-  }
+  .validate_palette(pal, palette, names(palettes), prefix = "Sequential ")
 
   if (reverse) pal <- rev(pal)
 
@@ -290,13 +299,7 @@ ekio_div_pal <- function(palette = "blue_orange", n = 7, reverse = FALSE) {
   )
 
   pal <- palettes[[palette]]
-
-  if (is.null(pal)) {
-    cli::cli_abort(c(
-      "Diverging palette {.val {palette}} not found.",
-      "i" = "Available palettes: {.val {names(palettes)}}"
-    ))
-  }
+  .validate_palette(pal, palette, names(palettes), prefix = "Diverging ")
 
   if (reverse) pal <- rev(pal)
 

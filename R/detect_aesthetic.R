@@ -52,12 +52,9 @@ detect_aesthetic_type <- function(quo, param_name = "parameter", data = NULL) {
     if (is_valid_color(expr)) {
       return(list(type = "static_color", value = expr))
     } else {
-      cli::cli_abort(c(
-        "{.arg {param_name}} = {.val {expr}} is not a valid color",
-        "i" = "Use a bare column name for variable mapping: {.code {param_name} = column_name}",
-        "i" = "Or use a valid color name/hex code: {.code {param_name} = \"blue\"}",
-        "i" = "See {.code colors()} for valid color names"
-      ))
+      cli::cli_abort(
+        "{.val {expr}} is not a valid color. Use a column name or valid color string."
+      )
     }
   }
 

@@ -1,3 +1,12 @@
+# =============================================================================
+# DEPRECATED PROTOTYPE - Moved from R/ on 2026-01-27
+# =============================================================================
+# These functions use outdated APIs (ekio_palette, theme_style = "modern_premium")
+# and are NOT compatible with v2.0.
+#
+# Kept for reference only. See R/ekio_recipes.R for the production API.
+# =============================================================================
+#
 # EKIO Advanced Recipe Functions (Testing - Not Exported)
 # Additional visualization functions in development
 
