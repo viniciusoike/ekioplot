@@ -21,7 +21,7 @@
 #' @seealso \code{\link{ekio_pal}} for available palettes,
 #'   \code{\link{scale_fill_ekio_d}} for fill aesthetic
 #'
-#' @examples
+#' @examplesIf rlang::is_interactive()
 #' library(ggplot2)
 #'
 #' # Default contrast palette
@@ -79,7 +79,7 @@ scale_fill_ekio_d <- function(palette = "contrast", reverse = FALSE, ...) {
 #' @seealso \code{\link{ekio_seq_pal}} for available palettes,
 #'   \code{\link{scale_fill_ekio_c}} for fill aesthetic
 #'
-#' @examples
+#' @examplesIf rlang::is_interactive()
 #' library(ggplot2)
 #'
 #' # Blue sequential for continuous variable
@@ -135,7 +135,7 @@ scale_fill_ekio_c <- function(palette = "blue", reverse = FALSE, ...) {
 #' @seealso \code{\link{ekio_div_pal}} for available palettes,
 #'   \code{\link{scale_fill_ekio_div}} for fill aesthetic
 #'
-#' @examples
+#' @examplesIf rlang::is_interactive()
 #' library(ggplot2)
 #'
 #' # Create data with positive/negative values

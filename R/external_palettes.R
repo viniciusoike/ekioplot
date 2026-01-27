@@ -140,7 +140,7 @@ list_external_palettes <- function() {
 #'
 #' @note This is NOT an EKIO palette. Use for accessibility requirements only.
 #'
-#' @examples
+#' @examplesIf rlang::is_interactive()
 #' library(ggplot2)
 #' ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 #'   geom_point() +
@@ -167,71 +167,3 @@ scale_fill_okabe_ito <- function(reverse = FALSE, ...) {
   )
 }
 
-#' Viridis Color Scales
-#'
-#' Discrete and continuous scales using the viridis perceptually uniform palette.
-#' Good choice for heatmaps and sequential data.
-#'
-#' @param reverse Logical. If TRUE, reverses the palette order.
-#' @param ... Additional arguments passed to scale functions
-#'
-#' @return A ggplot2 scale object
-#' @export
-#'
-#' @note This is NOT an EKIO palette. For brand consistency, use
-#'   \code{scale_color_ekio_c("blue")} instead.
-#'
-#' @examples
-#' library(ggplot2)
-#' # Discrete
-#' ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
-#'   geom_point() +
-#'   scale_color_viridis_d()
-#'
-#' # Continuous
-#' ggplot(mtcars, aes(wt, mpg, color = hp)) +
-#'   geom_point() +
-#'   scale_color_viridis_c()
-scale_color_viridis_d <- function(reverse = FALSE, ...) {
-  ggplot2::discrete_scale(
-    aesthetics = "colour",
-    palette = function(n) external_pal("viridis", n, reverse),
-    ...
-  )
-}
-
-#' @rdname scale_color_viridis_d
-#' @export
-scale_colour_viridis_d <- scale_color_viridis_d
-
-#' @rdname scale_color_viridis_d
-#' @export
-scale_fill_viridis_d <- function(reverse = FALSE, ...) {
-  ggplot2::discrete_scale(
-    aesthetics = "fill",
-    palette = function(n) external_pal("viridis", n, reverse),
-    ...
-  )
-}
-
-#' @rdname scale_color_viridis_d
-#' @export
-scale_color_viridis_c <- function(reverse = FALSE, ...) {
-  ggplot2::scale_color_gradientn(
-    colours = external_pal("viridis", n = 9, reverse = reverse),
-    ...
-  )
-}
-
-#' @rdname scale_color_viridis_d
-#' @export
-scale_colour_viridis_c <- scale_color_viridis_c
-
-#' @rdname scale_color_viridis_d
-#' @export
-scale_fill_viridis_c <- function(reverse = FALSE, ...) {
-  ggplot2::scale_fill_gradientn(
-    colours = external_pal("viridis", n = 9, reverse = reverse),
-    ...
-  )
-}

@@ -19,7 +19,7 @@
 #' @return A ggplot2 object (invisibly)
 #' @export
 #'
-#' @examples
+#' @examplesIf rlang::is_interactive()
 #' # Qualitative palette
 #' show_ekio_palette("contrast")
 #'

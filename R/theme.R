@@ -21,7 +21,7 @@
 #' @return A ggplot2 theme object
 #' @export
 #'
-#' @examples
+#' @examplesIf rlang::is_interactive()
 #' library(ggplot2)
 #'
 #' # Basic usage
@@ -187,7 +187,7 @@ theme_ekio_map <- function(base_size = 11, base_family = "") {
 #' @return A ggplot2 theme object
 #' @export
 #'
-#' @examples
+#' @examplesIf rlang::is_interactive()
 #' library(ggplot2)
 #'
 #' ggplot(mtcars, aes(wt, mpg)) +
