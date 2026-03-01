@@ -65,7 +65,9 @@ ekio_histogram <- function(
   warn_palette_ignored(fill_type, palette, "fill")
 
   # Default palette
-  if (is.null(palette)) palette <- "contrast"
+  if (is.null(palette)) {
+    palette <- "contrast"
+  }
 
   # Extract x values for bin calculation
   x_values <- data[[rlang::as_name(x_var)]]
@@ -132,7 +134,9 @@ ekio_histogram <- function(
 
   # Add scales and theme
   p <- p +
-    ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05))) +
+    ggplot2::scale_y_continuous(
+      expand = ggplot2::expansion(mult = c(0, 0.05))
+    ) +
     theme_ekio(grid = "y")
 
   p
@@ -179,7 +183,9 @@ ekio_lineplot <- function(
   color_type <- detect_aesthetic_type(color_quo, "color", data)
   warn_palette_ignored(color_type, palette, "color")
 
-  if (is.null(palette)) palette <- "contrast"
+  if (is.null(palette)) {
+    palette <- "contrast"
+  }
 
   # Build plot
   if (color_type$type == "missing") {
@@ -189,7 +195,10 @@ ekio_lineplot <- function(
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
       ggplot2::geom_line(color = color_type$value, linewidth = line_width, ...)
   } else {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var, color = {{ color }})) +
+    p <- ggplot2::ggplot(
+      data,
+      ggplot2::aes(x = !!x_var, y = !!y_var, color = {{ color }})
+    ) +
       ggplot2::geom_line(linewidth = line_width, ...)
 
     if (color_type$is_continuous) {
@@ -204,7 +213,9 @@ ekio_lineplot <- function(
   }
 
   p <- p +
-    ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05))) +
+    ggplot2::scale_y_continuous(
+      expand = ggplot2::expansion(mult = c(0, 0.05))
+    ) +
     theme_ekio()
 
   p
@@ -263,7 +274,9 @@ ekio_scatterplot <- function(
   color_type <- detect_aesthetic_type(color_quo, "color", data)
   warn_palette_ignored(color_type, palette, "color")
 
-  if (is.null(palette)) palette <- "contrast"
+  if (is.null(palette)) {
+    palette <- "contrast"
+  }
 
   has_size <- !rlang::quo_is_null(size_var)
 
@@ -286,7 +299,10 @@ ekio_scatterplot <- function(
         ...
       )
   } else if (color_type$type == "variable_mapping" && !has_size) {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var, color = {{ color }})) +
+    p <- ggplot2::ggplot(
+      data,
+      ggplot2::aes(x = !!x_var, y = !!y_var, color = {{ color }})
+    ) +
       ggplot2::geom_point(size = point_size, alpha = point_alpha, ...)
 
     if (color_type$is_continuous) {
@@ -297,15 +313,26 @@ ekio_scatterplot <- function(
   } else {
     # Has size mapping - build appropriately
     if (color_type$type == "missing") {
-      p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var, size = !!size_var)) +
+      p <- ggplot2::ggplot(
+        data,
+        ggplot2::aes(x = !!x_var, y = !!y_var, size = !!size_var)
+      ) +
         ggplot2::geom_point(color = ekio_blue["700"], alpha = point_alpha, ...)
     } else if (color_type$type == "static_color") {
-      p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var, size = !!size_var)) +
+      p <- ggplot2::ggplot(
+        data,
+        ggplot2::aes(x = !!x_var, y = !!y_var, size = !!size_var)
+      ) +
         ggplot2::geom_point(color = color_type$value, alpha = point_alpha, ...)
     } else {
       p <- ggplot2::ggplot(
         data,
-        ggplot2::aes(x = !!x_var, y = !!y_var, color = {{ color }}, size = !!size_var)
+        ggplot2::aes(
+          x = !!x_var,
+          y = !!y_var,
+          color = {{ color }},
+          size = !!size_var
+        )
       ) +
         ggplot2::geom_point(alpha = point_alpha, ...)
 
@@ -322,12 +349,13 @@ ekio_scatterplot <- function(
   }
 
   if (add_smooth) {
-    p <- p + ggplot2::geom_smooth(
-      method = smooth_method,
-      se = FALSE,
-      color = ekio_gray["700"],
-      linewidth = 1
-    )
+    p <- p +
+      ggplot2::geom_smooth(
+        method = smooth_method,
+        se = FALSE,
+        color = ekio_gray["700"],
+        linewidth = 1
+      )
   }
 
   p <- p + theme_ekio(grid = "xy")
@@ -382,7 +410,9 @@ ekio_barplot <- function(
   fill_type <- detect_aesthetic_type(fill_quo, "fill", data)
   warn_palette_ignored(fill_type, palette, "fill")
 
-  if (is.null(palette)) palette <- "contrast"
+  if (is.null(palette)) {
+    palette <- "contrast"
+  }
 
   # Build plot
   if (fill_type$type == "missing") {
@@ -392,7 +422,10 @@ ekio_barplot <- function(
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
       ggplot2::geom_col(fill = fill_type$value, width = bar_width, ...)
   } else {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var, fill = {{ fill }})) +
+    p <- ggplot2::ggplot(
+      data,
+      ggplot2::aes(x = !!x_var, y = !!y_var, fill = {{ fill }})
+    ) +
       ggplot2::geom_col(width = bar_width, ...) +
       scale_fill_ekio_d(palette = palette)
   }
@@ -410,7 +443,9 @@ ekio_barplot <- function(
   }
 
   p <- p +
-    ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05))) +
+    ggplot2::scale_y_continuous(
+      expand = ggplot2::expansion(mult = c(0, 0.05))
+    ) +
     theme_ekio(grid = "y")
 
   p
