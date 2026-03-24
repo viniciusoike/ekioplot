@@ -2,27 +2,20 @@
 % Please edit documentation in R/theme.R
 \name{theme_ekio_map}
 \alias{theme_ekio_map}
-\title{EKIO Map Theme}
+\title{Apply EKIO Map Theme to ggplot2 Plots}
 \usage{
 theme_ekio_map(base_size = 11, base_family = "")
 }
 \arguments{
-\item{base_size}{Numeric. Base font size (default: 11)}
+\item{base_size}{Numeric. Base font size in points (default: 11)}
 
-\item{base_family}{Character. Base font family. If empty string (default),
-uses system default with platform-specific detection.}
+\item{base_family}{Character. Font family. Defaults to the platform-appropriate
+EKIO font via \code{.get_ekio_font()}.}
 }
 \value{
 A ggplot2 theme object
 }
 \description{
-Variant of \code{\link[=theme_ekio]{theme_ekio()}} optimized for maps and spatial visualizations.
-}
-\examples{
-\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
-library(ggplot2)
-ggplot(mtcars, aes(wt, mpg)) +
-  geom_point() +
-  theme_ekio_map()
-\dontshow{\}) # examplesIf}
+A variant of \code{\link[=theme_ekio]{theme_ekio()}} with axes and grid removed, suited for
+choropleth and spatial maps.
 }

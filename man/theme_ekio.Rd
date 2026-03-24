@@ -2,30 +2,23 @@
 % Please edit documentation in R/theme.R
 \name{theme_ekio}
 \alias{theme_ekio}
-\title{EKIO Theme for ggplot2}
+\title{Apply EKIO Theme to ggplot2 Plots}
 \usage{
 theme_ekio(base_size = 11, base_family = "", grid = "y")
 }
 \arguments{
-\item{base_size}{Numeric. Base font size (default: 11)}
+\item{base_size}{Numeric. Base font size in points (default: 11)}
 
-\item{base_family}{Character. Base font family. If empty string (default),
-uses system default with platform-specific detection.}
+\item{base_family}{Character. Font family. Defaults to the platform-appropriate
+EKIO font via \code{.get_ekio_font()}.}
 
-\item{grid}{Character. Grid lines to display:
-"y" (default), "x", "xy", or "none".}
+\item{grid}{Character. Which major grid lines to show: \code{"y"} (default),
+\code{"x"}, \code{"xy"}, or \code{"none"}.}
 }
 \value{
 A ggplot2 theme object
 }
 \description{
-A professional, minimal theme optimized for consulting deliverables.
-}
-\examples{
-\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
-library(ggplot2)
-ggplot(mtcars, aes(wt, mpg)) +
-  geom_point() +
-  theme_ekio()
-\dontshow{\}) # examplesIf}
+A minimal, professional theme for EKIO visualizations built on
+\code{\link[ggplot2:ggtheme]{ggplot2::theme_minimal()}}.
 }
