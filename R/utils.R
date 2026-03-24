@@ -8,3 +8,6 @@
 #' @importFrom stats na.omit
 #' @importFrom cli cli_abort cli_warn cli_alert_info cli_h1 cli_h2 cli_text
 NULL
+
+# Suppress R CMD check notes for ggplot2 aes() column names
+utils::globalVariables(c("x", "color"))
