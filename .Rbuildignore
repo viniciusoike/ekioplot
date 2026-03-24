@@ -5,3 +5,8 @@
 ^prototypes$
 ^\.claude$
 ^CLAUDE\.md$
+^\.positai$
+^claude$
+^logs$
+^palette_catalogue\.R$
+^palette_proposals\.html$
