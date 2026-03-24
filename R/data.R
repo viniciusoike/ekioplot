@@ -287,3 +287,31 @@
 #' str(brazil_agriculture_states)
 #' }
 "brazil_agriculture_states"
+
+#' Global Fuel Consumption by Source
+#'
+#' Historical primary energy consumption data by fuel type and entity,
+#' spanning from 1800 to the present.
+#'
+#' @format A tibble with 4 variables:
+#' \describe{
+#'   \item{entity}{Country, region, or aggregated group name (character)}
+#'   \item{year}{Year of observation (numeric)}
+#'   \item{fuel}{Fuel type: \code{"gas"}, \code{"oil"}, or \code{"coal"} (character)}
+#'   \item{consumption_gwh}{Primary energy consumption in gigawatt-hours (numeric)}
+#' }
+#'
+#' @source Our World in Data — Energy
+#' \url{https://ourworldindata.org/energy}
+#'
+#' @examples
+#' \dontrun{
+#' data(fuels)
+#'
+#' # Global consumption over time by fuel type
+#' fuels |>
+#'   dplyr::filter(entity == "World") |>
+#'   ggplot2::ggplot(ggplot2::aes(year, consumption_gwh, color = fuel)) +
+#'   ggplot2::geom_line()
+#' }
+"fuels"
