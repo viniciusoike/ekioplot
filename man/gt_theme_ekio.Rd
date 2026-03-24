@@ -4,7 +4,13 @@
 \alias{gt_theme_ekio}
 \title{Apply EKIO Theme to GT Tables}
 \usage{
-gt_theme_ekio(data, table_width = "100\%", font_size = 14, add_footer = TRUE)
+gt_theme_ekio(
+  data,
+  table_width = "100\%",
+  font_size = 14,
+  stripe = TRUE,
+  add_footer = TRUE
+)
 }
 \arguments{
 \item{data}{A gt table object}
@@ -12,6 +18,8 @@ gt_theme_ekio(data, table_width = "100\%", font_size = 14, add_footer = TRUE)
 \item{table_width}{Character. Width of the table (default: "100\%")}
 
 \item{font_size}{Numeric. Base font size in pixels (default: 14)}
+
+\item{stripe}{Logical. Apply alternating row striping (default: TRUE)}
 
 \item{add_footer}{Logical. Add automatic EKIO footer (default: TRUE)}
 }
