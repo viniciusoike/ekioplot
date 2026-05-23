@@ -1,20 +1,14 @@
 Package: ekioplot
 Type: Package
 Title: EKIO Visual Identity System for R Data Visualization
-Version: 3.0.0
-Authors@R: c(
+Version: 0.1.0
+Authors@R:
     person(
-      "EKIO", "Analytics",
-      email = "contact@ekio.com",
-      role = c("aut", "cre")
-    ),
-    person(
-      "Vinicius", "Reginatto",
-      email = "vreginatto@ekio.com",
-      role = c("aut")
+      "Vinicius", "Oike",
+      email = "viniciusor@ekio.io",
+      role = c("aut", "cre", "cph")
     )
-  )
-Description: Lean implementation of EKIO's visual identity for data visualization.
+Description: A ggplot2 implementation of EKIO's visual identity for data visualization.
     Professional themes, curated color palettes, and scale functions for ggplot2
     and gt tables. Includes high-level recipe functions for common chart types.
 License: MIT + file LICENSE
