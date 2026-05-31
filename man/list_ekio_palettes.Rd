@@ -8,7 +8,8 @@ list_ekio_palettes(type = "all")
 }
 \arguments{
 \item{type}{Character. Type of palettes to list:
-"categorical", "small_group", "scientific", "sequential", or "all" (default).}
+"categorical", "small_group", "scientific", "sequential", "diverging",
+or "all" (default).}
 }
 \value{
 Character vector of palette names, or named list if type = "all"
@@ -19,4 +20,5 @@ Returns names of all available palettes, optionally filtered by type.
 \examples{
 list_ekio_palettes()
 list_ekio_palettes("categorical")
+list_ekio_palettes("diverging")
 }

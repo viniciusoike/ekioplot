@@ -60,6 +60,19 @@ test_that("all sequential palettes work in continuous scales", {
   }
 })
 
+test_that("all diverging palettes work in continuous scales", {
+  skip_if_not_installed("ggplot2")
+  library(ggplot2)
+
+  div_palettes <- list_ekio_palettes("diverging")
+  for (pal in div_palettes) {
+    p <- ggplot(mtcars, aes(x = wt, y = mpg, color = hp)) +
+      geom_point() +
+      scale_color_ekio_c(pal)
+    expect_no_error(ggplot_build(p))
+  }
+})
+
 test_that("scale reverse parameter works", {
   skip_if_not_installed("ggplot2")
   library(ggplot2)

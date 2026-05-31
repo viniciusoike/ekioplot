@@ -13,10 +13,11 @@ scale_colour_ekio_c(palette = "blue", reverse = FALSE, ...)
 scale_fill_ekio_c(palette = "blue", reverse = FALSE, ...)
 }
 \arguments{
-\item{palette}{Character. Sequential palette name (default: "blue").
-Options: "blue", "teal", "gray", "orange".}
+\item{palette}{Character. Palette name (default: "blue").
+See \code{list_ekio_palettes("sequential")} and \code{list_ekio_palettes("diverging")}
+for options.}
 
-\item{reverse}{Logical. If TRUE, reverses light-to-dark order.}
+\item{reverse}{Logical. If TRUE, reverses the color order.}
 
 \item{...}{Additional arguments passed to \code{\link[ggplot2:scale_gradient]{ggplot2::scale_color_gradientn()}}}
 }
@@ -24,8 +25,7 @@ Options: "blue", "teal", "gray", "orange".}
 A ggplot2 scale object
 }
 \description{
-Apply sequential palettes to continuous/ordered data.
-Uses internal sequential definitions (blue, teal, gray, orange).
+Apply sequential or diverging palettes to continuous/numeric data.
 }
 \examples{
 \dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
@@ -33,8 +33,12 @@ library(ggplot2)
 ggplot(mtcars, aes(wt, mpg, color = hp)) +
   geom_point(size = 3) +
   scale_color_ekio_c()
+
+ggplot(mtcars, aes(wt, mpg, color = hp)) +
+  geom_point(size = 3) +
+  scale_color_ekio_c("purple")
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-\code{\link[=scale_fill_ekio_c]{scale_fill_ekio_c()}}
+\code{\link[=scale_fill_ekio_c]{scale_fill_ekio_c()}}, \code{\link[=list_ekio_palettes]{list_ekio_palettes()}}
 }
