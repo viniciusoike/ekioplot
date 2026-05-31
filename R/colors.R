@@ -125,6 +125,42 @@ ekio_accent <- c(
   orange = c(
     "#FFFAF0", "#FEEBC8", "#FBD38D", "#F6AD55", "#ED8936",
     "#DD6B20", "#C05621", "#9C4221", "#7B341E"
+  ),
+  purple = c(
+    "#FAF5FF", "#E9D8FD", "#D6BCFA", "#B794F4", "#9F7AEA",
+    "#805AD5", "#6B46C1", "#553C9A", "#44337A"
+  ),
+  red = c(
+    "#FFF5F5", "#FED7D7", "#FEB2B2", "#FC8181", "#F56565",
+    "#E53E3E", "#C53030", "#9B2C2C", "#742A2A"
+  ),
+  green = c(
+    "#F0FFF4", "#C6F6D5", "#9AE6B4", "#68D391", "#48BB78",
+    "#38A169", "#2F855A", "#276749", "#22543D"
+  ),
+  amber = c(
+    "#FFFFF0", "#FEFCBF", "#FAF089", "#F6E05E", "#ECC94B",
+    "#D69E2E", "#B7791F", "#975A16", "#744210"
+  )
+)
+
+# ---- Internal Diverging Palettes ----
+
+.div_palettes <- list(
+  blue_orange = c(
+    "#0D1B2A", "#1E3A5F", "#3A6EA5", "#7EB6D8", "#D4E8F5",
+    "#F5F0EB",
+    "#FEEBC8", "#F6AD55", "#DD6B20", "#9C4221", "#7B341E"
+  ),
+  blue_red = c(
+    "#0D1B2A", "#1E3A5F", "#3A6EA5", "#7EB6D8", "#D4E8F5",
+    "#F5F0F0",
+    "#FED7D7", "#FC8181", "#E53E3E", "#C53030", "#742A2A"
+  ),
+  teal_orange = c(
+    "#234E52", "#2C7A7B", "#38B2AC", "#81E6D9", "#E6FFFA",
+    "#F5F0EB",
+    "#FEEBC8", "#F6AD55", "#DD6B20", "#9C4221", "#7B341E"
   )
 )
 
@@ -202,8 +238,9 @@ ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
     )
   )
 
-  pal <- palettes[[palette]]
-  .validate_palette(pal, palette, names(palettes))
+  pal <- palettes[[palette]] %||% .seq_palettes[[palette]] %||% .div_palettes[[palette]]
+  all_names <- c(names(palettes), names(.seq_palettes), names(.div_palettes))
+  .validate_palette(pal, palette, all_names)
 
   if (reverse) pal <- rev(pal)
 
@@ -225,7 +262,8 @@ ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
 #' Returns names of all available palettes, optionally filtered by type.
 #'
 #' @param type Character. Type of palettes to list:
-#'   "categorical", "small_group", "scientific", "sequential", or "all" (default).
+#'   "categorical", "small_group", "scientific", "sequential", "diverging",
+#'   or "all" (default).
 #'
 #' @return Character vector of palette names, or named list if type = "all"
 #' @export
@@ -233,22 +271,26 @@ ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
 #' @examples
 #' list_ekio_palettes()
 #' list_ekio_palettes("categorical")
+#' list_ekio_palettes("diverging")
 list_ekio_palettes <- function(type = "all") {
   categorical <- c("cool", "minimal", "contrast", "full", "muted", "binary", "political")
   small_group <- c("duo_warm", "duo_cool", "trio_bold", "trio_cool", "quad_earth", "quad_vivid")
   scientific  <- c("okabe_ito", "viridis", "inferno", "plasma")
   sequential  <- names(.seq_palettes)
+  diverging   <- names(.div_palettes)
 
   switch(type,
     categorical = categorical,
     small_group = small_group,
     scientific  = scientific,
     sequential  = sequential,
+    diverging   = diverging,
     all = list(
       categorical = categorical,
       small_group = small_group,
       scientific  = scientific,
-      sequential  = sequential
+      sequential  = sequential,
+      diverging   = diverging
     )
   )
 }
@@ -331,6 +373,9 @@ show_all_ekio_palettes <- function() {
 
   cli::cli_h2("Sequential (for continuous scales)")
   cli::cli_text("{.val {palettes$sequential}}")
+
+  cli::cli_h2("Diverging (for continuous scales)")
+  cli::cli_text("{.val {palettes$diverging}}")
 
   cli::cli_text("")
   cli::cli_alert_info("Use {.code show_ekio_palette(\"name\")} to visualize")
