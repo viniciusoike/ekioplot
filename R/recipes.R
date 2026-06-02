@@ -325,3 +325,72 @@ ekio_barplot <- function(
   p + ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05))) +
     theme_ekio(grid = "y")
 }
+
+#' EKIO Area Plot
+#'
+#' Professional area plot with smart aesthetic detection. Supports stacked
+#' and filled (proportional) area charts.
+#'
+#' @param data A data frame
+#' @param x X-axis variable (supports data-masking)
+#' @param y Y-axis variable (supports data-masking)
+#' @param fill Fill aesthetic. A color string or variable name.
+#' @param palette Character. Palette name for variable mappings.
+#' @param position Character. Stacking method: `"stack"` (default) or
+#'   `"fill"` for proportional areas.
+#' @param alpha Numeric. Fill transparency (default: 0.8).
+#' @param add_zero Logical. Add horizontal line at y=0 (default: TRUE).
+#' @param ... Additional arguments passed to [ggplot2::geom_area()]
+#'
+#' @return ggplot2 object
+#' @export
+#'
+#' @examplesIf rlang::is_interactive()
+#' ekio_areaplot(ggplot2::economics, date, unemploy)
+#'
+#' # Stacked area with groups
+#' data(fuels)
+#' world_fuels <- fuels[fuels$entity == "World" & fuels$year >= 1950, ]
+#' ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel)
+ekio_areaplot <- function(
+  data, x, y, fill = NULL, palette = NULL,
+  position = "stack", alpha = 0.8, add_zero = TRUE, ...
+) {
+  if (!is.data.frame(data)) cli::cli_abort("{.arg data} must be a data frame")
+
+  x_var <- rlang::enquo(x)
+  y_var <- rlang::enquo(y)
+  fill_quo <- rlang::enquo(fill)
+
+  fill_type <- .detect_aesthetic_type(fill_quo, "fill", data)
+  .warn_palette_ignored(fill_type, palette, "fill")
+  if (is.null(palette)) palette <- "contrast"
+
+  if (fill_type$type == "missing") {
+    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
+      ggplot2::geom_area(
+        fill = ekio_blue["700"], alpha = alpha, ...
+      )
+  } else if (fill_type$type == "static_color") {
+    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
+      ggplot2::geom_area(
+        fill = fill_type$value, alpha = alpha, ...
+      )
+  } else {
+    p <- ggplot2::ggplot(
+      data,
+      ggplot2::aes(x = !!x_var, y = !!y_var, fill = {{ fill }})
+    ) +
+      ggplot2::geom_area(position = position, alpha = alpha, ...)
+    if (fill_type$is_continuous) {
+      p <- p + scale_fill_ekio_c(palette = palette)
+    } else {
+      p <- p + scale_fill_ekio_d(palette = palette)
+    }
+  }
+
+  if (add_zero) p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
+
+  p + ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05))) +
+    theme_ekio()
+}
