@@ -5,7 +5,7 @@
 \alias{ips_brasil}
 \title{IPS Brasil 2025 - Social Progress Index for Brazilian Municipalities}
 \format{
-A data frame with 200 rows (25 municipalities � 8 measures) and 8 variables:
+A data frame with 200 rows (25 municipalities x 8 measures) and 8 variables:
 \describe{
 \item{codigo_ibge}{IBGE municipality code (numeric)}
 \item{municipio}{Municipality name (character)}
@@ -15,7 +15,7 @@ A data frame with 200 rows (25 municipalities � 8 measures) and 8 variables:
 \item{rank}{Ranking position among the 25 municipalities for each measure (1-25, numeric)}
 \item{highlight}{Municipality name if it's one of the 7 highlighted cities, empty string otherwise (character)}
 \item{is_highlight}{Factor indicating if municipality is highlighted (0 or 1)}
-\item{rank_labels}{Formatted rank labels showing only positions 1, 5, 10, 15, 20, 25 with "�" suffix (character)}
+\item{rank_labels}{Formatted rank labels showing only positions 1, 5, 10, 15, 20, 25 with ordinal suffix (character)}
 }
 }
 \source{
@@ -53,7 +53,7 @@ rankings across 8 key social progress indicators:
 
 \strong{Highlighted municipalities} (7 cities with special focus):
 The dataset highlights 7 specific municipalities for comparison purposes:
-S�o Paulo (SP), Bras�lia (DF), Rio de Janeiro (RJ), Bel�m (PA),
+Sao Paulo (SP), Brasilia (DF), Rio de Janeiro (RJ), Belem (PA),
 Porto Alegre (RS), Fortaleza (CE), and Recife (PE).
 
 \strong{Data transformation}:
