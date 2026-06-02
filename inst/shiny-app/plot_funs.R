@@ -598,3 +598,73 @@ plot_mini_scatter <- function(df, colors) {
     theme_ekio(grid = "xy") +
     theme(legend.position = "none")
 }
+
+# ---- Continuous palette plots ----
+
+plot_heatmap <- function(colors) {
+  vol_df <- expand.grid(
+    x = seq_len(nrow(volcano)),
+    y = seq_len(ncol(volcano))
+  )
+  vol_df$z <- as.vector(volcano)
+
+  ggplot(vol_df, aes(x, y, fill = z)) +
+    geom_raster() +
+    scale_fill_gradientn(colours = colors) +
+    coord_fixed() +
+    labs(title = "Continuous fill (volcano)", x = NULL, y = NULL, fill = "Height") +
+    theme_ekio(grid = "none") +
+    theme(axis.text = element_blank())
+}
+
+plot_gradient_scatter <- function(df, colors) {
+  ggplot(df, aes(wt, mpg, color = hp)) +
+    geom_point(size = 3) +
+    scale_color_gradientn(colours = colors) +
+    labs(
+      title = "Gradient scatter",
+      x = "Weight", y = "MPG", color = "Horsepower"
+    ) +
+    theme_ekio(grid = "xy")
+}
+
+plot_diverging_bar <- function(colors) {
+  df <- mtcars |>
+    tibble::rownames_to_column("car") |>
+    dplyr::mutate(
+      mpg_z = (mpg - mean(mpg)) / sd(mpg),
+      car = forcats::fct_reorder(car, mpg_z)
+    ) |>
+    dplyr::slice_max(abs(mpg_z), n = 20)
+
+  ggplot(df, aes(x = car, y = mpg_z, fill = mpg_z)) +
+    geom_col(width = 0.7) +
+    scale_fill_gradientn(colours = colors, limits = c(-2.5, 2.5)) +
+    geom_hline(yintercept = 0, linewidth = 0.3) +
+    coord_flip() +
+    labs(
+      title = "Diverging bar (MPG z-scores)",
+      x = NULL, y = "Standard deviations from mean", fill = "z"
+    ) +
+    theme_ekio()
+}
+
+plot_correlation <- function(colors) {
+  vars <- c("mpg", "cyl", "disp", "hp", "wt", "qsec")
+  cor_mat <- cor(mtcars[, vars])
+
+  df <- expand.grid(
+    x = factor(vars, levels = vars),
+    y = factor(vars, levels = rev(vars))
+  )
+  df$value <- as.vector(cor_mat[, rev(vars)])
+
+  ggplot(df, aes(x, y, fill = value)) +
+    geom_tile(color = "white", linewidth = 1) +
+    geom_text(aes(label = round(value, 2)), size = 3) +
+    scale_fill_gradientn(colours = colors, limits = c(-1, 1)) +
+    coord_fixed() +
+    labs(title = "Correlation matrix", x = NULL, y = NULL, fill = "r") +
+    theme_ekio(grid = "none") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+}

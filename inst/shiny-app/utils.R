@@ -11,17 +11,64 @@ library(trendseries)
 library(ggbump)
 library(wpp2024)
 library(patchwork)
+library(bslib)
+library(colorspace)
 
-# ---- Default palettes ----
+# ---- Palette catalog ----
 
-default_palettes <- list(
-  contrast = ekio_pal("contrast", n = 8),
-  binary = ekio_pal("contrast", n = 2),
-  trio = ekio_pal("contrast", n = 3),
-  quad = ekio_pal("contrast", n = 4),
-  five = ekio_pal("contrast", n = 5),
-  six = ekio_pal("contrast", n = 6)
-)
+palette_choices <- {
+  pals <- list_ekio_palettes("all")
+  list(
+    Categorical = pals$categorical,
+    "Small Group" = pals$small_group,
+    Scientific = pals$scientific,
+    Sequential = pals$sequential,
+    Diverging = pals$diverging
+  )
+}
+
+default_colors <- ekio_pal("contrast")
+
+# ---- Color helpers ----
+
+simulate_cvd <- function(colors) {
+  list(
+    Deuteranopia = colorspace::deutan(colors),
+    Protanopia = colorspace::protan(colors),
+    Tritanopia = colorspace::tritan(colors)
+  )
+}
+
+color_distances <- function(colors) {
+  if (length(colors) < 2) return(numeric(0))
+  lab <- as(colorspace::hex2RGB(colors), "LAB")
+  coords <- lab@coords
+  vapply(seq_len(nrow(coords) - 1), function(i) {
+    sqrt(sum((coords[i, ] - coords[i + 1, ])^2))
+  }, numeric(1))
+}
+
+match_palette <- function(colors, n) {
+  if (is.null(colors)) return(rep("#CBD5E0", n))
+  if (length(colors) >= n) colors[seq_len(n)]
+  else c(colors, rep("#CBD5E0", n - length(colors)))
+}
+
+dark_plot_theme <- function() {
+  theme(
+    plot.background = element_rect(fill = "#1A202C", color = NA),
+    panel.background = element_rect(fill = "#2D3748", color = NA),
+    text = element_text(color = "#E2E8F0"),
+    axis.text = element_text(color = "#A0AEC0"),
+    axis.title = element_text(color = "#CBD5E0"),
+    legend.background = element_rect(fill = "#1A202C", color = NA),
+    legend.text = element_text(color = "#A0AEC0"),
+    legend.title = element_text(color = "#CBD5E0"),
+    strip.text = element_text(color = "#E2E8F0"),
+    strip.background = element_rect(fill = "#2D3748", color = NA),
+    panel.grid.major = element_line(color = "#4A5568")
+  )
+}
 
 # ---- Data builders ----
 
@@ -62,7 +109,7 @@ build_diamond_data <- function() {
 
 build_scatter_data <- function() {
   mtcars |>
-    select(mpg, wt, cyl) |>
+    select(mpg, wt, cyl, hp) |>
     mutate(cyl = factor(cyl))
 }
 
@@ -179,7 +226,9 @@ build_bump_data <- function() {
       highlight = if_else(country %in% countries_sel, country, ""),
       highlight = factor(highlight, levels = c(countries_sel, "")),
       is_highlight = factor(if_else(country %in% countries_sel, 1L, 0L)),
-      rank_labels = if_else(rank %in% c(1, 5, 10, 15, 20), as.character(rank), NA_character_),
+      rank_labels = if_else(
+        rank %in% c(1, 5, 10, 15, 20), as.character(rank), NA_character_
+      ),
       rank_labels = str_replace(rank_labels, "^1$", "1st"),
       measure = factor(measure, levels = measures)
     )
@@ -247,16 +296,104 @@ pyramid_data <- build_pyramid_data()
 # ---- CSS ----
 
 app_css <- "
-body { background-color: #f0f2f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-.well { background-color: #ffffff; border: 1px solid #E2E8F0; border-radius: 8px; }
-.nav-tabs > li > a { color: #4A5568; }
-.nav-tabs > li.active > a { color: #1E3A5F; font-weight: 600; }
-h3 { color: #1A202C; font-weight: 600; }
-.color-swatch { display: inline-block; width: 40px; height: 40px; border-radius: 6px;
-                border: 2px solid #E2E8F0; margin: 2px; }
-#export_code { font-family: 'Fira Code', 'Monaco', monospace; font-size: 12px;
-               background: #1A202C; color: #A8D0E8; padding: 16px; border-radius: 8px;
-               white-space: pre-wrap; }
-.btn-primary { background-color: #1E3A5F; border-color: #1E3A5F; }
-.btn-primary:hover { background-color: #2B4C7E; border-color: #2B4C7E; }
+.color-swatch {
+  display: inline-block; width: 40px; height: 40px; border-radius: 6px;
+  border: 2px solid #E2E8F0; margin: 2px; cursor: grab;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  position: relative;
+}
+.color-swatch:active { cursor: grabbing; }
+.color-swatch:hover { transform: scale(1.15); z-index: 2; }
+.color-swatch.active { border-color: #1E3A5F !important; border-width: 3px; }
+.sortable-ghost { opacity: 0.4; }
+.color-swatch .hex-tip {
+  display: none; position: absolute; bottom: -22px; left: 50%;
+  transform: translateX(-50%); font-size: 10px; color: #4A5568;
+  white-space: nowrap; font-family: monospace;
+}
+.color-swatch:hover .hex-tip { display: block; }
+.cvd-row { margin: 6px 0; display: flex; align-items: center; }
+.cvd-label {
+  width: 100px; font-size: 11px; color: #718096;
+  font-weight: 500; flex-shrink: 0;
+}
+.cvd-swatch {
+  display: inline-block; width: 28px; height: 28px; border-radius: 4px;
+  border: 1px solid #E2E8F0; margin: 1px;
+}
+.distance-segment {
+  display: inline-block; height: 20px; border-radius: 3px;
+  vertical-align: middle;
+}
+.distance-label {
+  font-size: 10px; color: #718096; text-align: center;
+  font-family: monospace; vertical-align: middle;
+}
+.pinned-label {
+  font-size: 11px; color: #718096; font-weight: 500; margin-bottom: 4px;
+}
+#export_code {
+  font-family: 'Fira Code', 'Monaco', monospace; font-size: 12px;
+  background: #1A202C; color: #A8D0E8; padding: 12px; border-radius: 8px;
+}
+"
+
+app_js <- "
+Shiny.addCustomMessageHandler('copy_to_clipboard', function(text) {
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.getElementById('copy_btn');
+    var orig = btn.innerHTML;
+    btn.innerHTML = 'Copied!';
+    setTimeout(function() { btn.innerHTML = orig; }, 1500);
+  });
+});
+
+$(document).on('shiny:connected', function() {
+  var isDragging = false;
+  var activeColor = null;
+
+  function initSortable() {
+    var el = document.getElementById('palette_swatches');
+    if (!el) return;
+    if (el._sortable) el._sortable.destroy();
+    el._sortable = new Sortable(el, {
+      animation: 150,
+      ghostClass: 'sortable-ghost',
+      onStart: function() { isDragging = true; },
+      onEnd: function() {
+        var swatches = el.querySelectorAll('.color-swatch');
+        var newColors = Array.from(swatches).map(function(s) {
+          return s.getAttribute('data-color');
+        });
+        Shiny.setInputValue('reordered_colors', newColors, {priority: 'event'});
+        setTimeout(function() { isDragging = false; }, 100);
+      }
+    });
+    if (activeColor) {
+      $(el).find(\"[data-color='\" + activeColor + \"']\").addClass('active');
+    }
+  }
+
+  var waitForTarget = setInterval(function() {
+    var target = document.getElementById('palette_strip');
+    if (target) {
+      clearInterval(waitForTarget);
+      new MutationObserver(function() {
+        setTimeout(initSortable, 50);
+      }).observe(target, { childList: true, subtree: true });
+      initSortable();
+    }
+  }, 100);
+
+  $(document).on('click', '#palette_swatches .color-swatch', function() {
+    if (isDragging) return;
+    var color = $(this).attr('data-color');
+    activeColor = color;
+    Shiny.setInputValue('highlight_color', color, {priority: 'event'});
+    var picker = document.getElementById('picker_highlight');
+    if (picker) picker.value = color;
+    $('#palette_swatches .color-swatch').removeClass('active');
+    $(this).addClass('active');
+  });
+});
 "

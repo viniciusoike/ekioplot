@@ -24,10 +24,12 @@ Imports:
     gt,
     rlang
 Suggests:
+    bslib,
+    colorspace,
+    colourpicker,
     knitr,
     rmarkdown,
     shiny,
-    colourpicker,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
