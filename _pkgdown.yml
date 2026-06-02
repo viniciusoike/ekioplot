@@ -1,0 +1,58 @@
+url: https://ekio-io.github.io/ekioplot/
+
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left: [intro, reference, articles]
+    right: [search, github]
+
+reference:
+  - title: Themes
+    desc: Apply EKIO visual identity to plots and tables
+    contents:
+      - theme_ekio
+      - theme_ekio_map
+      - gt_theme_ekio
+
+  - title: Scales
+    desc: Color and fill scales for ggplot2
+    contents:
+      - scale_color_ekio_d
+      - scale_color_ekio_c
+
+  - title: Palettes
+    desc: Access and explore color palettes
+    contents:
+      - ekio_pal
+      - list_ekio_palettes
+      - show_ekio_palette
+      - show_all_ekio_palettes
+
+  - title: Color Scales
+    desc: Named color vectors for direct use
+    contents:
+      - ekio_blue
+      - ekio_gray
+      - ekio_teal
+      - ekio_orange
+      - ekio_accent
+
+  - title: Recipe Functions
+    desc: High-level chart builders with smart defaults
+    contents:
+      - ekio_histogram
+      - ekio_lineplot
+      - ekio_scatterplot
+      - ekio_barplot
+      - ekio_areaplot
+
+  - title: Datasets
+    contents:
+      - ips_brasil
+      - brazil_population
+      - brazil_gdp
+      - brazil_agriculture
+      - brazil_agriculture_states
+      - fuels

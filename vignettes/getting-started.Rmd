@@ -1,0 +1,187 @@
+---
+title: "Getting Started with ekioplot"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with ekioplot}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 4,
+  dpi = 150
+)
+```
+
+```{r setup}
+library(ekioplot)
+library(ggplot2)
+```
+
+## EKIO Theme
+
+`theme_ekio()` applies EKIO's visual identity to any ggplot2 plot. It builds
+on `theme_minimal()` with curated typography, spacing, and color choices.
+
+```{r theme-basic}
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point(color = ekio_blue["700"], size = 2.5) +
+  labs(
+    title = "Fuel Efficiency vs. Weight",
+    subtitle = "Motor Trend Car Road Tests (1974)",
+    x = "Weight (1000 lbs)",
+    y = "Miles per Gallon"
+  ) +
+  theme_ekio()
+```
+
+The `grid` parameter controls which major grid lines are drawn:
+
+```{r theme-grid}
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point(color = ekio_blue["700"]) +
+  theme_ekio(grid = "xy")
+```
+
+Use `theme_ekio_map()` for spatial visualizations — it removes axes and
+repositions the legend.
+
+## Color Palettes
+
+ekioplot ships with ~30 palettes across five categories. Use
+`list_ekio_palettes()` to explore them:
+
+```{r list-palettes}
+str(list_ekio_palettes())
+```
+
+Access any palette with `ekio_pal()`:
+
+```{r palette-access}
+ekio_pal("contrast")
+ekio_pal("blue", n = 5)
+```
+
+### Palette types
+
+- **Categorical**: `contrast`, `cool`, `minimal`, `full`, `muted`, `binary`,
+  `political`
+- **Small-group**: `duo_warm`, `duo_cool`, `trio_bold`, `trio_cool`,
+  `quad_earth`, `quad_vivid`
+- **Scientific**: `okabe_ito`, `viridis`, `inferno`, `plasma`
+- **Sequential**: `blue`, `teal`, `gray`, `orange`, `purple`, `red`, `green`,
+  `amber`
+- **Diverging**: `blue_orange`, `blue_red`, `teal_orange`
+
+Visualize any palette with `show_ekio_palette()`:
+
+```{r show-palette}
+show_ekio_palette("contrast")
+```
+
+## Scale Functions
+
+ekioplot provides ggplot2 scales for both discrete and continuous data.
+
+### Discrete scales
+
+```{r scale-discrete}
+ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
+  geom_point(size = 3) +
+  scale_color_ekio_d("contrast") +
+  labs(color = "Cylinders") +
+  theme_ekio(grid = "xy")
+```
+
+### Continuous scales
+
+Sequential and diverging palettes work with continuous data:
+
+```{r scale-continuous}
+ggplot(mtcars, aes(wt, mpg, color = hp)) +
+  geom_point(size = 3) +
+  scale_color_ekio_c("blue") +
+  labs(color = "Horsepower") +
+  theme_ekio(grid = "xy")
+```
+
+Fill variants are available as `scale_fill_ekio_d()` and
+`scale_fill_ekio_c()`.
+
+## Recipe Functions
+
+Recipe functions are high-level wrappers that create complete,
+publication-ready plots with smart defaults.
+
+### Histogram
+
+```{r recipe-histogram}
+ekio_histogram(mtcars, mpg)
+```
+
+### Bar plot
+
+```{r recipe-barplot}
+cyl_counts <- as.data.frame(table(cyl = mtcars$cyl))
+names(cyl_counts)[2] <- "n"
+ekio_barplot(cyl_counts, cyl, n)
+```
+
+### Scatter plot
+
+```{r recipe-scatter}
+ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl))
+```
+
+### Area plot
+
+```{r recipe-area}
+data(fuels)
+world_fuels <- fuels[fuels$entity == "World" & fuels$year >= 1950, ]
+ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel)
+```
+
+### Smart aesthetic detection
+
+Recipe functions automatically detect whether the color/fill argument is:
+
+- **Missing** — uses EKIO blue as default
+- **A color string** (e.g., `"steelblue"`) — uses that color directly
+- **A variable** — maps it and applies the appropriate EKIO scale
+
+```{r recipe-static-color}
+ekio_histogram(mtcars, mpg, fill = "coral")
+```
+
+## Color Scales
+
+Four named color scales are exported for direct use: `ekio_blue`, `ekio_gray`,
+`ekio_teal`, and `ekio_orange`. Each provides 10 shades from `"50"` (lightest)
+to `"900"` (darkest).
+
+```{r color-vectors}
+ekio_blue["700"]
+ekio_gray["300"]
+```
+
+Named accent colors are available in `ekio_accent`:
+
+```{r accent-colors}
+ekio_accent
+```
+
+## GT Tables
+
+Apply EKIO styling to gt tables with `gt_theme_ekio()`:
+
+```{r gt-theme}
+library(gt)
+
+head(mtcars[, 1:5], 8) |>
+  gt() |>
+  gt_theme_ekio(add_footer = FALSE)
+```

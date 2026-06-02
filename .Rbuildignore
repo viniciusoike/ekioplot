@@ -10,3 +10,8 @@
 ^logs$
 ^palette_catalogue\.R$
 ^palette_proposals\.html$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^doc$
+^Meta$
