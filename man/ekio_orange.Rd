@@ -5,7 +5,7 @@
 \alias{ekio_orange}
 \title{EKIO Orange Scale}
 \format{
-Named character vector with 9 shades (100-900)
+Named character vector with 10 shades (50-900)
 }
 \usage{
 ekio_orange

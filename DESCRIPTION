@@ -1,7 +1,7 @@
 Package: ekioplot
 Type: Package
 Title: EKIO Visual Identity System for R Data Visualization
-Version: 0.1.0
+Version: 0.3.0
 Authors@R:
     person(
       "Vinicius", "Oike",
@@ -11,6 +11,7 @@ Authors@R:
 Description: A ggplot2 implementation of EKIO's visual identity for data visualization.
     Professional themes, curated color palettes, and scale functions for ggplot2
     and gt tables. Includes high-level recipe functions for common chart types.
+URL: https://ekio-io.github.io/ekioplot/
 License: MIT + file LICENSE
 Depends: R (>= 4.1.0)
 Encoding: UTF-8
@@ -21,11 +22,13 @@ Imports:
     ggplot2 (>= 3.5.0),
     grDevices,
     gt,
-    rlang,
-    scales
+    rlang
 Suggests:
+    knitr,
+    rmarkdown,
     shiny,
     colourpicker,
     testthat (>= 3.0.0)
+VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3

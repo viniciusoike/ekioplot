@@ -70,7 +70,7 @@ ekio_teal <- c(
 #'
 #' Accent color for highlights, warnings, and contrast against blue.
 #'
-#' @format Named character vector with 9 shades (100-900)
+#' @format Named character vector with 10 shades (50-900)
 #' @export
 #' @examples
 #' ekio_orange["600"]  # Primary orange accent
@@ -84,7 +84,8 @@ ekio_orange <- c(
   "400" = "#F6AD55",
   "300" = "#FBD38D",
   "200" = "#FEEBC8",
-  "100" = "#FFFAF0"
+  "100" = "#FFFAF0",
+  "50"  = "#FFF8F0"
 )
 
 #' EKIO Named Accent Colors
@@ -278,6 +279,14 @@ list_ekio_palettes <- function(type = "all") {
   scientific  <- c("okabe_ito", "viridis", "inferno", "plasma")
   sequential  <- names(.seq_palettes)
   diverging   <- names(.div_palettes)
+
+  valid_types <- c("categorical", "small_group", "scientific", "sequential", "diverging", "all")
+  if (!type %in% valid_types) {
+    cli::cli_abort(c(
+      "Unknown palette type {.val {type}}.",
+      "i" = "Available types: {.val {valid_types}}"
+    ))
+  }
 
   switch(type,
     categorical = categorical,

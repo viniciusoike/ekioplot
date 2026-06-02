@@ -167,31 +167,38 @@ gt_theme_ekio <- function(
     gt::tab_style(
       style = gt::cell_text(color = colors$text_mid, weight = "600"),
       locations = gt::cells_stub()
-    ) |>
-    # Row group labels: primary blue
-    gt::tab_style(
+    )
+
+  # Styles that only apply when the table has the relevant elements
+  optional_styles <- list(
+    list(
       style = gt::cell_text(color = colors$primary, weight = "600"),
       locations = gt::cells_row_groups()
-    ) |>
-    # Summary rows: primary blue text on light blue background
-    gt::tab_style(
+    ),
+    list(
       style = gt::cell_text(color = colors$primary, weight = "600"),
       locations = gt::cells_summary()
-    ) |>
-    # Grand summary: white text on dark blue background
-    gt::tab_style(
+    ),
+    list(
       style = gt::cell_text(color = "white", weight = "700"),
       locations = gt::cells_grand_summary()
-    ) |>
-    # Source notes and footnotes: muted text
-    gt::tab_style(
+    ),
+    list(
       style = gt::cell_text(color = colors$text_light),
       locations = gt::cells_source_notes()
-    ) |>
-    gt::tab_style(
+    ),
+    list(
       style = gt::cell_text(color = colors$text_light),
       locations = gt::cells_footnotes()
     )
+  )
+
+  for (s in optional_styles) {
+    styled_table <- tryCatch(
+      gt::tab_style(styled_table, style = s$style, locations = s$locations),
+      error = function(e) styled_table
+    )
+  }
 
   if (add_footer) {
     styled_table <- styled_table |>

@@ -2,7 +2,8 @@
 % Please edit documentation in R/theme.R
 \name{theme_ekio}
 \alias{theme_ekio}
-\title{Apply EKIO Theme to ggplot2 Plots}
+\title{A minimal, professional theme for EKIO visualizations built on
+\code{\link[ggplot2:ggtheme]{ggplot2::theme_minimal()}}.}
 \usage{
 theme_ekio(base_size = 11, base_family = "", grid = "y")
 }
