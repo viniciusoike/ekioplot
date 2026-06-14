@@ -68,7 +68,7 @@ plot_line_labeled <- function(df, colors) {
       hjust = 0,
       size = 2.5,
       nudge_x = 2,
-      label.size = 0.2
+      linewidth = 0.2
     ) +
     geom_hline(yintercept = 0) +
     scale_x_continuous(
@@ -434,29 +434,34 @@ plot_mini_bar <- function(df, colors) {
 plot_bubble <- function(df, colors) {
   n <- min(length(colors), 5)
 
-  # Dynamic binning based on number of colors
-  df <- df |>
-    mutate(age_group = case_when(
-      n == 2 ~ if_else(percentage < 25, "<25", "\u226525"),
-      n == 3 ~ case_when(
-        percentage < 25 ~ "<25",
-        percentage < 30 ~ "25-29",
-        TRUE ~ "\u226530"
-      ),
-      n == 4 ~ case_when(
-        percentage < 20 ~ "<20",
-        percentage < 25 ~ "20-24",
-        percentage < 30 ~ "25-29",
-        TRUE ~ "\u226530"
-      ),
-      TRUE ~ case_when(
-        percentage < 18 ~ "<18",
-        percentage < 25 ~ "18-24",
-        percentage < 30 ~ "25-29",
-        percentage < 35 ~ "30-34",
-        TRUE ~ "\u226535"
-      )
-    ))
+  # Dynamic binning based on number of colors. `n` is scalar, so branch with
+  # plain control flow \u2014 a scalar-LHS case_when() over a vector RHS is
+  # deprecated in dplyr.
+  bins <- if (n == 2) {
+    if_else(df$percentage < 25, "<25", "\u226525")
+  } else if (n == 3) {
+    case_when(
+      df$percentage < 25 ~ "<25",
+      df$percentage < 30 ~ "25-29",
+      TRUE ~ "\u226530"
+    )
+  } else if (n == 4) {
+    case_when(
+      df$percentage < 20 ~ "<20",
+      df$percentage < 25 ~ "20-24",
+      df$percentage < 30 ~ "25-29",
+      TRUE ~ "\u226530"
+    )
+  } else {
+    case_when(
+      df$percentage < 18 ~ "<18",
+      df$percentage < 25 ~ "18-24",
+      df$percentage < 30 ~ "25-29",
+      df$percentage < 35 ~ "30-34",
+      TRUE ~ "\u226535"
+    )
+  }
+  df <- df |> mutate(age_group = bins)
 
   lvls <- sort(unique(df$age_group))
   df <- df |>

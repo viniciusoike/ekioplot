@@ -13,6 +13,10 @@ inst/doc
 /Meta/
 ..Rcheck/
 
+# pkgdown local build (deployed via CI) and scratch output
+docs/
+logs/
+
 # System files
 *~
 *.swp

@@ -1,12 +1,17 @@
-url: https://ekio-io.github.io/ekioplot/
+url: https://viniciusoike.github.io/ekioplot/
 
 template:
   bootstrap: 5
 
 navbar:
   structure:
-    left: [intro, reference, articles]
+    left: [intro, reference, articles, palettelab]
     right: [search, github]
+  components:
+    palettelab:
+      text: Palette Lab
+      href: palette-lab/
+      icon: fa-palette
 
 reference:
   - title: Themes
@@ -29,6 +34,7 @@ reference:
       - list_ekio_palettes
       - show_ekio_palette
       - show_all_ekio_palettes
+      - run_palette_lab
 
   - title: Color Scales
     desc: Named color vectors for direct use

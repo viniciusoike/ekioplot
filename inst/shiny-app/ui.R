@@ -1,4 +1,4 @@
-page_sidebar(
+function(request) page_sidebar(
   theme = bs_theme(
     preset = "shiny",
     primary = "#1E3A5F",
@@ -11,7 +11,7 @@ page_sidebar(
       tags$span("EKIO Palette Lab", style = "font-weight: 700; font-size: 20px;"),
       tags$span(
         " — compare palettes across chart types",
-        style = "color: #718096; font-size: 13px;"
+        class = "text-secondary", style = "font-size: 13px;"
       )
     )
   ),
@@ -20,7 +20,7 @@ page_sidebar(
     width = 320,
     tags$head(
       tags$style(HTML(app_css)),
-      tags$script(src = "https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js")
+      tags$script(src = "sortable.min.js")
     ),
     tags$script(HTML(app_js)),
 
@@ -36,46 +36,26 @@ page_sidebar(
     hr(),
 
     # ---- Highlight ----
-    tags$h6("Highlight colors", style = "color: #4A5568; font-weight: 600;"),
-    fluidRow(
-      column(9, textInput(
-        "highlight_color", "Highlight", value = default_colors[1]
-      )),
-      column(3, tags$div(
-        style = "padding-top: 25px;",
-        tags$input(
-          type = "color", value = default_colors[1],
-          id = "picker_highlight",
-          style = "width: 100%; height: 34px; border: none; cursor: pointer;",
-          onchange = "Shiny.setInputValue('highlight_color', this.value, {priority: 'event'})"
-        )
-      ))
-    ),
-    fluidRow(
-      column(9, textInput(
-        "non_highlight_color", "Non-highlight",
-        value = default_colors[length(default_colors)]
-      )),
-      column(3, tags$div(
-        style = "padding-top: 25px;",
-        tags$input(
-          type = "color",
-          value = default_colors[length(default_colors)],
-          id = "picker_non_highlight",
-          style = "width: 100%; height: 34px; border: none; cursor: pointer;",
-          onchange = "Shiny.setInputValue('non_highlight_color', this.value, {priority: 'event'})"
-        )
-      ))
+    tags$h6("Highlight colors", style = "font-weight: 600;"),
+    colourInput("highlight_color", "Highlight", value = default_colors[1]),
+    colourInput(
+      "non_highlight_color", "Non-highlight",
+      value = default_colors[length(default_colors)]
     ),
 
     hr(),
 
     # ---- Export ----
-    tags$h6("Export", style = "color: #4A5568; font-weight: 600;"),
+    tags$h6("Export", style = "font-weight: 600;"),
     verbatimTextOutput("export_code"),
     actionButton(
       "copy_btn", "Copy to clipboard",
       class = "btn-primary btn-sm", style = "width: 100%;"
+    ),
+    actionButton(
+      "bookmark_btn", "Copy share link",
+      icon = icon("link"),
+      class = "btn-outline-secondary btn-sm mt-2", style = "width: 100%;"
     )
   ),
 
@@ -84,11 +64,22 @@ page_sidebar(
   # Palette preview card
   card(
     card_header(
-      class = "d-flex justify-content-between align-items-center",
+      class = "d-flex justify-content-between align-items-center flex-wrap gap-2",
       "Palette preview",
       tags$div(
-        class = "d-flex gap-3 align-items-center",
-        input_switch("dark_mode", "Dark plots", value = FALSE),
+        class = "d-flex gap-2 align-items-center flex-wrap",
+        uiOutput("ab_toggle"),
+        selectInput(
+          "cvd_view", NULL,
+          choices = c(
+            "Normal vision" = "none",
+            "Deuteranopia" = "deutan",
+            "Protanopia" = "protan",
+            "Tritanopia" = "tritan"
+          ),
+          width = "160px", selectize = FALSE
+        ),
+        input_dark_mode(id = "dark_mode"),
         actionButton(
           "pin_btn", "Pin palette",
           class = "btn-sm btn-outline-primary"
@@ -97,9 +88,24 @@ page_sidebar(
     ),
     card_body(
       uiOutput("palette_strip"),
+      tags$small(
+        class = "text-secondary",
+        "Drag swatches to reorder · click a swatch to set it as the highlight color"
+      ),
       uiOutput("pinned_strip"),
-      uiOutput("cvd_strips"),
-      uiOutput("distance_bar")
+      uiOutput("history_strip"),
+      accordion(
+        open = FALSE, class = "mt-2",
+        accordion_panel(
+          "Distance & contrast",
+          uiOutput("distance_summary"),
+          uiOutput("contrast_check")
+        ),
+        accordion_panel(
+          "Color vision simulation",
+          uiOutput("cvd_strips")
+        )
+      )
     )
   ),
 

@@ -1,0 +1,78 @@
+# Build the pkgdown site and the shinylive Palette Lab, then deploy both to
+# GitHub Pages in a single commit. The app lives at <site>/palette-lab/ and is
+# bundled into the same docs/ directory as the pkgdown site, so one deploy
+# publishes everything (no risk of one wiping the other).
+name: pkgdown
+
+on:
+  push:
+    branches: [main, master]
+  release:
+    types: [published]
+  workflow_dispatch:
+
+# Allow pushing the built site to the gh-pages branch.
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pkgdown:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      # Installs the package's deps incl. Suggests (the Palette Lab's runtime
+      # packages: bslib, colourpicker, ggbump, patchwork, colorspace, ...).
+      # shinylive reads each one's DESCRIPTION to resolve its WebAssembly build.
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::pkgdown
+            any::shinylive
+          needs: website
+
+      # Install the local package so the pkgdown reference reflects this branch.
+      - name: Install ekioplot (local source)
+        run: R CMD INSTALL --no-build-vignettes .
+
+      - name: Build pkgdown site
+        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+        shell: Rscript {0}
+
+      # Re-install ekioplot from r-universe so its DESCRIPTION carries the
+      # `Repository:` field shinylive needs to fetch the matching WebAssembly
+      # binary. (r-universe auto-builds the WASM binary from the GitHub repo.)
+      # NOTE: this is the latest *published* version, which may lag the freshest
+      # commit by a few minutes. The app uses stable exported functions, so the
+      # skew from the branch docs above is harmless.
+      - name: Install ekioplot from r-universe (for the WASM binary reference)
+        run: |
+          install.packages(
+            "ekioplot",
+            repos = c("https://viniciusoike.r-universe.dev", "https://cloud.r-project.org")
+          )
+        shell: Rscript {0}
+
+      - name: Build Palette Lab (shinylive) into the site
+        run: |
+          shinylive::export("inst/shiny-app", "docs/palette-lab")
+        shell: Rscript {0}
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          clean: true
+          branch: gh-pages
+          folder: docs
