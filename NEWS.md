@@ -1,3 +1,17 @@
+# ekioplot 0.3.1
+
+## Documentation
+
+* Rewrote `README.md` to match the current API (the previous version
+  referenced removed font helpers, theme style names, and palette names
+  that no longer exist).
+
+## Infrastructure
+
+* Added an `R-CMD-check` GitHub Actions workflow covering Windows, macOS,
+  and Linux (release, devel, and oldrel).
+* Removed stale repository artifacts and scratch files.
+
 # ekioplot 0.3.0
 
 ## Breaking changes

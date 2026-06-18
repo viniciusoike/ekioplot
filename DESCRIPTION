@@ -1,7 +1,7 @@
 Package: ekioplot
 Type: Package
 Title: EKIO Visual Identity System for R Data Visualization
-Version: 0.3.0
+Version: 0.3.1
 Authors@R:
     person(
       "Vinicius", "Oike",
