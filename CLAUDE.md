@@ -44,5 +44,4 @@ A comprehensive R package that provides EKIO-branded themes, color palettes, sca
 
 ## General observations
 - After making changes, run `check()` and fix only errors and warnings. Ignore notes
-- The `claude/` directory contains outdated planning docs (v2.0/v3.0 refactoring) — reference only
 - The Shiny app in `inst/shiny-app/` is a palette explorer / visual testing tool
