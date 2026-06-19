@@ -6,7 +6,8 @@ Authors@R:
     person(
       "Vinicius", "Oike",
       email = "viniciusor@ekio.io",
-      role = c("aut", "cre", "cph")
+      role = c("aut", "cre", "cph"),
+      comment = c(ORCID = "0009-0005-8015-9189")
     )
 Description: A ggplot2 implementation of EKIO's visual identity for data visualization.
     Professional themes, curated color palettes, and scale functions for ggplot2
