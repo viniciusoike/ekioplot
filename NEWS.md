@@ -1,3 +1,15 @@
+# ekioplot 0.4.0
+
+## Breaking changes
+
+* Removed `run_palette_lab()` and the bundled Shiny app. The Palette Lab now
+  lives in its own repository
+  (<https://github.com/viniciusoike/ekioplot-palette-lab>) and runs entirely in
+  the browser at <https://viniciusoike.github.io/ekioplot-palette-lab/>. This
+  drops 8 app-only `Suggests` (`bslib`, `colorspace`, `colourpicker`,
+  `forcats`, `ggbump`, `patchwork`, `shiny`, `stringr`), leaving `ekioplot` a
+  lean visualization package.
+
 # ekioplot 0.3.1
 
 ## Documentation
