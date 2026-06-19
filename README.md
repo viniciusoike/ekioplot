@@ -3,7 +3,7 @@
 
 <!-- `Rscript data-raw/readme-plots.R` and `devtools::build_readme()`.  -->
 
-# ekioplot
+# ekioplot <img src="man/figures/logo.png" align="right" height="139" alt="" />
 
 <!-- badges: start -->
 
@@ -145,10 +145,12 @@ head(mtcars[, 1:5], 8) |>
 
 ## Palette Lab
 
-`run_palette_lab()` launches an interactive Shiny app for building and
-comparing palettes across many chart types, with color-vision-deficiency
-simulation and contrast checks. A browser-based version is hosted at
-<https://viniciusoike.github.io/ekioplot/palette-lab/>.
+The **Palette Lab** is an interactive app for building and comparing
+palettes across many chart types, with color-vision-deficiency
+simulation and contrast checks. It runs entirely in your browser at
+<https://viniciusoike.github.io/ekioplot-palette-lab/> and its source
+lives in a separate repository:
+<https://github.com/viniciusoike/ekioplot-palette-lab>.
 
 ## Learn more
 
