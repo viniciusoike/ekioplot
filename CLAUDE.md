@@ -24,8 +24,8 @@ A comprehensive R package that provides EKIO-branded themes, color palettes, sca
 - **Color references**: Theme and gt functions reference exported color vectors (`ekio_blue["700"]`) instead of hardcoded hex values
 
 ### Dependencies
-- **Imports**: cli, ggplot2 (>= 3.5.0), grDevices, gt, rlang, scales
-- **Suggests**: shiny, colourpicker, testthat (>= 3.0.0)
+- **Imports**: cli, ggplot2 (>= 3.5.0), grDevices, gt, rlang
+- **Suggests**: dplyr, knitr, rmarkdown, testthat (>= 3.0.0), tibble
 
 ## Coding Conventions
 - **Documentation**: All functions use roxygen2 comments with `#'`
@@ -44,4 +44,4 @@ A comprehensive R package that provides EKIO-branded themes, color palettes, sca
 
 ## General observations
 - After making changes, run `check()` and fix only errors and warnings. Ignore notes
-- The Shiny app in `inst/shiny-app/` is a palette explorer / visual testing tool
+- The Palette Lab Shiny app lives in its own repository (`viniciusoike/ekioplot-palette-lab`), not in this package. It depends on `ekioplot`'s stable exported functions

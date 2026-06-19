@@ -10,7 +10,7 @@ navbar:
   components:
     palettelab:
       text: Palette Lab
-      href: palette-lab/
+      href: https://viniciusoike.github.io/ekioplot-palette-lab/
       icon: fa-palette
 
 reference:
@@ -37,7 +37,6 @@ reference:
       - list_ekio_palettes
       - show_ekio_palette
       - show_all_ekio_palettes
-      - run_palette_lab
 
   - title: Color Scales
     desc: Named color vectors for direct use
