@@ -22,7 +22,10 @@ reference:
       - gt_theme_ekio
 
   - title: Scales
-    desc: Color and fill scales for ggplot2
+    desc: >
+      Color and fill scales for ggplot2. Each topic also documents its
+      fill and British-spelling aliases (e.g. scale_fill_ekio_d,
+      scale_colour_ekio_d).
     contents:
       - scale_color_ekio_d
       - scale_color_ekio_c
