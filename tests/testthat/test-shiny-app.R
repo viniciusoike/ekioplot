@@ -8,6 +8,7 @@ app_deps <- c(
 )
 
 skip_app_unless_ready <- function() {
+  skip_on_cran()
   for (pkg in app_deps) skip_if_not_installed(pkg)
   app_dir <- system.file("shiny-app", package = "ekioplot")
   if (app_dir == "" || !file.exists(file.path(app_dir, "app_data.rds"))) {
