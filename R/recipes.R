@@ -83,7 +83,7 @@ ekio_histogram <- function(
   if (is.null(palette)) palette <- "contrast"
 
   # Bin calculation
-  x_values <- stats::na.omit(data[[rlang::as_name(x_var)]])
+  x_values <- stats::na.omit(rlang::eval_tidy(x_var, data))
   if (is.null(binwidth)) {
     n_bins <- switch(
       as.character(bins),
