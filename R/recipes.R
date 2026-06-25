@@ -189,7 +189,7 @@ ekio_lineplot <- function(
 #' @param color Color aesthetic. A color string or variable name.
 #' @param size Size aesthetic (optional variable)
 #' @param palette Character. Palette name for variable mappings.
-#' @param add_zero Logical. Add horizontal line at y=0 (default: TRUE)
+#' @param add_zero Logical. Add horizontal line at y=0 (default: FALSE)
 #' @param add_smooth Logical. Add smooth trend line (default: FALSE)
 #' @param smooth_method Smoothing method: "lm", "gam", "loess" (default: "lm")
 #' @param point_size Base point size (default: 2.5)
@@ -204,7 +204,7 @@ ekio_lineplot <- function(
 #' ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl))
 ekio_scatterplot <- function(
   data, x, y, color = NULL, size = NULL, palette = NULL,
-  add_zero = TRUE, add_smooth = FALSE, smooth_method = "lm",
+  add_zero = FALSE, add_smooth = FALSE, smooth_method = "lm",
   point_size = 2.5, point_alpha = 0.8, ...
 ) {
   x_var <- rlang::enquo(x)

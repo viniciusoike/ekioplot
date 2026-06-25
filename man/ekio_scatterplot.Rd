@@ -11,7 +11,7 @@ ekio_scatterplot(
   color = NULL,
   size = NULL,
   palette = NULL,
-  add_zero = TRUE,
+  add_zero = FALSE,
   add_smooth = FALSE,
   smooth_method = "lm",
   point_size = 2.5,
@@ -32,7 +32,7 @@ ekio_scatterplot(
 
 \item{palette}{Character. Palette name for variable mappings.}
 
-\item{add_zero}{Logical. Add horizontal line at y=0 (default: TRUE)}
+\item{add_zero}{Logical. Add horizontal line at y=0 (default: FALSE)}
 
 \item{add_smooth}{Logical. Add smooth trend line (default: FALSE)}
 
