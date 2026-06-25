@@ -12,7 +12,7 @@ ekio_scatterplot(
   color = NULL,
   size = NULL,
   palette = NULL,
-  add_zero = TRUE,
+  add_zero = FALSE,
   add_smooth = FALSE,
   smooth_method = "lm",
   point_size = 2.5,
@@ -49,7 +49,7 @@ ekio_scatterplot(
 
 - add_zero:
 
-  Logical. Add horizontal line at y=0 (default: TRUE)
+  Logical. Add horizontal line at y=0 (default: FALSE)
 
 - add_smooth:
 
