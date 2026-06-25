@@ -54,7 +54,7 @@
 #'
 #' @references
 #' Imazon. (2025). Indice de Progresso Social Brasil 2025.
-#' \url{https://imazon.org.br/indice_de_progresso_social_brasil_2025/}
+#' \url{https://imazon.org.br/categorias/indice-de-progresso-social/}
 #'
 #' @examples
 #' \dontrun{
