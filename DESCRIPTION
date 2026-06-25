@@ -9,9 +9,10 @@ Authors@R:
       role = c("aut", "cre", "cph"),
       comment = c(ORCID = "0009-0005-8015-9189")
     )
-Description: A ggplot2 implementation of EKIO's visual identity for data visualization.
-    Professional themes, curated color palettes, and scale functions for ggplot2
-    and gt tables. Includes high-level recipe functions for common chart types.
+Description: A 'ggplot2' implementation of EKIO's visual identity for data
+    visualization. Professional themes, curated color palettes, and scale
+    functions for 'ggplot2' and 'gt' tables. Includes high-level recipe
+    functions for common chart types.
 URL: https://viniciusoike.github.io/ekioplot/, https://github.com/viniciusoike/ekioplot
 License: MIT + file LICENSE
 Depends: R (>= 4.1.0)
