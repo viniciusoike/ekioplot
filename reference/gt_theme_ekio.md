@@ -43,10 +43,32 @@ A styled gt table object
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(gt)
 head(mtcars, 10) |>
   gt() |>
   gt_theme_ekio()
-} # }
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+#> Warning: Character vector names are ignored. Instead of a named character vector, use a named list to define Sass variables.
+
+
+  
+
+mpg
 ```

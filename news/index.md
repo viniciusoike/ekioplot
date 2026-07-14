@@ -1,5 +1,19 @@
 # Changelog
 
+## ekioplot 0.5.0
+
+### Breaking changes
+
+- `gt` moved from `Imports` to `Suggests`. It is only needed by
+  [`gt_theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/gt_theme_ekio.md),
+  which now prompts to install it on first use via
+  [`rlang::check_installed()`](https://rlang.r-lib.org/reference/is_installed.html).
+  This drops 43 transitive dependencies (including `V8`, `Rcpp`, `curl`,
+  `bslib`, `htmlwidgets`, `reactable`, `knitr`, and `rmarkdown`) from a
+  default install, leaving core plotting dependent only on `ggplot2`’s
+  tree. Users who style `gt` tables should add `gt` to their own
+  dependencies.
+
 ## ekioplot 0.4.0
 
 ### Breaking changes
