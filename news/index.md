@@ -14,6 +14,22 @@
   tree. Users who style `gt` tables should add `gt` to their own
   dependencies.
 
+- [`ekio_scatterplot()`](https://viniciusoike.github.io/ekioplot/reference/ekio_scatterplot.md)
+  no longer forces a y = 0 baseline by default (`add_zero = FALSE`).
+  Scatter plots whose y values are far from zero were distorted by the
+  forced baseline. Pass `add_zero = TRUE` to restore the old behavior.
+
+### Bug fixes
+
+- [`ekio_histogram()`](https://viniciusoike.github.io/ekioplot/reference/ekio_histogram.md)
+  now handles transformed x expressions such as `log(mpg)`; previously
+  the bin calculation errored on anything other than a bare column name.
+
+### Documentation
+
+- Replaced a dead Imazon reference URL in the `ips_brasil` dataset
+  documentation.
+
 ## ekioplot 0.4.0
 
 ### Breaking changes
