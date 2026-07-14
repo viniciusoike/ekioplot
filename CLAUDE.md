@@ -23,6 +23,7 @@ This package is EKIO's single source of truth for brand color and type. Downstre
 - **theme.R** — `theme_ekio()` (modular, uses `theme_sub_*` helpers) and `theme_ekio_map()` for spatial maps. Platform-aware font selection via `.get_ekio_font()`
 - **recipes.R** — High-level chart builders (`ekio_histogram`, `ekio_lineplot`, `ekio_scatterplot`, `ekio_barplot`) with smart aesthetic detection (static color vs. variable mapping)
 - **gt_theme.R** — `gt_theme_ekio()` for professional gt table styling
+- **accessibility.R** — WCAG contrast helpers: `ekio_contrast()` (contrast ratio) and `ekio_text_on()` (black/white text picker for colored fills)
 - **data.R** — Documentation for 6 bundled datasets (Brazilian socioeconomic/agriculture data, global fuels)
 - **utils.R** — Package-level imports and `globalVariables` suppression
 
