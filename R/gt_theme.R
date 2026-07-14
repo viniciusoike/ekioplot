@@ -13,13 +13,11 @@
 #' @return A styled gt table object
 #' @export
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf rlang::is_installed("gt")
 #' library(gt)
 #' head(mtcars, 10) |>
 #'   gt() |>
 #'   gt_theme_ekio()
-#' }
 gt_theme_ekio <- function(
   data,
   table_width = "100%",
@@ -27,6 +25,8 @@ gt_theme_ekio <- function(
   stripe = TRUE,
   add_footer = TRUE
 ) {
+  rlang::check_installed("gt", reason = "to style gt tables.")
+
   if (!inherits(data, "gt_tbl")) {
     cli::cli_abort("{.arg data} must be a gt table object")
   }

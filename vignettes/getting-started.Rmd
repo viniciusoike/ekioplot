@@ -178,7 +178,7 @@ ekio_accent
 
 Apply EKIO styling to gt tables with `gt_theme_ekio()`:
 
-```{r gt-theme}
+```{r gt-theme, eval = requireNamespace("gt", quietly = TRUE)}
 library(gt)
 
 head(mtcars[, 1:5], 8) |>

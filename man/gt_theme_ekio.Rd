@@ -30,10 +30,10 @@ A styled gt table object
 Professional EKIO branding and styling for gt table objects.
 }
 \examples{
-\dontrun{
+\dontshow{if (rlang::is_installed("gt")) withAutoprint(\{ # examplesIf}
 library(gt)
 head(mtcars, 10) |>
   gt() |>
   gt_theme_ekio()
-}
+\dontshow{\}) # examplesIf}
 }
