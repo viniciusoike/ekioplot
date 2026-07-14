@@ -81,6 +81,29 @@ test_that("list_ekio_palettes returns correct structure", {
   expect_true("blue_orange" %in% list_ekio_palettes("diverging"))
 })
 
+test_that("list_ekio_palettes verbose prints summary and returns invisibly", {
+  out <- cli::cli_fmt(res <- withVisible(list_ekio_palettes(verbose = TRUE)))
+  expect_false(res$visible)
+  expect_identical(res$value, list_ekio_palettes())
+  expect_true(any(grepl("Available Palettes", out)))
+  expect_true(any(grepl("Diverging", out)))
+})
+
+test_that("list_ekio_palettes verbose respects the type filter", {
+  out <- cli::cli_fmt(res <- list_ekio_palettes("categorical", verbose = TRUE))
+  expect_identical(res, list_ekio_palettes("categorical"))
+  expect_true(any(grepl("Categorical", out)))
+  expect_false(any(grepl("Diverging|Sequential|Scientific", out)))
+})
+
+test_that("show_all_ekio_palettes warns about deprecation but still works", {
+  expect_warning(
+    res <- suppressMessages(show_all_ekio_palettes()),
+    "deprecated"
+  )
+  expect_identical(res, list_ekio_palettes())
+})
+
 test_that("color scale vectors exist and are valid", {
   expect_type(ekio_blue, "character")
   expect_true(length(ekio_blue) >= 9)

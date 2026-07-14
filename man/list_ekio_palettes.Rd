@@ -11,8 +11,8 @@ list_ekio_palettes(type = "all", verbose = FALSE)
 "categorical", "small_group", "scientific", "sequential", "diverging",
 or "all" (default).}
 
-\item{verbose}{Logical. If TRUE, prints a formatted summary organized by
-type instead of returning a value (default: FALSE).}
+\item{verbose}{Logical. If TRUE, prints a formatted summary of the
+selected type(s) and returns the result invisibly (default: FALSE).}
 }
 \value{
 Character vector of palette names, or named list if type = "all".

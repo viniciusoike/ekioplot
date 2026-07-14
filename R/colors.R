@@ -266,8 +266,8 @@ ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
 #' @param type Character. Type of palettes to list:
 #'   "categorical", "small_group", "scientific", "sequential", "diverging",
 #'   or "all" (default).
-#' @param verbose Logical. If TRUE, prints a formatted summary organized by
-#'   type instead of returning a value (default: FALSE).
+#' @param verbose Logical. If TRUE, prints a formatted summary of the
+#'   selected type(s) and returns the result invisibly (default: FALSE).
 #'
 #' @return Character vector of palette names, or named list if type = "all".
 #'   Invisibly returned when \code{verbose = TRUE}.
@@ -293,46 +293,38 @@ list_ekio_palettes <- function(type = "all", verbose = FALSE) {
     ))
   }
 
-  result <- switch(type,
+  groups <- list(
     categorical = categorical,
     small_group = small_group,
     scientific  = scientific,
     sequential  = sequential,
-    diverging   = diverging,
-    all = list(
-      categorical = categorical,
-      small_group = small_group,
-      scientific  = scientific,
-      sequential  = sequential,
-      diverging   = diverging
-    )
+    diverging   = diverging
   )
 
+  result <- if (type == "all") groups else groups[[type]]
+
   if (verbose) {
+    headers <- c(
+      categorical = "Categorical",
+      small_group = "Small Group Variants",
+      scientific  = "Scientific",
+      sequential  = "Sequential (for continuous scales)",
+      diverging   = "Diverging (for continuous scales)"
+    )
+    shown <- if (type == "all") names(headers) else type
+
     cli::cli_h1("Available Palettes")
-
-    cli::cli_h2("Categorical")
-    cli::cli_text("{.val {categorical}}")
-
-    cli::cli_h2("Small Group Variants")
-    cli::cli_text("{.val {small_group}}")
-
-    cli::cli_h2("Scientific")
-    cli::cli_text("{.val {scientific}}")
-
-    cli::cli_h2("Sequential (for continuous scales)")
-    cli::cli_text("{.val {sequential}}")
-
-    cli::cli_h2("Diverging (for continuous scales)")
-    cli::cli_text("{.val {diverging}}")
-
+    for (nm in shown) {
+      cli::cli_h2(headers[[nm]])
+      cli::cli_text("{.val {groups[[nm]]}}")
+    }
     cli::cli_text("")
     cli::cli_alert_info("Use {.code show_ekio_palette(\"name\")} to visualize")
 
-    invisible(result)
-  } else {
-    result
+    return(invisible(result))
   }
+
+  result
 }
 
 # ---- Palette Visualization ----
@@ -392,15 +384,21 @@ show_ekio_palette <- function(palette, n = NULL, labels = TRUE) {
 #' @description
 #' Deprecated. Use [list_ekio_palettes()] with `verbose = TRUE` instead.
 #'
-#' @return NULL (invisibly). Prints palette information to console.
+#' @return The palette list, invisibly (as returned by
+#'   [list_ekio_palettes()] with `verbose = TRUE`).
+#' @keywords internal
 #' @export
 #'
 #' @examples
 #' list_ekio_palettes(verbose = TRUE)
 show_all_ekio_palettes <- function() {
-  cli::cli_warn(c(
-    "{.fn show_all_ekio_palettes} was deprecated in ekioplot 0.6.0.",
-    "i" = "Use {.code list_ekio_palettes(verbose = TRUE)} instead."
-  ))
+  cli::cli_warn(
+    c(
+      "{.fn show_all_ekio_palettes} was deprecated in ekioplot 0.6.0.",
+      "i" = "Use {.code list_ekio_palettes(verbose = TRUE)} instead."
+    ),
+    .frequency = "once",
+    .frequency_id = "show_all_ekio_palettes"
+  )
   list_ekio_palettes(verbose = TRUE)
 }

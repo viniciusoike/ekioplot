@@ -7,7 +7,8 @@
 show_all_ekio_palettes()
 }
 \value{
-NULL (invisibly). Prints palette information to console.
+The palette list, invisibly (as returned by
+\code{\link[=list_ekio_palettes]{list_ekio_palettes()}} with \code{verbose = TRUE}).
 }
 \description{
 Deprecated. Use \code{\link[=list_ekio_palettes]{list_ekio_palettes()}} with \code{verbose = TRUE} instead.
@@ -15,3 +16,4 @@ Deprecated. Use \code{\link[=list_ekio_palettes]{list_ekio_palettes()}} with \co
 \examples{
 list_ekio_palettes(verbose = TRUE)
 }
+\keyword{internal}

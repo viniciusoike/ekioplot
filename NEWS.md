@@ -1,8 +1,15 @@
 # ekioplot 0.6.0
 
-## Breaking changes
+## New features
 
-* `show_all_ekio_palettes()` is now deprecated. Use `list_ekio_palettes(verbose = TRUE)` instead.
+* `list_ekio_palettes()` gains a `verbose` argument that prints a formatted
+  summary of the selected palette type(s).
+
+## Deprecations
+
+* `show_all_ekio_palettes()` is deprecated in favor of
+  `list_ekio_palettes(verbose = TRUE)`. It still works but warns once per
+  session, and is no longer listed on the pkgdown reference index.
 
 # ekioplot 0.5.0
 
