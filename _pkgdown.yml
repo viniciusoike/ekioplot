@@ -36,7 +36,6 @@ reference:
       - ekio_pal
       - list_ekio_palettes
       - show_ekio_palette
-      - show_all_ekio_palettes
 
   - title: Color Scales
     desc: Named color vectors for direct use

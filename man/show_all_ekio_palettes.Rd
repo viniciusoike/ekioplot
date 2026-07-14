@@ -10,8 +10,8 @@ show_all_ekio_palettes()
 NULL (invisibly). Prints palette information to console.
 }
 \description{
-Lists all available palettes organized by type.
+Deprecated. Use \code{\link[=list_ekio_palettes]{list_ekio_palettes()}} with \code{verbose = TRUE} instead.
 }
 \examples{
-show_all_ekio_palettes()
+list_ekio_palettes(verbose = TRUE)
 }

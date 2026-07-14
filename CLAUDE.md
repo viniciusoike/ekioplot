@@ -6,10 +6,19 @@ R package implementing EKIO's visual identity system for ggplot2 and gt tables.
 ## Description
 A comprehensive R package that provides EKIO-branded themes, color palettes, scale functions, high-level "recipe" chart functions, and gt table theming for professional data visualizations. Follows EKIO design principles of clarity, purposeful color usage, and professional presentation standards.
 
+## Brand tokens (canonical)
+
+This package is EKIO's single source of truth for brand color and type. Downstream projects (the `ekio` workspace, `ekio-site`) mirror these — update here first.
+
+- **Colors**: `ekio_blue["700"]` = `#1E3A5F` (primary), `ekio_gray["900"]` = `#1A202C` (ink), `ekio_gray["50"]` = `#FAFBFC` (background); accents orange `#DD6B20`, teal `#2C7A7B`. Full 10-step scales in `R/colors.R`.
+- **Type — charts & gt tables**: Helvetica Neue (macOS) / Arial (Windows) via `.get_ekio_font()`; sans only, no serif in ggplot2/gt output.
+- **Type — web (ekio-site)**: Lora (serif display/headings), Lato (body), Fira Code (mono). Lora is a deliberate web-only editorial display font; it is intentionally *not* used in chart output, which stays on the sans stack above.
+
 ## Package Architecture
 
 ### Source Files (R/)
-- **colors.R** — Color scale vectors (`ekio_blue`, `ekio_gray`, `ekio_teal`, `ekio_orange`, `ekio_accent`), internal sequential/diverging palette lists, `ekio_pal()` palette accessor, `list_ekio_palettes()`, `show_ekio_palette()`, `show_all_ekio_palettes()`
+- **colors.R** — Color scale vectors (`ekio_blue`, `ekio_gray`, `ekio_teal`, `ekio_orange`, `ekio_accent`), internal sequential/diverging palette lists, `ekio_pal()` palette accessor, `list_ekio_palettes()`, `show_ekio_palette()`, `show_all_ekio_palettes()` (deprecated, use `list_ekio_palettes(verbose = TRUE)`)
+
 - **scales.R** — Discrete (`scale_color_ekio_d`, `scale_fill_ekio_d`) and continuous (`scale_color_ekio_c`, `scale_fill_ekio_c`) ggplot2 scale functions with British spelling aliases
 - **theme.R** — `theme_ekio()` (modular, uses `theme_sub_*` helpers) and `theme_ekio_map()` for spatial maps. Platform-aware font selection via `.get_ekio_font()`
 - **recipes.R** — High-level chart builders (`ekio_histogram`, `ekio_lineplot`, `ekio_scatterplot`, `ekio_barplot`) with smart aesthetic detection (static color vs. variable mapping)

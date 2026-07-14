@@ -1,3 +1,9 @@
+# ekioplot 0.6.0
+
+## Breaking changes
+
+* `show_all_ekio_palettes()` is now deprecated. Use `list_ekio_palettes(verbose = TRUE)` instead.
+
 # ekioplot 0.5.0
 
 ## Breaking changes
