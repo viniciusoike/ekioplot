@@ -96,6 +96,24 @@ test_that("list_ekio_palettes verbose respects the type filter", {
   expect_false(any(grepl("Diverging|Sequential|Scientific", out)))
 })
 
+test_that("show_ekio_palette warns about deprecation but still works", {
+  expect_warning(
+    show_ekio_palette("contrast"),
+    "deprecated"
+  )
+})
+
+test_that("ekio_pal returns ekio_palette class that auto-prints", {
+  p <- ekio_pal("contrast")
+  expect_s3_class(p, "ekio_palette")
+  expect_type(p, "character")
+  expect_length(p, 6)
+
+  stripped <- as.character(p)
+  expect_type(stripped, "character")
+  expect_null(attr(stripped, "class"))
+})
+
 test_that("show_all_ekio_palettes warns about deprecation but still works", {
   expect_warning(
     res <- suppressMessages(show_all_ekio_palettes()),

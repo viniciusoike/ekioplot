@@ -17,7 +17,7 @@ This package is EKIO's single source of truth for brand color and type. Downstre
 ## Package Architecture
 
 ### Source Files (R/)
-- **colors.R** — Color scale vectors (`ekio_blue`, `ekio_gray`, `ekio_teal`, `ekio_orange`, `ekio_accent`), internal sequential/diverging palette lists, `ekio_pal()` palette accessor, `list_ekio_palettes()`, `show_ekio_palette()`, `show_all_ekio_palettes()` (deprecated, use `list_ekio_palettes(verbose = TRUE)`)
+- **colors.R** — Color scale vectors (`ekio_blue`, `ekio_gray`, `ekio_teal`, `ekio_orange`, `ekio_accent`), internal sequential/diverging palette lists, `ekio_pal()` palette accessor (auto-displays swatch via S3 print method), `list_ekio_palettes()`, `show_ekio_palette()` (deprecated, use `ekio_pal()`), `show_all_ekio_palettes()` (deprecated, use `list_ekio_palettes(verbose = TRUE)`)
 
 - **scales.R** — Discrete (`scale_color_ekio_d`, `scale_fill_ekio_d`) and continuous (`scale_color_ekio_c`, `scale_fill_ekio_c`) ggplot2 scale functions with British spelling aliases
 - **theme.R** — `theme_ekio()` (modular, uses `theme_sub_*` helpers) and `theme_ekio_map()` for spatial maps. Platform-aware font selection via `.get_ekio_font()`

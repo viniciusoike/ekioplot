@@ -19,7 +19,7 @@ ekio_blue <- c(
   "300" = "#7EB6D8",
   "200" = "#A8D0E8",
   "100" = "#D4E8F5",
-  "50"  = "#EEF5FA"
+  "50" = "#EEF5FA"
 )
 
 #' EKIO Neutral Gray Scale
@@ -41,7 +41,7 @@ ekio_gray <- c(
   "300" = "#E2E8F0",
   "200" = "#EDF2F7",
   "100" = "#F7FAFC",
-  "50"  = "#FAFBFC"
+  "50" = "#FAFBFC"
 )
 
 #' EKIO Teal Scale
@@ -63,7 +63,7 @@ ekio_teal <- c(
   "300" = "#81E6D9",
   "200" = "#B2F5EA",
   "100" = "#E6FFFA",
-  "50"  = "#F0FFF4"
+  "50" = "#F0FFF4"
 )
 
 #' EKIO Orange Scale
@@ -85,7 +85,7 @@ ekio_orange <- c(
   "300" = "#FBD38D",
   "200" = "#FEEBC8",
   "100" = "#FFFAF0",
-  "50"  = "#FFF8F0"
+  "50" = "#FFF8F0"
 )
 
 #' EKIO Named Accent Colors
@@ -98,50 +98,107 @@ ekio_orange <- c(
 #' ekio_accent["blue"]    # Primary blue
 #' ekio_accent["orange"]  # Contrast accent
 ekio_accent <- c(
-  blue   = "#1E3A5F",
+  blue = "#1E3A5F",
   orange = "#DD6B20",
-  teal   = "#2C7A7B",
-  amber  = "#D69E2E",
+  teal = "#2C7A7B",
+  amber = "#D69E2E",
   purple = "#805AD5",
-  red    = "#C53030",
-  green  = "#38A169",
-  gray   = "#718096"
+  red = "#C53030",
+  green = "#38A169",
+  gray = "#718096"
 )
 
 # ---- Internal Sequential Palettes (for continuous scales) ----
 
 .seq_palettes <- list(
   blue = c(
-    "#EEF5FA", "#D4E8F5", "#A8D0E8", "#7EB6D8", "#4A90C2",
-    "#3A6EA5", "#2B4C7E", "#1E3A5F", "#0D1B2A"
+    "#EEF5FA",
+    "#D4E8F5",
+    "#A8D0E8",
+    "#7EB6D8",
+    "#4A90C2",
+    "#3A6EA5",
+    "#2B4C7E",
+    "#1E3A5F",
+    "#0D1B2A"
   ),
   teal = c(
-    "#E6FFFA", "#B2F5EA", "#81E6D9", "#4FD1C5", "#38B2AC",
-    "#319795", "#2C7A7B", "#285E61", "#234E52"
+    "#E6FFFA",
+    "#B2F5EA",
+    "#81E6D9",
+    "#4FD1C5",
+    "#38B2AC",
+    "#319795",
+    "#2C7A7B",
+    "#285E61",
+    "#234E52"
   ),
   gray = c(
-    "#FAFBFC", "#F7FAFC", "#EDF2F7", "#E2E8F0", "#CBD5E0",
-    "#A0AEC0", "#718096", "#4A5568", "#2D3748", "#1A202C"
+    "#FAFBFC",
+    "#F7FAFC",
+    "#EDF2F7",
+    "#E2E8F0",
+    "#CBD5E0",
+    "#A0AEC0",
+    "#718096",
+    "#4A5568",
+    "#2D3748",
+    "#1A202C"
   ),
   orange = c(
-    "#FFFAF0", "#FEEBC8", "#FBD38D", "#F6AD55", "#ED8936",
-    "#DD6B20", "#C05621", "#9C4221", "#7B341E"
+    "#FFFAF0",
+    "#FEEBC8",
+    "#FBD38D",
+    "#F6AD55",
+    "#ED8936",
+    "#DD6B20",
+    "#C05621",
+    "#9C4221",
+    "#7B341E"
   ),
   purple = c(
-    "#FAF5FF", "#E9D8FD", "#D6BCFA", "#B794F4", "#9F7AEA",
-    "#805AD5", "#6B46C1", "#553C9A", "#44337A"
+    "#FAF5FF",
+    "#E9D8FD",
+    "#D6BCFA",
+    "#B794F4",
+    "#9F7AEA",
+    "#805AD5",
+    "#6B46C1",
+    "#553C9A",
+    "#44337A"
   ),
   red = c(
-    "#FFF5F5", "#FED7D7", "#FEB2B2", "#FC8181", "#F56565",
-    "#E53E3E", "#C53030", "#9B2C2C", "#742A2A"
+    "#FFF5F5",
+    "#FED7D7",
+    "#FEB2B2",
+    "#FC8181",
+    "#F56565",
+    "#E53E3E",
+    "#C53030",
+    "#9B2C2C",
+    "#742A2A"
   ),
   green = c(
-    "#F0FFF4", "#C6F6D5", "#9AE6B4", "#68D391", "#48BB78",
-    "#38A169", "#2F855A", "#276749", "#22543D"
+    "#F0FFF4",
+    "#C6F6D5",
+    "#9AE6B4",
+    "#68D391",
+    "#48BB78",
+    "#38A169",
+    "#2F855A",
+    "#276749",
+    "#22543D"
   ),
   amber = c(
-    "#FFFFF0", "#FEFCBF", "#FAF089", "#F6E05E", "#ECC94B",
-    "#D69E2E", "#B7791F", "#975A16", "#744210"
+    "#FFFFF0",
+    "#FEFCBF",
+    "#FAF089",
+    "#F6E05E",
+    "#ECC94B",
+    "#D69E2E",
+    "#B7791F",
+    "#975A16",
+    "#744210"
   )
 )
 
@@ -149,19 +206,43 @@ ekio_accent <- c(
 
 .div_palettes <- list(
   blue_orange = c(
-    "#0D1B2A", "#1E3A5F", "#3A6EA5", "#7EB6D8", "#D4E8F5",
+    "#0D1B2A",
+    "#1E3A5F",
+    "#3A6EA5",
+    "#7EB6D8",
+    "#D4E8F5",
     "#F5F0EB",
-    "#FEEBC8", "#F6AD55", "#DD6B20", "#9C4221", "#7B341E"
+    "#FEEBC8",
+    "#F6AD55",
+    "#DD6B20",
+    "#9C4221",
+    "#7B341E"
   ),
   blue_red = c(
-    "#0D1B2A", "#1E3A5F", "#3A6EA5", "#7EB6D8", "#D4E8F5",
+    "#0D1B2A",
+    "#1E3A5F",
+    "#3A6EA5",
+    "#7EB6D8",
+    "#D4E8F5",
     "#F5F0F0",
-    "#FED7D7", "#FC8181", "#E53E3E", "#C53030", "#742A2A"
+    "#FED7D7",
+    "#FC8181",
+    "#E53E3E",
+    "#C53030",
+    "#742A2A"
   ),
   teal_orange = c(
-    "#234E52", "#2C7A7B", "#38B2AC", "#81E6D9", "#E6FFFA",
+    "#234E52",
+    "#2C7A7B",
+    "#38B2AC",
+    "#81E6D9",
+    "#E6FFFA",
     "#F5F0EB",
-    "#FEEBC8", "#F6AD55", "#DD6B20", "#9C4221", "#7B341E"
+    "#FEEBC8",
+    "#F6AD55",
+    "#DD6B20",
+    "#9C4221",
+    "#7B341E"
   )
 )
 
@@ -183,13 +264,17 @@ ekio_accent <- c(
 #'
 #' Returns colors for data visualization. Includes EKIO brand palettes,
 #' curated small-group variants, and standard scientific palettes.
+#' When printed interactively, displays the palette as a colored swatch
+#' with hex labels.
 #'
 #' @param palette Character. Name of the palette. See [list_ekio_palettes()]
 #'   for all available options.
 #' @param n Integer or NULL. Number of colors to return. If NULL, returns all.
 #' @param reverse Logical. If TRUE, reverses the palette order.
 #'
-#' @return Character vector of hex color codes
+#' @return Object of class \code{ekio_palette} (a character vector of hex
+#'   codes). Printing displays a visual swatch. Use [as.character()] to
+#'   strip the class.
 #' @export
 #'
 #' @examples
@@ -197,53 +282,102 @@ ekio_accent <- c(
 #' ekio_pal("contrast", n = 4)
 #' ekio_pal("binary", reverse = TRUE)
 #' ekio_pal("okabe_ito")
-ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
-
+ekio_pal <- function(
+  palette = "contrast",
+  n = NULL,
+  reverse = FALSE
+) {
   palettes <- list(
     # ---- EKIO categorical palettes ----
-    cool     = c("#1E3A5F", "#4A90C2", "#2C7A7B"),
-    minimal  = c("#1E3A5F", "#4A5568", "#A0AEC0"),
-    contrast = c("#1E3A5F", "#DD6B20", "#2C7A7B", "#D69E2E", "#805AD5", "#C53030"),
-    full     = c(
-      "#1E3A5F", "#DD6B20", "#2C7A7B", "#D69E2E",
-      "#805AD5", "#C53030", "#38A169", "#718096"
+    cool = c("#1E3A5F", "#4A90C2", "#2C7A7B"),
+    minimal = c("#1E3A5F", "#4A5568", "#A0AEC0"),
+    contrast = c(
+      "#1E3A5F",
+      "#DD6B20",
+      "#2C7A7B",
+      "#D69E2E",
+      "#805AD5",
+      "#C53030"
     ),
-    muted    = c("#4A5568", "#718096", "#A0AEC0", "#CBD5E0", "#E2E8F0"),
-    binary   = c("#1E3A5F", "#DD6B20"),
+    full = c(
+      "#1E3A5F",
+      "#DD6B20",
+      "#2C7A7B",
+      "#D69E2E",
+      "#805AD5",
+      "#C53030",
+      "#38A169",
+      "#718096"
+    ),
+    muted = c("#4A5568", "#718096", "#A0AEC0", "#CBD5E0", "#E2E8F0"),
+    binary = c("#1E3A5F", "#DD6B20"),
     political = c("#1E3A5F", "#C53030"),
 
     # ---- Named small-group variants (curated for 2/3/4 groups) ----
-    duo_warm   = c("#DD6B20", "#D69E2E"),
-    duo_cool   = c("#1E3A5F", "#2C7A7B"),
-    trio_bold  = c("#1E3A5F", "#DD6B20", "#2C7A7B"),
-    trio_cool  = c("#3A6EA5", "#2C7A7B", "#805AD5"),
+    duo_warm = c("#DD6B20", "#D69E2E"),
+    duo_cool = c("#1E3A5F", "#2C7A7B"),
+    trio_bold = c("#1E3A5F", "#DD6B20", "#2C7A7B"),
+    trio_cool = c("#3A6EA5", "#2C7A7B", "#805AD5"),
     quad_earth = c("#1E3A5F", "#DD6B20", "#2C7A7B", "#38A169"),
     quad_vivid = c("#3A6EA5", "#DD6B20", "#805AD5", "#C53030"),
 
     # ---- Scientific / external palettes ----
     okabe_ito = c(
-      "#E69F00", "#56B4E9", "#009E73", "#F0E442",
-      "#0072B2", "#D55E00", "#CC79A7", "#000000"
+      "#E69F00",
+      "#56B4E9",
+      "#009E73",
+      "#F0E442",
+      "#0072B2",
+      "#D55E00",
+      "#CC79A7",
+      "#000000"
     ),
     viridis = c(
-      "#440154", "#482677", "#3f4a8a", "#31678e", "#26838f",
-      "#1f9d8a", "#6cce5a", "#b6de2b", "#fee825"
+      "#440154",
+      "#482677",
+      "#3f4a8a",
+      "#31678e",
+      "#26838f",
+      "#1f9d8a",
+      "#6cce5a",
+      "#b6de2b",
+      "#fee825"
     ),
     inferno = c(
-      "#000004", "#1b0c41", "#4a0c6b", "#781c6d", "#a52c60",
-      "#cf4446", "#ed6925", "#fb9b06", "#f7d03c", "#fcffa4"
+      "#000004",
+      "#1b0c41",
+      "#4a0c6b",
+      "#781c6d",
+      "#a52c60",
+      "#cf4446",
+      "#ed6925",
+      "#fb9b06",
+      "#f7d03c",
+      "#fcffa4"
     ),
     plasma = c(
-      "#0d0887", "#46039f", "#7201a8", "#9c179e", "#bd3786",
-      "#d8576b", "#ed7953", "#fb9f3a", "#fdca26", "#f0f921"
+      "#0d0887",
+      "#46039f",
+      "#7201a8",
+      "#9c179e",
+      "#bd3786",
+      "#d8576b",
+      "#ed7953",
+      "#fb9f3a",
+      "#fdca26",
+      "#f0f921"
     )
   )
 
-  pal <- palettes[[palette]] %||% .seq_palettes[[palette]] %||% .div_palettes[[palette]]
+  pal <- palettes[[palette]] %||%
+    .seq_palettes[[palette]] %||%
+    .div_palettes[[palette]]
   all_names <- c(names(palettes), names(.seq_palettes), names(.div_palettes))
   .validate_palette(pal, palette, all_names)
 
-  if (reverse) pal <- rev(pal)
+  if (reverse) {
+    pal <- rev(pal)
+  }
 
   if (!is.null(n)) {
     if (n > length(pal)) {
@@ -253,7 +387,63 @@ ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
     }
   }
 
-  pal
+  structure(pal, class = c("ekio_palette", "character"), palette = palette)
+}
+
+#' @export
+print.ekio_palette <- function(x, ...) {
+  position <- hex <- text_color <- NULL
+
+  n <- length(x)
+  text_colors <- ifelse(.luminance(x) > 150, "#1A202C", "#FFFFFF")
+  df <- data.frame(
+    position = seq_len(n),
+    hex = as.character(x),
+    text_color = text_colors,
+    stringsAsFactors = FALSE
+  )
+
+  p <- ggplot2::ggplot(df, ggplot2::aes(x = position, y = 1, fill = hex)) +
+    ggplot2::geom_tile(
+      width = 0.9,
+      height = 1,
+      color = "white",
+      linewidth = 1
+    ) +
+    ggplot2::scale_fill_identity() +
+    ggplot2::geom_text(
+      ggplot2::aes(label = hex, color = text_color),
+      size = 4,
+      fontface = "bold",
+      angle = 90
+    ) +
+    ggplot2::scale_color_identity() +
+    ggplot2::theme_void() +
+    ggplot2::labs(title = paste0("Palette: ", attr(x, "palette"))) +
+    ggplot2::theme(
+      plot.title = ggplot2::element_text(
+        hjust = 0.5,
+        size = 13,
+        face = "bold",
+        margin = ggplot2::margin(b = 10)
+      ),
+      plot.margin = ggplot2::margin(10, 10, 10, 10)
+    )
+
+  print(p)
+  invisible(x)
+}
+
+#' @export
+as.character.ekio_palette <- function(x, ...) {
+  x <- unclass(x)
+  attributes(x) <- NULL
+  x
+}
+
+.luminance <- function(colors) {
+  rgb_vals <- grDevices::col2rgb(colors)
+  rgb_vals[1, ] * 0.299 + rgb_vals[2, ] * 0.587 + rgb_vals[3, ] * 0.114
 }
 
 # ---- Palette Listing ----
@@ -279,13 +469,35 @@ ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
 #' list_ekio_palettes("diverging")
 #' list_ekio_palettes(verbose = TRUE)
 list_ekio_palettes <- function(type = "all", verbose = FALSE) {
-  categorical <- c("cool", "minimal", "contrast", "full", "muted", "binary", "political")
-  small_group <- c("duo_warm", "duo_cool", "trio_bold", "trio_cool", "quad_earth", "quad_vivid")
-  scientific  <- c("okabe_ito", "viridis", "inferno", "plasma")
-  sequential  <- names(.seq_palettes)
-  diverging   <- names(.div_palettes)
+  categorical <- c(
+    "cool",
+    "minimal",
+    "contrast",
+    "full",
+    "muted",
+    "binary",
+    "political"
+  )
+  small_group <- c(
+    "duo_warm",
+    "duo_cool",
+    "trio_bold",
+    "trio_cool",
+    "quad_earth",
+    "quad_vivid"
+  )
+  scientific <- c("okabe_ito", "viridis", "inferno", "plasma")
+  sequential <- names(.seq_palettes)
+  diverging <- names(.div_palettes)
 
-  valid_types <- c("categorical", "small_group", "scientific", "sequential", "diverging", "all")
+  valid_types <- c(
+    "categorical",
+    "small_group",
+    "scientific",
+    "sequential",
+    "diverging",
+    "all"
+  )
   if (!type %in% valid_types) {
     cli::cli_abort(c(
       "Unknown palette type {.val {type}}.",
@@ -296,9 +508,9 @@ list_ekio_palettes <- function(type = "all", verbose = FALSE) {
   groups <- list(
     categorical = categorical,
     small_group = small_group,
-    scientific  = scientific,
-    sequential  = sequential,
-    diverging   = diverging
+    scientific = scientific,
+    sequential = sequential,
+    diverging = diverging
   )
 
   result <- if (type == "all") groups else groups[[type]]
@@ -307,9 +519,9 @@ list_ekio_palettes <- function(type = "all", verbose = FALSE) {
     headers <- c(
       categorical = "Categorical",
       small_group = "Small Group Variants",
-      scientific  = "Scientific",
-      sequential  = "Sequential (for continuous scales)",
-      diverging   = "Diverging (for continuous scales)"
+      scientific = "Scientific",
+      sequential = "Sequential (for continuous scales)",
+      diverging = "Diverging (for continuous scales)"
     )
     shown <- if (type == "all") names(headers) else type
 
@@ -319,7 +531,9 @@ list_ekio_palettes <- function(type = "all", verbose = FALSE) {
       cli::cli_text("{.val {groups[[nm]]}}")
     }
     cli::cli_text("")
-    cli::cli_alert_info("Use {.code show_ekio_palette(\"name\")} to visualize")
+    cli::cli_alert_info(
+      "Print {.fun ekio_pal} to see the palette swatch"
+    )
 
     return(invisible(result))
   }
@@ -331,19 +545,30 @@ list_ekio_palettes <- function(type = "all", verbose = FALSE) {
 
 #' Display a Palette
 #'
-#' Visualizes a color palette as a horizontal bar chart with hex labels.
+#' @description
+#' Deprecated. Use [ekio_pal()] instead — it auto-displays a swatch on print.
 #'
-#' @param palette Character or vector. Either a palette name or a vector of hex colors.
-#' @param n Integer. Number of colors (used for interpolation on sequential palettes).
+#' @param palette Character or vector. Either a palette name or a vector of
+#'   hex colors.
+#' @param n Integer. Number of colors (used for interpolation on sequential
+#'   palettes).
 #' @param labels Logical. Show hex codes as labels (default: TRUE).
 #'
 #' @return A ggplot2 object (invisibly)
+#' @keywords internal
 #' @export
 #'
-#' @examplesIf rlang::is_interactive()
-#' show_ekio_palette("contrast")
-#' show_ekio_palette(c("#1E3A5F", "#DD6B20", "#2C7A7B"))
+#' @examples
+#' ekio_pal("contrast")
 show_ekio_palette <- function(palette, n = NULL, labels = TRUE) {
+  cli::cli_warn(
+    c(
+      "{.fn show_ekio_palette} was deprecated in ekioplot 0.5.1.",
+      "i" = "Use {.fun ekio_pal} instead — it auto-prints a swatch."
+    ),
+    .frequency = "once",
+    .frequency_id = "show_ekio_palette"
+  )
 
   if (length(palette) > 1) {
     colors <- palette
@@ -353,26 +578,42 @@ show_ekio_palette <- function(palette, n = NULL, labels = TRUE) {
     title <- paste("Palette:", palette)
   }
 
-  df <- data.frame(x = seq_along(colors), color = colors, stringsAsFactors = FALSE)
+  df <- data.frame(
+    y = seq_along(colors),
+    color = colors,
+    stringsAsFactors = FALSE
+  )
 
-  # Text color based on luminance
   rgb_vals <- grDevices::col2rgb(colors)
-  luminance <- rgb_vals[1, ] * 0.299 + rgb_vals[2, ] * 0.587 + rgb_vals[3, ] * 0.114
+  luminance <- rgb_vals[1, ] *
+    0.299 +
+    rgb_vals[2, ] * 0.587 +
+    rgb_vals[3, ] * 0.114
   text_colors <- ifelse(luminance > 150, "#1A202C", "#FFFFFF")
 
-  p <- ggplot2::ggplot(df, ggplot2::aes(x = x, y = 1, fill = color)) +
+  p <- ggplot2::ggplot(df, ggplot2::aes(x = 1, y = y, fill = color)) +
     ggplot2::geom_tile(color = "white", linewidth = 2) +
     ggplot2::scale_fill_identity() +
-    ggplot2::coord_fixed(ratio = 1) +
+    ggplot2::scale_y_reverse() +
     ggplot2::labs(title = title) +
     ggplot2::theme_void() +
     ggplot2::theme(
-      plot.title = ggplot2::element_text(hjust = 0.5, face = "bold", margin = ggplot2::margin(b = 10)),
+      plot.title = ggplot2::element_text(
+        hjust = 0.5,
+        face = "bold",
+        margin = ggplot2::margin(b = 10)
+      ),
       plot.margin = ggplot2::margin(20, 20, 20, 20)
     )
 
   if (labels) {
-    p <- p + ggplot2::geom_text(ggplot2::aes(label = color), size = 3, color = text_colors)
+    p <- p +
+      ggplot2::geom_text(
+        ggplot2::aes(label = color),
+        angle = 90,
+        size = 3,
+        color = text_colors
+      )
   }
 
   print(p)
@@ -394,7 +635,7 @@ show_ekio_palette <- function(palette, n = NULL, labels = TRUE) {
 show_all_ekio_palettes <- function() {
   cli::cli_warn(
     c(
-      "{.fn show_all_ekio_palettes} was deprecated in ekioplot 0.6.0.",
+      "{.fn show_all_ekio_palettes} was deprecated in ekioplot 0.5.1.",
       "i" = "Use {.code list_ekio_palettes(verbose = TRUE)} instead."
     ),
     .frequency = "once",
