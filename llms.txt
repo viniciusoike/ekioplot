@@ -72,9 +72,9 @@ through a single function:
 
 ``` r
 
-list_ekio_palettes()        # explore everything, grouped by type
-ekio_pal("contrast")        # categorical
-ekio_pal("blue", n = 5)     # sequential, interpolated to 5 colors
+list_ekio_palettes() # explore everything, grouped by type
+ekio_pal("contrast") # categorical
+ekio_pal("blue", n = 5) # sequential, interpolated to 5 colors
 show_ekio_palette("contrast")
 ```
 
@@ -199,8 +199,6 @@ Access and explore color palettes
   : List Available Palettes
 - [`show_ekio_palette()`](https://viniciusoike.github.io/ekioplot/reference/show_ekio_palette.md)
   : Display a Palette
-- [`show_all_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/show_all_ekio_palettes.md)
-  : Show All Palettes
 
 ## Color Scales
 

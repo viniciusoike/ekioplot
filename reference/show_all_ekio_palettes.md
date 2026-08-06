@@ -1,6 +1,8 @@
 # Show All Palettes
 
-Lists all available palettes organized by type.
+Deprecated. Use
+[`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md)
+with `verbose = TRUE` instead.
 
 ## Usage
 
@@ -10,12 +12,14 @@ show_all_ekio_palettes()
 
 ## Value
 
-NULL (invisibly). Prints palette information to console.
+The palette list, invisibly (as returned by
+[`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md)
+with `verbose = TRUE`).
 
 ## Examples
 
 ``` r
-show_all_ekio_palettes()
+list_ekio_palettes(verbose = TRUE)
 #> 
 #> ── Available Palettes ──────────────────────────────────────────────────────────
 #> 
@@ -40,5 +44,5 @@ show_all_ekio_palettes()
 #> 
 #> "blue_orange", "blue_red", and "teal_orange"
 #> 
-#> ℹ Use `show_ekio_palette("name")` to visualize
+#> ℹ Print `ekio_pal()` to see the palette swatch
 ```

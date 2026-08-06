@@ -1,6 +1,8 @@
 # Display a Palette
 
-Visualizes a color palette as a horizontal bar chart with hex labels.
+Deprecated. Use
+[`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
+in its place.
 
 ## Usage
 
@@ -30,8 +32,5 @@ A ggplot2 object (invisibly)
 ## Examples
 
 ``` r
-if (FALSE) { # rlang::is_interactive()
-show_ekio_palette("contrast")
-show_ekio_palette(c("#1E3A5F", "#DD6B20", "#2C7A7B"))
-}
+ekio_pal("contrast")
 ```

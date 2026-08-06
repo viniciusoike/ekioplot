@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Getting Started with ekioplot</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/viniciusoike/ekioplot/blob/v0.5.0/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/viniciusoike/ekioplot/blob/master/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
       <div class="d-none name"><code>getting-started.Rmd</code></div>
     </div>
 
@@ -114,10 +114,11 @@ removes axes and repositions the legend.</p>
 <span><span class="co">#&gt;  $ diverging  : chr [1:3] "blue_orange" "blue_red" "teal_orange"</span></span></code></pre></div>
 <p>Access any palette with <code><a href="../reference/ekio_pal.html">ekio_pal()</a></code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"contrast"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "#1E3A5F" "#DD6B20" "#2C7A7B" "#D69E2E" "#805AD5" "#C53030"</span></span>
-<span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"blue"</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "#EEF5FA" "#D4E8F5" "#A8D0E8" "#7EB6D8" "#4A90C2"</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"contrast"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="getting-started_files/figure-html/palette-access-1.png" class="r-plt" alt="" width="1050"></p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"blue"</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
+<p><img src="getting-started_files/figure-html/palette-access-2.png" class="r-plt" alt="" width="1050"></p>
 <div class="section level3">
 <h3 id="palette-types">Palette types<a class="anchor" aria-label="anchor" href="#palette-types"></a>
 </h3>
@@ -147,8 +148,11 @@ removes axes and repositions the legend.</p>
 </li>
 </ul>
 <p>Visualize any palette with <code><a href="../reference/show_ekio_palette.html">show_ekio_palette()</a></code>:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_ekio_palette.html">show_ekio_palette</a></span><span class="op">(</span><span class="st">"contrast"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_ekio_palette.html">show_ekio_palette</a></span><span class="op">(</span><span class="st">"contrast"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: `show_ekio_palette()` was deprecated in ekioplot 0.5.1.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `ekio_pal()` in its place.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once per session.</span></span></span></code></pre></div>
 <p><img src="getting-started_files/figure-html/show-palette-1.png" class="r-plt" alt="" width="1050"></p>
 </div>
 </div>
@@ -160,7 +164,7 @@ data.</p>
 <div class="section level3">
 <h3 id="discrete-scales">Discrete scales<a class="anchor" aria-label="anchor" href="#discrete-scales"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_color_ekio_d.html">scale_color_ekio_d</a></span><span class="op">(</span><span class="st">"contrast"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -172,7 +176,7 @@ data.</p>
 <h3 id="continuous-scales">Continuous scales<a class="anchor" aria-label="anchor" href="#continuous-scales"></a>
 </h3>
 <p>Sequential and diverging palettes work with continuous data:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span>, color <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_color_ekio_c.html">scale_color_ekio_c</a></span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -191,14 +195,14 @@ publication-ready plots with smart defaults.</p>
 <div class="section level3">
 <h3 id="histogram">Histogram<a class="anchor" aria-label="anchor" href="#histogram"></a>
 </h3>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_histogram.html">ekio_histogram</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">mpg</span><span class="op">)</span></span></code></pre></div>
 <p><img src="getting-started_files/figure-html/recipe-histogram-1.png" class="r-plt" alt="" width="1050"></p>
 </div>
 <div class="section level3">
 <h3 id="bar-plot">Bar plot<a class="anchor" aria-label="anchor" href="#bar-plot"></a>
 </h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cyl_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span>cyl <span class="op">=</span> <span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">cyl_counts</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"n"</span></span>
 <span><span class="fu"><a href="../reference/ekio_barplot.html">ekio_barplot</a></span><span class="op">(</span><span class="va">cyl_counts</span>, <span class="va">cyl</span>, <span class="va">n</span><span class="op">)</span></span></code></pre></div>
@@ -207,14 +211,14 @@ publication-ready plots with smart defaults.</p>
 <div class="section level3">
 <h3 id="scatter-plot">Scatter plot<a class="anchor" aria-label="anchor" href="#scatter-plot"></a>
 </h3>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_scatterplot.html">ekio_scatterplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">wt</span>, <span class="va">mpg</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="getting-started_files/figure-html/recipe-scatter-1.png" class="r-plt" alt="" width="1050"></p>
 </div>
 <div class="section level3">
 <h3 id="area-plot">Area plot<a class="anchor" aria-label="anchor" href="#area-plot"></a>
 </h3>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">fuels</span><span class="op">)</span></span>
 <span><span class="va">world_fuels</span> <span class="op">&lt;-</span> <span class="va">fuels</span><span class="op">[</span><span class="va">fuels</span><span class="op">$</span><span class="va">entity</span> <span class="op">==</span> <span class="st">"World"</span> <span class="op">&amp;</span> <span class="va">fuels</span><span class="op">$</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">1950</span>, <span class="op">]</span></span>
 <span><span class="fu"><a href="../reference/ekio_areaplot.html">ekio_areaplot</a></span><span class="op">(</span><span class="va">world_fuels</span>, <span class="va">year</span>, <span class="va">consumption_gwh</span>, fill <span class="op">=</span> <span class="va">fuel</span><span class="op">)</span></span></code></pre></div>
@@ -235,7 +239,7 @@ uses that color directly</li>
 <strong>A variable</strong> — maps it and applies the appropriate
 EKIO scale</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_histogram.html">ekio_histogram</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">mpg</span>, fill <span class="op">=</span> <span class="st">"coral"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="getting-started_files/figure-html/recipe-static-color-1.png" class="r-plt" alt="" width="1050"></p>
 </div>
@@ -247,7 +251,7 @@ EKIO scale</li>
 <code>ekio_blue</code>, <code>ekio_gray</code>, <code>ekio_teal</code>,
 and <code>ekio_orange</code>. Each provides 10 shades from
 <code>"50"</code> (lightest) to <code>"900"</code> (darkest).</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ekio_blue</span><span class="op">[</span><span class="st">"700"</span><span class="op">]</span></span>
 <span><span class="co">#&gt;       700 </span></span>
 <span><span class="co">#&gt; "#1E3A5F"</span></span>
@@ -255,7 +259,7 @@ and <code>ekio_orange</code>. Each provides 10 shades from
 <span><span class="co">#&gt;       300 </span></span>
 <span><span class="co">#&gt; "#E2E8F0"</span></span></code></pre></div>
 <p>Named accent colors are available in <code>ekio_accent</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ekio_accent</span></span>
 <span><span class="co">#&gt;      blue    orange      teal     amber    purple       red     green      gray </span></span>
 <span><span class="co">#&gt; "#1E3A5F" "#DD6B20" "#2C7A7B" "#D69E2E" "#805AD5" "#C53030" "#38A169" "#718096"</span></span></code></pre></div>
@@ -265,7 +269,7 @@ and <code>ekio_orange</code>. Each provides 10 shades from
 </h2>
 <p>Apply EKIO styling to gt tables with
 <code><a href="../reference/gt_theme_ekio.html">gt_theme_ekio()</a></code>:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, <span class="fl">8</span><span class="op">)</span> <span class="op">|&gt;</span></span>

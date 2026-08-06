@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="logo.png" class="logo" alt=""><h1>CLAUDE.md - Project Context</h1>
-      <small class="dont-index">Source: <a href="https://github.com/viniciusoike/ekioplot/blob/v0.5.0/CLAUDE.md" class="external-link"><code>CLAUDE.md</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/viniciusoike/ekioplot/blob/master/CLAUDE.md" class="external-link"><code>CLAUDE.md</code></a></small>
     </div>
 
 <div id="claudemd---project-context" class="section level1">
@@ -46,25 +46,26 @@
 <p>A comprehensive R package that provides EKIO-branded themes, color palettes, scale functions, high-level “recipe” chart functions, and gt table theming for professional data visualizations. Follows EKIO design principles of clarity, purposeful color usage, and professional presentation standards.</p>
 </div>
 <div class="section level2">
+<h2 id="brand-tokens-canonical">Brand tokens (canonical)<a class="anchor" aria-label="anchor" href="#brand-tokens-canonical"></a></h2>
+<p>This package is EKIO’s single source of truth for brand color and type. Downstream projects (the <code>ekio</code> workspace, <code>ekio-site</code>) mirror these — update here first.</p>
+<ul><li>
+<strong>Colors</strong>: <code>ekio_blue["700"]</code> = <code>#1E3A5F</code> (primary), <code>ekio_gray["900"]</code> = <code>#1A202C</code> (ink), <code>ekio_gray["50"]</code> = <code>#FAFBFC</code> (background); accents orange <code>#DD6B20</code>, teal <code>#2C7A7B</code>. Full 10-step scales in <code>R/colors.R</code>.</li>
+<li>
+<strong>Type — charts &amp; gt tables</strong>: Helvetica Neue (macOS) / Arial (Windows) via <code>.get_ekio_font()</code>; sans only, no serif in ggplot2/gt output.</li>
+<li>
+<strong>Type — web (ekio-site)</strong>: Lora (serif display/headings), Lato (body), Fira Code (mono). Lora is a deliberate web-only editorial display font; it is intentionally <em>not</em> used in chart output, which stays on the sans stack above.</li>
+</ul></div>
+<div class="section level2">
 <h2 id="package-architecture">Package Architecture<a class="anchor" aria-label="anchor" href="#package-architecture"></a></h2>
 <div class="section level3">
 <h3 id="source-files-r">Source Files (R/)<a class="anchor" aria-label="anchor" href="#source-files-r"></a></h3>
-<ul><li>
-<strong>colors.R</strong> — Color scale vectors (<code>ekio_blue</code>, <code>ekio_gray</code>, <code>ekio_teal</code>, <code>ekio_orange</code>, <code>ekio_accent</code>), internal sequential/diverging palette lists, <code><a href="reference/ekio_pal.html">ekio_pal()</a></code> palette accessor, <code><a href="reference/list_ekio_palettes.html">list_ekio_palettes()</a></code>, <code><a href="reference/show_ekio_palette.html">show_ekio_palette()</a></code>, <code><a href="reference/show_all_ekio_palettes.html">show_all_ekio_palettes()</a></code>
-</li>
-<li>
-<strong>scales.R</strong> — Discrete (<code>scale_color_ekio_d</code>, <code>scale_fill_ekio_d</code>) and continuous (<code>scale_color_ekio_c</code>, <code>scale_fill_ekio_c</code>) ggplot2 scale functions with British spelling aliases</li>
-<li>
-<strong>theme.R</strong> — <code><a href="reference/theme_ekio.html">theme_ekio()</a></code> (modular, uses <code>theme_sub_*</code> helpers) and <code><a href="reference/theme_ekio_map.html">theme_ekio_map()</a></code> for spatial maps. Platform-aware font selection via <code>.get_ekio_font()</code>
-</li>
-<li>
-<strong>recipes.R</strong> — High-level chart builders (<code>ekio_histogram</code>, <code>ekio_lineplot</code>, <code>ekio_scatterplot</code>, <code>ekio_barplot</code>) with smart aesthetic detection (static color vs. variable mapping)</li>
-<li>
-<strong>gt_theme.R</strong> — <code><a href="reference/gt_theme_ekio.html">gt_theme_ekio()</a></code> for professional gt table styling</li>
-<li>
-<strong>data.R</strong> — Documentation for 6 bundled datasets (Brazilian socioeconomic/agriculture data, global fuels)</li>
-<li>
-<strong>utils.R</strong> — Package-level imports and <code>globalVariables</code> suppression</li>
+<ul><li><p><strong>colors.R</strong> — Color scale vectors (<code>ekio_blue</code>, <code>ekio_gray</code>, <code>ekio_teal</code>, <code>ekio_orange</code>, <code>ekio_accent</code>), internal sequential/diverging palette lists, <code><a href="reference/ekio_pal.html">ekio_pal()</a></code> palette accessor (auto-displays swatch via S3 print method), <code><a href="reference/list_ekio_palettes.html">list_ekio_palettes()</a></code>, <code><a href="reference/show_ekio_palette.html">show_ekio_palette()</a></code> (deprecated, use <code><a href="reference/ekio_pal.html">ekio_pal()</a></code>), <code><a href="reference/show_all_ekio_palettes.html">show_all_ekio_palettes()</a></code> (deprecated, use <code>list_ekio_palettes(verbose = TRUE)</code>)</p></li>
+<li><p><strong>scales.R</strong> — Discrete (<code>scale_color_ekio_d</code>, <code>scale_fill_ekio_d</code>) and continuous (<code>scale_color_ekio_c</code>, <code>scale_fill_ekio_c</code>) ggplot2 scale functions with British spelling aliases</p></li>
+<li><p><strong>theme.R</strong> — <code><a href="reference/theme_ekio.html">theme_ekio()</a></code> (modular, uses <code>theme_sub_*</code> helpers) and <code><a href="reference/theme_ekio_map.html">theme_ekio_map()</a></code> for spatial maps. Platform-aware font selection via <code>.get_ekio_font()</code></p></li>
+<li><p><strong>recipes.R</strong> — High-level chart builders (<code>ekio_histogram</code>, <code>ekio_lineplot</code>, <code>ekio_scatterplot</code>, <code>ekio_barplot</code>) with smart aesthetic detection (static color vs. variable mapping)</p></li>
+<li><p><strong>gt_theme.R</strong> — <code><a href="reference/gt_theme_ekio.html">gt_theme_ekio()</a></code> for professional gt table styling</p></li>
+<li><p><strong>data.R</strong> — Documentation for 6 bundled datasets (Brazilian socioeconomic/agriculture data, global fuels)</p></li>
+<li><p><strong>utils.R</strong> — Package-level imports and <code>globalVariables</code> suppression</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="key-design-decisions">Key Design Decisions<a class="anchor" aria-label="anchor" href="#key-design-decisions"></a></h3>

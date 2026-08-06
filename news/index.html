@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,9 +32,22 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/viniciusoike/ekioplot/blob/v0.5.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/viniciusoike/ekioplot/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.5.1" id="ekioplot-051">ekioplot 0.5.1<a class="anchor" aria-label="anchor" href="#ekioplot-051"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-5-1">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-1"></a></h3>
+<ul><li><p><code><a href="../reference/list_ekio_palettes.html">list_ekio_palettes()</a></code> gains a <code>verbose</code> argument that prints a formatted summary of the selected palette type(s).</p></li>
+<li><p><code><a href="../reference/ekio_pal.html">ekio_pal()</a></code> now returns an object of class <code>ekio_palette</code>, a character vector with a custom print method that automatically displays a color swatch in interactive sessions. This replaces the need for a separate <code><a href="../reference/show_ekio_palette.html">show_ekio_palette()</a></code> function. Use <code><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character()</a></code> to strip the class when only hex codes are needed.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="deprecations-0-5-1">Deprecations<a class="anchor" aria-label="anchor" href="#deprecations-0-5-1"></a></h3>
+<ul><li><p><code><a href="../reference/show_all_ekio_palettes.html">show_all_ekio_palettes()</a></code> is deprecated in favor of <code>list_ekio_palettes(verbose = TRUE)</code>. It still works but warns once per session, and is no longer listed on the pkgdown reference index.</p></li>
+<li><p><code><a href="../reference/show_ekio_palette.html">show_ekio_palette()</a></code> is deprecated in favor of <code><a href="../reference/ekio_pal.html">ekio_pal()</a></code> (which auto-displays a swatch on print). It still works but warns once per session.</p></li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0" id="ekioplot-050">ekioplot 0.5.0<a class="anchor" aria-label="anchor" href="#ekioplot-050"></a></h2>
 <div class="section level3">

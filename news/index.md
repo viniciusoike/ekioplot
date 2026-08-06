@@ -1,5 +1,35 @@
 # Changelog
 
+## ekioplot 0.5.1
+
+### New features
+
+- [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md)
+  gains a `verbose` argument that prints a formatted summary of the
+  selected palette type(s).
+
+- [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
+  now returns an object of class `ekio_palette`, a character vector with
+  a custom print method that automatically displays a color swatch in
+  interactive sessions. This replaces the need for a separate
+  [`show_ekio_palette()`](https://viniciusoike.github.io/ekioplot/reference/show_ekio_palette.md)
+  function. Use
+  [`as.character()`](https://rdrr.io/r/base/character.html) to strip the
+  class when only hex codes are needed.
+
+### Deprecations
+
+- [`show_all_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/show_all_ekio_palettes.md)
+  is deprecated in favor of `list_ekio_palettes(verbose = TRUE)`. It
+  still works but warns once per session, and is no longer listed on the
+  pkgdown reference index.
+
+- [`show_ekio_palette()`](https://viniciusoike.github.io/ekioplot/reference/show_ekio_palette.md)
+  is deprecated in favor of
+  [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
+  (which auto-displays a swatch on print). It still works but warns once
+  per session.
+
 ## ekioplot 0.5.0
 
 ### Breaking changes

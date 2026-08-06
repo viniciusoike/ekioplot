@@ -13,6 +13,24 @@ table theming for professional data visualizations. Follows EKIO design
 principles of clarity, purposeful color usage, and professional
 presentation standards.
 
+## Brand tokens (canonical)
+
+This package is EKIO’s single source of truth for brand color and type.
+Downstream projects (the `ekio` workspace, `ekio-site`) mirror these —
+update here first.
+
+- **Colors**: `ekio_blue["700"]` = `#1E3A5F` (primary),
+  `ekio_gray["900"]` = `#1A202C` (ink), `ekio_gray["50"]` = `#FAFBFC`
+  (background); accents orange `#DD6B20`, teal `#2C7A7B`. Full 10-step
+  scales in `R/colors.R`.
+- **Type — charts & gt tables**: Helvetica Neue (macOS) / Arial
+  (Windows) via `.get_ekio_font()`; sans only, no serif in ggplot2/gt
+  output.
+- **Type — web (ekio-site)**: Lora (serif display/headings), Lato
+  (body), Fira Code (mono). Lora is a deliberate web-only editorial
+  display font; it is intentionally *not* used in chart output, which
+  stays on the sans stack above.
+
 ## Package Architecture
 
 ### Source Files (R/)
@@ -21,26 +39,35 @@ presentation standards.
   `ekio_teal`, `ekio_orange`, `ekio_accent`), internal
   sequential/diverging palette lists,
   [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
-  palette accessor,
+  palette accessor (auto-displays swatch via S3 print method),
   [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md),
-  [`show_ekio_palette()`](https://viniciusoike.github.io/ekioplot/reference/show_ekio_palette.md),
+  [`show_ekio_palette()`](https://viniciusoike.github.io/ekioplot/reference/show_ekio_palette.md)
+  (deprecated, use
+  [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)),
   [`show_all_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/show_all_ekio_palettes.md)
+  (deprecated, use `list_ekio_palettes(verbose = TRUE)`)
+
 - **scales.R** — Discrete (`scale_color_ekio_d`, `scale_fill_ekio_d`)
   and continuous (`scale_color_ekio_c`, `scale_fill_ekio_c`) ggplot2
   scale functions with British spelling aliases
+
 - **theme.R** —
   [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
   (modular, uses `theme_sub_*` helpers) and
   [`theme_ekio_map()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio_map.md)
   for spatial maps. Platform-aware font selection via `.get_ekio_font()`
+
 - **recipes.R** — High-level chart builders (`ekio_histogram`,
   `ekio_lineplot`, `ekio_scatterplot`, `ekio_barplot`) with smart
   aesthetic detection (static color vs. variable mapping)
+
 - **gt_theme.R** —
   [`gt_theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/gt_theme_ekio.md)
   for professional gt table styling
+
 - **data.R** — Documentation for 6 bundled datasets (Brazilian
   socioeconomic/agriculture data, global fuels)
+
 - **utils.R** — Package-level imports and `globalVariables` suppression
 
 ### Key Design Decisions

@@ -66,10 +66,16 @@ Access any palette with
 ``` r
 
 ekio_pal("contrast")
-#> [1] "#1E3A5F" "#DD6B20" "#2C7A7B" "#D69E2E" "#805AD5" "#C53030"
-ekio_pal("blue", n = 5)
-#> [1] "#EEF5FA" "#D4E8F5" "#A8D0E8" "#7EB6D8" "#4A90C2"
 ```
+
+![](getting-started_files/figure-html/palette-access-1.png)
+
+``` r
+
+ekio_pal("blue", n = 5)
+```
+
+![](getting-started_files/figure-html/palette-access-2.png)
 
 ### Palette types
 
@@ -88,6 +94,9 @@ Visualize any palette with
 ``` r
 
 show_ekio_palette("contrast")
+#> Warning: `show_ekio_palette()` was deprecated in ekioplot 0.5.1.
+#> ℹ Use `ekio_pal()` in its place.
+#> This warning is displayed once per session.
 ```
 
 ![](getting-started_files/figure-html/show-palette-1.png)

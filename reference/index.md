@@ -36,8 +36,6 @@ Access and explore color palettes
   : List Available Palettes
 - [`show_ekio_palette()`](https://viniciusoike.github.io/ekioplot/reference/show_ekio_palette.md)
   : Display a Palette
-- [`show_all_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/show_all_ekio_palettes.md)
-  : Show All Palettes
 
 ## Color Scales
 

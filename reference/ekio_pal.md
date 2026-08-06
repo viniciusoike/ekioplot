@@ -1,7 +1,9 @@
 # Get Color Palette
 
 Returns colors for data visualization. Includes EKIO brand palettes,
-curated small-group variants, and standard scientific palettes.
+curated small-group variants, and standard scientific palettes. When
+printed interactively, displays the palette as a colored swatch with hex
+labels.
 
 ## Usage
 
@@ -27,18 +29,19 @@ ekio_pal(palette = "contrast", n = NULL, reverse = FALSE)
 
 ## Value
 
-Character vector of hex color codes
+Object of class `ekio_palette` (a character vector of hex codes).
+Printing displays a visual swatch. Use
+[`as.character()`](https://rdrr.io/r/base/character.html) to strip the
+class.
 
 ## Examples
 
 ``` r
 ekio_pal("contrast")
-#> [1] "#1E3A5F" "#DD6B20" "#2C7A7B" "#D69E2E" "#805AD5" "#C53030"
+
 ekio_pal("contrast", n = 4)
-#> [1] "#1E3A5F" "#DD6B20" "#2C7A7B" "#D69E2E"
+
 ekio_pal("binary", reverse = TRUE)
-#> [1] "#DD6B20" "#1E3A5F"
+
 ekio_pal("okabe_ito")
-#> [1] "#E69F00" "#56B4E9" "#009E73" "#F0E442" "#0072B2" "#D55E00" "#CC79A7"
-#> [8] "#000000"
 ```

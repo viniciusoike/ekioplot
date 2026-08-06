@@ -72,9 +72,9 @@ through a single function:
 
 ``` r
 
-list_ekio_palettes()        # explore everything, grouped by type
-ekio_pal("contrast")        # categorical
-ekio_pal("blue", n = 5)     # sequential, interpolated to 5 colors
+list_ekio_palettes() # explore everything, grouped by type
+ekio_pal("contrast") # categorical
+ekio_pal("blue", n = 5) # sequential, interpolated to 5 colors
 show_ekio_palette("contrast")
 ```
 
