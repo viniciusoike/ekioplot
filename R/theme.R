@@ -28,14 +28,14 @@
 #' @export
 theme_ekio <- function(base_size = 11, base_family = "", grid = "y") {
   colors <- list(
-    text_dark  = ekio_gray["900"],  # #1A202C
-    text_mid   = ekio_gray["700"],  # #4A5568
-    text_light = ekio_gray["600"],  # #718096
-    text_muted = ekio_gray["500"],  # #A0AEC0
-    grid_line  = ekio_gray["300"],  # #E2E8F0
-    background = ekio_gray["50"],   # #FAFBFC
-    primary    = ekio_blue["700"],  # #1E3A5F
-    white      = "#ffffff"
+    text_dark = ekio_gray["900"], # #1A202C
+    text_mid = ekio_gray["700"], # #4A5568
+    text_light = ekio_gray["600"], # #718096
+    text_muted = ekio_gray["500"], # #A0AEC0
+    grid_line = ekio_gray["300"], # #E2E8F0
+    background = ekio_gray["50"], # #FAFBFC
+    primary = ekio_blue["700"], # #1E3A5F
+    white = "#ffffff"
   )
 
   grid_y <- if (grid %in% c("y", "xy")) {
@@ -58,51 +58,63 @@ theme_ekio <- function(base_size = 11, base_family = "", grid = "y") {
 
   ggplot2::theme_minimal(base_size = base_size, base_family = font_family) +
     ggplot2::theme_sub_plot(
-      background       = ggplot2::element_rect(fill = colors$background, color = NA),
-      title            = ggplot2::element_text(
-        size   = ggplot2::rel(1.2),
-        color  = colors$text_dark,
+      background = ggplot2::element_rect(fill = colors$background, color = NA),
+      title = ggplot2::element_text(
+        size = ggplot2::rel(1.2),
+        color = colors$text_dark,
         margin = ggplot2::margin(b = 4),
-        hjust  = 0
+        hjust = 0
       ),
-      title.position   = "plot",
-      subtitle         = ggplot2::element_text(
-        size   = ggplot2::rel(0.9),
-        color  = colors$text_light,
+      title.position = "plot",
+      subtitle = ggplot2::element_text(
+        size = ggplot2::rel(0.9),
+        color = colors$text_light,
         margin = ggplot2::margin(b = 8),
-        hjust  = 0
+        hjust = 0
       ),
-      caption          = ggplot2::element_text(
-        size   = ggplot2::rel(0.7),
-        color  = colors$text_muted,
+      caption = ggplot2::element_text(
+        size = ggplot2::rel(0.7),
+        color = colors$text_muted,
         margin = ggplot2::margin(t = 8),
-        hjust  = 0
+        hjust = 0
       ),
       caption.position = "plot",
-      margin           = ggplot2::margin(15, 10, 15, 10)
+      margin = ggplot2::margin(15, 10, 15, 10)
     ) +
     ggplot2::theme_sub_panel(
-      background   = ggplot2::element_rect(fill = colors$background, color = NA),
+      background = ggplot2::element_rect(fill = colors$background, color = NA),
       grid.major.y = grid_y,
       grid.major.x = grid_x,
-      grid.minor   = ggplot2::element_blank()
+      grid.minor = ggplot2::element_blank()
     ) +
     ggplot2::theme_sub_axis(
-      title = ggplot2::element_text(size = ggplot2::rel(0.9), color = colors$text_mid),
-      text  = ggplot2::element_text(size = ggplot2::rel(0.8), color = colors$text_light)
+      title = ggplot2::element_text(
+        size = ggplot2::rel(0.9),
+        color = colors$text_mid
+      ),
+      text = ggplot2::element_text(
+        size = ggplot2::rel(0.8),
+        color = colors$text_light
+      )
     ) +
     ggplot2::theme_sub_legend(
-      position      = "top",
+      position = "top",
       justification = "left",
-      title         = ggplot2::element_text(size = ggplot2::rel(0.9), color = colors$text_mid),
-      text          = ggplot2::element_text(size = ggplot2::rel(0.8), color = colors$text_light),
-      key           = ggplot2::element_blank(),
-      background    = ggplot2::element_blank(),
-      margin        = ggplot2::margin(0, 0, 0, 0)
+      title = ggplot2::element_text(
+        size = ggplot2::rel(0.9),
+        color = colors$text_mid
+      ),
+      text = ggplot2::element_text(
+        size = ggplot2::rel(0.8),
+        color = colors$text_light
+      ),
+      key = ggplot2::element_blank(),
+      background = ggplot2::element_blank(),
+      margin = ggplot2::margin(0, 0, 0, 0)
     ) +
     ggplot2::theme_sub_strip(
-      text       = ggplot2::element_text(
-        size  = ggplot2::rel(0.9),
+      text = ggplot2::element_text(
+        size = ggplot2::rel(0.9),
         color = colors$white,
         hjust = 0.5
       ),
@@ -126,11 +138,11 @@ theme_ekio_map <- function(base_size = 11, base_family = "") {
   theme_ekio(base_size = base_size, base_family = base_family, grid = "none") +
     ggplot2::theme_sub_axis(
       title = ggplot2::element_blank(),
-      text  = ggplot2::element_blank(),
+      text = ggplot2::element_blank(),
       ticks = ggplot2::element_blank()
     ) +
     ggplot2::theme_sub_legend(
-      position      = "right",
+      position = "right",
       justification = "top"
     )
 }

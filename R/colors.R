@@ -546,7 +546,7 @@ list_ekio_palettes <- function(type = "all", verbose = FALSE) {
 #' Display a Palette
 #'
 #' @description
-#' Deprecated. Use [ekio_pal()] instead — it auto-displays a swatch on print.
+#' Deprecated. Use [ekio_pal()]  in its place.
 #'
 #' @param palette Character or vector. Either a palette name or a vector of
 #'   hex colors.
@@ -564,7 +564,7 @@ show_ekio_palette <- function(palette, n = NULL, labels = TRUE) {
   cli::cli_warn(
     c(
       "{.fn show_ekio_palette} was deprecated in ekioplot 0.5.1.",
-      "i" = "Use {.fun ekio_pal} instead — it auto-prints a swatch."
+      "i" = "Use {.fun ekio_pal} in its place."
     ),
     .frequency = "once",
     .frequency_id = "show_ekio_palette"
