@@ -15,10 +15,10 @@ navbar:
 
 reference:
   - title: Themes
-    desc: Apply EKIO visual identity to plots and tables
+    desc: Apply EKIO visual identity to plots
     contents:
       - theme_ekio
-      - gt_theme_ekio
+      - ekio_font
 
   - title: Scales
     desc: >

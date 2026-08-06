@@ -11,8 +11,8 @@ Authors@R:
     )
 Description: A 'ggplot2' implementation of EKIO's visual identity for data
     visualization. Professional themes, curated color palettes, and scale
-    functions for 'ggplot2' and 'gt' tables. Includes high-level recipe
-    functions for common chart types.
+    functions for 'ggplot2'. Includes high-level recipe functions for common
+    chart types. Table styling lives in the companion 'ekiotable' package.
 URL: https://viniciusoike.github.io/ekioplot/, https://github.com/viniciusoike/ekioplot
 License: MIT + file LICENSE
 Depends: R (>= 4.1.0)
@@ -26,7 +26,6 @@ Imports:
     rlang
 Suggests:
     dplyr,
-    gt,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),

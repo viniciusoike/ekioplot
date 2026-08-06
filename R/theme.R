@@ -1,6 +1,26 @@
 # ---- Font Helper ----
 
-.get_ekio_font <- function(type = "primary") {
+#' EKIO Font Family
+#'
+#' Returns the platform-appropriate EKIO font family. EKIO chart and table
+#' output uses a sans stack only: Helvetica Neue on macOS, Arial on Windows,
+#' and the generic device font elsewhere.
+#'
+#' This is the canonical accessor for EKIO brand type. Packages that style
+#' other output (for example gt tables) should call it rather than repeating
+#' the platform logic.
+#'
+#' @param type Character. `"primary"` for the sans stack (default) or
+#'   `"mono"` for the monospace stack.
+#'
+#' @return Character. A font family name.
+#' @export
+#'
+#' @examples
+#' ekio_font()
+#' ekio_font("mono")
+ekio_font <- function(type = c("primary", "mono")) {
+  type <- match.arg(type)
   if (.Platform$OS.type == "unix" && Sys.info()["sysname"] == "Darwin") {
     return(if (type == "mono") "Monaco" else "Helvetica Neue")
   }
@@ -20,7 +40,7 @@
 #'
 #' @param base_size Numeric. Base font size in points (default: 11)
 #' @param base_family Character. Font family. Defaults to the platform-appropriate
-#'   EKIO font via \code{.get_ekio_font()}.
+#'   EKIO font via [ekio_font()].
 #' @param grid Character. Which major grid lines to show: `"y"` (default),
 #'   `"x"`, `"xy"`, or `"none"`.
 #'
@@ -51,7 +71,7 @@ theme_ekio <- function(base_size = 11, base_family = "", grid = "y") {
   }
 
   font_family <- if (base_family == "") {
-    .get_ekio_font("primary")
+    ekio_font("primary")
   } else {
     base_family
   }

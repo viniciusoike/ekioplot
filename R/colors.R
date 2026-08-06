@@ -13,8 +13,9 @@
       "i" = "Available: {.val {names(.ekio_scales)}}"
     ))
   }
-  hex <- s[[as.character(shade)]]
-  if (is.null(hex)) {
+  # Single-bracket: [[ errors on a missing name instead of returning NULL
+  hex <- s[as.character(shade)]
+  if (is.na(hex)) {
     cli::cli_abort(c(
       "Unknown shade {.val {as.character(shade)}} for scale {.val {scale}}.",
       "i" = "Available: {.val {names(s)}}"

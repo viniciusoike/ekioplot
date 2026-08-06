@@ -180,6 +180,16 @@ test_that("n interpolates across ramps but truncates categorical palettes", {
   )
 })
 
+test_that("the internal token accessor rejects bad scales and shades", {
+  expect_identical(
+    ekioplot:::.ekio("blue", 700),
+    unname(as.character(ekio_pal("blue")["700"]))
+  )
+  expect_error(ekioplot:::.ekio("blue", 50), "Unknown shade")
+  expect_error(ekioplot:::.ekio("blue", 999), "Unknown shade")
+  expect_error(ekioplot:::.ekio("chartreuse", 500), "Unknown color scale")
+})
+
 test_that("n equal to the palette length preserves shade names", {
   full <- ekio_pal("blue")
   same <- ekio_pal("blue", n = length(full))

@@ -22,6 +22,12 @@
   legend; most of what a map needs (`coord_sf(expand = FALSE)`, colorbar
   sizing) cannot be expressed in a theme object.
 
+* `gt_theme_ekio()` has moved to the companion package
+  [ekiotable](https://github.com/viniciusoike/ekiotable). It reads brand
+  tokens from this package via `ekio_pal()` and `ekio_font()`, so tables and
+  charts stay in sync without duplicating color definitions. `gt` is no
+  longer a dependency of ekioplot.
+
 * For sequential and diverging palettes, `n` now interpolates across the
   whole ramp instead of returning the `n` lightest colors.
   `ekio_pal("blue", n = 3)` gives a light/mid/dark triple. Categorical,
@@ -36,6 +42,10 @@
   and gain a `"900"`, so all eight scales now have identical structure.
 
 ## New features
+
+* New `ekio_font()` exposes the platform-appropriate EKIO font family. It is
+  the canonical accessor for EKIO brand type, so packages styling other
+  output do not repeat the platform logic.
 
 * Color is defined once in `inst/ekio-palettes.yaml` and compiled into the
   package by `data-raw/palettes.R`. The YAML ships with the package, so
