@@ -37,6 +37,15 @@ Access and explore color palettes
 - [`show_ekio_palette()`](https://viniciusoike.github.io/ekioplot/reference/show_ekio_palette.md)
   : Display a Palette
 
+## Accessibility
+
+WCAG contrast helpers for readable text on colored fills
+
+- [`ekio_contrast()`](https://viniciusoike.github.io/ekioplot/reference/ekio_contrast.md)
+  : WCAG Contrast Ratio Between Two Colors
+- [`ekio_text_on()`](https://viniciusoike.github.io/ekioplot/reference/ekio_text_on.md)
+  : Pick a Readable Text Color for a Background
+
 ## Color Scales
 
 Named color vectors for direct use

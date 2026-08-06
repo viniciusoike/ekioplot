@@ -65,6 +65,12 @@ update here first.
   [`gt_theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/gt_theme_ekio.md)
   for professional gt table styling
 
+- **accessibility.R** — WCAG contrast helpers:
+  [`ekio_contrast()`](https://viniciusoike.github.io/ekioplot/reference/ekio_contrast.md)
+  (contrast ratio) and
+  [`ekio_text_on()`](https://viniciusoike.github.io/ekioplot/reference/ekio_text_on.md)
+  (black/white text picker for colored fills)
+
 - **data.R** — Documentation for 6 bundled datasets (Brazilian
   socioeconomic/agriculture data, global fuels)
 
