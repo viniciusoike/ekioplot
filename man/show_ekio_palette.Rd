@@ -7,9 +7,11 @@
 show_ekio_palette(palette, n = NULL, labels = TRUE)
 }
 \arguments{
-\item{palette}{Character or vector. Either a palette name or a vector of hex colors.}
+\item{palette}{Character or vector. Either a palette name or a vector of
+hex colors.}
 
-\item{n}{Integer. Number of colors (used for interpolation on sequential palettes).}
+\item{n}{Integer. Number of colors (used for interpolation on sequential
+palettes).}
 
 \item{labels}{Logical. Show hex codes as labels (default: TRUE).}
 }
@@ -17,11 +19,9 @@ show_ekio_palette(palette, n = NULL, labels = TRUE)
 A ggplot2 object (invisibly)
 }
 \description{
-Visualizes a color palette as a horizontal bar chart with hex labels.
+Deprecated. Use \code{\link[=ekio_pal]{ekio_pal()}} in its place.
 }
 \examples{
-\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
-show_ekio_palette("contrast")
-show_ekio_palette(c("#1E3A5F", "#DD6B20", "#2C7A7B"))
-\dontshow{\}) # examplesIf}
+ekio_pal("contrast")
 }
+\keyword{internal}

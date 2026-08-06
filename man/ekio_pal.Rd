@@ -15,11 +15,15 @@ for all available options.}
 \item{reverse}{Logical. If TRUE, reverses the palette order.}
 }
 \value{
-Character vector of hex color codes
+Object of class \code{ekio_palette} (a character vector of hex
+codes). Printing displays a visual swatch. Use \code{\link[=as.character]{as.character()}} to
+strip the class.
 }
 \description{
 Returns colors for data visualization. Includes EKIO brand palettes,
 curated small-group variants, and standard scientific palettes.
+When printed interactively, displays the palette as a colored swatch
+with hex labels.
 }
 \examples{
 ekio_pal("contrast")
