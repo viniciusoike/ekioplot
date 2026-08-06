@@ -10,6 +10,7 @@
 ^logs$
 ^cran-comments\.md$
 ^_pkgdown\.yml$
+^vignettes/articles$
 ^docs$
 ^pkgdown$
 ^\.github$

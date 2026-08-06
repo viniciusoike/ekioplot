@@ -1,3 +1,18 @@
+# ekioplot (development version)
+
+## New features
+
+* `ekio_contrast()` computes the WCAG 2.1 contrast ratio between two colors.
+
+* `ekio_text_on()` picks the more readable text color (black or white) for a
+  given background, for labels on colored fills in plots and gt tables.
+
+## Documentation
+
+* New pkgdown article "Color accessibility" showing which EKIO colors work
+  with black vs. white text, with WCAG AA/AAA compliance for the accent
+  colors.
+
 # ekioplot 0.5.1
 
 ## New features
