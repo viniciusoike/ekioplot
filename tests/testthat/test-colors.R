@@ -122,24 +122,62 @@ test_that("show_all_ekio_palettes warns about deprecation but still works", {
   expect_identical(res, list_ekio_palettes())
 })
 
-test_that("color scale vectors exist and are valid", {
-  expect_type(ekio_blue, "character")
-  expect_true(length(ekio_blue) >= 9)
-  expect_true(all(grepl("^#[0-9A-Fa-f]{6}$", ekio_blue)))
-  expect_true("500" %in% names(ekio_blue))
+test_that("retired color vectors are gone", {
+  for (nm in c(
+    "ekio_blue", "ekio_gray", "ekio_teal", "ekio_orange", "ekio_accent"
+  )) {
+    expect_false(nm %in% getNamespaceExports("ekioplot"))
+  }
+})
 
-  expect_type(ekio_gray, "character")
-  expect_true(length(ekio_gray) >= 9)
+test_that("brand scales are nine steps named 100..900", {
+  shades <- as.character(seq(100, 900, by = 100))
+  for (nm in list_ekio_palettes("sequential")) {
+    pal <- ekio_pal(nm)
+    expect_length(pal, 9)
+    expect_named(pal, shades)
+    expect_true(all(grepl("^#[0-9A-Fa-f]{6}$", as.character(pal))))
+  }
+})
 
-  expect_type(ekio_teal, "character")
-  expect_true(length(ekio_teal) >= 9)
+test_that("position and shade are aligned in brand scales", {
+  for (nm in list_ekio_palettes("sequential")) {
+    pal <- ekio_pal(nm)
+    for (i in seq_len(9)) {
+      expect_identical(
+        unname(pal[i]),
+        unname(pal[as.character(i * 100)]),
+        info = paste0(nm, " position ", i)
+      )
+    }
+  }
+})
 
-  expect_type(ekio_orange, "character")
-  expect_true(length(ekio_orange) >= 8)
+test_that("brand scales darken monotonically", {
+  lum <- function(x) {
+    rgb <- grDevices::col2rgb(x)
+    0.299 * rgb[1, ] + 0.587 * rgb[2, ] + 0.114 * rgb[3, ]
+  }
+  for (nm in list_ekio_palettes("sequential")) {
+    expect_true(
+      all(diff(lum(as.character(ekio_pal(nm)))) < 0),
+      info = nm
+    )
+  }
+})
 
-  expect_type(ekio_accent, "character")
-  expect_true("blue" %in% names(ekio_accent))
-  expect_true("orange" %in% names(ekio_accent))
+test_that("n interpolates across ramps but truncates categorical palettes", {
+  # Sequential: n = 3 spans the full range rather than taking the 3 lightest
+  three <- as.character(ekio_pal("blue", n = 3))
+  expect_length(three, 3)
+  expect_identical(three[1], unname(as.character(ekio_pal("blue"))[1]))
+  expect_identical(three[3], unname(as.character(ekio_pal("blue"))[9]))
+
+  # Categorical: n = 3 takes the first 3, which are ordered by preference
+  expect_identical(
+    as.character(ekio_pal("contrast", n = 3)),
+    as.character(ekio_pal("contrast"))[1:3]
+  )
 })
 
 test_that("invalid palette names produce errors", {

@@ -1,0 +1,134 @@
+# EKIO brand palette source of truth.
+# Edit this file, then run data-raw/palettes.R to rebuild R/sysdata.rda.
+#
+# scales:   nine-step ramps, light -> dark. Position i == shade i * 100.
+# palettes: ordered colors, given as scale.shade tokens or literal hex.
+
+scales:
+  blue:
+    100: "#D4E8F5"
+    200: "#A8D0E8"
+    300: "#7EB6D8"
+    400: "#4A90C2"
+    500: "#3A6EA5"
+    600: "#2B4C7E"
+    700: "#1E3A5F"
+    800: "#152A44"
+    900: "#0D1B2A"
+
+  gray:
+    100: "#F7FAFC"
+    200: "#EDF2F7"
+    300: "#E2E8F0"
+    400: "#CBD5E0"
+    500: "#A0AEC0"
+    600: "#718096"
+    700: "#4A5568"
+    800: "#2D3748"
+    900: "#1A202C"
+
+  teal:
+    100: "#E6FFFA"
+    200: "#B2F5EA"
+    300: "#81E6D9"
+    400: "#4FD1C5"
+    500: "#38B2AC"
+    600: "#319795"
+    700: "#2C7A7B"
+    800: "#285E61"
+    900: "#234E52"
+
+  orange:
+    100: "#FFFAF0"
+    200: "#FEEBC8"
+    300: "#FBD38D"
+    400: "#F6AD55"
+    500: "#ED8936"
+    600: "#DD6B20"
+    700: "#C05621"
+    800: "#9C4221"
+    900: "#7B341E"
+
+  purple:
+    100: "#E9D8FD"
+    200: "#D6BCFA"
+    300: "#B794F4"
+    400: "#9F7AEA"
+    500: "#805AD5"
+    600: "#6B46C1"
+    700: "#553C9A"
+    800: "#44337A"
+    900: "#332A5A"
+
+  red:
+    100: "#FED7D7"
+    200: "#FEB2B2"
+    300: "#FC8181"
+    400: "#F56565"
+    500: "#E53E3E"
+    600: "#C53030"
+    700: "#9B2C2C"
+    800: "#742A2A"
+    900: "#4D2828"
+
+  green:
+    100: "#C6F6D5"
+    200: "#9AE6B4"
+    300: "#68D391"
+    400: "#48BB78"
+    500: "#38A169"
+    600: "#2F855A"
+    700: "#276749"
+    800: "#22543D"
+    900: "#1D4131"
+
+  amber:
+    100: "#FEFCBF"
+    200: "#FAF089"
+    300: "#F6E05E"
+    400: "#ECC94B"
+    500: "#D69E2E"
+    600: "#B7791F"
+    700: "#975A16"
+    800: "#744210"
+    900: "#512A0A"
+
+palettes:
+  categorical:
+    cool: ["blue.700", "blue.400", "teal.700"]
+    minimal: ["blue.700", "gray.700", "gray.500"]
+    contrast: ["blue.700", "orange.600", "teal.700", "amber.500", "purple.500", "red.600"]
+    full: ["blue.700", "orange.600", "teal.700", "amber.500", "purple.500", "red.600", "green.500", "gray.600"]
+    muted: ["gray.700", "gray.600", "gray.500", "gray.400", "gray.300"]
+    binary: ["blue.700", "orange.600"]
+    political: ["blue.700", "red.600"]
+
+  small_group:
+    duo_warm: ["orange.600", "amber.500"]
+    duo_cool: ["blue.700", "teal.700"]
+    trio_bold: ["blue.700", "orange.600", "teal.700"]
+    trio_cool: ["blue.500", "teal.700", "purple.500"]
+    quad_earth: ["blue.700", "orange.600", "teal.700", "green.500"]
+    quad_vivid: ["blue.500", "orange.600", "purple.500", "red.600"]
+
+  sequential:
+    blue: ["blue.100", "blue.200", "blue.300", "blue.400", "blue.500", "blue.600", "blue.700", "blue.800", "blue.900"]
+    gray: ["gray.100", "gray.200", "gray.300", "gray.400", "gray.500", "gray.600", "gray.700", "gray.800", "gray.900"]
+    teal: ["teal.100", "teal.200", "teal.300", "teal.400", "teal.500", "teal.600", "teal.700", "teal.800", "teal.900"]
+    orange: ["orange.100", "orange.200", "orange.300", "orange.400", "orange.500", "orange.600", "orange.700", "orange.800", "orange.900"]
+    purple: ["purple.100", "purple.200", "purple.300", "purple.400", "purple.500", "purple.600", "purple.700", "purple.800", "purple.900"]
+    red: ["red.100", "red.200", "red.300", "red.400", "red.500", "red.600", "red.700", "red.800", "red.900"]
+    green: ["green.100", "green.200", "green.300", "green.400", "green.500", "green.600", "green.700", "green.800", "green.900"]
+    amber: ["amber.100", "amber.200", "amber.300", "amber.400", "amber.500", "amber.600", "amber.700", "amber.800", "amber.900"]
+
+  diverging:
+    blue_orange: ["blue.900", "blue.700", "blue.500", "blue.300", "blue.100", "#F5F0EB", "orange.200", "orange.400", "orange.600", "orange.800", "orange.900"]
+    blue_red: ["blue.900", "blue.700", "blue.500", "blue.300", "blue.100", "#F5F0F0", "red.100", "red.300", "red.500", "red.600", "red.800"]
+    teal_orange: ["teal.900", "teal.700", "teal.500", "teal.300", "teal.100", "#F5F0EB", "orange.200", "orange.400", "orange.600", "orange.800", "orange.900"]
+
+  scientific:
+    okabe_ito: ["#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000"]
+    viridis: ["#440154", "#482677", "#3F4A8A", "#31678E", "#26838F", "#1F9D8A", "#6CCE5A", "#B6DE2B", "#FEE825"]
+    inferno: ["#000004", "#1B0C41", "#4A0C6B", "#781C6D", "#A52C60", "#CF4446", "#ED6925", "#FB9B06", "#F7D03C", "#FCFFA4"]
+    plasma: ["#0D0887", "#46039F", "#7201A8", "#9C179E", "#BD3786", "#D8576B", "#ED7953", "#FB9F3A", "#FDCA26", "#F0F921"]
+

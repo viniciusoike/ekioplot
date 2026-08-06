@@ -31,18 +31,18 @@ gt_theme_ekio <- function(
     cli::cli_abort("{.arg data} must be a gt table object")
   }
 
-  # Reference package palettes directly to stay in sync with any future changes
+  # Reference brand tokens directly to stay in sync with any future changes
   colors <- list(
-    primary      = ekio_blue["700"],   # #1E3A5F — headers, accents
-    primary_dark = ekio_blue["800"],   # #1B3A4B — grand summary background
-    primary_light = ekio_blue["100"],  # #D4E8F5 — summary row tint
-    row_group_bg = ekio_blue["50"],    # #EEF5FA — row group label background
-    text         = ekio_gray["900"],   # #1A202C
-    text_mid     = ekio_gray["700"],   # #4A5568
-    text_light   = ekio_gray["600"],   # #718096
-    border       = ekio_gray["300"],   # #E2E8F0
-    stripe_bg    = ekio_gray["100"],   # #F7FAFC
-    light_bg     = ekio_gray["50"]     # #FAFBFC
+    primary       = .ekio("blue", 700), # headers, accents
+    primary_dark  = .ekio("blue", 800), # grand summary background
+    primary_light = .ekio("blue", 100), # summary row tint
+    row_group_bg  = .ekio("blue", 100), # row group label background
+    text          = .ekio("gray", 900),
+    text_mid      = .ekio("gray", 700),
+    text_light    = .ekio("gray", 600),
+    border        = .ekio("gray", 300),
+    stripe_bg     = .ekio("gray", 200), # striping, one step off light_bg
+    light_bg      = .ekio("gray", 100)
   )
 
   font_family <- .get_ekio_font("primary")

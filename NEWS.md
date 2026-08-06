@@ -1,3 +1,52 @@
+# ekioplot 0.6.0
+
+## Breaking changes
+
+* The exported color vectors `ekio_blue`, `ekio_gray`, `ekio_teal`,
+  `ekio_orange`, and `ekio_accent` have been removed. All brand color is now
+  reached through `ekio_pal()`. `ekio_accent` was byte-identical to
+  `ekio_pal("full")`; the four scales are now `ekio_pal("blue")` and friends.
+
+* Brand scales are **nine steps named `"100"` to `"900"`** instead of ten
+  named `"50"` to `"900"`. Position and shade are now aligned by
+  construction, so `ekio_pal("blue")[7]` and `ekio_pal("blue")["700"]` return
+  the same color. Code that indexed the old ramps positionally will need
+  updating.
+
+* The `"50"` shades are gone. They were near-duplicates of `"100"` — a
+  luminance gap of 1, 2, and -1 for gray, teal, and orange against a median
+  interior gap of 24 — and orange's inverted the ramp. `theme_ekio()`'s
+  background is now `gray.100`, a change of two luminance points.
+
+* `theme_ekio_map()` is removed. It only blanked the axes and moved the
+  legend; most of what a map needs (`coord_sf(expand = FALSE)`, colorbar
+  sizing) cannot be expressed in a theme object.
+
+* For sequential and diverging palettes, `n` now interpolates across the
+  whole ramp instead of returning the `n` lightest colors.
+  `ekio_pal("blue", n = 3)` gives a light/mid/dark triple. Categorical,
+  small-group, and scientific palettes still take the first `n`.
+
+* `teal["50"]` was `#F0FFF4` — identical to green's lightest tint, not a
+  teal — and is removed. `blue["800"]` changes from `#1B3A4B` to `#152A44`;
+  the old value sat 3 luminance points from `blue.700` and was hue-shifted
+  toward teal.
+
+* The `purple`, `red`, `green`, and `amber` scales drop their lightest tint
+  and gain a `"900"`, so all eight scales now have identical structure.
+
+## New features
+
+* Color is defined once in `inst/ekio-palettes.yaml` and compiled into the
+  package by `data-raw/palettes.R`. The YAML ships with the package, so
+  downstream projects can read the canonical tokens via
+  `system.file("ekio-palettes.yaml", package = "ekioplot")`.
+
+* Palettes are defined by `scale.shade` token reference rather than literal
+  hex, so a palette can no longer drift out of sync with the scale it was
+  built from. The build script fails if a token does not resolve or if a
+  scale stops darkening monotonically.
+
 # ekioplot 0.5.1
 
 ## New features

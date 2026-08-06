@@ -28,13 +28,13 @@
 #' @export
 theme_ekio <- function(base_size = 11, base_family = "", grid = "y") {
   colors <- list(
-    text_dark = ekio_gray["900"], # #1A202C
-    text_mid = ekio_gray["700"], # #4A5568
-    text_light = ekio_gray["600"], # #718096
-    text_muted = ekio_gray["500"], # #A0AEC0
-    grid_line = ekio_gray["300"], # #E2E8F0
-    background = ekio_gray["50"], # #FAFBFC
-    primary = ekio_blue["700"], # #1E3A5F
+    text_dark = .ekio("gray", 900),
+    text_mid = .ekio("gray", 700),
+    text_light = .ekio("gray", 600),
+    text_muted = .ekio("gray", 500),
+    grid_line = .ekio("gray", 300),
+    background = .ekio("gray", 100),
+    primary = .ekio("blue", 700),
     white = "#ffffff"
   )
 
@@ -119,30 +119,5 @@ theme_ekio <- function(base_size = 11, base_family = "", grid = "y") {
         hjust = 0.5
       ),
       background = ggplot2::element_rect(fill = colors$primary, color = NA)
-    )
-}
-
-
-# ---- EKIO Map Theme ----
-
-#' Apply EKIO Map Theme to ggplot2 Plots
-#'
-#' A variant of [theme_ekio()] with axes and grid removed, suited for
-#' choropleth and spatial maps.
-#'
-#' @inheritParams theme_ekio
-#'
-#' @return A ggplot2 theme object
-#' @export
-theme_ekio_map <- function(base_size = 11, base_family = "") {
-  theme_ekio(base_size = base_size, base_family = base_family, grid = "none") +
-    ggplot2::theme_sub_axis(
-      title = ggplot2::element_blank(),
-      text = ggplot2::element_blank(),
-      ticks = ggplot2::element_blank()
-    ) +
-    ggplot2::theme_sub_legend(
-      position = "right",
-      justification = "top"
     )
 }

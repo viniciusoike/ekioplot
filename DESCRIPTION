@@ -1,7 +1,7 @@
 Package: ekioplot
 Type: Package
 Title: EKIO Visual Identity System for R Data Visualization
-Version: 0.5.1
+Version: 0.6.0
 Authors@R:
     person(
       "Vinicius", "Oike",
@@ -30,7 +30,8 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),
-    tibble
+    tibble,
+    yaml
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3

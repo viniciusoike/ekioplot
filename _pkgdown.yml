@@ -18,7 +18,6 @@ reference:
     desc: Apply EKIO visual identity to plots and tables
     contents:
       - theme_ekio
-      - theme_ekio_map
       - gt_theme_ekio
 
   - title: Scales
@@ -36,15 +35,6 @@ reference:
       - ekio_pal
       - list_ekio_palettes
       - show_ekio_palette
-
-  - title: Color Scales
-    desc: Named color vectors for direct use
-    contents:
-      - ekio_blue
-      - ekio_gray
-      - ekio_teal
-      - ekio_orange
-      - ekio_accent
 
   - title: Recipe Functions
     desc: High-level chart builders with smart defaults
