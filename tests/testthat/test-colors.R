@@ -180,6 +180,14 @@ test_that("n interpolates across ramps but truncates categorical palettes", {
   )
 })
 
+test_that("n equal to the palette length preserves shade names", {
+  full <- ekio_pal("blue")
+  same <- ekio_pal("blue", n = length(full))
+  expect_identical(as.character(same), as.character(full))
+  expect_named(same, names(full))
+  expect_identical(unname(same["700"]), unname(full["700"]))
+})
+
 test_that("invalid palette names produce errors", {
   expect_error(ekio_pal("nonexistent_palette"))
 })

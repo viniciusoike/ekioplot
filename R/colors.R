@@ -94,7 +94,8 @@ ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
     pal <- rev(pal)
   }
 
-  if (!is.null(n)) {
+  # n matching the palette length is a no-op, so shade names survive it
+  if (!is.null(n) && n != length(pal)) {
     if (group %in% .continuous_groups || n > length(pal)) {
       pal <- grDevices::colorRampPalette(unname(pal))(n)
     } else {
