@@ -58,6 +58,23 @@ test_that("palettes resolve from the YAML source of truth", {
   }
 })
 
+test_that("diverging pivots are the lightest color in their palette", {
+  lum <- function(x) {
+    rgb <- grDevices::col2rgb(x)
+    0.299 * rgb[1, ] + 0.587 * rgb[2, ] + 0.114 * rgb[3, ]
+  }
+  for (nm in list_ekio_palettes("diverging")) {
+    pal <- as.character(ekio_pal(nm))
+    expect_true(length(pal) %% 2 == 1, info = nm)
+    l <- lum(pal)
+    expect_identical(
+      which.max(l),
+      as.integer((length(pal) + 1) / 2),
+      info = nm
+    )
+  }
+})
+
 test_that("every token in the YAML resolves to a real shade", {
   spec <- read_spec()
   scales <- ekioplot:::.ekio_scales

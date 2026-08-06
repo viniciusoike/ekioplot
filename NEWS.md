@@ -1,4 +1,9 @@
-# ekioplot 0.6.0
+# ekioplot 0.7.0
+
+This release makes `inst/ekio-palettes.yaml` the single source of truth for
+EKIO brand color, aligns scale position with shade number, and moves gt table
+styling into a companion package. It contains several breaking changes; see
+below before upgrading.
 
 ## Breaking changes
 
@@ -41,6 +46,22 @@
 * The `purple`, `red`, `green`, and `amber` scales drop their lightest tint
   and gain a `"900"`, so all eight scales now have identical structure.
 
+* All three diverging palettes change slightly. Their neutral pivot is now
+  guaranteed to be the lightest color in the palette, so the visual center of
+  the scale lands on the data's zero:
+
+  * `teal_orange` previously peaked at `teal.100` (luminance 247) rather than
+    at its pivot (241), putting the lightest point one slot off center. Its
+    cool arm now stops at `teal.200`, and the shared warm pivot is lighter.
+  * `blue_red`'s warm arm was irregular (`red.100, .300, .500, .600, .800` —
+    a 100-shade step among 200s), which left `red.500` and `red.600` only 19
+    luminance points apart where their neighbours were 61 and 54, wasting a
+    class. It now mirrors the cool arm as `red.100, .300, .500, .700, .900`.
+    This also narrows the gap between the two extreme ends from 39 luminance
+    points to 26, so equally extreme values read with more equal weight.
+  * `blue_orange` keeps its arms and gains the lighter pivot, which removes a
+    4-point step between the pivot and `orange.200`.
+
 ## New features
 
 * New `ekio_font()` exposes the platform-appropriate EKIO font family. It is
@@ -54,8 +75,17 @@
 
 * Palettes are defined by `scale.shade` token reference rather than literal
   hex, so a palette can no longer drift out of sync with the scale it was
-  built from. The build script fails if a token does not resolve or if a
-  scale stops darkening monotonically.
+  built from. The build script fails if a token does not resolve, if a scale
+  stops darkening monotonically, or if a diverging palette's pivot is not its
+  lightest color. A test re-resolves the YAML and compares it against the
+  built data, so editing one without rebuilding the other fails loudly.
+
+## Bug fixes
+
+* `ekio_pal(pal, n = length(pal))` routed through `colorRampPalette`, which
+  returns an unnamed vector, so `ekio_pal("blue", n = 9)["700"]` gave `NA`
+  while `ekio_pal("blue")["700"]` worked. An `n` matching the palette length
+  is now a no-op.
 
 # ekioplot 0.5.1
 

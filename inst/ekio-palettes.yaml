@@ -122,9 +122,14 @@ palettes:
     amber: ["amber.100", "amber.200", "amber.300", "amber.400", "amber.500", "amber.600", "amber.700", "amber.800", "amber.900"]
 
   diverging:
-    blue_orange: ["blue.900", "blue.700", "blue.500", "blue.300", "blue.100", "#F5F0EB", "orange.200", "orange.400", "orange.600", "orange.800", "orange.900"]
-    blue_red: ["blue.900", "blue.700", "blue.500", "blue.300", "blue.100", "#F5F0F0", "red.100", "red.300", "red.500", "red.600", "red.800"]
-    teal_orange: ["teal.900", "teal.700", "teal.500", "teal.300", "teal.100", "#F5F0EB", "orange.200", "orange.400", "orange.600", "orange.800", "orange.900"]
+    # Pivots are literal hex: they are neutral midpoints, not ramp members.
+    # They must stay lighter than both arms' innermost colors so the visual
+    # center of the scale lands on the data's zero.
+    blue_orange: ["blue.900", "blue.700", "blue.500", "blue.300", "blue.100", "#FCFAF7", "orange.200", "orange.400", "orange.600", "orange.800", "orange.900"]
+    blue_red: ["blue.900", "blue.700", "blue.500", "blue.300", "blue.100", "#F5F0F0", "red.100", "red.300", "red.500", "red.700", "red.900"]
+    # teal.100 (lum 247) is anomalously light for a 100, so this arm stops at
+    # teal.200 to keep the pivot as the lightest point.
+    teal_orange: ["teal.900", "teal.700", "teal.500", "teal.300", "teal.200", "#FCFAF7", "orange.200", "orange.400", "orange.600", "orange.800", "orange.900"]
 
   scientific:
     okabe_ito: ["#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000"]

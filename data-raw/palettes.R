@@ -82,4 +82,24 @@ for (nm in names(.ekio_palettes$sequential)) {
   ))
 }
 
+# A diverging palette's neutral pivot must be its lightest color, so the
+# visual center of the scale lands on the data's zero rather than one slot
+# off it.
+for (nm in names(.ekio_palettes$diverging)) {
+  pal <- .ekio_palettes$diverging[[nm]]
+  mid <- (length(pal) + 1) / 2
+  if (mid %% 1 != 0) {
+    stop("diverging palette '", nm, "' must have an odd length", call. = FALSE)
+  }
+  l <- lum(pal)
+  if (l[mid] != max(l)) {
+    stop(
+      "diverging palette '", nm, "': pivot is not the lightest color ",
+      "(pivot ", round(l[mid]), ", lightest ", round(max(l)),
+      " at position ", which.max(l), ")",
+      call. = FALSE
+    )
+  }
+}
+
 usethis::use_data(.ekio_scales, .ekio_palettes, internal = TRUE, overwrite = TRUE)
