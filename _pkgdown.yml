@@ -15,11 +15,10 @@ navbar:
 
 reference:
   - title: Themes
-    desc: Apply EKIO visual identity to plots and tables
+    desc: Apply EKIO visual identity to plots
     contents:
       - theme_ekio
-      - theme_ekio_map
-      - gt_theme_ekio
+      - ekio_font
 
   - title: Scales
     desc: >
@@ -42,15 +41,6 @@ reference:
     contents:
       - ekio_contrast
       - ekio_text_on
-
-  - title: Color Scales
-    desc: Named color vectors for direct use
-    contents:
-      - ekio_blue
-      - ekio_gray
-      - ekio_teal
-      - ekio_orange
-      - ekio_accent
 
   - title: Recipe Functions
     desc: High-level chart builders with smart defaults

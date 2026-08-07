@@ -99,7 +99,7 @@ ekio_histogram <- function(
   if (fill_type$type == "missing") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var)) +
       ggplot2::geom_histogram(
-        fill = ekio_blue["700"], color = border_color,
+        fill = .ekio("blue", 700), color = border_color,
         bins = n_bins, binwidth = binwidth, ...
       )
   } else if (fill_type$type == "static_color") {
@@ -159,7 +159,7 @@ ekio_lineplot <- function(
 
   if (color_type$type == "missing") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
-      ggplot2::geom_line(color = ekio_blue["700"], linewidth = line_width, ...)
+      ggplot2::geom_line(color = .ekio("blue", 700), linewidth = line_width, ...)
   } else if (color_type$type == "static_color") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
       ggplot2::geom_line(color = color_type$value, linewidth = line_width, ...)
@@ -221,7 +221,7 @@ ekio_scatterplot <- function(
   # Build base aesthetics
   if (color_type$type == "missing" && !has_size) {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
-      ggplot2::geom_point(color = ekio_blue["700"], size = point_size, alpha = point_alpha, ...)
+      ggplot2::geom_point(color = .ekio("blue", 700), size = point_size, alpha = point_alpha, ...)
   } else if (color_type$type == "static_color" && !has_size) {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
       ggplot2::geom_point(color = color_type$value, size = point_size, alpha = point_alpha, ...)
@@ -237,7 +237,7 @@ ekio_scatterplot <- function(
     # Has size mapping
     if (color_type$type == "missing") {
       p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var, size = !!size_var)) +
-        ggplot2::geom_point(color = ekio_blue["700"], alpha = point_alpha, ...)
+        ggplot2::geom_point(color = .ekio("blue", 700), alpha = point_alpha, ...)
     } else if (color_type$type == "static_color") {
       p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var, size = !!size_var)) +
         ggplot2::geom_point(color = color_type$value, alpha = point_alpha, ...)
@@ -260,7 +260,7 @@ ekio_scatterplot <- function(
   if (add_smooth) {
     p <- p + ggplot2::geom_smooth(
       method = smooth_method, se = FALSE,
-      color = ekio_gray["700"], linewidth = 1
+      color = .ekio("gray", 700), linewidth = 1
     )
   }
 
@@ -302,7 +302,7 @@ ekio_barplot <- function(
 
   if (fill_type$type == "missing") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
-      ggplot2::geom_col(fill = ekio_blue["700"], width = bar_width, ...)
+      ggplot2::geom_col(fill = .ekio("blue", 700), width = bar_width, ...)
   } else if (fill_type$type == "static_color") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
       ggplot2::geom_col(fill = fill_type$value, width = bar_width, ...)
@@ -369,7 +369,7 @@ ekio_areaplot <- function(
   if (fill_type$type == "missing") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
       ggplot2::geom_area(
-        fill = ekio_blue["700"], alpha = alpha, ...
+        fill = .ekio("blue", 700), alpha = alpha, ...
       )
   } else if (fill_type$type == "static_color") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +

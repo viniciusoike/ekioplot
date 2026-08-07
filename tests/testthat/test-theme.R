@@ -36,17 +36,8 @@ test_that("theme_ekio works in complete plot", {
   expect_no_error(ggplot_build(p))
 })
 
-test_that("theme_ekio_map works", {
-  skip_if_not_installed("ggplot2")
-  library(ggplot2)
-
-  theme_map <- theme_ekio_map()
-  expect_s3_class(theme_map, "theme")
-
-  p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
-    geom_point() +
-    theme_ekio_map()
-  expect_no_error(ggplot_build(p))
+test_that("theme_ekio_map is removed", {
+  expect_false("theme_ekio_map" %in% getNamespaceExports("ekioplot"))
 })
 
 test_that("themes work with facets", {

@@ -10,7 +10,11 @@ ekio_pal(palette = "contrast", n = NULL, reverse = FALSE)
 \item{palette}{Character. Name of the palette. See \code{\link[=list_ekio_palettes]{list_ekio_palettes()}}
 for all available options.}
 
-\item{n}{Integer or NULL. Number of colors to return. If NULL, returns all.}
+\item{n}{Integer or NULL. Number of colors to return. If NULL, returns all.
+For sequential and diverging palettes, \code{n} colors are interpolated across
+the full range. For categorical, small-group, and scientific palettes the
+first \code{n} colors are taken, interpolating only if \code{n} exceeds the palette
+length.}
 
 \item{reverse}{Logical. If TRUE, reverses the palette order.}
 }
@@ -20,14 +24,24 @@ codes). Printing displays a visual swatch. Use \code{\link[=as.character]{as.cha
 strip the class.
 }
 \description{
-Returns colors for data visualization. Includes EKIO brand palettes,
-curated small-group variants, and standard scientific palettes.
-When printed interactively, displays the palette as a colored swatch
-with hex labels.
+Returns colors for data visualization. Includes EKIO brand scales, curated
+categorical and small-group palettes, and standard scientific palettes.
+When printed interactively, displays the palette as a colored swatch with
+hex labels.
+}
+\details{
+Brand scales (\code{"blue"}, \code{"gray"}, \code{"teal"}, \code{"orange"}, \code{"purple"},
+\code{"red"}, \code{"green"}, \code{"amber"}) are nine-step ramps running light to dark,
+named by shade. Position and shade are aligned by construction, so
+\code{ekio_pal("blue")[7]} and \code{ekio_pal("blue")["700"]} are the same color.
 }
 \examples{
 ekio_pal("contrast")
 ekio_pal("contrast", n = 4)
 ekio_pal("binary", reverse = TRUE)
 ekio_pal("okabe_ito")
+
+# Brand scales are named by shade; position i is shade i * 100
+ekio_pal("blue")["700"]
+ekio_pal("blue")[7]
 }

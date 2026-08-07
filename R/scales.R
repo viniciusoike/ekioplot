@@ -22,7 +22,7 @@
 scale_color_ekio_d <- function(palette = "contrast", reverse = FALSE, ...) {
   ggplot2::discrete_scale(
     aesthetics = "colour",
-    palette = function(n) ekio_pal(palette, n, reverse),
+    palette = function(n) as.character(ekio_pal(palette, n, reverse)),
     ...
   )
 }
@@ -36,7 +36,7 @@ scale_colour_ekio_d <- scale_color_ekio_d
 scale_fill_ekio_d <- function(palette = "contrast", reverse = FALSE, ...) {
   ggplot2::discrete_scale(
     aesthetics = "fill",
-    palette = function(n) ekio_pal(palette, n, reverse),
+    palette = function(n) as.character(ekio_pal(palette, n, reverse)),
     ...
   )
 }
@@ -88,13 +88,14 @@ scale_fill_ekio_c <- function(palette = "blue", reverse = FALSE, ...) {
 # ---- Internal Helpers ----
 
 .continuous_palette <- function(palette) {
-  pal <- .seq_palettes[[palette]] %||% .div_palettes[[palette]]
+  seq_pals <- .ekio_palettes$sequential
+  div_pals <- .ekio_palettes$diverging
+  pal <- seq_pals[[palette]] %||% div_pals[[palette]]
   if (is.null(pal)) {
-    available <- c(names(.seq_palettes), names(.div_palettes))
     cli::cli_abort(c(
       "Continuous palette {.val {palette}} not found.",
-      "i" = "Available: {.val {available}}"
+      "i" = "Available: {.val {c(names(seq_pals), names(div_pals))}}"
     ))
   }
-  pal
+  unname(pal)
 }

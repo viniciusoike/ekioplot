@@ -7,8 +7,9 @@ test_that("ekio_contrast returns known WCAG values", {
 })
 
 test_that("ekio_contrast is vectorized and recycles", {
-  ratios <- ekio_contrast("white", ekio_blue)
-  expect_length(ratios, length(ekio_blue))
+  blue <- ekio_pal("blue")
+  ratios <- ekio_contrast("white", blue)
+  expect_length(ratios, length(blue))
   expect_type(ratios, "double")
   expect_true(all(ratios >= 1 & ratios <= 21))
 })
@@ -18,19 +19,21 @@ test_that("ekio_contrast validates input", {
 })
 
 test_that("ekio_text_on picks the higher-contrast text color", {
-  expect_equal(unname(ekio_text_on(ekio_blue["700"])), "white")
-  expect_equal(unname(ekio_text_on(ekio_blue["50"])), "black")
+  expect_equal(unname(ekio_text_on(ekio_pal("blue")["700"])), "white")
+  expect_equal(unname(ekio_text_on(ekio_pal("blue")["100"])), "black")
   expect_equal(unname(ekio_text_on("white")), "black")
 })
 
 test_that("ekio_text_on is vectorized and preserves names", {
-  out <- ekio_text_on(ekio_blue)
-  expect_length(out, length(ekio_blue))
-  expect_named(out, names(ekio_blue))
+  blue <- ekio_pal("blue")
+  out <- ekio_text_on(blue)
+  expect_length(out, length(blue))
+  expect_named(out, names(blue))
   expect_setequal(unique(out), c("black", "white"))
 })
 
 test_that("ekio_text_on accepts custom candidates", {
-  out <- ekio_text_on(ekio_accent, dark = ekio_gray["900"], light = "#FFFFFF")
-  expect_in(unname(out), c(unname(ekio_gray["900"]), "#FFFFFF"))
+  ink <- unname(ekio_pal("gray")["900"])
+  out <- ekio_text_on(ekio_pal("full"), dark = ink, light = "#FFFFFF")
+  expect_in(unname(out), c(ink, "#FFFFFF"))
 })

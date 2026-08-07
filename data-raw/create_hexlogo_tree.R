@@ -32,14 +32,16 @@ showtext_auto()
 # ---- Color Showcase ----
 # Pull colors from across the EKIO palette families to highlight the range:
 # the core brand blue, contrasting accents, and a teal/orange pairing.
+blue <- ekio_pal("blue")
+
 colors_showcase <- c(
-  ekio_blue["700"], # core brand blue
+  blue["700"], # core brand blue
   ekio_pal("contrast")[2], # orange accent
   ekio_pal("contrast")[3], # teal
   ekio_pal("contrast")[4], # amber
   ekio_pal("contrast")[5], # purple
-  ekio_blue["400"], # mid blue
-  ekio_orange["400"] # soft orange
+  blue["400"], # mid blue
+  ekio_pal("orange")["400"] # soft orange
 )
 colors_showcase <- unname(colors_showcase)
 
@@ -105,8 +107,8 @@ sticker(
   p_color = "#FFFFFF",
   p_family = "Avenir",
   p_size = 8,
-  h_fill = ekio_blue[["700"]],
-  h_color = ekio_blue[["900"]],
+  h_fill = blue[["700"]],
+  h_color = blue[["900"]],
   h_size = 1.2,
   filename = "man/figures/logo_dark.png",
   dpi = 300,

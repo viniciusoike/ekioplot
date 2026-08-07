@@ -23,8 +23,8 @@ defined by WCAG 2.1. Ratios range from 1 (no contrast) to 21
 }
 \examples{
 ekio_contrast("black", "white")
-ekio_contrast(ekio_blue["700"])
-ekio_contrast("white", ekio_blue)
+ekio_contrast(ekio_pal("blue")["700"])
+ekio_contrast("white", ekio_pal("blue"))
 }
 \seealso{
 \code{\link[=ekio_text_on]{ekio_text_on()}} to pick a readable text color for a background

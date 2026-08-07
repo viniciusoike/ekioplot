@@ -26,8 +26,8 @@
 #'
 #' @examples
 #' ekio_contrast("black", "white")
-#' ekio_contrast(ekio_blue["700"])
-#' ekio_contrast("white", ekio_blue)
+#' ekio_contrast(ekio_pal("blue")["700"])
+#' ekio_contrast("white", ekio_pal("blue"))
 ekio_contrast <- function(color, background = "white") {
   if (!is.character(color) || !is.character(background)) {
     cli::cli_abort(
@@ -45,7 +45,7 @@ ekio_contrast <- function(color, background = "white") {
 #'
 #' Returns the text color (dark or light) with the higher WCAG contrast
 #' ratio against each background color. Useful for labels placed on colored
-#' fills, e.g. in [ggplot2::geom_text()] or gt table cells.
+#' fills, e.g. in [ggplot2::geom_text()].
 #'
 #' @param background Character. Background color(s) as hex codes or R color
 #'   names.
@@ -59,9 +59,9 @@ ekio_contrast <- function(color, background = "white") {
 #' @seealso [ekio_contrast()] for the underlying contrast ratios
 #'
 #' @examples
-#' ekio_text_on(ekio_blue["700"])
-#' ekio_text_on(ekio_blue)
-#' ekio_text_on(ekio_accent, dark = ekio_gray["900"])
+#' ekio_text_on(ekio_pal("blue")["700"])
+#' ekio_text_on(ekio_pal("blue"))
+#' ekio_text_on(ekio_pal("full"), dark = ekio_pal("gray")["900"])
 ekio_text_on <- function(background, dark = "black", light = "white") {
   contrast_dark <- ekio_contrast(dark, background)
   contrast_light <- ekio_contrast(light, background)

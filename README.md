@@ -67,9 +67,6 @@ color. The `grid` argument controls which major grid lines are drawn
 theme_ekio(grid = "xy")
 ```
 
-Use `theme_ekio_map()` for choropleths and spatial maps — it removes the
-axes and repositions the legend.
-
 ## Color palettes
 
 ekioplot ships ~30 palettes across five categories, all accessible
@@ -93,10 +90,14 @@ show_ekio_palette("contrast")
   `green`, `amber`
 - **Diverging**: `blue_orange`, `blue_red`, `teal_orange`
 
-Named color vectors (`ekio_blue`, `ekio_gray`, `ekio_teal`,
-`ekio_orange`) provide 10 shades each (`"50"` lightest to `"900"`
-darkest) for direct use, plus `ekio_accent` for individual accent
-colors.
+The sequential palettes double as the brand scales: nine steps from
+`"100"` (lightest) to `"900"` (darkest), named by shade. Position and
+shade are aligned, so `ekio_pal("blue")[7]` and
+`ekio_pal("blue")["700"]` are the same color.
+
+Color is defined once in `inst/ekio-palettes.yaml` and compiled into the
+package by `data-raw/palettes.R`. That file is the canonical source for
+EKIO brand color across projects.
 
 ## Scales
 
@@ -133,15 +134,11 @@ ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel)
 
 <img src="man/figures/README-recipes.png" width="100%" />
 
-## GT tables
+## Tables
 
-``` r
-library(gt)
-
-head(mtcars[, 1:5], 8) |>
-  gt() |>
-  gt_theme_ekio()
-```
+gt table styling lives in a companion package,
+[ekiotable](https://github.com/viniciusoike/ekiotable), which reads its
+brand tokens from this package so charts and tables stay in sync.
 
 ## Palette Lab
 

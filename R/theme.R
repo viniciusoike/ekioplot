@@ -1,6 +1,26 @@
 # ---- Font Helper ----
 
-.get_ekio_font <- function(type = "primary") {
+#' EKIO Font Family
+#'
+#' Returns the platform-appropriate EKIO font family. EKIO chart and table
+#' output uses a sans stack only: Helvetica Neue on macOS, Arial on Windows,
+#' and the generic device font elsewhere.
+#'
+#' This is the canonical accessor for EKIO brand type. Packages that style
+#' other output (for example gt tables) should call it rather than repeating
+#' the platform logic.
+#'
+#' @param type Character. `"primary"` for the sans stack (default) or
+#'   `"mono"` for the monospace stack.
+#'
+#' @return Character. A font family name.
+#' @export
+#'
+#' @examples
+#' ekio_font()
+#' ekio_font("mono")
+ekio_font <- function(type = c("primary", "mono")) {
+  type <- match.arg(type)
   if (.Platform$OS.type == "unix" && Sys.info()["sysname"] == "Darwin") {
     return(if (type == "mono") "Monaco" else "Helvetica Neue")
   }
@@ -20,7 +40,7 @@
 #'
 #' @param base_size Numeric. Base font size in points (default: 11)
 #' @param base_family Character. Font family. Defaults to the platform-appropriate
-#'   EKIO font via \code{.get_ekio_font()}.
+#'   EKIO font via [ekio_font()].
 #' @param grid Character. Which major grid lines to show: `"y"` (default),
 #'   `"x"`, `"xy"`, or `"none"`.
 #'
@@ -28,13 +48,13 @@
 #' @export
 theme_ekio <- function(base_size = 11, base_family = "", grid = "y") {
   colors <- list(
-    text_dark = ekio_gray["900"], # #1A202C
-    text_mid = ekio_gray["700"], # #4A5568
-    text_light = ekio_gray["600"], # #718096
-    text_muted = ekio_gray["500"], # #A0AEC0
-    grid_line = ekio_gray["300"], # #E2E8F0
-    background = ekio_gray["50"], # #FAFBFC
-    primary = ekio_blue["700"], # #1E3A5F
+    text_dark = .ekio("gray", 900),
+    text_mid = .ekio("gray", 700),
+    text_light = .ekio("gray", 600),
+    text_muted = .ekio("gray", 500),
+    grid_line = .ekio("gray", 300),
+    background = .ekio("gray", 100),
+    primary = .ekio("blue", 700),
     white = "#ffffff"
   )
 
@@ -51,7 +71,7 @@ theme_ekio <- function(base_size = 11, base_family = "", grid = "y") {
   }
 
   font_family <- if (base_family == "") {
-    .get_ekio_font("primary")
+    ekio_font("primary")
   } else {
     base_family
   }
@@ -119,30 +139,5 @@ theme_ekio <- function(base_size = 11, base_family = "", grid = "y") {
         hjust = 0.5
       ),
       background = ggplot2::element_rect(fill = colors$primary, color = NA)
-    )
-}
-
-
-# ---- EKIO Map Theme ----
-
-#' Apply EKIO Map Theme to ggplot2 Plots
-#'
-#' A variant of [theme_ekio()] with axes and grid removed, suited for
-#' choropleth and spatial maps.
-#'
-#' @inheritParams theme_ekio
-#'
-#' @return A ggplot2 theme object
-#' @export
-theme_ekio_map <- function(base_size = 11, base_family = "") {
-  theme_ekio(base_size = base_size, base_family = base_family, grid = "none") +
-    ggplot2::theme_sub_axis(
-      title = ggplot2::element_blank(),
-      text = ggplot2::element_blank(),
-      ticks = ggplot2::element_blank()
-    ) +
-    ggplot2::theme_sub_legend(
-      position = "right",
-      justification = "top"
     )
 }

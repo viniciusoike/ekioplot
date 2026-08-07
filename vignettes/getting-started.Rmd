@@ -29,7 +29,7 @@ on `theme_minimal()` with curated typography, spacing, and color choices.
 
 ```{r theme-basic}
 ggplot(mtcars, aes(wt, mpg)) +
-  geom_point(color = ekio_blue["700"], size = 2.5) +
+  geom_point(color = ekio_pal("blue")["700"], size = 2.5) +
   labs(
     title = "Fuel Efficiency vs. Weight",
     subtitle = "Motor Trend Car Road Tests (1974)",
@@ -43,12 +43,9 @@ The `grid` parameter controls which major grid lines are drawn:
 
 ```{r theme-grid}
 ggplot(mtcars, aes(wt, mpg)) +
-  geom_point(color = ekio_blue["700"]) +
+  geom_point(color = ekio_pal("blue")["700"]) +
   theme_ekio(grid = "xy")
 ```
-
-Use `theme_ekio_map()` for spatial visualizations — it removes axes and
-repositions the legend.
 
 ## Color Palettes
 
@@ -157,31 +154,35 @@ Recipe functions automatically detect whether the color/fill argument is:
 ekio_histogram(mtcars, mpg, fill = "coral")
 ```
 
-## Color Scales
+## Brand Scales
 
-Four named color scales are exported for direct use: `ekio_blue`, `ekio_gray`,
-`ekio_teal`, and `ekio_orange`. Each provides 10 shades from `"50"` (lightest)
-to `"900"` (darkest).
+Every brand color is reached through `ekio_pal()`. The eight brand scales —
+`"blue"`, `"gray"`, `"teal"`, `"orange"`, `"purple"`, `"red"`, `"green"`, and
+`"amber"` — are nine-step ramps running light to dark, named by shade:
 
-```{r color-vectors}
-ekio_blue["700"]
-ekio_gray["300"]
+```{r brand-scale}
+ekio_pal("gray")
 ```
 
-Named accent colors are available in `ekio_accent`:
+Position and shade are aligned by construction, so element `i` is always
+shade `i * 100`. Index whichever way reads better:
 
-```{r accent-colors}
-ekio_accent
+```{r brand-shades}
+ekio_pal("blue")["700"]
+ekio_pal("blue")[7]
 ```
 
-## GT Tables
+Because these are the same objects used for continuous fills, asking for
+fewer colors interpolates across the whole ramp rather than returning the
+lightest few:
 
-Apply EKIO styling to gt tables with `gt_theme_ekio()`:
-
-```{r gt-theme, eval = requireNamespace("gt", quietly = TRUE)}
-library(gt)
-
-head(mtcars[, 1:5], 8) |>
-  gt() |>
-  gt_theme_ekio(add_footer = FALSE)
+```{r brand-interpolate}
+ekio_pal("blue", n = 3)
 ```
+
+## Tables
+
+gt table styling lives in a companion package,
+[ekiotable](https://github.com/viniciusoike/ekiotable). It reads brand tokens
+from ekioplot via `ekio_pal()` and `ekio_font()`, so tables and charts share
+one palette without either package duplicating color definitions.

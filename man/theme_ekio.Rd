@@ -10,7 +10,7 @@ theme_ekio(base_size = 11, base_family = "", grid = "y")
 \item{base_size}{Numeric. Base font size in points (default: 11)}
 
 \item{base_family}{Character. Font family. Defaults to the platform-appropriate
-EKIO font via \code{.get_ekio_font()}.}
+EKIO font via \code{\link[=ekio_font]{ekio_font()}}.}
 
 \item{grid}{Character. Which major grid lines to show: \code{"y"} (default),
 \code{"x"}, \code{"xy"}, or \code{"none"}.}
