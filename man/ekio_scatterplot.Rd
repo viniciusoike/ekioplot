@@ -16,6 +16,9 @@ ekio_scatterplot(
   smooth_method = "lm",
   point_size = 2.5,
   point_alpha = 0.8,
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
   ...
 )
 }
@@ -41,6 +44,8 @@ ekio_scatterplot(
 \item{point_size}{Base point size (default: 2.5)}
 
 \item{point_alpha}{Point transparency (default: 0.8)}
+
+\item{title, subtitle, caption}{Plot labels. NULL (default) draws none.}
 
 \item{...}{Additional arguments passed to \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}}
 }

@@ -13,6 +13,9 @@ ekio_barplot(
   add_zero = TRUE,
   horizontal = FALSE,
   bar_width = 0.8,
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
   ...
 )
 }
@@ -32,6 +35,8 @@ ekio_barplot(
 \item{horizontal}{Logical. Create horizontal bar plot (default: FALSE)}
 
 \item{bar_width}{Bar width (default: 0.8)}
+
+\item{title, subtitle, caption}{Plot labels. NULL (default) draws none.}
 
 \item{...}{Additional arguments passed to \code{\link[ggplot2:geom_bar]{ggplot2::geom_col()}}}
 }

@@ -323,8 +323,7 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 #| fig-width: 7
 
 # Static color
-ekio_histogram(mtcars, x = mpg, fill = "steelblue") +
-  labs(title = "Static fill color")
+ekio_histogram(mtcars, x = mpg, fill = "steelblue", title = "Static fill color")
 ```
 
 ```{r}
@@ -333,8 +332,7 @@ ekio_histogram(mtcars, x = mpg, fill = "steelblue") +
 #| fig-width: 7
 
 # Variable mapping
-ekio_histogram(mtcars, x = mpg, fill = factor(cyl)) +
-  labs(title = "Fill by variable")
+ekio_histogram(mtcars, x = mpg, fill = factor(cyl), title = "Fill by variable")
 ```
 
 ## Bar Plot
@@ -349,8 +347,8 @@ mpg_by_cyl <- mtcars |>
   summarise(mean_mpg = mean(mpg), .by = cyl) |>
   mutate(cyl = factor(cyl))
 
-ekio_barplot(mpg_by_cyl, x = cyl, y = mean_mpg, fill = cyl) +
-  labs(title = "Bar plot with EKIO palette")
+ekio_barplot(mpg_by_cyl, x = cyl, y = mean_mpg, fill = cyl,
+             title = "Bar plot with EKIO palette")
 ```
 
 ## Scatter Plot
@@ -360,8 +358,8 @@ ekio_barplot(mpg_by_cyl, x = cyl, y = mean_mpg, fill = cyl) +
 #| fig-height: 4
 #| fig-width: 7
 
-ekio_scatterplot(mtcars, x = wt, y = mpg, color = factor(cyl)) +
-  labs(title = "Scatter plot by group")
+ekio_scatterplot(mtcars, x = wt, y = mpg, color = factor(cyl),
+                 title = "Scatter plot by group")
 ```
 
 ## Line Plot
@@ -378,8 +376,8 @@ df_line <- data.frame(
   group = rep(c("A", "B", "C"), each = 10)
 )
 
-ekio_lineplot(df_line, x = time, y = value, color = group) +
-  labs(title = "Line plot by group")
+ekio_lineplot(df_line, x = time, y = value, color = group,
+              title = "Line plot by group")
 ```
 
 # Brand Scale Access

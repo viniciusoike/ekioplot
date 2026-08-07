@@ -13,6 +13,9 @@ ekio_areaplot(
   position = "stack",
   alpha = 0.8,
   add_zero = TRUE,
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
   ...
 )
 }
@@ -33,6 +36,8 @@ ekio_areaplot(
 \item{alpha}{Numeric. Fill transparency (default: 0.8).}
 
 \item{add_zero}{Logical. Add horizontal line at y=0 (default: TRUE).}
+
+\item{title, subtitle, caption}{Plot labels. NULL (default) draws none.}
 
 \item{...}{Additional arguments passed to \code{\link[ggplot2:geom_ribbon]{ggplot2::geom_area()}}}
 }

@@ -59,6 +59,7 @@
 #' @param binwidth Width of bins (overrides bins if specified)
 #' @param add_zero Logical. Add horizontal line at y=0 (default: TRUE)
 #' @param border_color Color for histogram outline (default: "white")
+#' @param title,subtitle,caption Plot labels. NULL (default) draws none.
 #' @param ... Additional arguments passed to [ggplot2::geom_histogram()]
 #'
 #' @return ggplot2 object
@@ -71,7 +72,8 @@
 ekio_histogram <- function(
   data, x, fill = NULL, palette = NULL,
   bins = "sturges", binwidth = NULL,
-  add_zero = TRUE, border_color = "white", ...
+  add_zero = TRUE, border_color = "white",
+  title = NULL, subtitle = NULL, caption = NULL, ...
 ) {
   if (!is.data.frame(data)) cli::cli_abort("{.arg data} must be a data frame")
 
@@ -124,6 +126,7 @@ ekio_histogram <- function(
   if (add_zero) p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
 
   p + ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05))) +
+    ggplot2::labs(title = title, subtitle = subtitle, caption = caption) +
     theme_ekio(grid = "y")
 }
 
@@ -138,6 +141,7 @@ ekio_histogram <- function(
 #' @param palette Character. Palette name for variable mappings.
 #' @param add_zero Logical. Add horizontal line at y=0 (default: TRUE)
 #' @param line_width Line thickness (default: 0.8)
+#' @param title,subtitle,caption Plot labels. NULL (default) draws none.
 #' @param ... Additional arguments passed to [ggplot2::geom_line()]
 #'
 #' @return ggplot2 object
@@ -147,7 +151,8 @@ ekio_histogram <- function(
 #' ekio_lineplot(ggplot2::economics, date, unemploy)
 ekio_lineplot <- function(
   data, x, y, color = NULL, palette = NULL,
-  add_zero = TRUE, line_width = 0.8, ...
+  add_zero = TRUE, line_width = 0.8,
+  title = NULL, subtitle = NULL, caption = NULL, ...
 ) {
   x_var <- rlang::enquo(x)
   y_var <- rlang::enquo(y)
@@ -176,6 +181,7 @@ ekio_lineplot <- function(
   if (add_zero) p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
 
   p + ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05))) +
+    ggplot2::labs(title = title, subtitle = subtitle, caption = caption) +
     theme_ekio()
 }
 
@@ -194,6 +200,7 @@ ekio_lineplot <- function(
 #' @param smooth_method Smoothing method: "lm", "gam", "loess" (default: "lm")
 #' @param point_size Base point size (default: 2.5)
 #' @param point_alpha Point transparency (default: 0.8)
+#' @param title,subtitle,caption Plot labels. NULL (default) draws none.
 #' @param ... Additional arguments passed to [ggplot2::geom_point()]
 #'
 #' @return ggplot2 object
@@ -205,7 +212,8 @@ ekio_lineplot <- function(
 ekio_scatterplot <- function(
   data, x, y, color = NULL, size = NULL, palette = NULL,
   add_zero = FALSE, add_smooth = FALSE, smooth_method = "lm",
-  point_size = 2.5, point_alpha = 0.8, ...
+  point_size = 2.5, point_alpha = 0.8,
+  title = NULL, subtitle = NULL, caption = NULL, ...
 ) {
   x_var <- rlang::enquo(x)
   y_var <- rlang::enquo(y)
@@ -264,7 +272,8 @@ ekio_scatterplot <- function(
     )
   }
 
-  p + theme_ekio(grid = "xy")
+  p + ggplot2::labs(title = title, subtitle = subtitle, caption = caption) +
+    theme_ekio(grid = "xy")
 }
 
 #' EKIO Bar Plot
@@ -279,6 +288,7 @@ ekio_scatterplot <- function(
 #' @param add_zero Logical. Add horizontal line at y=0 (default: TRUE)
 #' @param horizontal Logical. Create horizontal bar plot (default: FALSE)
 #' @param bar_width Bar width (default: 0.8)
+#' @param title,subtitle,caption Plot labels. NULL (default) draws none.
 #' @param ... Additional arguments passed to [ggplot2::geom_col()]
 #'
 #' @return ggplot2 object
@@ -290,7 +300,8 @@ ekio_scatterplot <- function(
 #' ekio_barplot(cyl_counts, cyl, n)
 ekio_barplot <- function(
   data, x, y, fill = NULL, palette = NULL,
-  add_zero = TRUE, horizontal = FALSE, bar_width = 0.8, ...
+  add_zero = TRUE, horizontal = FALSE, bar_width = 0.8,
+  title = NULL, subtitle = NULL, caption = NULL, ...
 ) {
   x_var <- rlang::enquo(x)
   y_var <- rlang::enquo(y)
@@ -323,6 +334,7 @@ ekio_barplot <- function(
   if (horizontal) p <- p + ggplot2::coord_flip()
 
   p + ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05))) +
+    ggplot2::labs(title = title, subtitle = subtitle, caption = caption) +
     theme_ekio(grid = "y")
 }
 
@@ -340,6 +352,7 @@ ekio_barplot <- function(
 #'   `"fill"` for proportional areas.
 #' @param alpha Numeric. Fill transparency (default: 0.8).
 #' @param add_zero Logical. Add horizontal line at y=0 (default: TRUE).
+#' @param title,subtitle,caption Plot labels. NULL (default) draws none.
 #' @param ... Additional arguments passed to [ggplot2::geom_area()]
 #'
 #' @return ggplot2 object
@@ -354,7 +367,8 @@ ekio_barplot <- function(
 #' ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel)
 ekio_areaplot <- function(
   data, x, y, fill = NULL, palette = NULL,
-  position = "stack", alpha = 0.8, add_zero = TRUE, ...
+  position = "stack", alpha = 0.8, add_zero = TRUE,
+  title = NULL, subtitle = NULL, caption = NULL, ...
 ) {
   if (!is.data.frame(data)) cli::cli_abort("{.arg data} must be a data frame")
 
@@ -392,5 +406,6 @@ ekio_areaplot <- function(
   if (add_zero) p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
 
   p + ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05))) +
+    ggplot2::labs(title = title, subtitle = subtitle, caption = caption) +
     theme_ekio()
 }

@@ -69,6 +69,11 @@ below before upgrading.
 * `ekio_text_on()` picks the more readable text color (black or white) for a
   given background, for labels on colored fills.
 
+* All five recipe functions gain `title`, `subtitle`, and `caption`
+  arguments. They previously had no way to set plot text: a `title` passed
+  by name fell through `...` into the geom, where ggplot2 ignored it with a
+  warning — or, for `ekio_barplot()`, failed outright.
+
 * New `ekio_font()` exposes the platform-appropriate EKIO font family. It is
   the canonical accessor for EKIO brand type, so packages styling other
   output do not repeat the platform logic.
