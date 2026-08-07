@@ -13,6 +13,9 @@ ekio_histogram(
   binwidth = NULL,
   add_zero = TRUE,
   border_color = "white",
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
   ...
 )
 }
@@ -32,6 +35,8 @@ ekio_histogram(
 \item{add_zero}{Logical. Add horizontal line at y=0 (default: TRUE)}
 
 \item{border_color}{Color for histogram outline (default: "white")}
+
+\item{title, subtitle, caption}{Plot labels. NULL (default) draws none.}
 
 \item{...}{Additional arguments passed to \code{\link[ggplot2:geom_histogram]{ggplot2::geom_histogram()}}}
 }

@@ -190,3 +190,37 @@ test_that("invalid color string produces error", {
     "not a valid color"
   )
 })
+
+# ---- Plot Labels ----
+
+test_that("recipes set title, subtitle, and caption", {
+  skip_if_not_installed("ggplot2")
+  df <- data.frame(x = 1:10, y = 1:10)
+  recipes <- list(
+    histogram = \(...) ekio_histogram(df, x, ...),
+    lineplot = \(...) ekio_lineplot(df, x, y, ...),
+    scatterplot = \(...) ekio_scatterplot(df, x, y, ...),
+    barplot = \(...) ekio_barplot(df, x, y, ...),
+    areaplot = \(...) ekio_areaplot(df, x, y, ...)
+  )
+
+  for (nm in names(recipes)) {
+    labels <- recipes[[nm]](title = "T", subtitle = "S", caption = "C")$labels
+    expect_equal(labels$title, "T", info = nm)
+    expect_equal(labels$subtitle, "S", info = nm)
+    expect_equal(labels$caption, "C", info = nm)
+  }
+})
+
+test_that("label defaults leave axis labels derived from the data", {
+  skip_if_not_installed("ggplot2")
+  df <- data.frame(x = 1:10, y = 1:10)
+
+  # labs(title = NULL) is inert, but labs(x = NULL) would drop the axis
+  # label ggplot2 derives from the mapping. Guard against that regression.
+  # Derived labels only materialize at build time, not on the raw plot.
+  labels <- ggplot2::ggplot_build(ekio_lineplot(df, x, y))$plot$labels
+  expect_null(labels$title)
+  expect_equal(labels$x, "x")
+  expect_equal(labels$y, "y")
+})

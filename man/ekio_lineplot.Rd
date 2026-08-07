@@ -12,6 +12,9 @@ ekio_lineplot(
   palette = NULL,
   add_zero = TRUE,
   line_width = 0.8,
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
   ...
 )
 }
@@ -29,6 +32,8 @@ ekio_lineplot(
 \item{add_zero}{Logical. Add horizontal line at y=0 (default: TRUE)}
 
 \item{line_width}{Line thickness (default: 0.8)}
+
+\item{title, subtitle, caption}{Plot labels. NULL (default) draws none.}
 
 \item{...}{Additional arguments passed to \code{\link[ggplot2:geom_path]{ggplot2::geom_line()}}}
 }
