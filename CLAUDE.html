@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,19 +40,19 @@
 
 <div class="section level2">
 <h2 id="project-ekioplot">Project: ekioplot<a class="anchor" aria-label="anchor" href="#project-ekioplot"></a></h2>
-<p>R package implementing EKIO’s visual identity system for ggplot2 and gt tables.</p>
+<p>R package implementing EKIO’s visual identity system for ggplot2. Table styling lives in the companion <code>ekiotable</code> package.</p>
 </div>
 <div class="section level2">
 <h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a></h2>
-<p>A comprehensive R package that provides EKIO-branded themes, color palettes, scale functions, high-level “recipe” chart functions, and gt table theming for professional data visualizations. Follows EKIO design principles of clarity, purposeful color usage, and professional presentation standards.</p>
+<p>A comprehensive R package that provides EKIO-branded themes, color palettes, scale functions and high-level “recipe” chart functions for professional data visualizations. Follows EKIO design principles of clarity, purposeful color usage, and professional presentation standards.</p>
 </div>
 <div class="section level2">
 <h2 id="brand-tokens-canonical">Brand tokens (canonical)<a class="anchor" aria-label="anchor" href="#brand-tokens-canonical"></a></h2>
 <p>This package is EKIO’s single source of truth for brand color and type. Downstream projects (the <code>ekio</code> workspace, <code>ekio-site</code>) mirror these — update here first.</p>
 <ul><li>
-<strong>Colors</strong>: <code>ekio_blue["700"]</code> = <code>#1E3A5F</code> (primary), <code>ekio_gray["900"]</code> = <code>#1A202C</code> (ink), <code>ekio_gray["50"]</code> = <code>#FAFBFC</code> (background); accents orange <code>#DD6B20</code>, teal <code>#2C7A7B</code>. Full 10-step scales in <code>R/colors.R</code>.</li>
+<strong>Colors</strong>: defined in <code>inst/ekio-palettes.yaml</code> (source of truth), compiled to <code>R/sysdata.rda</code> by <code>data-raw/palettes.R</code>. Eight nine-step scales named <code>100</code>–<code>900</code>, light to dark; position <code>i</code> == shade <code>i * 100</code>. Primary <code>blue.700</code> = <code>#1E3A5F</code>, ink <code>gray.900</code> = <code>#1A202C</code>, background <code>gray.100</code> = <code>#F7FAFC</code>; accents <code>orange.600</code> = <code>#DD6B20</code>, <code>teal.700</code> = <code>#2C7A7B</code>. Palettes are defined by <code>scale.shade</code> token reference, not literal hex.</li>
 <li>
-<strong>Type — charts &amp; gt tables</strong>: Helvetica Neue (macOS) / Arial (Windows) via <code>.get_ekio_font()</code>; sans only, no serif in ggplot2/gt output.</li>
+<strong>Type — charts &amp; tables</strong>: Helvetica Neue (macOS) / Arial (Windows) via <code><a href="reference/ekio_font.html">ekio_font()</a></code>, which is exported so <code>ekiotable</code> can reuse it; sans only, no serif in chart or table output.</li>
 <li>
 <strong>Type — web (ekio-site)</strong>: Lora (serif display/headings), Lato (body), Fira Code (mono). Lora is a deliberate web-only editorial display font; it is intentionally <em>not</em> used in chart output, which stays on the sans stack above.</li>
 </ul></div>
@@ -60,11 +60,10 @@
 <h2 id="package-architecture">Package Architecture<a class="anchor" aria-label="anchor" href="#package-architecture"></a></h2>
 <div class="section level3">
 <h3 id="source-files-r">Source Files (R/)<a class="anchor" aria-label="anchor" href="#source-files-r"></a></h3>
-<ul><li><p><strong>colors.R</strong> — Color scale vectors (<code>ekio_blue</code>, <code>ekio_gray</code>, <code>ekio_teal</code>, <code>ekio_orange</code>, <code>ekio_accent</code>), internal sequential/diverging palette lists, <code><a href="reference/ekio_pal.html">ekio_pal()</a></code> palette accessor (auto-displays swatch via S3 print method), <code><a href="reference/list_ekio_palettes.html">list_ekio_palettes()</a></code>, <code><a href="reference/show_ekio_palette.html">show_ekio_palette()</a></code> (deprecated, use <code><a href="reference/ekio_pal.html">ekio_pal()</a></code>), <code><a href="reference/show_all_ekio_palettes.html">show_all_ekio_palettes()</a></code> (deprecated, use <code>list_ekio_palettes(verbose = TRUE)</code>)</p></li>
+<ul><li><p><strong>colors.R</strong> — <code><a href="reference/ekio_pal.html">ekio_pal()</a></code> palette accessor (auto-displays swatch via S3 print method), internal <code>.ekio(scale, shade)</code> token accessor used by themes and recipes, <code><a href="reference/list_ekio_palettes.html">list_ekio_palettes()</a></code>, <code><a href="reference/show_ekio_palette.html">show_ekio_palette()</a></code> (deprecated, use <code><a href="reference/ekio_pal.html">ekio_pal()</a></code>), <code><a href="reference/show_all_ekio_palettes.html">show_all_ekio_palettes()</a></code> (deprecated, use <code>list_ekio_palettes(verbose = TRUE)</code>). Contains no hex codes — all color comes from <code>R/sysdata.rda</code></p></li>
 <li><p><strong>scales.R</strong> — Discrete (<code>scale_color_ekio_d</code>, <code>scale_fill_ekio_d</code>) and continuous (<code>scale_color_ekio_c</code>, <code>scale_fill_ekio_c</code>) ggplot2 scale functions with British spelling aliases</p></li>
-<li><p><strong>theme.R</strong> — <code><a href="reference/theme_ekio.html">theme_ekio()</a></code> (modular, uses <code>theme_sub_*</code> helpers) and <code><a href="reference/theme_ekio_map.html">theme_ekio_map()</a></code> for spatial maps. Platform-aware font selection via <code>.get_ekio_font()</code></p></li>
+<li><p><strong>theme.R</strong> — <code><a href="reference/theme_ekio.html">theme_ekio()</a></code> (modular, uses <code>theme_sub_*</code> helpers) and <code><a href="reference/ekio_font.html">ekio_font()</a></code>, the exported platform-aware font accessor</p></li>
 <li><p><strong>recipes.R</strong> — High-level chart builders (<code>ekio_histogram</code>, <code>ekio_lineplot</code>, <code>ekio_scatterplot</code>, <code>ekio_barplot</code>) with smart aesthetic detection (static color vs. variable mapping)</p></li>
-<li><p><strong>gt_theme.R</strong> — <code><a href="reference/gt_theme_ekio.html">gt_theme_ekio()</a></code> for professional gt table styling</p></li>
 <li><p><strong>accessibility.R</strong> — WCAG contrast helpers: <code><a href="reference/ekio_contrast.html">ekio_contrast()</a></code> (contrast ratio) and <code><a href="reference/ekio_text_on.html">ekio_text_on()</a></code> (black/white text picker for colored fills)</p></li>
 <li><p><strong>data.R</strong> — Documentation for 6 bundled datasets (Brazilian socioeconomic/agriculture data, global fuels)</p></li>
 <li><p><strong>utils.R</strong> — Package-level imports and <code>globalVariables</code> suppression</p></li>
@@ -78,12 +77,13 @@
 <li>
 <strong>Modular themes</strong>: <code><a href="reference/theme_ekio.html">theme_ekio()</a></code> uses ggplot2’s <code>theme_sub_*()</code> helpers (requires ggplot2 &gt;= 3.5.0)</li>
 <li>
-<strong>Color references</strong>: Theme and gt functions reference exported color vectors (<code>ekio_blue["700"]</code>) instead of hardcoded hex values</li>
+<strong>Color references</strong>: Never hardcode hex. Inside the package use <code>.ekio("blue", 700)</code>; from user code use <code><a href="reference/ekio_pal.html">ekio_pal()</a></code>. To change a color, edit <code>inst/ekio-palettes.yaml</code> and rerun <code>data-raw/palettes.R</code>
+</li>
 </ul></div>
 <div class="section level3">
 <h3 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a></h3>
 <ul><li>
-<strong>Imports</strong>: cli, ggplot2 (&gt;= 3.5.0), grDevices, gt, rlang</li>
+<strong>Imports</strong>: cli, ggplot2 (&gt;= 3.5.0), grDevices, rlang</li>
 <li>
 <strong>Suggests</strong>: dplyr, knitr, rmarkdown, testthat (&gt;= 3.0.0), tibble</li>
 </ul></div>
@@ -98,7 +98,7 @@
 <li>
 <strong>Function structure</strong>: Export functions with <code>@export</code>, include examples in <code>@examples</code>. Use <code>@examplesIf rlang::is_interactive()</code> for examples that produce plots</li>
 <li>
-<strong>Testing</strong>: Uses testthat framework in <code>tests/testthat/</code>. Tests exist for colors, scales, and themes. No tests yet for recipes or gt_theme</li>
+<strong>Testing</strong>: Uses testthat framework in <code>tests/testthat/</code>. Tests exist for colors, scales, and themes. No tests yet for recipes</li>
 <li>
 <strong>Code style</strong>: Standard R conventions with 2-space indentation, meaningful parameter names
 <ul><li>Use native R pipe</li>

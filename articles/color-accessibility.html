@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,9 +110,9 @@ between two colors.</li>
 (black or white) for a given background.</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_contrast.html">ekio_contrast</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="va">ekio_blue</span><span class="op">[</span><span class="st">"700"</span><span class="op">]</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_contrast.html">ekio_contrast</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span><span class="op">[</span><span class="st">"700"</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 11.50262</span></span>
-<span><span class="fu"><a href="../reference/ekio_text_on.html">ekio_text_on</a></span><span class="op">(</span><span class="va">ekio_blue</span><span class="op">[</span><span class="st">"700"</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/ekio_text_on.html">ekio_text_on</a></span><span class="op">(</span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span><span class="op">[</span><span class="st">"700"</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     700 </span></span>
 <span><span class="co">#&gt; "white"</span></span></code></pre></div>
 <div class="section level2">
@@ -125,11 +125,11 @@ its contrast ratio in parentheses.</p>
 <code class="sourceCode R"><span><span class="va">scales_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"teal"</span>, <span class="st">"orange"</span>, <span class="st">"gray"</span><span class="op">)</span>,</span>
 <span>  <span class="kw">function</span><span class="op">(</span><span class="va">scale_name</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">hex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html" class="external-link">get</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"ekio_"</span>, <span class="va">scale_name</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">hex</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="va">scale_name</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>      scale <span class="op">=</span> <span class="va">scale_name</span>,</span>
 <span>      shade <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">hex</span><span class="op">)</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">hex</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      hex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="va">hex</span><span class="op">)</span></span>
+<span>      hex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">hex</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
@@ -154,21 +154,26 @@ its contrast ratio in parentheses.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>panel.grid <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="color-accessibility_files/figure-html/shades-1.png" class="r-plt" alt="" width="1200"></p>
-<p>The pattern is consistent across scales: shades <strong>500 and
-darker take white text</strong>, shades <strong>400 and lighter take
-black text</strong>. When in doubt, call <code><a href="../reference/ekio_text_on.html">ekio_text_on()</a></code>
-instead of memorizing the cutoff.</p>
+<p>The cutoff is <em>not</em> the same across scales. Blue flips to
+white text at <code>500</code>, teal and gray at <code>700</code>, and
+orange only at <code>800</code> — the warmer, more luminous hues stay
+readable against black text much further down the ramp. Call
+<code><a href="../reference/ekio_text_on.html">ekio_text_on()</a></code> rather than memorizing a cutoff.</p>
 </div>
 <div class="section level2">
 <h2 id="accent-colors">Accent colors<a class="anchor" aria-label="anchor" href="#accent-colors"></a>
 </h2>
-<p>The named accent colors in <code>ekio_accent</code> are mid-to-dark
-tones, so most of them pair with white text — but not all reach AA for
-normal-size text.</p>
+<p><code>ekio_pal("full")</code> carries one accent per brand scale, in
+scale order. These are mid-to-dark tones, so most of them pair with
+white text — but not all reach AA for normal-size text.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">accents_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">ekio_accent</span><span class="op">)</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">ekio_accent</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  hex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="va">ekio_accent</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">accent_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"blue"</span>, <span class="st">"orange"</span>, <span class="st">"teal"</span>, <span class="st">"amber"</span>, <span class="st">"purple"</span>, <span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"gray"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">accents_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">accent_names</span>, levels <span class="op">=</span> <span class="va">accent_names</span><span class="op">)</span>,</span>
+<span>  hex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"full"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">accents_df</span><span class="op">$</span><span class="va">text_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ekio_text_on.html">ekio_text_on</a></span><span class="op">(</span><span class="va">accents_df</span><span class="op">$</span><span class="va">hex</span><span class="op">)</span></span>
 <span><span class="va">accents_df</span><span class="op">$</span><span class="va">ratio</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ekio_contrast.html">ekio_contrast</a></span><span class="op">(</span><span class="va">accents_df</span><span class="op">$</span><span class="va">text_color</span>, <span class="va">accents_df</span><span class="op">$</span><span class="va">hex</span><span class="op">)</span></span>
@@ -202,9 +207,12 @@ normal-size text.</p>
 as <code>orange</code> and <code>amber</code> with white text) are fine
 for large display text — big value labels, headline numbers — but should
 not carry small annotations. For small text on those fills, use a dark
-text color such as <code>ekio_gray["900"]</code>:</p>
+text color such as <code>ekio_pal("gray")["900"]</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_contrast.html">ekio_contrast</a></span><span class="op">(</span><span class="va">ekio_gray</span><span class="op">[</span><span class="st">"900"</span><span class="op">]</span>, <span class="va">ekio_accent</span><span class="op">[</span><span class="st">"amber"</span><span class="op">]</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_contrast.html">ekio_contrast</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"gray"</span><span class="op">)</span><span class="op">[</span><span class="st">"900"</span><span class="op">]</span>,</span>
+<span>  <span class="va">accents_df</span><span class="op">$</span><span class="va">hex</span><span class="op">[</span><span class="va">accents_df</span><span class="op">$</span><span class="va">name</span> <span class="op">==</span> <span class="st">"amber"</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 6.829936</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -237,10 +245,10 @@ labels, so they stay readable regardless of the underlying shade:</p>
 <h2 id="guidelines">Guidelines<a class="anchor" aria-label="anchor" href="#guidelines"></a>
 </h2>
 <ul>
-<li>Default to <code>ekio_blue["700"]</code> (the primary brand blue)
-for filled elements that carry white text: it passes AAA (ratio
+<li>Default to <code>ekio_pal("blue")["700"]</code> (the primary brand
+blue) for filled elements that carry white text: it passes AAA (ratio
 11.5).</li>
-<li>Light backgrounds (<code>50</code>–<code>200</code> shades) are for
+<li>Light backgrounds (<code>100</code>–<code>200</code> shades) are for
 panels and subtle fills; always use dark text on them.</li>
 <li>Don’t rely on the black/white cutoff from memory when generating
 fills programmatically — compute it with

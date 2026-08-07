@@ -2,14 +2,12 @@
 
 ## Themes
 
-Apply EKIO visual identity to plots and tables
+Apply EKIO visual identity to plots
 
 - [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
   : Apply EKIO Theme to ggplot2 Plots
-- [`theme_ekio_map()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio_map.md)
-  : Apply EKIO Map Theme to ggplot2 Plots
-- [`gt_theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/gt_theme_ekio.md)
-  : Apply EKIO Theme to GT Tables
+- [`ekio_font()`](https://viniciusoike.github.io/ekioplot/reference/ekio_font.md)
+  : EKIO Font Family
 
 ## Scales
 
@@ -45,21 +43,6 @@ WCAG contrast helpers for readable text on colored fills
   : WCAG Contrast Ratio Between Two Colors
 - [`ekio_text_on()`](https://viniciusoike.github.io/ekioplot/reference/ekio_text_on.md)
   : Pick a Readable Text Color for a Background
-
-## Color Scales
-
-Named color vectors for direct use
-
-- [`ekio_blue`](https://viniciusoike.github.io/ekioplot/reference/ekio_blue.md)
-  : EKIO Primary Blue Scale
-- [`ekio_gray`](https://viniciusoike.github.io/ekioplot/reference/ekio_gray.md)
-  : EKIO Neutral Gray Scale
-- [`ekio_teal`](https://viniciusoike.github.io/ekioplot/reference/ekio_teal.md)
-  : EKIO Teal Scale
-- [`ekio_orange`](https://viniciusoike.github.io/ekioplot/reference/ekio_orange.md)
-  : EKIO Orange Scale
-- [`ekio_accent`](https://viniciusoike.github.io/ekioplot/reference/ekio_accent.md)
-  : EKIO Named Accent Colors
 
 ## Recipe Functions
 

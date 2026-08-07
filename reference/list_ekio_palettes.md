@@ -38,14 +38,14 @@ list_ekio_palettes()
 #> [1] "duo_warm"   "duo_cool"   "trio_bold"  "trio_cool"  "quad_earth"
 #> [6] "quad_vivid"
 #> 
-#> $scientific
-#> [1] "okabe_ito" "viridis"   "inferno"   "plasma"   
-#> 
 #> $sequential
-#> [1] "blue"   "teal"   "gray"   "orange" "purple" "red"    "green"  "amber" 
+#> [1] "blue"   "gray"   "teal"   "orange" "purple" "red"    "green"  "amber" 
 #> 
 #> $diverging
 #> [1] "blue_orange" "blue_red"    "teal_orange"
+#> 
+#> $scientific
+#> [1] "okabe_ito" "viridis"   "inferno"   "plasma"   
 #> 
 list_ekio_palettes("categorical")
 #> [1] "cool"      "minimal"   "contrast"  "full"      "muted"     "binary"   
@@ -65,17 +65,17 @@ list_ekio_palettes(verbose = TRUE)
 #> "duo_warm", "duo_cool", "trio_bold", "trio_cool", "quad_earth", and
 #> "quad_vivid"
 #> 
-#> ── Scientific ──
+#> ── Sequential (brand scales, for continuous fills) ──
 #> 
-#> "okabe_ito", "viridis", "inferno", and "plasma"
-#> 
-#> ── Sequential (for continuous scales) ──
-#> 
-#> "blue", "teal", "gray", "orange", "purple", "red", "green", and "amber"
+#> "blue", "gray", "teal", "orange", "purple", "red", "green", and "amber"
 #> 
 #> ── Diverging (for continuous scales) ──
 #> 
 #> "blue_orange", "blue_red", and "teal_orange"
+#> 
+#> ── Scientific ──
+#> 
+#> "okabe_ito", "viridis", "inferno", and "plasma"
 #> 
 #> ℹ Print `ekio_pal()` to see the palette swatch
 ```

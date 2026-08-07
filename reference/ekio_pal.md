@@ -1,9 +1,9 @@
 # Get Color Palette
 
-Returns colors for data visualization. Includes EKIO brand palettes,
-curated small-group variants, and standard scientific palettes. When
-printed interactively, displays the palette as a colored swatch with hex
-labels.
+Returns colors for data visualization. Includes EKIO brand scales,
+curated categorical and small-group palettes, and standard scientific
+palettes. When printed interactively, displays the palette as a colored
+swatch with hex labels.
 
 ## Usage
 
@@ -21,7 +21,11 @@ ekio_pal(palette = "contrast", n = NULL, reverse = FALSE)
 
 - n:
 
-  Integer or NULL. Number of colors to return. If NULL, returns all.
+  Integer or NULL. Number of colors to return. If NULL, returns all. For
+  sequential and diverging palettes, `n` colors are interpolated across
+  the full range. For categorical, small-group, and scientific palettes
+  the first `n` colors are taken, interpolating only if `n` exceeds the
+  palette length.
 
 - reverse:
 
@@ -34,6 +38,13 @@ Printing displays a visual swatch. Use
 [`as.character()`](https://rdrr.io/r/base/character.html) to strip the
 class.
 
+## Details
+
+Brand scales (`"blue"`, `"gray"`, `"teal"`, `"orange"`, `"purple"`,
+`"red"`, `"green"`, `"amber"`) are nine-step ramps running light to
+dark, named by shade. Position and shade are aligned by construction, so
+`ekio_pal("blue")[7]` and `ekio_pal("blue")["700"]` are the same color.
+
 ## Examples
 
 ``` r
@@ -44,4 +55,13 @@ ekio_pal("contrast", n = 4)
 ekio_pal("binary", reverse = TRUE)
 
 ekio_pal("okabe_ito")
+
+
+# Brand scales are named by shade; position i is shade i * 100
+ekio_pal("blue")["700"]
+#>       700 
+#> "#1E3A5F" 
+ekio_pal("blue")[7]
+#>       700 
+#> "#1E3A5F" 
 ```

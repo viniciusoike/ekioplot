@@ -16,7 +16,7 @@ with curated typography, spacing, and color choices.
 ``` r
 
 ggplot(mtcars, aes(wt, mpg)) +
-  geom_point(color = ekio_blue["700"], size = 2.5) +
+  geom_point(color = ekio_pal("blue")["700"], size = 2.5) +
   labs(
     title = "Fuel Efficiency vs. Weight",
     subtitle = "Motor Trend Car Road Tests (1974)",
@@ -33,15 +33,11 @@ The `grid` parameter controls which major grid lines are drawn:
 ``` r
 
 ggplot(mtcars, aes(wt, mpg)) +
-  geom_point(color = ekio_blue["700"]) +
+  geom_point(color = ekio_pal("blue")["700"]) +
   theme_ekio(grid = "xy")
 ```
 
 ![](getting-started_files/figure-html/theme-grid-1.png)
-
-Use
-[`theme_ekio_map()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio_map.md)
-for spatial visualizations — it removes axes and repositions the legend.
 
 ## Color Palettes
 
@@ -55,9 +51,9 @@ str(list_ekio_palettes())
 #> List of 5
 #>  $ categorical: chr [1:7] "cool" "minimal" "contrast" "full" ...
 #>  $ small_group: chr [1:6] "duo_warm" "duo_cool" "trio_bold" "trio_cool" ...
-#>  $ scientific : chr [1:4] "okabe_ito" "viridis" "inferno" "plasma"
-#>  $ sequential : chr [1:8] "blue" "teal" "gray" "orange" ...
+#>  $ sequential : chr [1:8] "blue" "gray" "teal" "orange" ...
 #>  $ diverging  : chr [1:3] "blue_orange" "blue_red" "teal_orange"
+#>  $ scientific : chr [1:4] "okabe_ito" "viridis" "inferno" "plasma"
 ```
 
 Access any palette with
@@ -199,90 +195,52 @@ ekio_histogram(mtcars, mpg, fill = "coral")
 
 ![](getting-started_files/figure-html/recipe-static-color-1.png)
 
-## Color Scales
+## Brand Scales
 
-Four named color scales are exported for direct use: `ekio_blue`,
-`ekio_gray`, `ekio_teal`, and `ekio_orange`. Each provides 10 shades
-from `"50"` (lightest) to `"900"` (darkest).
+Every brand color is reached through
+[`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md).
+The eight brand scales — `"blue"`, `"gray"`, `"teal"`, `"orange"`,
+`"purple"`, `"red"`, `"green"`, and `"amber"` — are nine-step ramps
+running light to dark, named by shade:
 
 ``` r
 
-ekio_blue["700"]
+ekio_pal("gray")
+```
+
+![](getting-started_files/figure-html/brand-scale-1.png)
+
+Position and shade are aligned by construction, so element `i` is always
+shade `i * 100`. Index whichever way reads better:
+
+``` r
+
+ekio_pal("blue")["700"]
 #>       700 
 #> "#1E3A5F"
-ekio_gray["300"]
-#>       300 
-#> "#E2E8F0"
+ekio_pal("blue")[7]
+#>       700 
+#> "#1E3A5F"
 ```
 
-Named accent colors are available in `ekio_accent`:
+Because these are the same objects used for continuous fills, asking for
+fewer colors interpolates across the whole ramp rather than returning
+the lightest few:
 
 ``` r
 
-ekio_accent
-#>      blue    orange      teal     amber    purple       red     green      gray 
-#> "#1E3A5F" "#DD6B20" "#2C7A7B" "#D69E2E" "#805AD5" "#C53030" "#38A169" "#718096"
+ekio_pal("blue", n = 3)
 ```
 
-## GT Tables
+![](getting-started_files/figure-html/brand-interpolate-1.png)
 
-Apply EKIO styling to gt tables with
-[`gt_theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/gt_theme_ekio.md):
+## Tables
 
-``` r
-
-library(gt)
-
-head(mtcars[, 1:5], 8) |>
-  gt() |>
-  gt_theme_ekio(add_footer = FALSE)
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-#> Warning: Character vector names are ignored. Instead of a named character
-#> vector, use a named list to define Sass variables.
-```
-
-| mpg  | cyl | disp  | hp  | drat |
-|------|-----|-------|-----|------|
-| 21.0 | 6   | 160.0 | 110 | 3.90 |
-| 21.0 | 6   | 160.0 | 110 | 3.90 |
-| 22.8 | 4   | 108.0 | 93  | 3.85 |
-| 21.4 | 6   | 258.0 | 110 | 3.08 |
-| 18.7 | 8   | 360.0 | 175 | 3.15 |
-| 18.1 | 6   | 225.0 | 105 | 2.76 |
-| 14.3 | 8   | 360.0 | 245 | 3.21 |
-| 24.4 | 4   | 146.7 | 62  | 3.69 |
+gt table styling lives in a companion package,
+[ekiotable](https://github.com/viniciusoike/ekiotable). It reads brand
+tokens from ekioplot via
+[`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
+and
+[`ekio_font()`](https://viniciusoike.github.io/ekioplot/reference/ekio_font.md),
+so tables and charts share one palette without either package
+duplicating color definitions.

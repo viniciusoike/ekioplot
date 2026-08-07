@@ -27,9 +27,9 @@ this as a **contrast ratio** between text and background, from 1
 
 ``` r
 
-ekio_contrast("white", ekio_blue["700"])
+ekio_contrast("white", ekio_pal("blue")["700"])
 #> [1] 11.50262
-ekio_text_on(ekio_blue["700"])
+ekio_text_on(ekio_pal("blue")["700"])
 #>     700 
 #> "white"
 ```
@@ -46,11 +46,11 @@ selects, with its contrast ratio in parentheses.
 scales_df <- do.call(rbind, lapply(
   c("blue", "teal", "orange", "gray"),
   function(scale_name) {
-    hex <- get(paste0("ekio_", scale_name))
+    hex <- ekio_pal(scale_name)
     data.frame(
       scale = scale_name,
       shade = factor(names(hex), levels = rev(names(hex))),
-      hex = unname(hex)
+      hex = as.character(hex)
     )
   }
 ))
@@ -78,23 +78,28 @@ ggplot(scales_df, aes(x = scale, y = shade, fill = hex)) +
 
 ![](color-accessibility_files/figure-html/shades-1.png)
 
-The pattern is consistent across scales: shades **500 and darker take
-white text**, shades **400 and lighter take black text**. When in doubt,
-call
+The cutoff is *not* the same across scales. Blue flips to white text at
+`500`, teal and gray at `700`, and orange only at `800` — the warmer,
+more luminous hues stay readable against black text much further down
+the ramp. Call
 [`ekio_text_on()`](https://viniciusoike.github.io/ekioplot/reference/ekio_text_on.md)
-instead of memorizing the cutoff.
+rather than memorizing a cutoff.
 
 ## Accent colors
 
-The named accent colors in `ekio_accent` are mid-to-dark tones, so most
-of them pair with white text — but not all reach AA for normal-size
-text.
+`ekio_pal("full")` carries one accent per brand scale, in scale order.
+These are mid-to-dark tones, so most of them pair with white text — but
+not all reach AA for normal-size text.
 
 ``` r
 
+accent_names <- c(
+  "blue", "orange", "teal", "amber", "purple", "red", "green", "gray"
+)
+
 accents_df <- data.frame(
-  name = factor(names(ekio_accent), levels = names(ekio_accent)),
-  hex = unname(ekio_accent)
+  name = factor(accent_names, levels = accent_names),
+  hex = as.character(ekio_pal("full"))
 )
 accents_df$text_color <- ekio_text_on(accents_df$hex)
 accents_df$ratio <- ekio_contrast(accents_df$text_color, accents_df$hex)
@@ -134,11 +139,15 @@ accents_df[, c("name", "hex", "text_color", "ratio", "aa", "aa_large", "aaa")]
 Colors that pass `aa_large` but not `aa` (such as `orange` and `amber`
 with white text) are fine for large display text — big value labels,
 headline numbers — but should not carry small annotations. For small
-text on those fills, use a dark text color such as `ekio_gray["900"]`:
+text on those fills, use a dark text color such as
+`ekio_pal("gray")["900"]`:
 
 ``` r
 
-ekio_contrast(ekio_gray["900"], ekio_accent["amber"])
+ekio_contrast(
+  ekio_pal("gray")["900"],
+  accents_df$hex[accents_df$name == "amber"]
+)
 #> [1] 6.829936
 ```
 
@@ -175,10 +184,10 @@ ggplot(sales, aes(x = reorder(region, value), y = value, fill = fill)) +
 
 ## Guidelines
 
-- Default to `ekio_blue["700"]` (the primary brand blue) for filled
-  elements that carry white text: it passes AAA (ratio 11.5).
-- Light backgrounds (`50`–`200` shades) are for panels and subtle fills;
-  always use dark text on them.
+- Default to `ekio_pal("blue")["700"]` (the primary brand blue) for
+  filled elements that carry white text: it passes AAA (ratio 11.5).
+- Light backgrounds (`100`–`200` shades) are for panels and subtle
+  fills; always use dark text on them.
 - Don’t rely on the black/white cutoff from memory when generating fills
   programmatically — compute it with
   [`ekio_text_on()`](https://viniciusoike.github.io/ekioplot/reference/ekio_text_on.md).

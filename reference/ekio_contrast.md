@@ -36,9 +36,9 @@ to pick a readable text color for a background
 ``` r
 ekio_contrast("black", "white")
 #> [1] 21
-ekio_contrast(ekio_blue["700"])
+ekio_contrast(ekio_pal("blue")["700"])
 #> [1] 11.50262
-ekio_contrast("white", ekio_blue)
-#>  [1] 17.393901 11.976562 11.502620  8.614443  5.311611  3.465643  2.194386
-#>  [8]  1.633916  1.260461  1.100813
+ekio_contrast("white", ekio_pal("blue"))
+#> [1]  1.260461  1.633916  2.194386  3.465643  5.311611  8.614443 11.502620
+#> [8] 14.517373 17.393901
 ```

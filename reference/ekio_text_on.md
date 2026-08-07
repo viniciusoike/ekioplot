@@ -3,8 +3,7 @@
 Returns the text color (dark or light) with the higher WCAG contrast
 ratio against each background color. Useful for labels placed on colored
 fills, e.g. in
-[`ggplot2::geom_text()`](https://ggplot2.tidyverse.org/reference/geom_text.html)
-or gt table cells.
+[`ggplot2::geom_text()`](https://ggplot2.tidyverse.org/reference/geom_text.html).
 
 ## Usage
 
@@ -39,13 +38,13 @@ for the underlying contrast ratios
 ## Examples
 
 ``` r
-ekio_text_on(ekio_blue["700"])
+ekio_text_on(ekio_pal("blue")["700"])
 #>     700 
 #> "white" 
-ekio_text_on(ekio_blue)
-#>     900     800     700     600     500     400     300     200     100      50 
-#> "white" "white" "white" "white" "white" "black" "black" "black" "black" "black" 
-ekio_text_on(ekio_accent, dark = ekio_gray["900"])
-#>      blue    orange      teal     amber    purple       red     green      gray 
-#>   "white" "#1A202C"   "white" "#1A202C"   "white"   "white" "#1A202C" "#1A202C" 
+ekio_text_on(ekio_pal("blue"))
+#>     100     200     300     400     500     600     700     800     900 
+#> "black" "black" "black" "black" "white" "white" "white" "white" "white" 
+ekio_text_on(ekio_pal("full"), dark = ekio_pal("gray")["900"])
+#> [1] "white"   "#1A202C" "white"   "#1A202C" "white"   "white"   "#1A202C"
+#> [8] "#1A202C"
 ```

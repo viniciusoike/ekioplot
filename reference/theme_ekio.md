@@ -18,7 +18,8 @@ theme_ekio(base_size = 11, base_family = "", grid = "y")
 - base_family:
 
   Character. Font family. Defaults to the platform-appropriate EKIO font
-  via `.get_ekio_font()`.
+  via
+  [`ekio_font()`](https://viniciusoike.github.io/ekioplot/reference/ekio_font.md).
 
 - grid:
 

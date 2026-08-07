@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,15 +37,44 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="ekioplot-development-version">ekioplot (development version)<a class="anchor" aria-label="anchor" href="#ekioplot-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.7.0" id="ekioplot-070">ekioplot 0.7.0<a class="anchor" aria-label="anchor" href="#ekioplot-070"></a></h2>
+<p>This release makes <code>inst/ekio-palettes.yaml</code> the single source of truth for EKIO brand color, aligns scale position with shade number, and moves gt table styling into a companion package. It contains several breaking changes; see below before upgrading.</p>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
-<ul><li><p><code><a href="../reference/ekio_contrast.html">ekio_contrast()</a></code> computes the WCAG 2.1 contrast ratio between two colors.</p></li>
-<li><p><code><a href="../reference/ekio_text_on.html">ekio_text_on()</a></code> picks the more readable text color (black or white) for a given background, for labels on colored fills in plots and gt tables.</p></li>
+<h3 id="breaking-changes-0-7-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-7-0"></a></h3>
+<ul><li><p>The exported color vectors <code>ekio_blue</code>, <code>ekio_gray</code>, <code>ekio_teal</code>, <code>ekio_orange</code>, and <code>ekio_accent</code> have been removed. All brand color is now reached through <code><a href="../reference/ekio_pal.html">ekio_pal()</a></code>. <code>ekio_accent</code> was byte-identical to <code>ekio_pal("full")</code>; the four scales are now <code>ekio_pal("blue")</code> and friends.</p></li>
+<li><p>Brand scales are <strong>nine steps named <code>"100"</code> to <code>"900"</code></strong> instead of ten named <code>"50"</code> to <code>"900"</code>. Position and shade are now aligned by construction, so <code>ekio_pal("blue")[7]</code> and <code>ekio_pal("blue")["700"]</code> return the same color. Code that indexed the old ramps positionally will need updating.</p></li>
+<li><p>The <code>"50"</code> shades are gone. They were near-duplicates of <code>"100"</code> — a luminance gap of 1, 2, and -1 for gray, teal, and orange against a median interior gap of 24 — and orange’s inverted the ramp. <code><a href="../reference/theme_ekio.html">theme_ekio()</a></code>’s background is now <code>gray.100</code>, a change of two luminance points.</p></li>
+<li><p><code>theme_ekio_map()</code> is removed. It only blanked the axes and moved the legend; most of what a map needs (<code>coord_sf(expand = FALSE)</code>, colorbar sizing) cannot be expressed in a theme object.</p></li>
+<li><p><code>gt_theme_ekio()</code> has moved to the companion package <a href="https://github.com/viniciusoike/ekiotable" class="external-link">ekiotable</a>. It reads brand tokens from this package via <code><a href="../reference/ekio_pal.html">ekio_pal()</a></code> and <code><a href="../reference/ekio_font.html">ekio_font()</a></code>, so tables and charts stay in sync without duplicating color definitions. <code>gt</code> is no longer a dependency of ekioplot.</p></li>
+<li><p>For sequential and diverging palettes, <code>n</code> now interpolates across the whole ramp instead of returning the <code>n</code> lightest colors. <code>ekio_pal("blue", n = 3)</code> gives a light/mid/dark triple. Categorical, small-group, and scientific palettes still take the first <code>n</code>.</p></li>
+<li><p><code>teal["50"]</code> was <code>#F0FFF4</code> — identical to green’s lightest tint, not a teal — and is removed. <code>blue["800"]</code> changes from <code>#1B3A4B</code> to <code>#152A44</code>; the old value sat 3 luminance points from <code>blue.700</code> and was hue-shifted toward teal.</p></li>
+<li><p>The <code>purple</code>, <code>red</code>, <code>green</code>, and <code>amber</code> scales drop their lightest tint and gain a <code>"900"</code>, so all eight scales now have identical structure.</p></li>
+<li>
+<p>All three diverging palettes change slightly. Their neutral pivot is now guaranteed to be the lightest color in the palette, so the visual center of the scale lands on the data’s zero:</p>
+<ul><li>
+<code>teal_orange</code> previously peaked at <code>teal.100</code> (luminance 247) rather than at its pivot (241), putting the lightest point one slot off center. Its cool arm now stops at <code>teal.200</code>, and the shared warm pivot is lighter.</li>
+<li>
+<code>blue_red</code>’s warm arm was irregular (<code>red.100, .300, .500, .600, .800</code> — a 100-shade step among 200s), which left <code>red.500</code> and <code>red.600</code> only 19 luminance points apart where their neighbours were 61 and 54, wasting a class. It now mirrors the cool arm as <code>red.100, .300, .500, .700, .900</code>. This also narrows the gap between the two extreme ends from 39 luminance points to 26, so equally extreme values read with more equal weight.</li>
+<li>
+<code>blue_orange</code> keeps its arms and gains the lighter pivot, which removes a 4-point step between the pivot and <code>orange.200</code>.</li>
+</ul></li>
 </ul></div>
 <div class="section level3">
-<h3 id="documentation-development-version">Documentation<a class="anchor" aria-label="anchor" href="#documentation-development-version"></a></h3>
-<ul><li>New pkgdown article “Color accessibility” showing which EKIO colors work with black vs. white text, with WCAG AA/AAA compliance for the accent colors.</li>
+<h3 id="new-features-0-7-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-7-0"></a></h3>
+<ul><li><p><code><a href="../reference/ekio_contrast.html">ekio_contrast()</a></code> computes the WCAG 2.1 contrast ratio between two colors.</p></li>
+<li><p><code><a href="../reference/ekio_text_on.html">ekio_text_on()</a></code> picks the more readable text color (black or white) for a given background, for labels on colored fills.</p></li>
+<li><p>New <code><a href="../reference/ekio_font.html">ekio_font()</a></code> exposes the platform-appropriate EKIO font family. It is the canonical accessor for EKIO brand type, so packages styling other output do not repeat the platform logic.</p></li>
+<li><p>Color is defined once in <code>inst/ekio-palettes.yaml</code> and compiled into the package by <code>data-raw/palettes.R</code>. The YAML ships with the package, so downstream projects can read the canonical tokens via <code>system.file("ekio-palettes.yaml", package = "ekioplot")</code>.</p></li>
+<li><p>Palettes are defined by <code>scale.shade</code> token reference rather than literal hex, so a palette can no longer drift out of sync with the scale it was built from. The build script fails if a token does not resolve, if a scale stops darkening monotonically, or if a diverging palette’s pivot is not its lightest color. A test re-resolves the YAML and compares it against the built data, so editing one without rebuilding the other fails loudly.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-0-7-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-7-0"></a></h3>
+<ul><li>New pkgdown article “Color accessibility” showing which EKIO colors work with black vs. white text, with WCAG AA/AAA compliance for the accent colors in <code>ekio_pal("full")</code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-7-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-7-0"></a></h3>
+<ul><li>
+<code>ekio_pal(pal, n = length(pal))</code> routed through <code>colorRampPalette</code>, which returns an unnamed vector, so <code>ekio_pal("blue", n = 9)["700"]</code> gave <code>NA</code> while <code>ekio_pal("blue")["700"]</code> worked. An <code>n</code> matching the palette length is now a no-op.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -65,7 +94,7 @@
 <h2 class="pkg-version" data-toc-text="0.5.0" id="ekioplot-050">ekioplot 0.5.0<a class="anchor" aria-label="anchor" href="#ekioplot-050"></a></h2>
 <div class="section level3">
 <h3 id="breaking-changes-0-5-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-5-0"></a></h3>
-<ul><li><p><code>gt</code> moved from <code>Imports</code> to <code>Suggests</code>. It is only needed by <code><a href="../reference/gt_theme_ekio.html">gt_theme_ekio()</a></code>, which now prompts to install it on first use via <code><a href="https://rlang.r-lib.org/reference/is_installed.html" class="external-link">rlang::check_installed()</a></code>. This drops 43 transitive dependencies (including <code>V8</code>, <code>Rcpp</code>, <code>curl</code>, <code>bslib</code>, <code>htmlwidgets</code>, <code>reactable</code>, <code>knitr</code>, and <code>rmarkdown</code>) from a default install, leaving core plotting dependent only on <code>ggplot2</code>’s tree. Users who style <code>gt</code> tables should add <code>gt</code> to their own dependencies.</p></li>
+<ul><li><p><code>gt</code> moved from <code>Imports</code> to <code>Suggests</code>. It is only needed by <code>gt_theme_ekio()</code>, which now prompts to install it on first use via <code><a href="https://rlang.r-lib.org/reference/is_installed.html" class="external-link">rlang::check_installed()</a></code>. This drops 43 transitive dependencies (including <code>V8</code>, <code>Rcpp</code>, <code>curl</code>, <code>bslib</code>, <code>htmlwidgets</code>, <code>reactable</code>, <code>knitr</code>, and <code>rmarkdown</code>) from a default install, leaving core plotting dependent only on <code>ggplot2</code>’s tree. Users who style <code>gt</code> tables should add <code>gt</code> to their own dependencies.</p></li>
 <li><p><code><a href="../reference/ekio_scatterplot.html">ekio_scatterplot()</a></code> no longer forces a y = 0 baseline by default (<code>add_zero = FALSE</code>). Scatter plots whose y values are far from zero were distorted by the forced baseline. Pass <code>add_zero = TRUE</code> to restore the old behavior.</p></li>
 </ul></div>
 <div class="section level3">
@@ -118,7 +147,7 @@
 <h3 id="themes-0-3-0">Themes<a class="anchor" aria-label="anchor" href="#themes-0-3-0"></a></h3>
 <ul><li>
 <code><a href="../reference/theme_ekio.html">theme_ekio()</a></code> rebuilt using ggplot2’s modular <code>theme_sub_*()</code> helpers (requires ggplot2 &gt;= 3.5.0).</li>
-<li>Added <code><a href="../reference/theme_ekio_map.html">theme_ekio_map()</a></code> for choropleth and spatial visualizations.</li>
+<li>Added <code>theme_ekio_map()</code> for choropleth and spatial visualizations.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="scales-0-3-0">Scales<a class="anchor" aria-label="anchor" href="#scales-0-3-0"></a></h3>
@@ -132,8 +161,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="tables-0-3-0">Tables<a class="anchor" aria-label="anchor" href="#tables-0-3-0"></a></h3>
-<ul><li>Added <code><a href="../reference/gt_theme_ekio.html">gt_theme_ekio()</a></code> for professional gt table styling with EKIO branding.</li>
-<li>Fixed <code><a href="../reference/gt_theme_ekio.html">gt_theme_ekio()</a></code> crashing on tables without summary rows or row groups.</li>
+<ul><li>Added <code>gt_theme_ekio()</code> for professional gt table styling with EKIO branding.</li>
+<li>Fixed <code>gt_theme_ekio()</code> crashing on tables without summary rows or row groups.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="datasets-0-3-0">Datasets<a class="anchor" aria-label="anchor" href="#datasets-0-3-0"></a></h3>

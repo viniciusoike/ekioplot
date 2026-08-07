@@ -2,16 +2,16 @@
 
 ## Project: ekioplot
 
-R package implementing EKIO’s visual identity system for ggplot2 and gt
-tables.
+R package implementing EKIO’s visual identity system for ggplot2. Table
+styling lives in the companion `ekiotable` package.
 
 ## Description
 
 A comprehensive R package that provides EKIO-branded themes, color
-palettes, scale functions, high-level “recipe” chart functions, and gt
-table theming for professional data visualizations. Follows EKIO design
-principles of clarity, purposeful color usage, and professional
-presentation standards.
+palettes, scale functions and high-level “recipe” chart functions for
+professional data visualizations. Follows EKIO design principles of
+clarity, purposeful color usage, and professional presentation
+standards.
 
 ## Brand tokens (canonical)
 
@@ -19,13 +19,18 @@ This package is EKIO’s single source of truth for brand color and type.
 Downstream projects (the `ekio` workspace, `ekio-site`) mirror these —
 update here first.
 
-- **Colors**: `ekio_blue["700"]` = `#1E3A5F` (primary),
-  `ekio_gray["900"]` = `#1A202C` (ink), `ekio_gray["50"]` = `#FAFBFC`
-  (background); accents orange `#DD6B20`, teal `#2C7A7B`. Full 10-step
-  scales in `R/colors.R`.
-- **Type — charts & gt tables**: Helvetica Neue (macOS) / Arial
-  (Windows) via `.get_ekio_font()`; sans only, no serif in ggplot2/gt
-  output.
+- **Colors**: defined in `inst/ekio-palettes.yaml` (source of truth),
+  compiled to `R/sysdata.rda` by `data-raw/palettes.R`. Eight nine-step
+  scales named `100`–`900`, light to dark; position `i` == shade
+  `i * 100`. Primary `blue.700` = `#1E3A5F`, ink `gray.900` = `#1A202C`,
+  background `gray.100` = `#F7FAFC`; accents `orange.600` = `#DD6B20`,
+  `teal.700` = `#2C7A7B`. Palettes are defined by `scale.shade` token
+  reference, not literal hex.
+- **Type — charts & tables**: Helvetica Neue (macOS) / Arial (Windows)
+  via
+  [`ekio_font()`](https://viniciusoike.github.io/ekioplot/reference/ekio_font.md),
+  which is exported so `ekiotable` can reuse it; sans only, no serif in
+  chart or table output.
 - **Type — web (ekio-site)**: Lora (serif display/headings), Lato
   (body), Fira Code (mono). Lora is a deliberate web-only editorial
   display font; it is intentionally *not* used in chart output, which
@@ -35,17 +40,17 @@ update here first.
 
 ### Source Files (R/)
 
-- **colors.R** — Color scale vectors (`ekio_blue`, `ekio_gray`,
-  `ekio_teal`, `ekio_orange`, `ekio_accent`), internal
-  sequential/diverging palette lists,
+- **colors.R** —
   [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
-  palette accessor (auto-displays swatch via S3 print method),
+  palette accessor (auto-displays swatch via S3 print method), internal
+  `.ekio(scale, shade)` token accessor used by themes and recipes,
   [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md),
   [`show_ekio_palette()`](https://viniciusoike.github.io/ekioplot/reference/show_ekio_palette.md)
   (deprecated, use
   [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)),
   [`show_all_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/show_all_ekio_palettes.md)
-  (deprecated, use `list_ekio_palettes(verbose = TRUE)`)
+  (deprecated, use `list_ekio_palettes(verbose = TRUE)`). Contains no
+  hex codes — all color comes from `R/sysdata.rda`
 
 - **scales.R** — Discrete (`scale_color_ekio_d`, `scale_fill_ekio_d`)
   and continuous (`scale_color_ekio_c`, `scale_fill_ekio_c`) ggplot2
@@ -54,16 +59,12 @@ update here first.
 - **theme.R** —
   [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
   (modular, uses `theme_sub_*` helpers) and
-  [`theme_ekio_map()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio_map.md)
-  for spatial maps. Platform-aware font selection via `.get_ekio_font()`
+  [`ekio_font()`](https://viniciusoike.github.io/ekioplot/reference/ekio_font.md),
+  the exported platform-aware font accessor
 
 - **recipes.R** — High-level chart builders (`ekio_histogram`,
   `ekio_lineplot`, `ekio_scatterplot`, `ekio_barplot`) with smart
   aesthetic detection (static color vs. variable mapping)
-
-- **gt_theme.R** —
-  [`gt_theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/gt_theme_ekio.md)
-  for professional gt table styling
 
 - **accessibility.R** — WCAG contrast helpers:
   [`ekio_contrast()`](https://viniciusoike.github.io/ekioplot/reference/ekio_contrast.md)
@@ -90,12 +91,15 @@ update here first.
 - **Modular themes**:
   [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
   uses ggplot2’s `theme_sub_*()` helpers (requires ggplot2 \>= 3.5.0)
-- **Color references**: Theme and gt functions reference exported color
-  vectors (`ekio_blue["700"]`) instead of hardcoded hex values
+- **Color references**: Never hardcode hex. Inside the package use
+  `.ekio("blue", 700)`; from user code use
+  [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md).
+  To change a color, edit `inst/ekio-palettes.yaml` and rerun
+  `data-raw/palettes.R`
 
 ### Dependencies
 
-- **Imports**: cli, ggplot2 (\>= 3.5.0), grDevices, gt, rlang
+- **Imports**: cli, ggplot2 (\>= 3.5.0), grDevices, rlang
 - **Suggests**: dplyr, knitr, rmarkdown, testthat (\>= 3.0.0), tibble
 
 ## Coding Conventions
@@ -107,7 +111,7 @@ update here first.
   examples in `@examples`. Use `@examplesIf rlang::is_interactive()` for
   examples that produce plots
 - **Testing**: Uses testthat framework in `tests/testthat/`. Tests exist
-  for colors, scales, and themes. No tests yet for recipes or gt_theme
+  for colors, scales, and themes. No tests yet for recipes
 - **Code style**: Standard R conventions with 2-space indentation,
   meaningful parameter names
   - Use native R pipe
