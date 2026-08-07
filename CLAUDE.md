@@ -22,6 +22,7 @@ This package is EKIO's single source of truth for brand color and type. Downstre
 - **scales.R** — Discrete (`scale_color_ekio_d`, `scale_fill_ekio_d`) and continuous (`scale_color_ekio_c`, `scale_fill_ekio_c`) ggplot2 scale functions with British spelling aliases
 - **theme.R** — `theme_ekio()` (modular, uses `theme_sub_*` helpers) and `ekio_font()`, the exported platform-aware font accessor
 - **recipes.R** — High-level chart builders (`ekio_histogram`, `ekio_lineplot`, `ekio_scatterplot`, `ekio_barplot`) with smart aesthetic detection (static color vs. variable mapping)
+- **accessibility.R** — WCAG contrast helpers: `ekio_contrast()` (contrast ratio) and `ekio_text_on()` (black/white text picker for colored fills)
 - **data.R** — Documentation for 6 bundled datasets (Brazilian socioeconomic/agriculture data, global fuels)
 - **utils.R** — Package-level imports and `globalVariables` suppression
 

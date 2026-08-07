@@ -36,6 +36,12 @@ reference:
       - list_ekio_palettes
       - show_ekio_palette
 
+  - title: Accessibility
+    desc: WCAG contrast helpers for readable text on colored fills
+    contents:
+      - ekio_contrast
+      - ekio_text_on
+
   - title: Recipe Functions
     desc: High-level chart builders with smart defaults
     contents:

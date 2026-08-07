@@ -64,6 +64,11 @@ below before upgrading.
 
 ## New features
 
+* `ekio_contrast()` computes the WCAG 2.1 contrast ratio between two colors.
+
+* `ekio_text_on()` picks the more readable text color (black or white) for a
+  given background, for labels on colored fills.
+
 * New `ekio_font()` exposes the platform-appropriate EKIO font family. It is
   the canonical accessor for EKIO brand type, so packages styling other
   output do not repeat the platform logic.
@@ -79,6 +84,12 @@ below before upgrading.
   stops darkening monotonically, or if a diverging palette's pivot is not its
   lightest color. A test re-resolves the YAML and compares it against the
   built data, so editing one without rebuilding the other fails loudly.
+
+## Documentation
+
+* New pkgdown article "Color accessibility" showing which EKIO colors work
+  with black vs. white text, with WCAG AA/AAA compliance for the accent
+  colors in `ekio_pal("full")`.
 
 ## Bug fixes
 
