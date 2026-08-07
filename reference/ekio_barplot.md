@@ -14,6 +14,9 @@ ekio_barplot(
   add_zero = TRUE,
   horizontal = FALSE,
   bar_width = 0.8,
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
   ...
 )
 ```
@@ -51,6 +54,10 @@ ekio_barplot(
 - bar_width:
 
   Bar width (default: 0.8)
+
+- title, subtitle, caption:
+
+  Plot labels. NULL (default) draws none.
 
 - ...:
 

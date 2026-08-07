@@ -13,6 +13,9 @@ ekio_lineplot(
   palette = NULL,
   add_zero = TRUE,
   line_width = 0.8,
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
   ...
 )
 ```
@@ -46,6 +49,10 @@ ekio_lineplot(
 - line_width:
 
   Line thickness (default: 0.8)
+
+- title, subtitle, caption:
+
+  Plot labels. NULL (default) draws none.
 
 - ...:
 

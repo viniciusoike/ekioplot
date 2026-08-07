@@ -15,6 +15,9 @@ ekio_areaplot(
   position = "stack",
   alpha = 0.8,
   add_zero = TRUE,
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
   ...
 )
 ```
@@ -53,6 +56,10 @@ ekio_areaplot(
 - add_zero:
 
   Logical. Add horizontal line at y=0 (default: TRUE).
+
+- title, subtitle, caption:
+
+  Plot labels. NULL (default) draws none.
 
 - ...:
 

@@ -14,6 +14,9 @@ ekio_histogram(
   binwidth = NULL,
   add_zero = TRUE,
   border_color = "white",
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
   ...
 )
 ```
@@ -51,6 +54,10 @@ ekio_histogram(
 - border_color:
 
   Color for histogram outline (default: "white")
+
+- title, subtitle, caption:
+
+  Plot labels. NULL (default) draws none.
 
 - ...:
 
