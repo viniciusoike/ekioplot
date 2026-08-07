@@ -3,10 +3,7 @@
 ## Overview
 
 `ekioplot` implements EKIO’s visual identity system for data
-visualization in R. It provides a professional ggplot2 theme, curated
-color palettes and scale functions, high-level “recipe” chart builders,
-and a matching theme for `gt` tables — all following EKIO design
-principles of clarity, purposeful color, and professional presentation.
+visualization in R.
 
 ``` r
 
@@ -30,7 +27,7 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 
 ## Installation
 
-`ekioplot` is not on CRAN. Install the pre-built binary from
+`ekioplot` is not on CRAN. Install from
 [r-universe](https://viniciusoike.r-universe.dev/ekioplot):
 
 ``` r
@@ -38,7 +35,7 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 install.packages("ekioplot", repos = "https://viniciusoike.r-universe.dev")
 ```
 
-Or install the development version from GitHub:
+Or install the development version from GitHub.
 
 ``` r
 
@@ -53,7 +50,7 @@ applies EKIO’s visual identity to any ggplot2 plot, building on
 [`theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html)
 with curated typography, spacing, and color. The `grid` argument
 controls which major grid lines are drawn (`"y"`, `"x"`, `"xy"`, or
-`"none"`):
+`"none"`).
 
 ``` r
 
@@ -62,41 +59,19 @@ theme_ekio(grid = "xy")
 
 ## Color palettes
 
-ekioplot ships ~30 palettes across five categories, all accessible
-through a single function:
+ekioplot ships palettes across five categories, all accessible through a
+single function.
 
 ``` r
 
-list_ekio_palettes() # explore everything, grouped by type
-ekio_pal("contrast") # categorical
-ekio_pal("blue", n = 5) # sequential, interpolated to 5 colors
-show_ekio_palette("contrast")
+ekio_pal()
 ```
 
 ![](reference/figures/README-palettes.png)
 
-- **Categorical**: `contrast`, `cool`, `minimal`, `full`, `muted`,
-  `binary`, `political`
-- **Small-group**: `duo_warm`, `duo_cool`, `trio_bold`, `trio_cool`,
-  `quad_earth`, `quad_vivid`
-- **Scientific**: `okabe_ito`, `viridis`, `inferno`, `plasma`
-- **Sequential**: `blue`, `teal`, `gray`, `orange`, `purple`, `red`,
-  `green`, `amber`
-- **Diverging**: `blue_orange`, `blue_red`, `teal_orange`
-
-The sequential palettes double as the brand scales: nine steps from
-`"100"` (lightest) to `"900"` (darkest), named by shade. Position and
-shade are aligned, so `ekio_pal("blue")[7]` and
-`ekio_pal("blue")["700"]` are the same color.
-
-Color is defined once in `inst/ekio-palettes.yaml` and compiled into the
-package by `data-raw/palettes.R`. That file is the canonical source for
-EKIO brand color across projects.
-
 ## Scales
 
-Discrete and continuous scales are provided for both `color` and `fill`
-(British-spelling aliases included):
+Discrete and continuous scales are provided for both `color` and `fill`.
 
 ``` r
 
@@ -112,45 +87,14 @@ scale_fill_ekio_c("blue_orange")
 ## Recipe functions
 
 High-level builders create complete, publication-ready plots with smart
-defaults. They automatically detect whether the `color`/`fill` argument
-is missing (uses EKIO blue), a color string (used directly), or a
-variable (mapped with the appropriate EKIO scale):
-
-``` r
-
-ekio_histogram(mtcars, mpg)
-ekio_histogram(mtcars, mpg, fill = "coral")
-ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl))
-ekio_barplot(cyl_counts, cyl, n)
-ekio_lineplot(ggplot2::economics, date, unemploy)
-
-world_fuels <- subset(fuels, entity == "World" & year >= 1950)
-ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel)
-```
+defaults.
 
 ![](reference/figures/README-recipes.png)
 
-## Tables
-
-gt table styling lives in a companion package,
-[ekiotable](https://github.com/viniciusoike/ekiotable), which reads its
-brand tokens from this package so charts and tables stay in sync.
-
-## Palette Lab
-
-The **Palette Lab** is an interactive app for building and comparing
-palettes across many chart types, with color-vision-deficiency
-simulation and contrast checks. It runs entirely in your browser at
-<https://viniciusoike.github.io/ekioplot-palette-lab/> and its source
-lives in a separate repository:
-<https://github.com/viniciusoike/ekioplot-palette-lab>.
-
-## Learn more
+## See more
 
 See
 [`vignette("getting-started", package = "ekioplot")`](https://viniciusoike.github.io/ekioplot/articles/getting-started.md)
 and the package website at <https://viniciusoike.github.io/ekioplot/>.
 
 ------------------------------------------------------------------------
-
-*EKIO*
