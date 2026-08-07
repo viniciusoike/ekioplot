@@ -1,5 +1,5 @@
 ---
-title: "ekioplot v2.0 Visual Tests"
+title: "ekioplot Visual Tests"
 subtitle: "Palette and Theme Gallery"
 format:
   html:
@@ -20,24 +20,35 @@ library(ggplot2)
 library(dplyr)
 ```
 
+```{r}
+#| label: helper
+#| include: false
+
+# Horizontal swatch strip, used for the group overviews below.
+swatch_strip <- function(names, n = NULL) {
+  par(mfrow = c(length(names), 1), mar = c(1, 8, 1, 1))
+  for (pal in names) {
+    cols <- as.character(ekio_pal(pal, n = n))
+    barplot(rep(1, length(cols)), col = cols, border = NA, axes = FALSE,
+            names.arg = rep("", length(cols)), horiz = TRUE)
+    mtext(pal, side = 2, las = 1, line = 1, cex = 0.9)
+  }
+}
+```
+
 # Color Palettes
 
-## EKIO Qualitative Palettes
+All palettes are reached through `ekio_pal()`. Printing one displays a
+labeled swatch.
+
+## Categorical Palettes
 
 ```{r}
-#| label: qualitative-palettes
+#| label: categorical-palettes
 #| fig-height: 6
 #| fig-width: 10
 
-palettes <- list_ekio_palettes("qualitative")
-
-par(mfrow = c(length(palettes), 1), mar = c(1, 8, 1, 1))
-for (pal in palettes) {
-  cols <- ekio_pal(pal)
-  barplot(rep(1, length(cols)), col = cols, border = NA, axes = FALSE,
-          names.arg = rep("", length(cols)), horiz = TRUE)
-  mtext(pal, side = 2, las = 1, line = 1, cex = 0.9)
-}
+swatch_strip(list_ekio_palettes("categorical"))
 ```
 
 ### Individual Palette Display
@@ -45,97 +56,102 @@ for (pal in palettes) {
 ```{r}
 #| label: show-contrast
 #| fig-height: 2
-show_ekio_palette("contrast")
+ekio_pal("contrast")
 ```
 
 ```{r}
 #| label: show-cool
 #| fig-height: 2
-show_ekio_palette("cool")
+ekio_pal("cool")
 ```
 
 ```{r}
 #| label: show-full
 #| fig-height: 2
-show_ekio_palette("full")
+ekio_pal("full")
 ```
 
 ```{r}
 #| label: show-muted
 #| fig-height: 2
-show_ekio_palette("muted")
+ekio_pal("muted")
 ```
 
-## EKIO Sequential Palettes
+## Small-Group Palettes
+
+Curated two-, three-, and four-color sets for plots with few series.
+
+```{r}
+#| label: small-group-palettes
+#| fig-height: 5
+#| fig-width: 10
+
+swatch_strip(list_ekio_palettes("small_group"))
+```
+
+## Sequential Palettes
+
+The eight brand scales, each nine steps named `100`–`900`, light to dark.
+Position and shade are aligned: `ekio_pal("blue")[7]` is `"700"`.
 
 ```{r}
 #| label: sequential-palettes
-#| fig-height: 4
+#| fig-height: 6
 #| fig-width: 10
 
-seq_palettes <- list_ekio_palettes("sequential")
-
-par(mfrow = c(length(seq_palettes), 1), mar = c(1, 8, 1, 1))
-for (pal in seq_palettes) {
-  cols <- ekio_seq_pal(pal, n = 9)
-  barplot(rep(1, length(cols)), col = cols, border = NA, axes = FALSE,
-          names.arg = rep("", length(cols)), horiz = TRUE)
-  mtext(pal, side = 2, las = 1, line = 1, cex = 0.9)
-}
+swatch_strip(list_ekio_palettes("sequential"))
 ```
 
 ```{r}
 #| label: show-seq-blue
 #| fig-height: 2
-show_ekio_palette("blue", type = "sequential")
+ekio_pal("blue")
 ```
 
 ```{r}
 #| label: show-seq-teal
 #| fig-height: 2
-show_ekio_palette("teal", type = "sequential")
+ekio_pal("teal")
 ```
 
-## EKIO Diverging Palettes
+Asking for fewer colors interpolates across the whole ramp rather than
+taking the lightest `n`:
+
+```{r}
+#| label: show-seq-interpolated
+#| fig-height: 2
+ekio_pal("blue", n = 4)
+```
+
+## Diverging Palettes
+
+Each diverging palette's neutral pivot is its lightest color, so the visual
+center lands on the data's zero.
 
 ```{r}
 #| label: diverging-palettes
 #| fig-height: 3
 #| fig-width: 10
 
-div_palettes <- list_ekio_palettes("diverging")
-
-par(mfrow = c(length(div_palettes), 1), mar = c(1, 8, 1, 1))
-for (pal in div_palettes) {
-  cols <- ekio_div_pal(pal, n = 9)
-  barplot(rep(1, length(cols)), col = cols, border = NA, axes = FALSE,
-          names.arg = rep("", length(cols)), horiz = TRUE)
-  mtext(pal, side = 2, las = 1, line = 1, cex = 0.9)
-}
+swatch_strip(list_ekio_palettes("diverging"))
 ```
 
 ```{r}
 #| label: show-div-blue-orange
 #| fig-height: 2
-show_ekio_palette("blue_orange", type = "diverging")
+ekio_pal("blue_orange")
 ```
 
-## External Palettes (Non-EKIO)
+## Scientific Palettes
+
+Colorblind-safe and perceptually uniform palettes for accessibility.
 
 ```{r}
-#| label: external-palettes
+#| label: scientific-palettes
 #| fig-height: 4
 #| fig-width: 10
 
-ext_palettes <- names(list_external_palettes())
-
-par(mfrow = c(length(ext_palettes), 1), mar = c(1, 8, 1, 1))
-for (pal in ext_palettes) {
-  cols <- external_pal(pal, n = 9)
-  barplot(rep(1, length(cols)), col = cols, border = NA, axes = FALSE,
-          names.arg = rep("", length(cols)), horiz = TRUE)
-  mtext(pal, side = 2, las = 1, line = 1, cex = 0.9)
-}
+swatch_strip(list_ekio_palettes("scientific"), n = 9)
 ```
 
 # Scale Functions in Action
@@ -195,6 +211,8 @@ ggplot(mtcars, aes(wt, mpg, color = hp)) +
 
 ## Diverging Scales
 
+Diverging palettes go through the continuous scales, same as sequential.
+
 ```{r}
 #| label: diverging-scatter
 #| fig-height: 4
@@ -212,7 +230,7 @@ ggplot(df, aes(wt, mpg_centered, color = mpg_centered)) +
     color = "MPG (centered)",
     y = "MPG (deviation from mean)"
   ) +
-  scale_color_ekio_div("blue_orange") +
+  scale_color_ekio_c("blue_orange") +
   theme_ekio()
 ```
 
@@ -230,7 +248,7 @@ ggplot(cor_df, aes(Var1, Var2, fill = Correlation)) +
   geom_tile(color = "white") +
   geom_text(aes(label = round(Correlation, 2)), size = 3, color = "white") +
   labs(title = "Correlation Heatmap with Diverging Scale") +
-  scale_fill_ekio_div("blue_red") +
+  scale_fill_ekio_c("blue_red") +
   theme_ekio(grid = "none") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
@@ -245,7 +263,7 @@ ggplot(cor_df, aes(Var1, Var2, fill = Correlation)) +
 #| fig-width: 6
 
 p <- ggplot(mtcars, aes(wt, mpg)) +
-  geom_point(color = ekio_accent["blue"], size = 3) +
+  geom_point(color = ekio_pal("blue")["700"], size = 3) +
   labs(title = "grid = \"y\" (default)")
 
 p + theme_ekio(grid = "y")
@@ -275,10 +293,12 @@ p + labs(title = "grid = \"xy\"") + theme_ekio(grid = "xy")
 p + labs(title = "grid = \"none\"") + theme_ekio(grid = "none")
 ```
 
-## Theme Variants
+## Base Size
+
+`base_size` scales the whole type hierarchy — use a larger value for slides.
 
 ```{r}
-#| label: theme-presentation
+#| label: theme-base-size
 #| fig-height: 4
 #| fig-width: 8
 
@@ -286,24 +306,11 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 4) +
   scale_color_ekio_d("contrast") +
   labs(
-    title = "Presentation Theme",
-    subtitle = "Larger text and margins for slides",
+    title = "Larger Base Size",
+    subtitle = "base_size = 16 for presentation contexts",
     color = "Cylinders"
   ) +
-  theme_ekio_presentation()
-```
-
-```{r}
-#| label: theme-map
-#| fig-height: 4
-#| fig-width: 6
-
-# Simulated map-like plot
-ggplot(mtcars, aes(wt, mpg, color = hp)) +
-  geom_point(size = 4) +
-  scale_color_ekio_c("blue") +
-  labs(title = "Map Theme (no axes)", color = "HP") +
-  theme_ekio_map()
+  theme_ekio(base_size = 16)
 ```
 
 # Recipe Functions
@@ -316,7 +323,8 @@ ggplot(mtcars, aes(wt, mpg, color = hp)) +
 #| fig-width: 7
 
 # Static color
-ekio_histogram(mtcars, x = mpg, fill = "steelblue", title = "Static fill color")
+ekio_histogram(mtcars, x = mpg, fill = "steelblue") +
+  labs(title = "Static fill color")
 ```
 
 ```{r}
@@ -325,7 +333,8 @@ ekio_histogram(mtcars, x = mpg, fill = "steelblue", title = "Static fill color")
 #| fig-width: 7
 
 # Variable mapping
-ekio_histogram(mtcars, x = mpg, fill = factor(cyl), title = "Fill by variable")
+ekio_histogram(mtcars, x = mpg, fill = factor(cyl)) +
+  labs(title = "Fill by variable")
 ```
 
 ## Bar Plot
@@ -335,7 +344,13 @@ ekio_histogram(mtcars, x = mpg, fill = factor(cyl), title = "Fill by variable")
 #| fig-height: 4
 #| fig-width: 7
 
-ekio_barplot(mtcars, x = factor(cyl), fill = factor(cyl), title = "Bar plot with EKIO palette")
+# ekio_barplot needs an explicit y; summarize first
+mpg_by_cyl <- mtcars |>
+  summarise(mean_mpg = mean(mpg), .by = cyl) |>
+  mutate(cyl = factor(cyl))
+
+ekio_barplot(mpg_by_cyl, x = cyl, y = mean_mpg, fill = cyl) +
+  labs(title = "Bar plot with EKIO palette")
 ```
 
 ## Scatter Plot
@@ -345,7 +360,8 @@ ekio_barplot(mtcars, x = factor(cyl), fill = factor(cyl), title = "Bar plot with
 #| fig-height: 4
 #| fig-width: 7
 
-ekio_scatterplot(mtcars, x = wt, y = mpg, color = factor(cyl), title = "Scatter plot by group")
+ekio_scatterplot(mtcars, x = wt, y = mpg, color = factor(cyl)) +
+  labs(title = "Scatter plot by group")
 ```
 
 ## Line Plot
@@ -362,30 +378,36 @@ df_line <- data.frame(
   group = rep(c("A", "B", "C"), each = 10)
 )
 
-ekio_lineplot(df_line, x = time, y = value, color = group, title = "Line plot by group")
+ekio_lineplot(df_line, x = time, y = value, color = group) +
+  labs(title = "Line plot by group")
 ```
 
-# Color Scale Vectors
+# Brand Scale Access
+
+Single colors come off the brand scales by shade. `as.character()` strips the
+swatch class when only hex codes are wanted.
 
 ```{r}
-#| label: color-vectors
+#| label: scale-access
 
-# Display ekio_blue
-cat("ekio_blue:\n")
-print(ekio_blue)
+as.character(ekio_pal("blue"))
 
-# Display ekio_accent
-cat("\nekio_accent:\n")
-print(ekio_accent)
+# Position and shade agree
+ekio_pal("blue")["700"]
+ekio_pal("blue")[7]
+
+# The accent set: one color per brand scale
+as.character(ekio_pal("full"))
 ```
 
 # Summary
 
-This document showcases all visual elements of ekioplot v2.0:
+This document showcases the visual elements of ekioplot:
 
-- **Qualitative palettes**: `r length(list_ekio_palettes("qualitative"))` palettes for categorical data
-- **Sequential palettes**: `r length(list_ekio_palettes("sequential"))` palettes for continuous data
+- **Categorical palettes**: `r length(list_ekio_palettes("categorical"))` palettes for categorical data
+- **Small-group palettes**: `r length(list_ekio_palettes("small_group"))` curated sets for few series
+- **Sequential palettes**: `r length(list_ekio_palettes("sequential"))` brand scales for continuous data
 - **Diverging palettes**: `r length(list_ekio_palettes("diverging"))` palettes for centered data
-- **External palettes**: `r length(list_external_palettes())` non-EKIO palettes for accessibility
-- **Theme variations**: `theme_ekio()` with grid options, plus `theme_ekio_presentation()` and `theme_ekio_map()`
+- **Scientific palettes**: `r length(list_ekio_palettes("scientific"))` colorblind-safe palettes for accessibility
+- **Theme variations**: `theme_ekio()` with grid and base size options
 - **Recipe functions**: Smart aesthetic detection for intuitive plotting
