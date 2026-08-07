@@ -23,8 +23,11 @@ save_fig <- function(plot, name, width = 8, height = 4.5, dpi = 200) {
   ggsave(
     file.path(fig_dir, name),
     plot = plot,
-    width = width, height = height, dpi = dpi,
-    device = ragg::agg_png, bg = "white"
+    width = width,
+    height = height,
+    dpi = dpi,
+    device = ragg::agg_png,
+    bg = "white"
   )
 }
 
@@ -35,7 +38,9 @@ hero <- ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   labs(
     title = "Fuel Efficiency vs. Weight",
     subtitle = "Motor Trend Car Road Tests (1974)",
-    x = "Weight (1000 lbs)", y = "Miles per Gallon", color = "Cylinders"
+    x = "Weight (1000 lbs)",
+    y = "Miles per Gallon",
+    color = "Cylinders"
   ) +
   theme_ekio()
 
@@ -45,15 +50,25 @@ save_fig(hero, "README-hero.png", width = 8, height = 5)
 # One row per palette, each normalised to the same width so palettes of
 # different lengths stay visually comparable.
 pal_names <- c(
-  "contrast", "cool", "muted", "okabe_ito",
-  "blue", "teal", "orange", "blue_orange", "blue_red"
+  "contrast",
+  "cool",
+  "muted",
+  "okabe_ito",
+  "blue",
+  "teal",
+  "orange",
+  "blue_orange",
+  "blue_red"
 )
 
 pal_rows <- lapply(seq_along(pal_names), function(i) {
   cols <- ekio_pal(pal_names[i])
   n <- length(cols)
   data.frame(
-    ord = i, idx = seq_len(n), n = n, color = cols,
+    ord = i,
+    idx = seq_len(n),
+    n = n,
+    color = cols,
     stringsAsFactors = FALSE
   )
 })
@@ -64,15 +79,21 @@ pal_df$xmax <- pal_df$idx / pal_df$n
 palettes <- ggplot(pal_df) +
   geom_rect(
     aes(
-      xmin = xmin, xmax = xmax,
-      ymin = ord - 0.42, ymax = ord + 0.42, fill = color
+      xmin = xmin,
+      xmax = xmax,
+      ymin = ord - 0.42,
+      ymax = ord + 0.42,
+      fill = color
     ),
-    color = "white", linewidth = 0.6
+    color = "white",
+    linewidth = 0.6
   ) +
   scale_fill_identity() +
   scale_y_continuous(
-    breaks = seq_along(pal_names), labels = pal_names,
-    trans = "reverse", expand = expansion(add = 0.3)
+    breaks = seq_along(pal_names),
+    labels = pal_names,
+    trans = "reverse",
+    expand = expansion(add = 0.3)
   ) +
   scale_x_continuous(expand = expansion(0)) +
   labs(title = "A few of the ~30 EKIO palettes") +
@@ -89,15 +110,17 @@ save_fig(palettes, "README-palettes.png", width = 8, height = 5)
 cyl_counts <- as.data.frame(table(cyl = mtcars$cyl))
 world_fuels <- fuels[fuels$entity == "World" & fuels$year >= 1950, ]
 
-recipes <- (
-  ekio_histogram(mtcars, mpg) + labs(title = "ekio_histogram()") |
-  ekio_barplot(cyl_counts, cyl, Freq) + labs(title = "ekio_barplot()")
-) / (
-  ekio_lineplot(world_fuels[world_fuels$fuel == "oil", ], year, consumption_gwh) +
+recipes <- (ekio_histogram(mtcars, mpg) +
+  labs(title = "ekio_histogram()") |
+  ekio_barplot(cyl_counts, cyl, Freq) + labs(title = "ekio_barplot()")) /
+  (ekio_lineplot(
+    world_fuels[world_fuels$fuel == "oil", ],
+    year,
+    consumption_gwh
+  ) +
     labs(title = "ekio_lineplot()") |
-  ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel) +
-    labs(title = "ekio_areaplot()")
-)
+    ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel) +
+      labs(title = "ekio_areaplot()"))
 
 save_fig(recipes, "README-recipes.png", width = 9, height = 6.5)
 
