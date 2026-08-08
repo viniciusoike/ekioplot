@@ -90,3 +90,14 @@ test_that("themes work with facets", {
     theme_ekio()
   expect_no_error(ggplot_build(p1))
 })
+
+test_that("grid argument is validated like ticks", {
+  expect_error(theme_ekio(grid = "bogus"))
+  expect_error(theme_ekio(ticks = "bogus"))
+})
+
+test_that("theme_ekio sets paper from the brand background token", {
+  # colors$off_white was a typo for colors$offwhite, so paper silently went
+  # NULL. ggplot2 consumes `paper` into rect$fill rather than storing it.
+  expect_equal(theme_ekio()$rect$fill, .ekio("gray", 100))
+})

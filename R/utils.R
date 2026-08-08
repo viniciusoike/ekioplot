@@ -1,12 +1,8 @@
 # ---- Package Imports ----
 
-#' @import ggplot2
 #' @importFrom grDevices colorRampPalette col2rgb colors
 #' @importFrom grDevices nclass.Sturges nclass.FD nclass.scott
-#' @importFrom rlang enquo quo_is_null quo_get_expr eval_tidy as_data_mask as_name
+#' @importFrom rlang enquo quo_is_null quo_get_expr eval_tidy as_data_mask %||%
 #' @importFrom stats na.omit
 #' @importFrom cli cli_abort cli_warn cli_alert_info cli_h1 cli_h2 cli_text
 NULL
-
-# Suppress R CMD check notes for ggplot2 aes() column names
-utils::globalVariables(c("x", "color"))

@@ -224,3 +224,35 @@ test_that("label defaults leave axis labels derived from the data", {
   expect_equal(labels$x, "x")
   expect_equal(labels$y, "y")
 })
+
+# ---- Continuous mappings ----
+
+test_that("continuous mappings get a continuous scale and ramp default", {
+  skip_if_not_installed("ggplot2")
+  df <- data.frame(x = 1:5, y = c(1, 2, 3, 4, 5), v = c(1.5, 2, 3, 4, 5), g = letters[1:5])
+
+  # "contrast" is categorical: defaulting to it errored in scale_*_ekio_c()
+  expect_no_error(ggplot2::ggplot_build(ekio_lineplot(df, x, y, color = v)))
+  expect_no_error(ggplot2::ggplot_build(ekio_scatterplot(df, x, y, color = v)))
+  expect_no_error(ggplot2::ggplot_build(ekio_areaplot(df, x, y, fill = v)))
+  # ekio_barplot() hardcoded the discrete scale regardless of the mapping
+  expect_no_error(ggplot2::ggplot_build(ekio_barplot(df, g, y, fill = v)))
+})
+
+test_that("discrete mappings keep the categorical default", {
+  skip_if_not_installed("ggplot2")
+  df <- data.frame(x = letters[1:5], y = 1:5)
+
+  expect_no_error(ggplot2::ggplot_build(ekio_barplot(df, x, y, fill = x)))
+  expect_equal(.default_palette(NULL, list(is_continuous = FALSE)), "contrast")
+  expect_equal(.default_palette(NULL, list(is_continuous = TRUE)), "blue")
+  expect_equal(.default_palette("cool", list(is_continuous = TRUE)), "cool")
+})
+
+test_that("all recipes reject non-data-frame input", {
+  expect_error(ekio_histogram(1:10, x))
+  expect_error(ekio_lineplot(1:10, x, y))
+  expect_error(ekio_scatterplot(1:10, x, y))
+  expect_error(ekio_barplot(1:10, x, y))
+  expect_error(ekio_areaplot(1:10, x, y))
+})

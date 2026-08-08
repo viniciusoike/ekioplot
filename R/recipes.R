@@ -6,7 +6,7 @@
   x %in% grDevices::colors()
 }
 
-.detect_aesthetic_type <- function(quo, param_name = "parameter", data = NULL) {
+.detect_aesthetic_type <- function(quo, data = NULL) {
   if (rlang::quo_is_null(quo)) return(list(type = "missing"))
 
   expr <- rlang::quo_get_expr(quo)
@@ -33,6 +33,13 @@
   }
 
   list(type = "variable_mapping", is_continuous = is_continuous)
+}
+
+# A continuous mapping needs a ramp: "contrast" is categorical and errors in
+# scale_*_ekio_c(), so it can only be the default for discrete mappings.
+.default_palette <- function(palette, aesthetic_type) {
+  if (!is.null(palette)) return(palette)
+  if (isTRUE(aesthetic_type$is_continuous)) "blue" else "contrast"
 }
 
 .warn_palette_ignored <- function(aesthetic_type, palette, param_name) {
@@ -81,10 +88,10 @@ ekio_histogram <- function(
 
   x_var <- rlang::enquo(x)
   fill_quo <- rlang::enquo(fill)
-  fill_type <- .detect_aesthetic_type(fill_quo, "fill", data)
+  fill_type <- .detect_aesthetic_type(fill_quo, data)
   .warn_palette_ignored(fill_type, palette, "fill")
 
-  if (is.null(palette)) palette <- "contrast"
+  palette <- .default_palette(palette, fill_type)
 
   # Bin calculation
   x_values <- stats::na.omit(rlang::eval_tidy(x_var, data))
@@ -158,13 +165,15 @@ ekio_lineplot <- function(
   add_zero = TRUE, line_width = 0.8,
   title = NULL, subtitle = NULL, caption = NULL, ...
 ) {
+  if (!is.data.frame(data)) cli::cli_abort("{.arg data} must be a data frame")
+
   x_var <- rlang::enquo(x)
   y_var <- rlang::enquo(y)
   color_quo <- rlang::enquo(color)
 
-  color_type <- .detect_aesthetic_type(color_quo, "color", data)
+  color_type <- .detect_aesthetic_type(color_quo, data)
   .warn_palette_ignored(color_type, palette, "color")
-  if (is.null(palette)) palette <- "contrast"
+  palette <- .default_palette(palette, color_type)
 
   if (color_type$type == "missing") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
@@ -221,14 +230,16 @@ ekio_scatterplot <- function(
   point_size = 2.5, point_alpha = 0.8,
   title = NULL, subtitle = NULL, caption = NULL, ...
 ) {
+  if (!is.data.frame(data)) cli::cli_abort("{.arg data} must be a data frame")
+
   x_var <- rlang::enquo(x)
   y_var <- rlang::enquo(y)
   color_quo <- rlang::enquo(color)
   size_var <- rlang::enquo(size)
 
-  color_type <- .detect_aesthetic_type(color_quo, "color", data)
+  color_type <- .detect_aesthetic_type(color_quo, data)
   .warn_palette_ignored(color_type, palette, "color")
-  if (is.null(palette)) palette <- "contrast"
+  palette <- .default_palette(palette, color_type)
 
   has_size <- !rlang::quo_is_null(size_var)
 
@@ -311,13 +322,15 @@ ekio_barplot <- function(
   add_zero = TRUE, horizontal = FALSE, bar_width = 0.8,
   title = NULL, subtitle = NULL, caption = NULL, ...
 ) {
+  if (!is.data.frame(data)) cli::cli_abort("{.arg data} must be a data frame")
+
   x_var <- rlang::enquo(x)
   y_var <- rlang::enquo(y)
   fill_quo <- rlang::enquo(fill)
 
-  fill_type <- .detect_aesthetic_type(fill_quo, "fill", data)
+  fill_type <- .detect_aesthetic_type(fill_quo, data)
   .warn_palette_ignored(fill_type, palette, "fill")
-  if (is.null(palette)) palette <- "contrast"
+  palette <- .default_palette(palette, fill_type)
 
   if (fill_type$type == "missing") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
@@ -327,8 +340,12 @@ ekio_barplot <- function(
       ggplot2::geom_col(fill = fill_type$value, width = bar_width, ...)
   } else {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var, fill = {{ fill }})) +
-      ggplot2::geom_col(width = bar_width, ...) +
-      scale_fill_ekio_d(palette = palette)
+      ggplot2::geom_col(width = bar_width, ...)
+    if (fill_type$is_continuous) {
+      p <- p + scale_fill_ekio_c(palette = palette)
+    } else {
+      p <- p + scale_fill_ekio_d(palette = palette)
+    }
   }
 
   if (add_zero) {
@@ -386,9 +403,9 @@ ekio_areaplot <- function(
   y_var <- rlang::enquo(y)
   fill_quo <- rlang::enquo(fill)
 
-  fill_type <- .detect_aesthetic_type(fill_quo, "fill", data)
+  fill_type <- .detect_aesthetic_type(fill_quo, data)
   .warn_palette_ignored(fill_type, palette, "fill")
-  if (is.null(palette)) palette <- "contrast"
+  palette <- .default_palette(palette, fill_type)
 
   if (fill_type$type == "missing") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +

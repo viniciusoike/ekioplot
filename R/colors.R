@@ -118,7 +118,7 @@ print.ekio_palette <- function(x, ...) {
     position = seq_along(hex_codes),
     hex = hex_codes,
     label = labels,
-    text_color = ifelse(.luminance(hex_codes) > 150, .ekio("gray", 900), "#FFFFFF"),
+    text_color = unname(ekio_text_on(hex_codes, dark = .ekio("gray", 900))),
     stringsAsFactors = FALSE
   )
 
@@ -158,11 +158,6 @@ as.character.ekio_palette <- function(x, ...) {
   x <- unclass(x)
   attributes(x) <- NULL
   x
-}
-
-.luminance <- function(colors) {
-  rgb_vals <- grDevices::col2rgb(colors)
-  rgb_vals[1, ] * 0.299 + rgb_vals[2, ] * 0.587 + rgb_vals[3, ] * 0.114
 }
 
 # ---- Palette Listing ----

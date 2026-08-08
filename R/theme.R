@@ -14,9 +14,10 @@
 #'   `"x"`, `"xy"`, or `"none"`. Only the requested grid themes are added.
 #' @param ticks Character. Which axis ticks and lines to show: `"x"` (default),
 #'   `"y"`, `"xy"`, or `"none"`. This is independent of `grid`.
-#' @importFrom ggplot2 theme_minimal theme element_blank element_line element_rect
-#'   element_text margin rel theme_sub_plot theme_sub_panel theme_sub_axis
-#'   theme_sub_axis_x theme_sub_axis_y theme_sub_legend theme_sub_strip
+#' @importFrom ggplot2 theme_minimal theme %+replace% element_blank element_line
+#'   element_rect element_text margin rel theme_sub_plot theme_sub_panel
+#'   theme_sub_axis theme_sub_axis_x theme_sub_axis_y theme_sub_legend
+#'   theme_sub_strip
 #' @param ... Additional arguments passed to [ggplot2::theme_minimal()].
 #' @return A ggplot2 theme object
 #' @export
@@ -34,6 +35,7 @@ theme_ekio <- function(
   ticks = "x",
   ...
 ) {
+  grid <- match.arg(grid, c("y", "x", "xy", "none"))
   ticks <- match.arg(ticks, c("x", "y", "xy", "none"))
   if (missing(font_title)) {
     font_title <- getOption("ekioplot.font_title", font_title)
@@ -49,26 +51,22 @@ theme_ekio <- function(
     text_muted = .ekio("gray", 500),
     grid_line = .ekio("gray", 300),
     background = .ekio("gray", 100),
-    primary = .ekio("blue", 700),
-    offwhite = "#fefefe",
-    white = "#ffffff"
+    primary = .ekio("blue", 700)
   )
 
   grid_y <- if (grid %in% c("y", "xy")) {
-    theme_grid_y <- theme_sub_panel(
+    theme_sub_panel(
       grid.major.y = element_line(color = colors$grid_line, linewidth = 0.4)
     )
-
   }
 
   grid_x <- if (grid %in% c("x", "xy")) {
-    theme_grid_x <- theme_sub_panel(
+    theme_sub_panel(
       grid.major.x = element_line(color = colors$grid_line, linewidth = 0.4)
     )
-
   }
 
-  grid_theme <- ggplot2::theme()
+  grid_theme <- theme()
   if (!is.null(grid_y)) {
     grid_theme <- grid_theme + grid_y
   }
@@ -76,7 +74,7 @@ theme_ekio <- function(
     grid_theme <- grid_theme + grid_x
   }
 
-  axis_theme <- ggplot2::theme()
+  axis_theme <- theme()
   if (ticks %in% c("x", "xy")) {
     axis_theme <- axis_theme +
       theme_sub_axis_x(
@@ -99,7 +97,7 @@ theme_ekio <- function(
   theme_minimal(
     base_size = base_size,
     base_family = font_text,
-    paper = colors$off_white,
+    paper = colors$background,
     ...
   ) %+replace%
     theme_sub_plot(
@@ -163,7 +161,7 @@ theme_ekio <- function(
     theme_sub_strip(
       text = element_text(
         size = rel(0.9),
-        color = colors$white,
+        color = colors$background,
         hjust = 0.5,
         margin = margin(2, 2, 2, 2)
       ),
