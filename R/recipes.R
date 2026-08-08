@@ -66,9 +66,11 @@
 #' @export
 #'
 #' @examplesIf rlang::is_interactive()
+#' \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 #' ekio_histogram(mtcars, mpg)
 #' ekio_histogram(mtcars, mpg, fill = "steelblue")
 #' ekio_histogram(mtcars, mpg, fill = factor(cyl), palette = "cool")
+#' \dontshow{options(.op)}
 ekio_histogram <- function(
   data, x, fill = NULL, palette = NULL,
   bins = "sturges", binwidth = NULL,
@@ -148,7 +150,9 @@ ekio_histogram <- function(
 #' @export
 #'
 #' @examplesIf rlang::is_interactive()
+#' \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 #' ekio_lineplot(ggplot2::economics, date, unemploy)
+#' \dontshow{options(.op)}
 ekio_lineplot <- function(
   data, x, y, color = NULL, palette = NULL,
   add_zero = TRUE, line_width = 0.8,
@@ -207,8 +211,10 @@ ekio_lineplot <- function(
 #' @export
 #'
 #' @examplesIf rlang::is_interactive()
+#' \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 #' ekio_scatterplot(mtcars, wt, mpg)
 #' ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl))
+#' \dontshow{options(.op)}
 ekio_scatterplot <- function(
   data, x, y, color = NULL, size = NULL, palette = NULL,
   add_zero = FALSE, add_smooth = FALSE, smooth_method = "lm",
@@ -295,9 +301,11 @@ ekio_scatterplot <- function(
 #' @export
 #'
 #' @examplesIf rlang::is_interactive()
+#' \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 #' cyl_counts <- as.data.frame(table(cyl = mtcars$cyl))
 #' names(cyl_counts)[2] <- "n"
 #' ekio_barplot(cyl_counts, cyl, n)
+#' \dontshow{options(.op)}
 ekio_barplot <- function(
   data, x, y, fill = NULL, palette = NULL,
   add_zero = TRUE, horizontal = FALSE, bar_width = 0.8,
@@ -359,12 +367,14 @@ ekio_barplot <- function(
 #' @export
 #'
 #' @examplesIf rlang::is_interactive()
+#' \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 #' ekio_areaplot(ggplot2::economics, date, unemploy)
 #'
 #' # Stacked area with groups
 #' data(fuels)
 #' world_fuels <- fuels[fuels$entity == "World" & fuels$year >= 1950, ]
 #' ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel)
+#' \dontshow{options(.op)}
 ekio_areaplot <- function(
   data, x, y, fill = NULL, palette = NULL,
   position = "stack", alpha = 0.8, add_zero = TRUE,

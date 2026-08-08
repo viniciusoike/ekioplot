@@ -50,11 +50,13 @@ and filled (proportional) area charts.
 }
 \examples{
 \dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
+\dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 ekio_areaplot(ggplot2::economics, date, unemploy)
 
 # Stacked area with groups
 data(fuels)
 world_fuels <- fuels[fuels$entity == "World" & fuels$year >= 1950, ]
 ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel)
+\dontshow{options(.op)}
 \dontshow{\}) # examplesIf}
 }

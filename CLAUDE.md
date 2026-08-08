@@ -11,13 +11,12 @@ A comprehensive R package that provides EKIO-branded themes, color palettes, sca
 This package is EKIO's single source of truth for brand color and type. Downstream projects (the `ekio` workspace, `ekio-site`) mirror these — update here first.
 
 - **Colors**: defined in `inst/ekio-palettes.yaml` (source of truth), compiled to `R/sysdata.rda` by `data-raw/palettes.R`. Eight nine-step scales named `100`–`900`, light to dark; position `i` == shade `i * 100`. Primary `blue.700` = `#1E3A5F`, ink `gray.900` = `#1A202C`, background `gray.100` = `#F7FAFC`; accents `orange.600` = `#DD6B20`, `teal.700` = `#2C7A7B`. Palettes are defined by `scale.shade` token reference, not literal hex.
-- **Type — charts & tables**: Helvetica Neue (macOS) / Arial (Windows) via `ekio_font()`, which is exported so `ekiotable` can reuse it; sans only, no serif in chart or table output.
-- **Type — web (ekio-site)**: Lora (serif display/headings), Lato (body), Fira Code (mono). Lora is a deliberate web-only editorial display font; it is intentionally *not* used in chart output, which stays on the sans stack above.
+- **Type — web (ekio-site)**: Lora (serif display/headings), Lato (body), Fira Code (mono).
 
 ## Package Architecture
 
 ### Source Files (R/)
-- **colors.R** — `ekio_pal()` palette accessor (auto-displays swatch via S3 print method), internal `.ekio(scale, shade)` token accessor used by themes and recipes, `list_ekio_palettes()`, `show_ekio_palette()` (deprecated, use `ekio_pal()`), `show_all_ekio_palettes()` (deprecated, use `list_ekio_palettes(verbose = TRUE)`). Contains no hex codes — all color comes from `R/sysdata.rda`
+- **colors.R** — `ekio_pal()` palette accessor (auto-displays swatch via S3 print method), internal `.ekio(scale, shade)` token accessor used by themes and recipes, `list_ekio_palettes()`, and deprecated `show_all_ekio_palettes()` (use `list_ekio_palettes(verbose = TRUE)`). Contains no hex codes — all color comes from `R/sysdata.rda`
 
 - **scales.R** — Discrete (`scale_color_ekio_d`, `scale_fill_ekio_d`) and continuous (`scale_color_ekio_c`, `scale_fill_ekio_c`) ggplot2 scale functions with British spelling aliases
 - **theme.R** — `theme_ekio()` (modular, uses `theme_sub_*` helpers) and `ekio_font()`, the exported platform-aware font accessor
@@ -30,6 +29,8 @@ This package is EKIO's single source of truth for brand color and type. Downstre
 - **Unified palette access**: All palette types (categorical, small-group, scientific, sequential, diverging) go through `ekio_pal()`. Sequential/diverging palettes are also usable in continuous scales
 - **Smart aesthetic detection**: Recipe functions use `rlang::enquo()` + internal `.detect_aesthetic_type()` to distinguish between missing args, static color strings, and variable mappings — auto-selecting appropriate scales
 - **Modular themes**: `theme_ekio()` uses ggplot2's `theme_sub_*()` helpers (requires ggplot2 >= 3.5.0)
+- **Conditional grids**: `theme_ekio()` builds `grid_x` and `grid_y` only for the requested axes and adds them when they exist
+- **Independent ticks**: `theme_ekio(ticks = "x" | "y" | "xy" | "none")` adds requested axis ticks and lines independently of major grids, allowing `grid = "none"` with visible axes
 - **Color references**: Never hardcode hex. Inside the package use `.ekio("blue", 700)`; from user code use `ekio_pal()`. To change a color, edit `inst/ekio-palettes.yaml` and rerun `data-raw/palettes.R`
 
 ### Dependencies

@@ -45,6 +45,8 @@ Professional line plot with smart aesthetic detection.
 }
 \examples{
 \dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
+\dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 ekio_lineplot(ggplot2::economics, date, unemploy)
+\dontshow{options(.op)}
 \dontshow{\}) # examplesIf}
 }

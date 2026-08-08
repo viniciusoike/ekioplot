@@ -48,8 +48,10 @@ Professional bar plot with smart aesthetic detection.
 }
 \examples{
 \dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
+\dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 cyl_counts <- as.data.frame(table(cyl = mtcars$cyl))
 names(cyl_counts)[2] <- "n"
 ekio_barplot(cyl_counts, cyl, n)
+\dontshow{options(.op)}
 \dontshow{\}) # examplesIf}
 }
