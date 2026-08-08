@@ -5,7 +5,7 @@
 \alias{ips_brasil}
 \title{IPS Brasil 2025 - Social Progress Index for Brazilian Municipalities}
 \format{
-A data frame with 200 rows (25 municipalities x 8 measures) and 8 variables:
+A data frame with 200 rows (25 municipalities x 8 measures) and 9 variables:
 \describe{
 \item{codigo_ibge}{IBGE municipality code (numeric)}
 \item{municipio}{Municipality name (character)}

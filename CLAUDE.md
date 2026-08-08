@@ -19,29 +19,30 @@ This package is EKIO's single source of truth for brand color and type. Downstre
 - **colors.R** — `ekio_pal()` palette accessor (auto-displays swatch via S3 print method), internal `.ekio(scale, shade)` token accessor used by themes and recipes, `list_ekio_palettes()`, and deprecated `show_all_ekio_palettes()` (use `list_ekio_palettes(verbose = TRUE)`). Contains no hex codes — all color comes from `R/sysdata.rda`
 
 - **scales.R** — Discrete (`scale_color_ekio_d`, `scale_fill_ekio_d`) and continuous (`scale_color_ekio_c`, `scale_fill_ekio_c`) ggplot2 scale functions with British spelling aliases
-- **theme.R** — `theme_ekio()` (modular, uses `theme_sub_*` helpers) and `ekio_font()`, the exported platform-aware font accessor
-- **recipes.R** — High-level chart builders (`ekio_histogram`, `ekio_lineplot`, `ekio_scatterplot`, `ekio_barplot`) with smart aesthetic detection (static color vs. variable mapping)
-- **accessibility.R** — WCAG contrast helpers: `ekio_contrast()` (contrast ratio) and `ekio_text_on()` (black/white text picker for colored fills)
+- **theme.R** — `theme_ekio()` (modular, uses `theme_sub_*` helpers) and internal `detect_font()`, which resolves a requested font family against installed fonts with a fallback chain
+- **recipes.R** — High-level chart builders (`ekio_histogram`, `ekio_lineplot`, `ekio_scatterplot`, `ekio_barplot`, `ekio_areaplot`) with smart aesthetic detection (static color vs. variable mapping)
+- **accessibility.R** — WCAG contrast helpers: `ekio_contrast()` (contrast ratio) and `ekio_text_on()` (black/white text picker for colored fills). `print.ekio_palette()` uses `ekio_text_on()` for swatch labels — keep luminance math here only
 - **data.R** — Documentation for 6 bundled datasets (Brazilian socioeconomic/agriculture data, global fuels)
-- **utils.R** — Package-level imports and `globalVariables` suppression
+- **utils.R** — Package-level `@importFrom` tags only
 
 ### Key Design Decisions
 - **Unified palette access**: All palette types (categorical, small-group, scientific, sequential, diverging) go through `ekio_pal()`. Sequential/diverging palettes are also usable in continuous scales
 - **Smart aesthetic detection**: Recipe functions use `rlang::enquo()` + internal `.detect_aesthetic_type()` to distinguish between missing args, static color strings, and variable mappings — auto-selecting appropriate scales
-- **Modular themes**: `theme_ekio()` uses ggplot2's `theme_sub_*()` helpers (requires ggplot2 >= 3.5.0)
+- **Modular themes**: `theme_ekio()` uses ggplot2's `theme_sub_*()` helpers and the `paper` argument to `theme_minimal()` (requires ggplot2 >= 4.0.0)
+- **Namespace style**: no blanket `@import ggplot2`. Use `ggplot2::` prefixes; `@importFrom` is for files with many calls, like `theme.R`
 - **Conditional grids**: `theme_ekio()` builds `grid_x` and `grid_y` only for the requested axes and adds them when they exist
 - **Independent ticks**: `theme_ekio(ticks = "x" | "y" | "xy" | "none")` adds requested axis ticks and lines independently of major grids, allowing `grid = "none"` with visible axes
 - **Color references**: Never hardcode hex. Inside the package use `.ekio("blue", 700)`; from user code use `ekio_pal()`. To change a color, edit `inst/ekio-palettes.yaml` and rerun `data-raw/palettes.R`
 
 ### Dependencies
-- **Imports**: cli, ggplot2 (>= 3.5.0), grDevices, rlang
-- **Suggests**: dplyr, knitr, rmarkdown, testthat (>= 3.0.0), tibble
+- **Imports**: cli, ggplot2 (>= 4.0.0), grDevices, rlang, systemfonts
+- **Suggests**: dplyr, knitr, rmarkdown, testthat (>= 3.0.0), tibble, yaml
 
 ## Coding Conventions
 - **Documentation**: All functions use roxygen2 comments with `#'`
 - **Naming**: snake_case for functions and variables (e.g., `theme_ekio`, `ekio_pal`)
 - **Function structure**: Export functions with `@export`, include examples in `@examples`. Use `@examplesIf rlang::is_interactive()` for examples that produce plots
-- **Testing**: Uses testthat framework in `tests/testthat/`. Tests exist for colors, scales, and themes. No tests yet for recipes
+- **Testing**: Uses testthat framework in `tests/testthat/`. Tests exist for accessibility, colors, palette data, recipes, scales, and themes
 - **Code style**: Standard R conventions with 2-space indentation, meaningful parameter names
     - Use native R pipe
     - Don't make pipe chains too long (max 5-6 functions, max 15-20 lines)

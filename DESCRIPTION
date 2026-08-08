@@ -1,7 +1,7 @@
 Package: ekioplot
 Type: Package
 Title: EKIO Visual Identity System for R Data Visualization
-Version: 0.7.0
+Version: 0.7.1
 Authors@R:
     person(
       "Vinicius", "Oike",
@@ -20,7 +20,7 @@ LazyData: true
 RoxygenNote: 7.3.3
 Imports:
     cli,
-    ggplot2 (>= 3.5.0),
+    ggplot2 (>= 4.0.0),
     grDevices,
     rlang,
     systemfonts

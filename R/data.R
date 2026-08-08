@@ -5,7 +5,7 @@
 #' The IPS Brasil is a comprehensive index that measures social and environmental
 #' progress across all 5,570 Brazilian municipalities using 57 indicators.
 #'
-#' @format A data frame with 200 rows (25 municipalities x 8 measures) and 8 variables:
+#' @format A data frame with 200 rows (25 municipalities x 8 measures) and 9 variables:
 #' \describe{
 #'   \item{codigo_ibge}{IBGE municipality code (numeric)}
 #'   \item{municipio}{Municipality name (character)}

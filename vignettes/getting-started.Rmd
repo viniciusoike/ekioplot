@@ -186,5 +186,5 @@ ekio_pal("blue", n = 3)
 
 gt table styling lives in a companion package,
 [ekiotable](https://github.com/viniciusoike/ekiotable). It reads brand tokens
-from ekioplot via `ekio_pal()` and `ekio_font()`, so tables and charts share
-one palette without either package duplicating color definitions.
+from ekioplot via `ekio_pal()`, so tables and charts share one palette
+without either package duplicating color definitions.

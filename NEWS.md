@@ -1,3 +1,65 @@
+# ekioplot 0.7.1
+
+A maintenance release: bug fixes and cleanup, no API changes.
+
+## Bug fixes
+
+* Recipe functions no longer error on a continuous color or fill mapping.
+  `palette` defaulted to `"contrast"` for every mapping, but `"contrast"` is
+  categorical and `scale_*_ekio_c()` rejects it, so the documented continuous
+  path failed in all five recipes. The default is now `"blue"` when the
+  mapping is continuous and `"contrast"` when it is discrete.
+
+* `ekio_barplot()` applied `scale_fill_ekio_d()` regardless of the mapping,
+  so a continuous `fill` failed with "Continuous value supplied to a discrete
+  scale". It now branches on the detected type like the other four recipes.
+
+* `theme_ekio()` passed `paper = colors$off_white`, a typo for `offwhite`
+  that resolved to `NULL` and silently dropped the paper color. Paper is now
+  the `gray.100` brand token, matching the plot and panel backgrounds.
+
+* `theme_ekio()` validates `grid` with `match.arg()`. An unrecognized value
+  such as `grid = "bogus"` previously returned a theme with no grid lines
+  instead of erroring, matching how `ticks` already behaved.
+
+* `ekio_lineplot()`, `ekio_scatterplot()`, and `ekio_barplot()` check that
+  `data` is a data frame, as `ekio_histogram()` and `ekio_areaplot()` did.
+
+* `%||%` is imported from rlang. It was previously resolved from base R,
+  which only gained the operator in 4.4.0, so `scale_color_ekio_c()` and
+  `list_ekio_palettes(verbose = TRUE)` failed on the R 4.1–4.3 that
+  `Depends` claimed to support.
+
+## Dependencies
+
+* `ggplot2` minimum is now 4.0.0. `theme_ekio()` passes `paper` to
+  `theme_minimal()`, which 3.5.x does not accept, so the declared
+  `>= 3.5.0` never actually worked.
+
+## Documentation
+
+* Removed references to `ekio_font()` from `NEWS.md` and the getting-started
+  vignette. The function was announced in 0.7.0 but never shipped; brand
+  tokens reach downstream packages through `ekio_pal()`.
+
+* Dropped the 0.7.0 note announcing the "Color accessibility" article, which
+  was removed before release.
+
+* Corrected the `ips_brasil` `@format` variable count from 8 to 9.
+
+## Internal
+
+* Removed the blanket `@import ggplot2` in favor of `ggplot2::` prefixes,
+  with `@importFrom` retained for `theme.R`, the one file with many calls.
+
+* `print.ekio_palette()` picks swatch label colors with `ekio_text_on()`
+  instead of a private luminance approximation, removing the third copy of
+  luminance math in the package.
+
+* Dropped an unused `param_name` argument from `.detect_aesthetic_type()`,
+  an unused `rlang::as_name` import, dead assignments in the grid theme
+  branches, and a stale `globalVariables()` declaration.
+
 # ekioplot 0.7.0
 
 This release makes `inst/ekio-palettes.yaml` the single source of truth for
@@ -29,9 +91,9 @@ below before upgrading.
 
 * `gt_theme_ekio()` has moved to the companion package
   [ekiotable](https://github.com/viniciusoike/ekiotable). It reads brand
-  tokens from this package via `ekio_pal()` and `ekio_font()`, so tables and
-  charts stay in sync without duplicating color definitions. `gt` is no
-  longer a dependency of ekioplot.
+  tokens from this package via `ekio_pal()`, so tables and charts stay in
+  sync without duplicating color definitions. `gt` is no longer a dependency
+  of ekioplot.
 
 * For sequential and diverging palettes, `n` now interpolates across the
   whole ramp instead of returning the `n` lightest colors.
@@ -74,10 +136,6 @@ below before upgrading.
   by name fell through `...` into the geom, where ggplot2 ignored it with a
   warning — or, for `ekio_barplot()`, failed outright.
 
-* New `ekio_font()` exposes the platform-appropriate EKIO font family. It is
-  the canonical accessor for EKIO brand type, so packages styling other
-  output do not repeat the platform logic.
-
 * Color is defined once in `inst/ekio-palettes.yaml` and compiled into the
   package by `data-raw/palettes.R`. The YAML ships with the package, so
   downstream projects can read the canonical tokens via
@@ -89,12 +147,6 @@ below before upgrading.
   stops darkening monotonically, or if a diverging palette's pivot is not its
   lightest color. A test re-resolves the YAML and compares it against the
   built data, so editing one without rebuilding the other fails loudly.
-
-## Documentation
-
-* New pkgdown article "Color accessibility" showing which EKIO colors work
-  with black vs. white text, with WCAG AA/AAA compliance for the accent
-  colors in `ekio_pal("full")`.
 
 ## Bug fixes
 

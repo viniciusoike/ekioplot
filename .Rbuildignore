@@ -8,7 +8,7 @@
 ^CLAUDE\.md$
 ^\.positai$
 ^logs$
-^cran-comments\.md$
+^inst/visual-tests$
 ^_pkgdown\.yml$
 ^vignettes/articles$
 ^docs$
