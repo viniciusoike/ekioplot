@@ -11,9 +11,12 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
+  dev = "ragg_png",
   fig.width = 7,
-  fig.height = 4,
-  dpi = 150
+  fig.asp = 0.618,
+  fig.align = "center",
+  warning = FALSE,
+  message = FALSE
 )
 ```
 
@@ -74,10 +77,10 @@ ekio_pal("blue", n = 5)
   `amber`
 - **Diverging**: `blue_orange`, `blue_red`, `teal_orange`
 
-Visualize any palette with `show_ekio_palette()`:
+`ekio_pal()` displays a swatch when printed:
 
 ```{r show-palette}
-show_ekio_palette("contrast")
+ekio_pal("contrast")
 ```
 
 ## Scale Functions
