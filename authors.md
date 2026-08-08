@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/viniciusoike/ekioplot/blob/v0.7.1/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/viniciusoike/ekioplot/blob/master/DESCRIPTION)
 
 Oike V (2026). *ekioplot: EKIO Visual Identity System for R Data
 Visualization*. R package version 0.7.1,
