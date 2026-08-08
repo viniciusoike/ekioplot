@@ -1,13 +1,19 @@
 # ---- Internal Aesthetic Detection ----
 
 .is_valid_color <- function(x) {
-  if (!is.character(x) || length(x) != 1) return(FALSE)
-  if (grepl("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8}|[A-Fa-f0-9]{3})$", x)) return(TRUE)
+  if (!is.character(x) || length(x) != 1) {
+    return(FALSE)
+  }
+  if (grepl("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8}|[A-Fa-f0-9]{3})$", x)) {
+    return(TRUE)
+  }
   x %in% grDevices::colors()
 }
 
 .detect_aesthetic_type <- function(quo, data = NULL) {
-  if (rlang::quo_is_null(quo)) return(list(type = "missing"))
+  if (rlang::quo_is_null(quo)) {
+    return(list(type = "missing"))
+  }
 
   expr <- rlang::quo_get_expr(quo)
 
@@ -38,7 +44,9 @@
 # A continuous mapping needs a ramp: "contrast" is categorical and errors in
 # scale_*_ekio_c(), so it can only be the default for discrete mappings.
 .default_palette <- function(palette, aesthetic_type) {
-  if (!is.null(palette)) return(palette)
+  if (!is.null(palette)) {
+    return(palette)
+  }
   if (isTRUE(aesthetic_type$is_continuous)) "blue" else "contrast"
 }
 
@@ -79,12 +87,22 @@
 #' ekio_histogram(mtcars, mpg, fill = factor(cyl), palette = "cool")
 #' \dontshow{options(.op)}
 ekio_histogram <- function(
-  data, x, fill = NULL, palette = NULL,
-  bins = "sturges", binwidth = NULL,
-  add_zero = TRUE, border_color = "white",
-  title = NULL, subtitle = NULL, caption = NULL, ...
+  data,
+  x,
+  fill = NULL,
+  palette = NULL,
+  bins = "sturges",
+  binwidth = NULL,
+  add_zero = TRUE,
+  border_color = "white",
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
+  ...
 ) {
-  if (!is.data.frame(data)) cli::cli_abort("{.arg data} must be a data frame")
+  if (!is.data.frame(data)) {
+    cli::cli_abort("{.arg data} must be a data frame")
+  }
 
   x_var <- rlang::enquo(x)
   fill_quo <- rlang::enquo(fill)
@@ -110,20 +128,30 @@ ekio_histogram <- function(
   if (fill_type$type == "missing") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var)) +
       ggplot2::geom_histogram(
-        fill = .ekio("blue", 700), color = border_color,
-        bins = n_bins, binwidth = binwidth, ...
+        fill = .ekio("blue", 700),
+        color = border_color,
+        bins = n_bins,
+        binwidth = binwidth,
+        ...
       )
   } else if (fill_type$type == "static_color") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var)) +
       ggplot2::geom_histogram(
-        fill = fill_type$value, color = border_color,
-        bins = n_bins, binwidth = binwidth, ...
+        fill = fill_type$value,
+        color = border_color,
+        bins = n_bins,
+        binwidth = binwidth,
+        ...
       )
   } else {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, fill = {{ fill }})) +
       ggplot2::geom_histogram(
-        color = border_color, bins = n_bins, binwidth = binwidth,
-        position = "identity", alpha = 0.7, ...
+        color = border_color,
+        bins = n_bins,
+        binwidth = binwidth,
+        position = "identity",
+        alpha = 0.7,
+        ...
       )
     if (fill_type$is_continuous) {
       p <- p + scale_fill_ekio_c(palette = palette)
@@ -132,9 +160,14 @@ ekio_histogram <- function(
     }
   }
 
-  if (add_zero) p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
+  if (add_zero) {
+    p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
+  }
 
-  p + ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05))) +
+  p +
+    ggplot2::scale_y_continuous(
+      expand = ggplot2::expansion(mult = c(0, 0.05))
+    ) +
     ggplot2::labs(title = title, subtitle = subtitle, caption = caption) +
     theme_ekio(grid = "y")
 }
@@ -161,11 +194,21 @@ ekio_histogram <- function(
 #' ekio_lineplot(ggplot2::economics, date, unemploy)
 #' \dontshow{options(.op)}
 ekio_lineplot <- function(
-  data, x, y, color = NULL, palette = NULL,
-  add_zero = TRUE, line_width = 0.8,
-  title = NULL, subtitle = NULL, caption = NULL, ...
+  data,
+  x,
+  y,
+  color = NULL,
+  palette = NULL,
+  add_zero = TRUE,
+  line_width = 0.8,
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
+  ...
 ) {
-  if (!is.data.frame(data)) cli::cli_abort("{.arg data} must be a data frame")
+  if (!is.data.frame(data)) {
+    cli::cli_abort("{.arg data} must be a data frame")
+  }
 
   x_var <- rlang::enquo(x)
   y_var <- rlang::enquo(y)
@@ -177,12 +220,19 @@ ekio_lineplot <- function(
 
   if (color_type$type == "missing") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
-      ggplot2::geom_line(color = .ekio("blue", 700), linewidth = line_width, ...)
+      ggplot2::geom_line(
+        color = .ekio("blue", 700),
+        linewidth = line_width,
+        ...
+      )
   } else if (color_type$type == "static_color") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
       ggplot2::geom_line(color = color_type$value, linewidth = line_width, ...)
   } else {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var, color = {{ color }})) +
+    p <- ggplot2::ggplot(
+      data,
+      ggplot2::aes(x = !!x_var, y = !!y_var, color = {{ color }})
+    ) +
       ggplot2::geom_line(linewidth = line_width, ...)
     if (color_type$is_continuous) {
       p <- p + scale_color_ekio_c(palette = palette)
@@ -191,11 +241,16 @@ ekio_lineplot <- function(
     }
   }
 
-  if (add_zero) p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
+  if (add_zero) {
+    p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
+  }
 
-  p + ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05))) +
+  p +
+    ggplot2::scale_y_continuous(
+      expand = ggplot2::expansion(mult = c(0, 0.05))
+    ) +
     ggplot2::labs(title = title, subtitle = subtitle, caption = caption) +
-    theme_ekio()
+    theme_ekio(grid = "y", ticks = "x")
 }
 
 #' EKIO Scatter Plot
@@ -225,12 +280,25 @@ ekio_lineplot <- function(
 #' ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl))
 #' \dontshow{options(.op)}
 ekio_scatterplot <- function(
-  data, x, y, color = NULL, size = NULL, palette = NULL,
-  add_zero = FALSE, add_smooth = FALSE, smooth_method = "lm",
-  point_size = 2.5, point_alpha = 0.8,
-  title = NULL, subtitle = NULL, caption = NULL, ...
+  data,
+  x,
+  y,
+  color = NULL,
+  size = NULL,
+  palette = NULL,
+  add_zero = FALSE,
+  add_smooth = FALSE,
+  smooth_method = "lm",
+  point_size = 2.5,
+  point_alpha = 0.8,
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
+  ...
 ) {
-  if (!is.data.frame(data)) cli::cli_abort("{.arg data} must be a data frame")
+  if (!is.data.frame(data)) {
+    cli::cli_abort("{.arg data} must be a data frame")
+  }
 
   x_var <- rlang::enquo(x)
   y_var <- rlang::enquo(y)
@@ -246,12 +314,25 @@ ekio_scatterplot <- function(
   # Build base aesthetics
   if (color_type$type == "missing" && !has_size) {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
-      ggplot2::geom_point(color = .ekio("blue", 700), size = point_size, alpha = point_alpha, ...)
+      ggplot2::geom_point(
+        color = .ekio("blue", 700),
+        size = point_size,
+        alpha = point_alpha,
+        ...
+      )
   } else if (color_type$type == "static_color" && !has_size) {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
-      ggplot2::geom_point(color = color_type$value, size = point_size, alpha = point_alpha, ...)
+      ggplot2::geom_point(
+        color = color_type$value,
+        size = point_size,
+        alpha = point_alpha,
+        ...
+      )
   } else if (color_type$type == "variable_mapping" && !has_size) {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var, color = {{ color }})) +
+    p <- ggplot2::ggplot(
+      data,
+      ggplot2::aes(x = !!x_var, y = !!y_var, color = {{ color }})
+    ) +
       ggplot2::geom_point(size = point_size, alpha = point_alpha, ...)
     if (color_type$is_continuous) {
       p <- p + scale_color_ekio_c(palette = palette)
@@ -261,15 +342,30 @@ ekio_scatterplot <- function(
   } else {
     # Has size mapping
     if (color_type$type == "missing") {
-      p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var, size = !!size_var)) +
-        ggplot2::geom_point(color = .ekio("blue", 700), alpha = point_alpha, ...)
+      p <- ggplot2::ggplot(
+        data,
+        ggplot2::aes(x = !!x_var, y = !!y_var, size = !!size_var)
+      ) +
+        ggplot2::geom_point(
+          color = .ekio("blue", 700),
+          alpha = point_alpha,
+          ...
+        )
     } else if (color_type$type == "static_color") {
-      p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var, size = !!size_var)) +
+      p <- ggplot2::ggplot(
+        data,
+        ggplot2::aes(x = !!x_var, y = !!y_var, size = !!size_var)
+      ) +
         ggplot2::geom_point(color = color_type$value, alpha = point_alpha, ...)
     } else {
       p <- ggplot2::ggplot(
         data,
-        ggplot2::aes(x = !!x_var, y = !!y_var, color = {{ color }}, size = !!size_var)
+        ggplot2::aes(
+          x = !!x_var,
+          y = !!y_var,
+          color = {{ color }},
+          size = !!size_var
+        )
       ) +
         ggplot2::geom_point(alpha = point_alpha, ...)
       if (color_type$is_continuous) {
@@ -280,17 +376,23 @@ ekio_scatterplot <- function(
     }
   }
 
-  if (add_zero) p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
-
-  if (add_smooth) {
-    p <- p + ggplot2::geom_smooth(
-      method = smooth_method, se = FALSE,
-      color = .ekio("gray", 700), linewidth = 1
-    )
+  if (add_zero) {
+    p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
   }
 
-  p + ggplot2::labs(title = title, subtitle = subtitle, caption = caption) +
-    theme_ekio(grid = "xy")
+  if (add_smooth) {
+    p <- p +
+      ggplot2::geom_smooth(
+        method = smooth_method,
+        se = FALSE,
+        color = .ekio("gray", 700),
+        linewidth = 1
+      )
+  }
+
+  p +
+    ggplot2::labs(title = title, subtitle = subtitle, caption = caption) +
+    theme_ekio(grid = "xy", ticks = "xy")
 }
 
 #' EKIO Bar Plot
@@ -318,11 +420,22 @@ ekio_scatterplot <- function(
 #' ekio_barplot(cyl_counts, cyl, n)
 #' \dontshow{options(.op)}
 ekio_barplot <- function(
-  data, x, y, fill = NULL, palette = NULL,
-  add_zero = TRUE, horizontal = FALSE, bar_width = 0.8,
-  title = NULL, subtitle = NULL, caption = NULL, ...
+  data,
+  x,
+  y,
+  fill = NULL,
+  palette = NULL,
+  add_zero = TRUE,
+  horizontal = FALSE,
+  bar_width = 0.8,
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
+  ...
 ) {
-  if (!is.data.frame(data)) cli::cli_abort("{.arg data} must be a data frame")
+  if (!is.data.frame(data)) {
+    cli::cli_abort("{.arg data} must be a data frame")
+  }
 
   x_var <- rlang::enquo(x)
   y_var <- rlang::enquo(y)
@@ -339,7 +452,10 @@ ekio_barplot <- function(
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
       ggplot2::geom_col(fill = fill_type$value, width = bar_width, ...)
   } else {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var, fill = {{ fill }})) +
+    p <- ggplot2::ggplot(
+      data,
+      ggplot2::aes(x = !!x_var, y = !!y_var, fill = {{ fill }})
+    ) +
       ggplot2::geom_col(width = bar_width, ...)
     if (fill_type$is_continuous) {
       p <- p + scale_fill_ekio_c(palette = palette)
@@ -356,11 +472,16 @@ ekio_barplot <- function(
     }
   }
 
-  if (horizontal) p <- p + ggplot2::coord_flip()
+  if (horizontal) {
+    p <- p + ggplot2::coord_flip()
+  }
 
-  p + ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05))) +
+  p +
+    ggplot2::scale_y_continuous(
+      expand = ggplot2::expansion(mult = c(0, 0.05))
+    ) +
     ggplot2::labs(title = title, subtitle = subtitle, caption = caption) +
-    theme_ekio(grid = "y")
+    theme_ekio(grid = "y", ticks = "x")
 }
 
 #' EKIO Area Plot
@@ -393,11 +514,22 @@ ekio_barplot <- function(
 #' ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel)
 #' \dontshow{options(.op)}
 ekio_areaplot <- function(
-  data, x, y, fill = NULL, palette = NULL,
-  position = "stack", alpha = 0.8, add_zero = TRUE,
-  title = NULL, subtitle = NULL, caption = NULL, ...
+  data,
+  x,
+  y,
+  fill = NULL,
+  palette = NULL,
+  position = "stack",
+  alpha = 0.8,
+  add_zero = TRUE,
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
+  ...
 ) {
-  if (!is.data.frame(data)) cli::cli_abort("{.arg data} must be a data frame")
+  if (!is.data.frame(data)) {
+    cli::cli_abort("{.arg data} must be a data frame")
+  }
 
   x_var <- rlang::enquo(x)
   y_var <- rlang::enquo(y)
@@ -410,12 +542,16 @@ ekio_areaplot <- function(
   if (fill_type$type == "missing") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
       ggplot2::geom_area(
-        fill = .ekio("blue", 700), alpha = alpha, ...
+        fill = .ekio("blue", 700),
+        alpha = alpha,
+        ...
       )
   } else if (fill_type$type == "static_color") {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
       ggplot2::geom_area(
-        fill = fill_type$value, alpha = alpha, ...
+        fill = fill_type$value,
+        alpha = alpha,
+        ...
       )
   } else {
     p <- ggplot2::ggplot(
@@ -430,9 +566,14 @@ ekio_areaplot <- function(
     }
   }
 
-  if (add_zero) p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
+  if (add_zero) {
+    p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
+  }
 
-  p + ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05))) +
+  p +
+    ggplot2::scale_y_continuous(
+      expand = ggplot2::expansion(mult = c(0, 0.05))
+    ) +
     ggplot2::labs(title = title, subtitle = subtitle, caption = caption) +
-    theme_ekio()
+    theme_ekio(grid = "y", ticks = "x")
 }

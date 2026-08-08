@@ -10,8 +10,8 @@
 # then re-knit the README with `devtools::build_readme()`.
 
 # ---- Setup ----
-pkgload::load_all(".", quiet = TRUE)
 
+library(ekioplot)
 library(ggplot2)
 library(patchwork)
 
@@ -19,7 +19,7 @@ fig_dir <- "man/figures"
 dir.create(fig_dir, showWarnings = FALSE, recursive = TRUE)
 
 # Consistent export: ragg for crisp system-font rendering.
-save_fig <- function(plot, name, width = 8, height = 4.5, dpi = 200) {
+save_fig <- function(plot, name, width = 8, height = 5, dpi = 300) {
   ggsave(
     file.path(fig_dir, name),
     plot = plot,
@@ -110,17 +110,35 @@ save_fig(palettes, "README-palettes.png", width = 8, height = 5)
 cyl_counts <- as.data.frame(table(cyl = mtcars$cyl))
 world_fuels <- fuels[fuels$entity == "World" & fuels$year >= 1950, ]
 
-recipes <- (ekio_histogram(mtcars, mpg) +
-  labs(title = "ekio_histogram()") |
-  ekio_barplot(cyl_counts, cyl, Freq) + labs(title = "ekio_barplot()")) /
-  (ekio_lineplot(
-    world_fuels[world_fuels$fuel == "oil", ],
-    year,
-    consumption_gwh
-  ) +
-    labs(title = "ekio_lineplot()") |
-    ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel) +
-      labs(title = "ekio_areaplot()"))
+ek_scatterplot <- ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl)) +
+  labs(title = "ekio_scatterplot()") +
+  theme(
+    plot.title = element_text(family = "Fira Code", face = "bold", size = 16)
+  )
+
+ek_barplot <- ekio_barplot(cyl_counts, cyl, Freq) +
+  labs(title = "ekio_barplot()") +
+  theme(
+    plot.title = element_text(family = "Fira Code", face = "bold", size = 16)
+  )
+
+ek_lineplot <- ekio_lineplot(
+  world_fuels[world_fuels$fuel == "oil", ],
+  year,
+  consumption_gwh
+) +
+  labs(title = "ekio_lineplot()") +
+  theme(
+    plot.title = element_text(family = "Fira Code", face = "bold", size = 16)
+  )
+
+ek_areaplot <- ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel) +
+  labs(title = "ekio_areaplot()") +
+  theme(
+    plot.title = element_text(family = "Fira Code", face = "bold", size = 16)
+  )
+
+recipes <- (ek_scatterplot | ek_barplot) / (ek_lineplot | ek_areaplot)
 
 save_fig(recipes, "README-recipes.png", width = 9, height = 6.5)
 

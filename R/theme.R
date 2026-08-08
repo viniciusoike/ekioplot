@@ -129,7 +129,8 @@ theme_ekio <- function(
     ) +
     theme_sub_panel(
       background = element_rect(fill = colors$background, color = NA),
-      grid.minor = element_blank()
+      grid.minor = element_blank(),
+      grid.major = element_blank()
     ) +
     grid_theme +
     axis_theme +

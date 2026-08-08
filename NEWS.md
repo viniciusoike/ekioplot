@@ -25,6 +25,15 @@ A maintenance release: bug fixes and cleanup, no API changes.
 * `ekio_lineplot()`, `ekio_scatterplot()`, and `ekio_barplot()` check that
   `data` is a data frame, as `ekio_histogram()` and `ekio_areaplot()` did.
 
+* `ekio_barplot()` draws the zero baseline on the correct axis when
+  `horizontal = TRUE`.
+
+* Recipe functions now show the axis ticks appropriate to each chart while
+  keeping the requested grid lines independent.
+
+* `theme_ekio()` no longer restores major grid lines that were not requested
+  through the `grid` argument.
+
 * `%||%` is imported from rlang. It was previously resolved from base R,
   which only gained the operator in 4.4.0, so `scale_color_ekio_c()` and
   `list_ekio_palettes(verbose = TRUE)` failed on the R 4.1–4.3 that
