@@ -4,16 +4,35 @@
 \alias{theme_ekio}
 \title{Apply EKIO Theme to ggplot2 Plots}
 \usage{
-theme_ekio(base_size = 11, base_family = "", grid = "y")
+theme_ekio(
+  base_size = 11,
+  font_title = "Lora",
+  font_text = "Lato",
+  title_align = "plot",
+  grid = "y",
+  ticks = "x",
+  ...
+)
 }
 \arguments{
-\item{base_size}{Numeric. Base font size in points (default: 11)}
+\item{base_size}{Numeric. Base font size in points (default: 11).}
 
-\item{base_family}{Character. Font family. Defaults to the platform-appropriate
-EKIO font via \code{\link[=ekio_font]{ekio_font()}}.}
+\item{font_title}{Character. Font family passed only to the chart title.
+Defaults to 'Lora'.}
+
+\item{font_text}{Character. Font family passed to all textual elements
+except the title. Defaults to 'Lato'.}
+
+\item{title_align}{Argument passed to \code{\link[ggplot2:theme]{ggplot2::theme()}}.
+Can be one of 'plot' or 'panel'.}
 
 \item{grid}{Character. Which major grid lines to show: \code{"y"} (default),
-\code{"x"}, \code{"xy"}, or \code{"none"}.}
+\code{"x"}, \code{"xy"}, or \code{"none"}. Only the requested grid themes are added.}
+
+\item{ticks}{Character. Which axis ticks and lines to show: \code{"x"} (default),
+\code{"y"}, \code{"xy"}, or \code{"none"}. This is independent of \code{grid}.}
+
+\item{...}{Additional arguments passed to \code{\link[ggplot2:ggtheme]{ggplot2::theme_minimal()}}.}
 }
 \value{
 A ggplot2 theme object
@@ -21,4 +40,11 @@ A ggplot2 theme object
 \description{
 A minimal, professional theme for EKIO visualizations built on
 \code{\link[ggplot2:ggtheme]{ggplot2::theme_minimal()}}.
+}
+\examples{
+\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
+ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg)) +
+  ggplot2::geom_point() +
+  theme_ekio(font_title = "serif", font_text = "sans")
+\dontshow{\}) # examplesIf}
 }

@@ -48,8 +48,10 @@ Professional histogram with smart aesthetic detection.
 }
 \examples{
 \dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
+\dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 ekio_histogram(mtcars, mpg)
 ekio_histogram(mtcars, mpg, fill = "steelblue")
 ekio_histogram(mtcars, mpg, fill = factor(cyl), palette = "cool")
+\dontshow{options(.op)}
 \dontshow{\}) # examplesIf}
 }

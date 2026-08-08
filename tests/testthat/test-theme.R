@@ -10,17 +10,57 @@ test_that("theme_ekio creates valid ggplot2 theme", {
   theme_large <- theme_ekio(base_size = 14)
   expect_s3_class(theme_large, "theme")
 
-  theme_font <- theme_ekio(base_family = "sans")
+  theme_font <- theme_ekio(font_title = "serif", font_text = "sans")
   expect_s3_class(theme_font, "theme")
+})
+
+test_that("font options override branded defaults", {
+  old_options <- options(
+    ekioplot.font_title = "serif",
+    ekioplot.font_text = "sans"
+  )
+  on.exit(options(old_options), add = TRUE)
+
+  theme <- theme_ekio()
+  expect_equal(theme$plot.title$family, "serif")
+  expect_equal(theme$plot.subtitle$family, "sans")
 })
 
 test_that("theme_ekio grid parameter works", {
   skip_if_not_installed("ggplot2")
 
-  expect_s3_class(theme_ekio(grid = "y"), "theme")
-  expect_s3_class(theme_ekio(grid = "x"), "theme")
-  expect_s3_class(theme_ekio(grid = "xy"), "theme")
-  expect_s3_class(theme_ekio(grid = "none"), "theme")
+  grid_colour <- .ekio("gray", 300)
+  theme_y <- theme_ekio(grid = "y")
+  theme_x <- theme_ekio(grid = "x")
+  theme_xy <- theme_ekio(grid = "xy")
+  theme_none <- theme_ekio(grid = "none")
+
+  expect_equal(theme_y$panel.grid.major.y$colour, grid_colour)
+  expect_equal(theme_x$panel.grid.major.x$colour, grid_colour)
+  expect_equal(theme_xy$panel.grid.major.y$colour, grid_colour)
+  expect_equal(theme_xy$panel.grid.major.x$colour, grid_colour)
+  expect_null(theme_y$panel.grid.major.x)
+  expect_null(theme_x$panel.grid.major.y)
+  expect_null(theme_none$panel.grid.major.y)
+  expect_null(theme_none$panel.grid.major.x)
+})
+
+test_that("axis ticks are independent of major grids", {
+  skip_if_not_installed("ggplot2")
+
+  theme_x <- theme_ekio(grid = "none", ticks = "x")
+  theme_y <- theme_ekio(grid = "none", ticks = "y")
+  theme_xy <- theme_ekio(grid = "none", ticks = "xy")
+  theme_none <- theme_ekio(grid = "none", ticks = "none")
+
+  expect_s3_class(theme_x$axis.ticks.x, "element_line")
+  expect_null(theme_x$axis.ticks.y)
+  expect_null(theme_y$axis.ticks.x)
+  expect_s3_class(theme_y$axis.ticks.y, "element_line")
+  expect_s3_class(theme_xy$axis.ticks.x, "element_line")
+  expect_s3_class(theme_xy$axis.ticks.y, "element_line")
+  expect_null(theme_none$axis.ticks.x)
+  expect_null(theme_none$axis.ticks.y)
 })
 
 test_that("theme_ekio works in complete plot", {
