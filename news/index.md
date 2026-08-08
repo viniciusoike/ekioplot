@@ -36,10 +36,9 @@ changes; see below before upgrading.
   [ekiotable](https://github.com/viniciusoike/ekiotable). It reads brand
   tokens from this package via
   [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
-  and
-  [`ekio_font()`](https://viniciusoike.github.io/ekioplot/reference/ekio_font.md),
-  so tables and charts stay in sync without duplicating color
-  definitions. `gt` is no longer a dependency of ekioplot.
+  and `ekio_font()`, so tables and charts stay in sync without
+  duplicating color definitions. `gt` is no longer a dependency of
+  ekioplot.
 
 - For sequential and diverging palettes, `n` now interpolates across the
   whole ramp instead of returning the `n` lightest colors.
@@ -89,11 +88,9 @@ changes; see below before upgrading.
   [`ekio_barplot()`](https://viniciusoike.github.io/ekioplot/reference/ekio_barplot.md),
   failed outright.
 
-- New
-  [`ekio_font()`](https://viniciusoike.github.io/ekioplot/reference/ekio_font.md)
-  exposes the platform-appropriate EKIO font family. It is the canonical
-  accessor for EKIO brand type, so packages styling other output do not
-  repeat the platform logic.
+- New `ekio_font()` exposes the platform-appropriate EKIO font family.
+  It is the canonical accessor for EKIO brand type, so packages styling
+  other output do not repeat the platform logic.
 
 - Color is defined once in `inst/ekio-palettes.yaml` and compiled into
   the package by `data-raw/palettes.R`. The YAML ships with the package,
@@ -133,8 +130,7 @@ changes; see below before upgrading.
   now returns an object of class `ekio_palette`, a character vector with
   a custom print method that automatically displays a color swatch in
   interactive sessions. This replaces the need for a separate
-  [`show_ekio_palette()`](https://viniciusoike.github.io/ekioplot/reference/show_ekio_palette.md)
-  function. Use
+  `show_ekio_palette()` function. Use
   [`as.character()`](https://rdrr.io/r/base/character.html) to strip the
   class when only hex codes are needed.
 
@@ -145,8 +141,7 @@ changes; see below before upgrading.
   still works but warns once per session, and is no longer listed on the
   pkgdown reference index.
 
-- [`show_ekio_palette()`](https://viniciusoike.github.io/ekioplot/reference/show_ekio_palette.md)
-  is deprecated in favor of
+- `show_ekio_palette()` is deprecated in favor of
   [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
   (which auto-displays a swatch on print). It still works but warns once
   per session.

@@ -26,15 +26,8 @@ update here first.
   background `gray.100` = `#F7FAFC`; accents `orange.600` = `#DD6B20`,
   `teal.700` = `#2C7A7B`. Palettes are defined by `scale.shade` token
   reference, not literal hex.
-- **Type — charts & tables**: Helvetica Neue (macOS) / Arial (Windows)
-  via
-  [`ekio_font()`](https://viniciusoike.github.io/ekioplot/reference/ekio_font.md),
-  which is exported so `ekiotable` can reuse it; sans only, no serif in
-  chart or table output.
 - **Type — web (ekio-site)**: Lora (serif display/headings), Lato
-  (body), Fira Code (mono). Lora is a deliberate web-only editorial
-  display font; it is intentionally *not* used in chart output, which
-  stays on the sans stack above.
+  (body), Fira Code (mono).
 
 ## Package Architecture
 
@@ -45,12 +38,10 @@ update here first.
   palette accessor (auto-displays swatch via S3 print method), internal
   `.ekio(scale, shade)` token accessor used by themes and recipes,
   [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md),
-  [`show_ekio_palette()`](https://viniciusoike.github.io/ekioplot/reference/show_ekio_palette.md)
-  (deprecated, use
-  [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)),
+  and deprecated
   [`show_all_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/show_all_ekio_palettes.md)
-  (deprecated, use `list_ekio_palettes(verbose = TRUE)`). Contains no
-  hex codes — all color comes from `R/sysdata.rda`
+  (use `list_ekio_palettes(verbose = TRUE)`). Contains no hex codes —
+  all color comes from `R/sysdata.rda`
 
 - **scales.R** — Discrete (`scale_color_ekio_d`, `scale_fill_ekio_d`)
   and continuous (`scale_color_ekio_c`, `scale_fill_ekio_c`) ggplot2
@@ -58,9 +49,8 @@ update here first.
 
 - **theme.R** —
   [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
-  (modular, uses `theme_sub_*` helpers) and
-  [`ekio_font()`](https://viniciusoike.github.io/ekioplot/reference/ekio_font.md),
-  the exported platform-aware font accessor
+  (modular, uses `theme_sub_*` helpers) and `ekio_font()`, the exported
+  platform-aware font accessor
 
 - **recipes.R** — High-level chart builders (`ekio_histogram`,
   `ekio_lineplot`, `ekio_scatterplot`, `ekio_barplot`) with smart
@@ -91,6 +81,13 @@ update here first.
 - **Modular themes**:
   [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
   uses ggplot2’s `theme_sub_*()` helpers (requires ggplot2 \>= 3.5.0)
+- **Conditional grids**:
+  [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
+  builds `grid_x` and `grid_y` only for the requested axes and adds them
+  when they exist
+- **Independent ticks**: `theme_ekio(ticks = "x" | "y" | "xy" | "none")`
+  adds requested axis ticks and lines independently of major grids,
+  allowing `grid = "none"` with visible axes
 - **Color references**: Never hardcode hex. Inside the package use
   `.ekio("blue", 700)`; from user code use
   [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md).

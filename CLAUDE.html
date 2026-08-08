@@ -52,17 +52,15 @@
 <ul><li>
 <strong>Colors</strong>: defined in <code>inst/ekio-palettes.yaml</code> (source of truth), compiled to <code>R/sysdata.rda</code> by <code>data-raw/palettes.R</code>. Eight nine-step scales named <code>100</code>–<code>900</code>, light to dark; position <code>i</code> == shade <code>i * 100</code>. Primary <code>blue.700</code> = <code>#1E3A5F</code>, ink <code>gray.900</code> = <code>#1A202C</code>, background <code>gray.100</code> = <code>#F7FAFC</code>; accents <code>orange.600</code> = <code>#DD6B20</code>, <code>teal.700</code> = <code>#2C7A7B</code>. Palettes are defined by <code>scale.shade</code> token reference, not literal hex.</li>
 <li>
-<strong>Type — charts &amp; tables</strong>: Helvetica Neue (macOS) / Arial (Windows) via <code><a href="reference/ekio_font.html">ekio_font()</a></code>, which is exported so <code>ekiotable</code> can reuse it; sans only, no serif in chart or table output.</li>
-<li>
-<strong>Type — web (ekio-site)</strong>: Lora (serif display/headings), Lato (body), Fira Code (mono). Lora is a deliberate web-only editorial display font; it is intentionally <em>not</em> used in chart output, which stays on the sans stack above.</li>
+<strong>Type — web (ekio-site)</strong>: Lora (serif display/headings), Lato (body), Fira Code (mono).</li>
 </ul></div>
 <div class="section level2">
 <h2 id="package-architecture">Package Architecture<a class="anchor" aria-label="anchor" href="#package-architecture"></a></h2>
 <div class="section level3">
 <h3 id="source-files-r">Source Files (R/)<a class="anchor" aria-label="anchor" href="#source-files-r"></a></h3>
-<ul><li><p><strong>colors.R</strong> — <code><a href="reference/ekio_pal.html">ekio_pal()</a></code> palette accessor (auto-displays swatch via S3 print method), internal <code>.ekio(scale, shade)</code> token accessor used by themes and recipes, <code><a href="reference/list_ekio_palettes.html">list_ekio_palettes()</a></code>, <code><a href="reference/show_ekio_palette.html">show_ekio_palette()</a></code> (deprecated, use <code><a href="reference/ekio_pal.html">ekio_pal()</a></code>), <code><a href="reference/show_all_ekio_palettes.html">show_all_ekio_palettes()</a></code> (deprecated, use <code>list_ekio_palettes(verbose = TRUE)</code>). Contains no hex codes — all color comes from <code>R/sysdata.rda</code></p></li>
+<ul><li><p><strong>colors.R</strong> — <code><a href="reference/ekio_pal.html">ekio_pal()</a></code> palette accessor (auto-displays swatch via S3 print method), internal <code>.ekio(scale, shade)</code> token accessor used by themes and recipes, <code><a href="reference/list_ekio_palettes.html">list_ekio_palettes()</a></code>, and deprecated <code><a href="reference/show_all_ekio_palettes.html">show_all_ekio_palettes()</a></code> (use <code>list_ekio_palettes(verbose = TRUE)</code>). Contains no hex codes — all color comes from <code>R/sysdata.rda</code></p></li>
 <li><p><strong>scales.R</strong> — Discrete (<code>scale_color_ekio_d</code>, <code>scale_fill_ekio_d</code>) and continuous (<code>scale_color_ekio_c</code>, <code>scale_fill_ekio_c</code>) ggplot2 scale functions with British spelling aliases</p></li>
-<li><p><strong>theme.R</strong> — <code><a href="reference/theme_ekio.html">theme_ekio()</a></code> (modular, uses <code>theme_sub_*</code> helpers) and <code><a href="reference/ekio_font.html">ekio_font()</a></code>, the exported platform-aware font accessor</p></li>
+<li><p><strong>theme.R</strong> — <code><a href="reference/theme_ekio.html">theme_ekio()</a></code> (modular, uses <code>theme_sub_*</code> helpers) and <code>ekio_font()</code>, the exported platform-aware font accessor</p></li>
 <li><p><strong>recipes.R</strong> — High-level chart builders (<code>ekio_histogram</code>, <code>ekio_lineplot</code>, <code>ekio_scatterplot</code>, <code>ekio_barplot</code>) with smart aesthetic detection (static color vs. variable mapping)</p></li>
 <li><p><strong>accessibility.R</strong> — WCAG contrast helpers: <code><a href="reference/ekio_contrast.html">ekio_contrast()</a></code> (contrast ratio) and <code><a href="reference/ekio_text_on.html">ekio_text_on()</a></code> (black/white text picker for colored fills)</p></li>
 <li><p><strong>data.R</strong> — Documentation for 6 bundled datasets (Brazilian socioeconomic/agriculture data, global fuels)</p></li>
@@ -76,6 +74,10 @@
 <strong>Smart aesthetic detection</strong>: Recipe functions use <code><a href="https://rlang.r-lib.org/reference/enquo.html" class="external-link">rlang::enquo()</a></code> + internal <code>.detect_aesthetic_type()</code> to distinguish between missing args, static color strings, and variable mappings — auto-selecting appropriate scales</li>
 <li>
 <strong>Modular themes</strong>: <code><a href="reference/theme_ekio.html">theme_ekio()</a></code> uses ggplot2’s <code>theme_sub_*()</code> helpers (requires ggplot2 &gt;= 3.5.0)</li>
+<li>
+<strong>Conditional grids</strong>: <code><a href="reference/theme_ekio.html">theme_ekio()</a></code> builds <code>grid_x</code> and <code>grid_y</code> only for the requested axes and adds them when they exist</li>
+<li>
+<strong>Independent ticks</strong>: <code>theme_ekio(ticks = "x" | "y" | "xy" | "none")</code> adds requested axis ticks and lines independently of major grids, allowing <code>grid = "none"</code> with visible axes</li>
 <li>
 <strong>Color references</strong>: Never hardcode hex. Inside the package use <code>.ekio("blue", 700)</code>; from user code use <code><a href="reference/ekio_pal.html">ekio_pal()</a></code>. To change a color, edit <code>inst/ekio-palettes.yaml</code> and rerun <code>data-raw/palettes.R</code>
 </li>

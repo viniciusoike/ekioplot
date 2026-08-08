@@ -84,15 +84,12 @@ ekio_pal("blue", n = 5)
   `green`, `amber`
 - **Diverging**: `blue_orange`, `blue_red`, `teal_orange`
 
-Visualize any palette with
-[`show_ekio_palette()`](https://viniciusoike.github.io/ekioplot/reference/show_ekio_palette.md):
+[`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
+displays a swatch when printed:
 
 ``` r
 
-show_ekio_palette("contrast")
-#> Warning: `show_ekio_palette()` was deprecated in ekioplot 0.5.1.
-#> ℹ Use `ekio_pal()` in its place.
-#> This warning is displayed once per session.
+ekio_pal("contrast")
 ```
 
 ![](getting-started_files/figure-html/show-palette-1.png)
@@ -240,7 +237,5 @@ gt table styling lives in a companion package,
 [ekiotable](https://github.com/viniciusoike/ekiotable). It reads brand
 tokens from ekioplot via
 [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
-and
-[`ekio_font()`](https://viniciusoike.github.io/ekioplot/reference/ekio_font.md),
-so tables and charts share one palette without either package
-duplicating color definitions.
+and `ekio_font()`, so tables and charts share one palette without either
+package duplicating color definitions.

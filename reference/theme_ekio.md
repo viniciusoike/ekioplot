@@ -6,26 +6,64 @@ A minimal, professional theme for EKIO visualizations built on
 ## Usage
 
 ``` r
-theme_ekio(base_size = 11, base_family = "", grid = "y")
+theme_ekio(
+  base_size = 11,
+  font_title = "Lora",
+  font_text = "Lato",
+  title_align = "plot",
+  grid = "y",
+  ticks = "x",
+  ...
+)
 ```
 
 ## Arguments
 
 - base_size:
 
-  Numeric. Base font size in points (default: 11)
+  Numeric. Base font size in points (default: 11).
 
-- base_family:
+- font_title:
 
-  Character. Font family. Defaults to the platform-appropriate EKIO font
-  via
-  [`ekio_font()`](https://viniciusoike.github.io/ekioplot/reference/ekio_font.md).
+  Character. Font family passed only to the chart title. Defaults to
+  'Lora'.
+
+- font_text:
+
+  Character. Font family passed to all textual elements except the
+  title. Defaults to 'Lato'.
+
+- title_align:
+
+  Argument passed to
+  [`ggplot2::theme()`](https://ggplot2.tidyverse.org/reference/theme.html).
+  Can be one of 'plot' or 'panel'.
 
 - grid:
 
   Character. Which major grid lines to show: `"y"` (default), `"x"`,
-  `"xy"`, or `"none"`.
+  `"xy"`, or `"none"`. Only the requested grid themes are added.
+
+- ticks:
+
+  Character. Which axis ticks and lines to show: `"x"` (default), `"y"`,
+  `"xy"`, or `"none"`. This is independent of `grid`.
+
+- ...:
+
+  Additional arguments passed to
+  [`ggplot2::theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html).
 
 ## Value
 
 A ggplot2 theme object
+
+## Examples
+
+``` r
+if (FALSE) { # rlang::is_interactive()
+ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg)) +
+  ggplot2::geom_point() +
+  theme_ekio(font_title = "serif", font_text = "sans")
+}
+```

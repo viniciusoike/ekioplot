@@ -46,7 +46,15 @@ ggplot2::theme_minimal()."><meta property="og:image" content="https://viniciusoi
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">theme_ekio</span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">11</span>, base_family <span class="op">=</span> <span class="st">""</span>, grid <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">theme_ekio</span><span class="op">(</span></span>
+<span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
+<span>  font_title <span class="op">=</span> <span class="st">"Lora"</span>,</span>
+<span>  font_text <span class="op">=</span> <span class="st">"Lato"</span>,</span>
+<span>  title_align <span class="op">=</span> <span class="st">"plot"</span>,</span>
+<span>  grid <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>  ticks <span class="op">=</span> <span class="st">"x"</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -54,17 +62,36 @@ ggplot2::theme_minimal()."><meta property="og:image" content="https://viniciusoi
 
 
 <dl><dt id="arg-base-size">base_size<a class="anchor" aria-label="anchor" href="#arg-base-size"></a></dt>
-<dd><p>Numeric. Base font size in points (default: 11)</p></dd>
+<dd><p>Numeric. Base font size in points (default: 11).</p></dd>
 
 
-<dt id="arg-base-family">base_family<a class="anchor" aria-label="anchor" href="#arg-base-family"></a></dt>
-<dd><p>Character. Font family. Defaults to the platform-appropriate
-EKIO font via <code><a href="ekio_font.html">ekio_font()</a></code>.</p></dd>
+<dt id="arg-font-title">font_title<a class="anchor" aria-label="anchor" href="#arg-font-title"></a></dt>
+<dd><p>Character. Font family passed only to the chart title.
+Defaults to 'Lora'.</p></dd>
+
+
+<dt id="arg-font-text">font_text<a class="anchor" aria-label="anchor" href="#arg-font-text"></a></dt>
+<dd><p>Character. Font family passed to all textual elements
+except the title. Defaults to 'Lato'.</p></dd>
+
+
+<dt id="arg-title-align">title_align<a class="anchor" aria-label="anchor" href="#arg-title-align"></a></dt>
+<dd><p>Argument passed to <code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">ggplot2::theme()</a></code>.
+Can be one of 'plot' or 'panel'.</p></dd>
 
 
 <dt id="arg-grid">grid<a class="anchor" aria-label="anchor" href="#arg-grid"></a></dt>
 <dd><p>Character. Which major grid lines to show: <code>"y"</code> (default),
-<code>"x"</code>, <code>"xy"</code>, or <code>"none"</code>.</p></dd>
+<code>"x"</code>, <code>"xy"</code>, or <code>"none"</code>. Only the requested grid themes are added.</p></dd>
+
+
+<dt id="arg-ticks">ticks<a class="anchor" aria-label="anchor" href="#arg-ticks"></a></dt>
+<dd><p>Character. Which axis ticks and lines to show: <code>"x"</code> (default),
+<code>"y"</code>, <code>"xy"</code>, or <code>"none"</code>. This is independent of <code>grid</code>.</p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Additional arguments passed to <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">ggplot2::theme_minimal()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -72,6 +99,15 @@ EKIO font via <code><a href="ekio_font.html">ekio_font()</a></code>.</p></dd>
     <p>A ggplot2 theme object</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># rlang::is_interactive()</span></span></span>
+<span class="r-in"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">theme_ekio</span><span class="op">(</span>font_title <span class="op">=</span> <span class="st">"serif"</span>, font_text <span class="op">=</span> <span class="st">"sans"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

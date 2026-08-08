@@ -74,11 +74,13 @@ ggplot2 object
 
 ``` r
 if (FALSE) { # rlang::is_interactive()
+DONTSHOW({.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")})
 ekio_areaplot(ggplot2::economics, date, unemploy)
 
 # Stacked area with groups
 data(fuels)
 world_fuels <- fuels[fuels$entity == "World" & fuels$year >= 1950, ]
 ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel)
+DONTSHOW({options(.op)})
 }
 ```

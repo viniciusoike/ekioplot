@@ -89,14 +89,14 @@ typography, spacing, and color choices.</p>
 <span>    y <span class="op">=</span> <span class="st">"Miles per Gallon"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_ekio.html">theme_ekio</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/theme-basic-1.png" class="r-plt" alt="" width="1050"></p>
+<p><img src="getting-started_files/figure-html/theme-basic-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>The <code>grid</code> parameter controls which major grid lines are
 drawn:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span><span class="op">[</span><span class="st">"700"</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_ekio.html">theme_ekio</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="st">"xy"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/theme-grid-1.png" class="r-plt" alt="" width="1050"></p>
+<p><img src="getting-started_files/figure-html/theme-grid-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="color-palettes">Color Palettes<a class="anchor" aria-label="anchor" href="#color-palettes"></a>
@@ -114,10 +114,10 @@ drawn:</p>
 <p>Access any palette with <code><a href="../reference/ekio_pal.html">ekio_pal()</a></code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"contrast"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/palette-access-1.png" class="r-plt" alt="" width="1050"></p>
+<p><img src="getting-started_files/figure-html/palette-access-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"blue"</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/palette-access-2.png" class="r-plt" alt="" width="1050"></p>
+<p><img src="getting-started_files/figure-html/palette-access-2.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <div class="section level3">
 <h3 id="palette-types">Palette types<a class="anchor" aria-label="anchor" href="#palette-types"></a>
 </h3>
@@ -146,13 +146,10 @@ drawn:</p>
 <code>blue_red</code>, <code>teal_orange</code>
 </li>
 </ul>
-<p>Visualize any palette with <code><a href="../reference/show_ekio_palette.html">show_ekio_palette()</a></code>:</p>
+<p><code><a href="../reference/ekio_pal.html">ekio_pal()</a></code> displays a swatch when printed:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_ekio_palette.html">show_ekio_palette</a></span><span class="op">(</span><span class="st">"contrast"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `show_ekio_palette()` was deprecated in ekioplot 0.5.1.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `ekio_pal()` in its place.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once per session.</span></span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/show-palette-1.png" class="r-plt" alt="" width="1050"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"contrast"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="getting-started_files/figure-html/show-palette-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div class="section level2">
@@ -169,7 +166,7 @@ data.</p>
 <span>  <span class="fu"><a href="../reference/scale_color_ekio_d.html">scale_color_ekio_d</a></span><span class="op">(</span><span class="st">"contrast"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"Cylinders"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_ekio.html">theme_ekio</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="st">"xy"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/scale-discrete-1.png" class="r-plt" alt="" width="1050"></p>
+<p><img src="getting-started_files/figure-html/scale-discrete-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="continuous-scales">Continuous scales<a class="anchor" aria-label="anchor" href="#continuous-scales"></a>
@@ -181,7 +178,7 @@ data.</p>
 <span>  <span class="fu"><a href="../reference/scale_color_ekio_c.html">scale_color_ekio_c</a></span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"Horsepower"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_ekio.html">theme_ekio</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="st">"xy"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/scale-continuous-1.png" class="r-plt" alt="" width="1050"></p>
+<p><img src="getting-started_files/figure-html/scale-continuous-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Fill variants are available as <code><a href="../reference/scale_color_ekio_d.html">scale_fill_ekio_d()</a></code> and
 <code><a href="../reference/scale_color_ekio_c.html">scale_fill_ekio_c()</a></code>.</p>
 </div>
@@ -196,7 +193,7 @@ publication-ready plots with smart defaults.</p>
 </h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_histogram.html">ekio_histogram</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">mpg</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/recipe-histogram-1.png" class="r-plt" alt="" width="1050"></p>
+<p><img src="getting-started_files/figure-html/recipe-histogram-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="bar-plot">Bar plot<a class="anchor" aria-label="anchor" href="#bar-plot"></a>
@@ -205,14 +202,14 @@ publication-ready plots with smart defaults.</p>
 <code class="sourceCode R"><span><span class="va">cyl_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span>cyl <span class="op">=</span> <span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">cyl_counts</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"n"</span></span>
 <span><span class="fu"><a href="../reference/ekio_barplot.html">ekio_barplot</a></span><span class="op">(</span><span class="va">cyl_counts</span>, <span class="va">cyl</span>, <span class="va">n</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/recipe-barplot-1.png" class="r-plt" alt="" width="1050"></p>
+<p><img src="getting-started_files/figure-html/recipe-barplot-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="scatter-plot">Scatter plot<a class="anchor" aria-label="anchor" href="#scatter-plot"></a>
 </h3>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_scatterplot.html">ekio_scatterplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">wt</span>, <span class="va">mpg</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/recipe-scatter-1.png" class="r-plt" alt="" width="1050"></p>
+<p><img src="getting-started_files/figure-html/recipe-scatter-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="area-plot">Area plot<a class="anchor" aria-label="anchor" href="#area-plot"></a>
@@ -221,7 +218,7 @@ publication-ready plots with smart defaults.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">fuels</span><span class="op">)</span></span>
 <span><span class="va">world_fuels</span> <span class="op">&lt;-</span> <span class="va">fuels</span><span class="op">[</span><span class="va">fuels</span><span class="op">$</span><span class="va">entity</span> <span class="op">==</span> <span class="st">"World"</span> <span class="op">&amp;</span> <span class="va">fuels</span><span class="op">$</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">1950</span>, <span class="op">]</span></span>
 <span><span class="fu"><a href="../reference/ekio_areaplot.html">ekio_areaplot</a></span><span class="op">(</span><span class="va">world_fuels</span>, <span class="va">year</span>, <span class="va">consumption_gwh</span>, fill <span class="op">=</span> <span class="va">fuel</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/recipe-area-1.png" class="r-plt" alt="" width="1050"></p>
+<p><img src="getting-started_files/figure-html/recipe-area-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="smart-aesthetic-detection">Smart aesthetic detection<a class="anchor" aria-label="anchor" href="#smart-aesthetic-detection"></a>
@@ -240,7 +237,7 @@ EKIO scale</li>
 </ul>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_histogram.html">ekio_histogram</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">mpg</span>, fill <span class="op">=</span> <span class="st">"coral"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/recipe-static-color-1.png" class="r-plt" alt="" width="1050"></p>
+<p><img src="getting-started_files/figure-html/recipe-static-color-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div class="section level2">
@@ -253,7 +250,7 @@ eight brand scales — <code>"blue"</code>, <code>"gray"</code>,
 nine-step ramps running light to dark, named by shade:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"gray"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/brand-scale-1.png" class="r-plt" alt="" width="1050"></p>
+<p><img src="getting-started_files/figure-html/brand-scale-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Position and shade are aligned by construction, so element
 <code>i</code> is always shade <code>i * 100</code>. Index whichever way
 reads better:</p>
@@ -269,14 +266,14 @@ for fewer colors interpolates across the whole ramp rather than
 returning the lightest few:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"blue"</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/brand-interpolate-1.png" class="r-plt" alt="" width="1050"></p>
+<p><img src="getting-started_files/figure-html/brand-interpolate-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="tables">Tables<a class="anchor" aria-label="anchor" href="#tables"></a>
 </h2>
 <p>gt table styling lives in a companion package, <a href="https://github.com/viniciusoike/ekiotable" class="external-link">ekiotable</a>. It reads
 brand tokens from ekioplot via <code><a href="../reference/ekio_pal.html">ekio_pal()</a></code> and
-<code><a href="../reference/ekio_font.html">ekio_font()</a></code>, so tables and charts share one palette without
+<code>ekio_font()</code>, so tables and charts share one palette without
 either package duplicating color definitions.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

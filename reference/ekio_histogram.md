@@ -72,8 +72,10 @@ ggplot2 object
 
 ``` r
 if (FALSE) { # rlang::is_interactive()
+DONTSHOW({.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")})
 ekio_histogram(mtcars, mpg)
 ekio_histogram(mtcars, mpg, fill = "steelblue")
 ekio_histogram(mtcars, mpg, fill = factor(cyl), palette = "cool")
+DONTSHOW({options(.op)})
 }
 ```

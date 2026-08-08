@@ -6,8 +6,6 @@ Apply EKIO visual identity to plots
 
 - [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
   : Apply EKIO Theme to ggplot2 Plots
-- [`ekio_font()`](https://viniciusoike.github.io/ekioplot/reference/ekio_font.md)
-  : EKIO Font Family
 
 ## Scales
 
@@ -32,8 +30,6 @@ Access and explore color palettes
   : Get Color Palette
 - [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md)
   : List Available Palettes
-- [`show_ekio_palette()`](https://viniciusoike.github.io/ekioplot/reference/show_ekio_palette.md)
-  : Display a Palette
 
 ## Accessibility
 

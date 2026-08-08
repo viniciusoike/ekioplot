@@ -67,6 +67,8 @@ ggplot2 object
 
 ``` r
 if (FALSE) { # rlang::is_interactive()
+DONTSHOW({.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")})
 ekio_lineplot(ggplot2::economics, date, unemploy)
+DONTSHOW({options(.op)})
 }
 ```
