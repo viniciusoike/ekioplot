@@ -49,23 +49,27 @@ update here first.
 
 - **theme.R** —
   [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
-  (modular, uses `theme_sub_*` helpers) and `ekio_font()`, the exported
-  platform-aware font accessor
+  (modular, uses `theme_sub_*` helpers) and internal `detect_font()`,
+  which resolves a requested font family against installed fonts with a
+  fallback chain
 
 - **recipes.R** — High-level chart builders (`ekio_histogram`,
-  `ekio_lineplot`, `ekio_scatterplot`, `ekio_barplot`) with smart
-  aesthetic detection (static color vs. variable mapping)
+  `ekio_lineplot`, `ekio_scatterplot`, `ekio_barplot`, `ekio_areaplot`)
+  with smart aesthetic detection (static color vs. variable mapping)
 
 - **accessibility.R** — WCAG contrast helpers:
   [`ekio_contrast()`](https://viniciusoike.github.io/ekioplot/reference/ekio_contrast.md)
   (contrast ratio) and
   [`ekio_text_on()`](https://viniciusoike.github.io/ekioplot/reference/ekio_text_on.md)
-  (black/white text picker for colored fills)
+  (black/white text picker for colored fills). `print.ekio_palette()`
+  uses
+  [`ekio_text_on()`](https://viniciusoike.github.io/ekioplot/reference/ekio_text_on.md)
+  for swatch labels — keep luminance math here only
 
 - **data.R** — Documentation for 6 bundled datasets (Brazilian
   socioeconomic/agriculture data, global fuels)
 
-- **utils.R** — Package-level imports and `globalVariables` suppression
+- **utils.R** — Package-level `@importFrom` tags only
 
 ### Key Design Decisions
 
@@ -80,7 +84,10 @@ update here first.
   appropriate scales
 - **Modular themes**:
   [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
-  uses ggplot2’s `theme_sub_*()` helpers (requires ggplot2 \>= 3.5.0)
+  uses ggplot2’s `theme_sub_*()` helpers and the `paper` argument to
+  `theme_minimal()` (requires ggplot2 \>= 4.0.0)
+- **Namespace style**: no blanket `@import ggplot2`. Use `ggplot2::`
+  prefixes; `@importFrom` is for files with many calls, like `theme.R`
 - **Conditional grids**:
   [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
   builds `grid_x` and `grid_y` only for the requested axes and adds them
@@ -96,8 +103,9 @@ update here first.
 
 ### Dependencies
 
-- **Imports**: cli, ggplot2 (\>= 3.5.0), grDevices, rlang
-- **Suggests**: dplyr, knitr, rmarkdown, testthat (\>= 3.0.0), tibble
+- **Imports**: cli, ggplot2 (\>= 4.0.0), grDevices, rlang, systemfonts
+- **Suggests**: dplyr, knitr, rmarkdown, testthat (\>= 3.0.0), tibble,
+  yaml
 
 ## Coding Conventions
 
@@ -108,7 +116,7 @@ update here first.
   examples in `@examples`. Use `@examplesIf rlang::is_interactive()` for
   examples that produce plots
 - **Testing**: Uses testthat framework in `tests/testthat/`. Tests exist
-  for colors, scales, and themes. No tests yet for recipes
+  for accessibility, colors, palette data, recipes, scales, and themes
 - **Code style**: Standard R conventions with 2-space indentation,
   meaningful parameter names
   - Use native R pipe

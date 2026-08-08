@@ -1,5 +1,92 @@
 # Changelog
 
+## ekioplot 0.7.1
+
+A maintenance release: bug fixes and cleanup, no API changes.
+
+### Bug fixes
+
+- Recipe functions no longer error on a continuous color or fill
+  mapping. `palette` defaulted to `"contrast"` for every mapping, but
+  `"contrast"` is categorical and `scale_*_ekio_c()` rejects it, so the
+  documented continuous path failed in all five recipes. The default is
+  now `"blue"` when the mapping is continuous and `"contrast"` when it
+  is discrete.
+
+- [`ekio_barplot()`](https://viniciusoike.github.io/ekioplot/reference/ekio_barplot.md)
+  applied
+  [`scale_fill_ekio_d()`](https://viniciusoike.github.io/ekioplot/reference/scale_color_ekio_d.md)
+  regardless of the mapping, so a continuous `fill` failed with
+  “Continuous value supplied to a discrete scale”. It now branches on
+  the detected type like the other four recipes.
+
+- [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
+  passed `paper = colors$off_white`, a typo for `offwhite` that resolved
+  to `NULL` and silently dropped the paper color. Paper is now the
+  `gray.100` brand token, matching the plot and panel backgrounds.
+
+- [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
+  validates `grid` with
+  [`match.arg()`](https://rdrr.io/r/base/match.arg.html). An
+  unrecognized value such as `grid = "bogus"` previously returned a
+  theme with no grid lines instead of erroring, matching how `ticks`
+  already behaved.
+
+- [`ekio_lineplot()`](https://viniciusoike.github.io/ekioplot/reference/ekio_lineplot.md),
+  [`ekio_scatterplot()`](https://viniciusoike.github.io/ekioplot/reference/ekio_scatterplot.md),
+  and
+  [`ekio_barplot()`](https://viniciusoike.github.io/ekioplot/reference/ekio_barplot.md)
+  check that `data` is a data frame, as
+  [`ekio_histogram()`](https://viniciusoike.github.io/ekioplot/reference/ekio_histogram.md)
+  and
+  [`ekio_areaplot()`](https://viniciusoike.github.io/ekioplot/reference/ekio_areaplot.md)
+  did.
+
+- `%||%` is imported from rlang. It was previously resolved from base R,
+  which only gained the operator in 4.4.0, so
+  [`scale_color_ekio_c()`](https://viniciusoike.github.io/ekioplot/reference/scale_color_ekio_c.md)
+  and `list_ekio_palettes(verbose = TRUE)` failed on the R 4.1–4.3 that
+  `Depends` claimed to support.
+
+### Dependencies
+
+- `ggplot2` minimum is now 4.0.0.
+  [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
+  passes `paper` to
+  [`theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html),
+  which 3.5.x does not accept, so the declared `>= 3.5.0` never actually
+  worked.
+
+### Documentation
+
+- Removed references to `ekio_font()` from `NEWS.md` and the
+  getting-started vignette. The function was announced in 0.7.0 but
+  never shipped; brand tokens reach downstream packages through
+  [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md).
+
+- Dropped the 0.7.0 note announcing the “Color accessibility” article,
+  which was removed before release.
+
+- Corrected the `ips_brasil` `@format` variable count from 8 to 9.
+
+### Internal
+
+- Removed the blanket `@import ggplot2` in favor of `ggplot2::`
+  prefixes, with `@importFrom` retained for `theme.R`, the one file with
+  many calls.
+
+- `print.ekio_palette()` picks swatch label colors with
+  [`ekio_text_on()`](https://viniciusoike.github.io/ekioplot/reference/ekio_text_on.md)
+  instead of a private luminance approximation, removing the third copy
+  of luminance math in the package.
+
+- Dropped an unused `param_name` argument from
+  `.detect_aesthetic_type()`, an unused
+  [`rlang::as_name`](https://rlang.r-lib.org/reference/as_name.html)
+  import, dead assignments in the grid theme branches, and a stale
+  [`globalVariables()`](https://rdrr.io/r/utils/globalVariables.html)
+  declaration.
+
 ## ekioplot 0.7.0
 
 This release makes `inst/ekio-palettes.yaml` the single source of truth
@@ -35,10 +122,9 @@ changes; see below before upgrading.
 - `gt_theme_ekio()` has moved to the companion package
   [ekiotable](https://github.com/viniciusoike/ekiotable). It reads brand
   tokens from this package via
-  [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
-  and `ekio_font()`, so tables and charts stay in sync without
-  duplicating color definitions. `gt` is no longer a dependency of
-  ekioplot.
+  [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md),
+  so tables and charts stay in sync without duplicating color
+  definitions. `gt` is no longer a dependency of ekioplot.
 
 - For sequential and diverging palettes, `n` now interpolates across the
   whole ramp instead of returning the `n` lightest colors.
@@ -88,10 +174,6 @@ changes; see below before upgrading.
   [`ekio_barplot()`](https://viniciusoike.github.io/ekioplot/reference/ekio_barplot.md),
   failed outright.
 
-- New `ekio_font()` exposes the platform-appropriate EKIO font family.
-  It is the canonical accessor for EKIO brand type, so packages styling
-  other output do not repeat the platform logic.
-
 - Color is defined once in `inst/ekio-palettes.yaml` and compiled into
   the package by `data-raw/palettes.R`. The YAML ships with the package,
   so downstream projects can read the canonical tokens via
@@ -104,12 +186,6 @@ changes; see below before upgrading.
   palette’s pivot is not its lightest color. A test re-resolves the YAML
   and compares it against the built data, so editing one without
   rebuilding the other fails loudly.
-
-### Documentation
-
-- New pkgdown article “Color accessibility” showing which EKIO colors
-  work with black vs. white text, with WCAG AA/AAA compliance for the
-  accent colors in `ekio_pal("full")`.
 
 ### Bug fixes
 

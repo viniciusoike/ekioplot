@@ -13,7 +13,7 @@ ips_brasil
 
 ## Format
 
-A data frame with 200 rows (25 municipalities x 8 measures) and 8
+A data frame with 200 rows (25 municipalities x 8 measures) and 9
 variables:
 
 - codigo_ibge:

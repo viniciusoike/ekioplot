@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="logo.png" class="logo" alt=""><h1>CLAUDE.md - Project Context</h1>
-      <small class="dont-index">Source: <a href="https://github.com/viniciusoike/ekioplot/blob/master/CLAUDE.md" class="external-link"><code>CLAUDE.md</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/viniciusoike/ekioplot/blob/v0.7.1/CLAUDE.md" class="external-link"><code>CLAUDE.md</code></a></small>
     </div>
 
 <div id="claudemd---project-context" class="section level1">
@@ -59,11 +59,11 @@
 <h3 id="source-files-r">Source Files (R/)<a class="anchor" aria-label="anchor" href="#source-files-r"></a></h3>
 <ul><li><p><strong>colors.R</strong> — <code><a href="reference/ekio_pal.html">ekio_pal()</a></code> palette accessor (auto-displays swatch via S3 print method), internal <code>.ekio(scale, shade)</code> token accessor used by themes and recipes, <code><a href="reference/list_ekio_palettes.html">list_ekio_palettes()</a></code>, and deprecated <code><a href="reference/show_all_ekio_palettes.html">show_all_ekio_palettes()</a></code> (use <code>list_ekio_palettes(verbose = TRUE)</code>). Contains no hex codes — all color comes from <code>R/sysdata.rda</code></p></li>
 <li><p><strong>scales.R</strong> — Discrete (<code>scale_color_ekio_d</code>, <code>scale_fill_ekio_d</code>) and continuous (<code>scale_color_ekio_c</code>, <code>scale_fill_ekio_c</code>) ggplot2 scale functions with British spelling aliases</p></li>
-<li><p><strong>theme.R</strong> — <code><a href="reference/theme_ekio.html">theme_ekio()</a></code> (modular, uses <code>theme_sub_*</code> helpers) and <code>ekio_font()</code>, the exported platform-aware font accessor</p></li>
-<li><p><strong>recipes.R</strong> — High-level chart builders (<code>ekio_histogram</code>, <code>ekio_lineplot</code>, <code>ekio_scatterplot</code>, <code>ekio_barplot</code>) with smart aesthetic detection (static color vs. variable mapping)</p></li>
-<li><p><strong>accessibility.R</strong> — WCAG contrast helpers: <code><a href="reference/ekio_contrast.html">ekio_contrast()</a></code> (contrast ratio) and <code><a href="reference/ekio_text_on.html">ekio_text_on()</a></code> (black/white text picker for colored fills)</p></li>
+<li><p><strong>theme.R</strong> — <code><a href="reference/theme_ekio.html">theme_ekio()</a></code> (modular, uses <code>theme_sub_*</code> helpers) and internal <code>detect_font()</code>, which resolves a requested font family against installed fonts with a fallback chain</p></li>
+<li><p><strong>recipes.R</strong> — High-level chart builders (<code>ekio_histogram</code>, <code>ekio_lineplot</code>, <code>ekio_scatterplot</code>, <code>ekio_barplot</code>, <code>ekio_areaplot</code>) with smart aesthetic detection (static color vs. variable mapping)</p></li>
+<li><p><strong>accessibility.R</strong> — WCAG contrast helpers: <code><a href="reference/ekio_contrast.html">ekio_contrast()</a></code> (contrast ratio) and <code><a href="reference/ekio_text_on.html">ekio_text_on()</a></code> (black/white text picker for colored fills). <code>print.ekio_palette()</code> uses <code><a href="reference/ekio_text_on.html">ekio_text_on()</a></code> for swatch labels — keep luminance math here only</p></li>
 <li><p><strong>data.R</strong> — Documentation for 6 bundled datasets (Brazilian socioeconomic/agriculture data, global fuels)</p></li>
-<li><p><strong>utils.R</strong> — Package-level imports and <code>globalVariables</code> suppression</p></li>
+<li><p><strong>utils.R</strong> — Package-level <code>@importFrom</code> tags only</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="key-design-decisions">Key Design Decisions<a class="anchor" aria-label="anchor" href="#key-design-decisions"></a></h3>
@@ -72,7 +72,10 @@
 <li>
 <strong>Smart aesthetic detection</strong>: Recipe functions use <code><a href="https://rlang.r-lib.org/reference/enquo.html" class="external-link">rlang::enquo()</a></code> + internal <code>.detect_aesthetic_type()</code> to distinguish between missing args, static color strings, and variable mappings — auto-selecting appropriate scales</li>
 <li>
-<strong>Modular themes</strong>: <code><a href="reference/theme_ekio.html">theme_ekio()</a></code> uses ggplot2’s <code>theme_sub_*()</code> helpers (requires ggplot2 &gt;= 3.5.0)</li>
+<strong>Modular themes</strong>: <code><a href="reference/theme_ekio.html">theme_ekio()</a></code> uses ggplot2’s <code>theme_sub_*()</code> helpers and the <code>paper</code> argument to <code>theme_minimal()</code> (requires ggplot2 &gt;= 4.0.0)</li>
+<li>
+<strong>Namespace style</strong>: no blanket <code>@import ggplot2</code>. Use <code>ggplot2::</code> prefixes; <code>@importFrom</code> is for files with many calls, like <code>theme.R</code>
+</li>
 <li>
 <strong>Conditional grids</strong>: <code><a href="reference/theme_ekio.html">theme_ekio()</a></code> builds <code>grid_x</code> and <code>grid_y</code> only for the requested axes and adds them when they exist</li>
 <li>
@@ -84,9 +87,9 @@
 <div class="section level3">
 <h3 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a></h3>
 <ul><li>
-<strong>Imports</strong>: cli, ggplot2 (&gt;= 3.5.0), grDevices, rlang</li>
+<strong>Imports</strong>: cli, ggplot2 (&gt;= 4.0.0), grDevices, rlang, systemfonts</li>
 <li>
-<strong>Suggests</strong>: dplyr, knitr, rmarkdown, testthat (&gt;= 3.0.0), tibble</li>
+<strong>Suggests</strong>: dplyr, knitr, rmarkdown, testthat (&gt;= 3.0.0), tibble, yaml</li>
 </ul></div>
 </div>
 <div class="section level2">
@@ -99,7 +102,7 @@
 <li>
 <strong>Function structure</strong>: Export functions with <code>@export</code>, include examples in <code>@examples</code>. Use <code>@examplesIf rlang::is_interactive()</code> for examples that produce plots</li>
 <li>
-<strong>Testing</strong>: Uses testthat framework in <code>tests/testthat/</code>. Tests exist for colors, scales, and themes. No tests yet for recipes</li>
+<strong>Testing</strong>: Uses testthat framework in <code>tests/testthat/</code>. Tests exist for accessibility, colors, palette data, recipes, scales, and themes</li>
 <li>
 <strong>Code style</strong>: Standard R conventions with 2-space indentation, meaningful parameter names
 <ul><li>Use native R pipe</li>
