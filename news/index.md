@@ -42,6 +42,16 @@ A maintenance release: bug fixes and cleanup, no API changes.
   [`ekio_areaplot()`](https://viniciusoike.github.io/ekioplot/reference/ekio_areaplot.md)
   did.
 
+- [`ekio_barplot()`](https://viniciusoike.github.io/ekioplot/reference/ekio_barplot.md)
+  draws the zero baseline on the correct axis when `horizontal = TRUE`.
+
+- Recipe functions now show the axis ticks appropriate to each chart
+  while keeping the requested grid lines independent.
+
+- [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
+  no longer restores major grid lines that were not requested through
+  the `grid` argument.
+
 - `%||%` is imported from rlang. It was previously resolved from base R,
   which only gained the operator in 4.4.0, so
   [`scale_color_ekio_c()`](https://viniciusoike.github.io/ekioplot/reference/scale_color_ekio_c.md)
