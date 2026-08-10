@@ -1,3 +1,68 @@
+# ekioplot 0.8.0
+
+## Breaking changes
+
+* `show_all_ekio_palettes()` is removed. It was deprecated in 0.5.1; use
+  `list_ekio_palettes(verbose = TRUE)` instead.
+
+* `theme_ekio()` draws on off-white (`#FEFEFE`) rather than the `gray.100`
+  brand tint (`#F7FAFC`). Every plot changes appearance. Pass
+  `theme_ekio(background = "gray")` to keep the old surface.
+
+* The recipes are now opinionated about continuous color and fill mappings.
+  `ekio_histogram()`, `ekio_lineplot()`, `ekio_barplot()` and
+  `ekio_areaplot()` error and point at the fix — bin the variable or wrap it
+  in `factor()`. `ekio_scatterplot()`, where a ramp does read well, warns and
+  keeps the continuous scale. 0.7.1 made all five support continuous mappings
+  uniformly, which removed an inconsistency but was never the right default
+  for a binned, bar or band chart.
+
+* A color or fill mapping that cannot be evaluated against `data` now errors
+  in the recipe, naming the argument and expression. It was previously
+  swallowed and treated as discrete, so a typo'd column surfaced as ggplot2's
+  "object not found" from inside the build.
+
+## New features
+
+* `theme_ekio()` gains a `background` argument: `"offwhite"` (default),
+  `"white"`, `"gray"` (the `gray.100` brand tint) or `"transparent"`. It sets
+  the paper, plot and panel surfaces together, so the three can no longer
+  drift apart.
+
+* A `basic` brand token group — `white`, `offwhite`, `black` — supplies plot
+  surfaces and inverted text. These are tokens, not a palette: `ekio_pal()`
+  and `list_ekio_palettes()` do not offer them, since white-on-offwhite is
+  not something data maps onto.
+
+## Improvements
+
+* Arguments passed through `...` now override the recipe's own geom defaults
+  instead of failing with a duplicate-argument error, so
+  `ekio_histogram(df, x, fill = g, alpha = 0.3)` works.
+
+* `ekio_areaplot()` honors `position` when there is no fill mapping. It was
+  previously applied only to the grouped case, so `position = "fill"` was
+  silently ignored on a single series.
+
+## Internal
+
+* The five recipes share one internal layer builder (`.recipe_layer()`)
+  instead of each reimplementing the missing / static-color / variable-mapping
+  branch tree. Both bugs fixed in 0.7.1 came from that duplication.
+
+* The internal token accessor `.ekio()` resolves palettes as well as scales,
+  and accepts a position or a name where the colors carry one:
+  `.ekio("basic", "white")`, `.ekio("blue", 7)`. It remains the only way
+  package code reaches a brand color.
+
+* `print.ekio_palette()` is split from the swatch builder it calls, so the
+  plot can be tested without opening a graphics device.
+
+* R-CMD-check runs on R 4.1 through 4.4 as well as release and devel. The
+  matrix stopped at oldrel-1, so the `R (>= 4.1.0)` floor in `DESCRIPTION`
+  was never exercised — which is how the `%||%` bug fixed in 0.7.1 went
+  unnoticed.
+
 # ekioplot 0.7.1
 
 A maintenance release: bug fixes and cleanup, no API changes.
