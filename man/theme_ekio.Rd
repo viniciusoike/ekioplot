@@ -11,6 +11,7 @@ theme_ekio(
   title_align = "plot",
   grid = "y",
   ticks = "x",
+  background = "offwhite",
   ...
 )
 }
@@ -31,6 +32,10 @@ Can be one of 'plot' or 'panel'.}
 
 \item{ticks}{Character. Which axis ticks and lines to show: \code{"x"} (default),
 \code{"y"}, \code{"xy"}, or \code{"none"}. This is independent of \code{grid}.}
+
+\item{background}{Character. Plot and panel background: \code{"offwhite"}
+(default, \verb{#FEFEFE}), \code{"white"} (\verb{#FFFFFF}), \code{"gray"} (the brand
+\code{gray.100}), or \code{"transparent"}.}
 
 \item{...}{Additional arguments passed to \code{\link[ggplot2:ggtheme]{ggplot2::theme_minimal()}}.}
 }

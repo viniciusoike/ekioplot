@@ -14,6 +14,9 @@
 #'   `"x"`, `"xy"`, or `"none"`. Only the requested grid themes are added.
 #' @param ticks Character. Which axis ticks and lines to show: `"x"` (default),
 #'   `"y"`, `"xy"`, or `"none"`. This is independent of `grid`.
+#' @param background Character. Plot and panel background: `"offwhite"`
+#'   (default, `#FEFEFE`), `"white"` (`#FFFFFF`), `"gray"` (the brand
+#'   `gray.100`), or `"transparent"`.
 #' @importFrom ggplot2 theme_minimal theme %+replace% element_blank element_line
 #'   element_rect element_text margin rel theme_sub_plot theme_sub_panel
 #'   theme_sub_axis theme_sub_axis_x theme_sub_axis_y theme_sub_legend
@@ -33,10 +36,15 @@ theme_ekio <- function(
   title_align = "plot",
   grid = "y",
   ticks = "x",
+  background = "offwhite",
   ...
 ) {
   grid <- match.arg(grid, c("y", "x", "xy", "none"))
   ticks <- match.arg(ticks, c("x", "y", "xy", "none"))
+  background <- match.arg(
+    background,
+    c("offwhite", "white", "gray", "transparent")
+  )
   if (missing(font_title)) {
     font_title <- getOption("ekioplot.font_title", font_title)
   }
@@ -44,13 +52,22 @@ theme_ekio <- function(
     font_text <- getOption("ekioplot.font_text", font_text)
   }
 
+  # NA rather than "transparent" so element_rect() draws nothing at all
+  bg <- switch(
+    background,
+    offwhite = .ekio("basic", "offwhite"),
+    white = .ekio("basic", "white"),
+    gray = .ekio("gray", 100),
+    transparent = NA
+  )
+
   colors <- list(
     text_dark = .ekio("gray", 900),
     text_mid = .ekio("gray", 700),
     text_light = .ekio("gray", 600),
     text_muted = .ekio("gray", 500),
+    text_invert = .ekio("gray", 100),
     grid_line = .ekio("gray", 300),
-    background = .ekio("gray", 100),
     primary = .ekio("blue", 700)
   )
 
@@ -97,11 +114,11 @@ theme_ekio <- function(
   theme_minimal(
     base_size = base_size,
     base_family = font_text,
-    paper = colors$background,
+    paper = bg,
     ...
   ) %+replace%
     theme_sub_plot(
-      background = element_rect(fill = colors$background, color = NA),
+      background = element_rect(fill = bg, color = NA),
       title = element_text(
         family = font_title,
         size = rel(1.2),
@@ -128,7 +145,7 @@ theme_ekio <- function(
       margin = margin(15, 10, 15, 10)
     ) +
     theme_sub_panel(
-      background = element_rect(fill = colors$background, color = NA),
+      background = element_rect(fill = bg, color = NA),
       grid.minor = element_blank(),
       grid.major = element_blank()
     ) +
@@ -162,7 +179,7 @@ theme_ekio <- function(
     theme_sub_strip(
       text = element_text(
         size = rel(0.9),
-        color = colors$background,
+        color = colors$text_invert,
         hjust = 0.5,
         margin = margin(2, 2, 2, 2)
       ),

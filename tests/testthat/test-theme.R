@@ -99,5 +99,25 @@ test_that("grid argument is validated like ticks", {
 test_that("theme_ekio sets paper from the brand background token", {
   # colors$off_white was a typo for colors$offwhite, so paper silently went
   # NULL. ggplot2 consumes `paper` into rect$fill rather than storing it.
-  expect_equal(theme_ekio()$rect$fill, .ekio("gray", 100))
+  expect_equal(theme_ekio()$rect$fill, .ekio("basic", "offwhite"))
+})
+
+test_that("background sets paper, plot and panel together", {
+  expected <- c(
+    offwhite = .ekio("basic", "offwhite"),
+    white = .ekio("basic", "white"),
+    gray = .ekio("gray", 100)
+  )
+  for (nm in names(expected)) {
+    th <- theme_ekio(background = nm)
+    expect_equal(th$rect$fill, expected[[nm]], info = nm)
+    expect_equal(th$plot.background$fill, expected[[nm]], info = nm)
+    expect_equal(th$panel.background$fill, expected[[nm]], info = nm)
+  }
+
+  th <- theme_ekio(background = "transparent")
+  expect_true(is.na(th$plot.background$fill))
+  expect_true(is.na(th$panel.background$fill))
+
+  expect_error(theme_ekio(background = "bogus"))
 })
