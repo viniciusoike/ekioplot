@@ -13,6 +13,7 @@ theme_ekio(
   title_align = "plot",
   grid = "y",
   ticks = "x",
+  background = "offwhite",
   ...
 )
 ```
@@ -48,6 +49,12 @@ theme_ekio(
 
   Character. Which axis ticks and lines to show: `"x"` (default), `"y"`,
   `"xy"`, or `"none"`. This is independent of `grid`.
+
+- background:
+
+  Character. Plot and panel background: `"offwhite"` (default,
+  `#FEFEFE`), `"white"` (`#FFFFFF`), `"gray"` (the brand `gray.100`), or
+  `"transparent"`.
 
 - ...:
 

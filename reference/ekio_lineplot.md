@@ -36,7 +36,9 @@ ekio_lineplot(
 
 - color:
 
-  Color aesthetic. A color string or variable name.
+  Color aesthetic. A color string or a discrete variable. A continuous
+  variable is an error: bin it or wrap it in
+  [`factor()`](https://rdrr.io/r/base/factor.html).
 
 - palette:
 
@@ -57,7 +59,8 @@ ekio_lineplot(
 - ...:
 
   Additional arguments passed to
-  [`ggplot2::geom_line()`](https://ggplot2.tidyverse.org/reference/geom_path.html)
+  [`ggplot2::geom_line()`](https://ggplot2.tidyverse.org/reference/geom_path.html).
+  These override the recipe's own geom defaults.
 
 ## Value
 

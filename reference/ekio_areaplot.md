@@ -38,7 +38,9 @@ ekio_areaplot(
 
 - fill:
 
-  Fill aesthetic. A color string or variable name.
+  Fill aesthetic. A color string or a discrete variable. A continuous
+  variable is an error: bin it or wrap it in
+  [`factor()`](https://rdrr.io/r/base/factor.html).
 
 - palette:
 
@@ -64,7 +66,8 @@ ekio_areaplot(
 - ...:
 
   Additional arguments passed to
-  [`ggplot2::geom_area()`](https://ggplot2.tidyverse.org/reference/geom_ribbon.html)
+  [`ggplot2::geom_area()`](https://ggplot2.tidyverse.org/reference/geom_ribbon.html).
+  These override the recipe's own geom defaults.
 
 ## Value
 

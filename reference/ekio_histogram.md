@@ -33,7 +33,9 @@ ekio_histogram(
 
 - fill:
 
-  Fill aesthetic. A color string or variable name. NULL uses EKIO blue.
+  Fill aesthetic. A color string or a discrete variable. NULL uses EKIO
+  blue. A continuous variable is an error: bin it or wrap it in
+  [`factor()`](https://rdrr.io/r/base/factor.html).
 
 - palette:
 
@@ -62,7 +64,8 @@ ekio_histogram(
 - ...:
 
   Additional arguments passed to
-  [`ggplot2::geom_histogram()`](https://ggplot2.tidyverse.org/reference/geom_histogram.html)
+  [`ggplot2::geom_histogram()`](https://ggplot2.tidyverse.org/reference/geom_histogram.html).
+  These override the recipe's own geom defaults.
 
 ## Value
 

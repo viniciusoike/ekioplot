@@ -22,10 +22,19 @@ update here first.
 - **Colors**: defined in `inst/ekio-palettes.yaml` (source of truth),
   compiled to `R/sysdata.rda` by `data-raw/palettes.R`. Eight nine-step
   scales named `100`–`900`, light to dark; position `i` == shade
-  `i * 100`. Primary `blue.700` = `#1E3A5F`, ink `gray.900` = `#1A202C`,
-  background `gray.100` = `#F7FAFC`; accents `orange.600` = `#DD6B20`,
-  `teal.700` = `#2C7A7B`. Palettes are defined by `scale.shade` token
-  reference, not literal hex.
+  `i * 100`. Primary `blue.700` = `#1E3A5F`, ink `gray.900` = `#1A202C`;
+  accents `orange.600` = `#DD6B20`, `teal.700` = `#2C7A7B`. Palettes are
+  defined by `scale.shade` token reference, not literal hex.
+- **Surfaces**: the `basic` token group, not a scale — `offwhite` =
+  `#FEFEFE` (the
+  [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
+  default background), `white` = `#FFFFFF`, `black` = `#000000`. The
+  `gray.100` tint (`#F7FAFC`) was the default background through 0.7.1
+  and is still reachable as `theme_ekio(background = "gray")`. `basic`
+  is internal to `.ekio()`; it is deliberately absent from
+  [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
+  and
+  [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md)
 - **Type — web (ekio-site)**: Lora (serif display/headings), Lato
   (body), Fira Code (mono).
 
@@ -35,13 +44,11 @@ update here first.
 
 - **colors.R** —
   [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
-  palette accessor (auto-displays swatch via S3 print method), internal
-  `.ekio(scale, shade)` token accessor used by themes and recipes,
-  [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md),
-  and deprecated
-  [`show_all_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/show_all_ekio_palettes.md)
-  (use `list_ekio_palettes(verbose = TRUE)`). Contains no hex codes —
-  all color comes from `R/sysdata.rda`
+  palette accessor (auto-displays swatch via S3 print method;
+  `.palette_plot()` builds it), internal `.ekio(group, n)` token
+  accessor used by themes and recipes, and
+  [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md).
+  Contains no hex codes — all color comes from `R/sysdata.rda`
 
 - **scales.R** — Discrete (`scale_color_ekio_d`, `scale_fill_ekio_d`)
   and continuous (`scale_color_ekio_c`, `scale_fill_ekio_c`) ggplot2
@@ -82,6 +89,17 @@ update here first.
   internal `.detect_aesthetic_type()` to distinguish between missing
   args, static color strings, and variable mappings — auto-selecting
   appropriate scales
+- **One recipe layer builder**: recipes do not branch on the aesthetic
+  type themselves. `.resolve_aes()` detects the type, applies the
+  recipe’s continuous policy and settles the palette; `.recipe_layer()`
+  builds the `ggplot() + geom_*()` call and attaches the scale. Each
+  recipe only supplies its base aesthetics, geom and geom arguments.
+  Adding a recipe means calling these, not copying a branch tree
+- **Continuous policy per chart**: `.resolve_aes(continuous = )` is
+  `"reject"` for histogram, line, bar and area (a continuous color/fill
+  errors, pointing at [`factor()`](https://rdrr.io/r/base/factor.html)
+  or binning) and `"warn"` for scatter. Change the policy at the call
+  site, never with an ad-hoc `if`
 - **Modular themes**:
   [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
   uses ggplot2’s `theme_sub_*()` helpers and the `paper` argument to

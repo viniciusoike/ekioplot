@@ -37,7 +37,9 @@ ekio_barplot(
 
 - fill:
 
-  Fill aesthetic. A color string or variable name.
+  Fill aesthetic. A color string or a discrete variable. A continuous
+  variable is an error: bin it or wrap it in
+  [`factor()`](https://rdrr.io/r/base/factor.html).
 
 - palette:
 
@@ -62,7 +64,8 @@ ekio_barplot(
 - ...:
 
   Additional arguments passed to
-  [`ggplot2::geom_col()`](https://ggplot2.tidyverse.org/reference/geom_bar.html)
+  [`ggplot2::geom_col()`](https://ggplot2.tidyverse.org/reference/geom_bar.html).
+  These override the recipe's own geom defaults.
 
 ## Value
 

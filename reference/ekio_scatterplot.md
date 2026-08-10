@@ -40,7 +40,8 @@ ekio_scatterplot(
 
 - color:
 
-  Color aesthetic. A color string or variable name.
+  Color aesthetic. A color string or a variable. A continuous variable
+  warns and uses a sequential ramp.
 
 - size:
 
@@ -77,7 +78,8 @@ ekio_scatterplot(
 - ...:
 
   Additional arguments passed to
-  [`ggplot2::geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html)
+  [`ggplot2::geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html).
+  These override the recipe's own geom defaults.
 
 ## Value
 
