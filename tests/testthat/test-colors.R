@@ -194,3 +194,74 @@ test_that("n equal to the palette length preserves shade names", {
 test_that("invalid palette names produce errors", {
   expect_error(ekio_pal("nonexistent_palette"))
 })
+
+# ---- .ekio token access ----
+
+test_that(".ekio resolves scales by shade and by position", {
+  expect_identical(.ekio("blue", 700), unname(.ekio_scales$blue[["700"]]))
+  expect_identical(.ekio("blue", 7), .ekio("blue", 700))
+  expect_identical(.ekio("gray", "100"), .ekio("gray", 1))
+})
+
+test_that(".ekio resolves palettes by name and by position", {
+  expect_identical(.ekio("basic", "white"), "#FFFFFF")
+  expect_identical(.ekio("basic", "offwhite"), "#FEFEFE")
+  expect_identical(.ekio("basic", 1), .ekio("basic", "white"))
+  expect_identical(.ekio("contrast", 2), as.character(ekio_pal("contrast"))[2])
+})
+
+test_that(".ekio prefers the scale when a palette shares its name", {
+  # Sequential palettes are their scale, so both routes must agree
+  expect_identical(.ekio("blue", 700), unname(ekio_pal("blue")[["700"]]))
+})
+
+test_that(".ekio rejects unknown tokens and non-scalar input", {
+  expect_error(.ekio("bogus", 1), "Unknown color scale or palette")
+  expect_error(.ekio("blue", 750), "Unknown shade")
+  expect_error(.ekio("basic", "beige"), "Unknown color")
+  expect_error(.ekio("contrast", 99), "Unknown color")
+  expect_error(.ekio("contrast", 0), "Unknown color")
+  expect_error(.ekio(c("blue", "gray"), 700), "single scale or palette name")
+  expect_error(.ekio("blue", c(100, 200)), "single shade")
+})
+
+test_that("basic is a token group, not a user-facing palette", {
+  # white/offwhite/black are surfaces, not something data maps onto
+  expect_false("basic" %in% unlist(list_ekio_palettes()))
+  expect_false("basic" %in% names(list_ekio_palettes()))
+  expect_error(ekio_pal("basic"), "not found")
+  expect_error(list_ekio_palettes("basic"), "Unknown palette type")
+
+  # ...but it stays reachable as a brand token
+  expect_identical(.ekio("basic", "offwhite"), "#FEFEFE")
+})
+
+# ---- Palette swatch ----
+
+test_that("the swatch plot builds for named and unnamed palettes", {
+  skip_if_not_installed("ggplot2")
+
+  # Brand scales carry shade names; categorical palettes label with hex
+  scale_swatch <- .palette_plot(ekio_pal("blue"))
+  expect_no_error(ggplot2::ggplot_build(scale_swatch))
+  expect_equal(ggplot2::layer_data(scale_swatch, 2)$label, names(ekio_pal("blue")))
+
+  flat_swatch <- .palette_plot(ekio_pal("contrast"))
+  expect_no_error(ggplot2::ggplot_build(flat_swatch))
+  expect_equal(
+    ggplot2::layer_data(flat_swatch, 2)$label,
+    as.character(ekio_pal("contrast"))
+  )
+})
+
+test_that("the swatch fills with the palette and titles with its name", {
+  skip_if_not_installed("ggplot2")
+  p <- .palette_plot(ekio_pal("okabe_ito"))
+
+  expect_equal(ggplot2::layer_data(p, 1)$fill, as.character(ekio_pal("okabe_ito")))
+  expect_equal(p$labels$title, "Palette: okabe_ito")
+  # Labels are picked for contrast against their own tile
+  expect_true(all(
+    ggplot2::layer_data(p, 2)$colour %in% c("white", .ekio("gray", 900))
+  ))
+})

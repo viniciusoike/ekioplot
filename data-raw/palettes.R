@@ -22,12 +22,16 @@ shades <- as.character(seq(100, 900, by = 100))
 # ---- Validation ----
 
 stopifnot(
-  "every scale must have exactly 9 shades" =
-    all(lengths(.ekio_scales) == 9),
-  "every scale must be named 100..900" =
-    all(vapply(.ekio_scales, function(x) identical(names(x), shades), logical(1))),
-  "every scale value must be a 6-digit hex code" =
-    all(grepl("^#[0-9A-Fa-f]{6}$", unlist(.ekio_scales)))
+  "every scale must have exactly 9 shades" = all(lengths(.ekio_scales) == 9),
+  "every scale must be named 100..900" = all(vapply(
+    .ekio_scales,
+    function(x) identical(names(x), shades),
+    logical(1)
+  )),
+  "every scale value must be a 6-digit hex code" = all(grepl(
+    "^#[0-9A-Fa-f]{6}$",
+    unlist(.ekio_scales)
+  ))
 )
 
 # Ramps must run light to dark without reversing.
@@ -55,7 +59,9 @@ resolve <- function(x) {
         stop("unknown token '", tok, "'", call. = FALSE)
       }
       hex <- .ekio_scales[[parts[1]]][[parts[2]]]
-      if (is.null(hex)) stop("unknown shade in token '", tok, "'", call. = FALSE)
+      if (is.null(hex)) {
+        stop("unknown shade in token '", tok, "'", call. = FALSE)
+      }
       hex
     },
     character(1),
@@ -66,9 +72,14 @@ resolve <- function(x) {
 .ekio_palettes <- lapply(names(spec$palettes), function(group) {
   lapply(spec$palettes[[group]], function(pal) {
     out <- resolve(pal)
-    # Sequential palettes are the scales themselves, so they keep shade names;
-    # everything else is an ordered set where position carries no shade meaning.
-    if (group == "sequential") names(out) <- shades
+    # Sequential palettes are the scales themselves, so they keep shade names.
+    # Other palettes are ordered sets where position carries no meaning, but a
+    # YAML mapping (rather than a list) opts a palette into named lookup.
+    if (group == "sequential") {
+      names(out) <- shades
+    } else if (!is.null(names(pal))) {
+      names(out) <- names(pal)
+    }
     out
   })
 })
@@ -94,12 +105,24 @@ for (nm in names(.ekio_palettes$diverging)) {
   l <- lum(pal)
   if (l[mid] != max(l)) {
     stop(
-      "diverging palette '", nm, "': pivot is not the lightest color ",
-      "(pivot ", round(l[mid]), ", lightest ", round(max(l)),
-      " at position ", which.max(l), ")",
+      "diverging palette '",
+      nm,
+      "': pivot is not the lightest color ",
+      "(pivot ",
+      round(l[mid]),
+      ", lightest ",
+      round(max(l)),
+      " at position ",
+      which.max(l),
+      ")",
       call. = FALSE
     )
   }
 }
 
-usethis::use_data(.ekio_scales, .ekio_palettes, internal = TRUE, overwrite = TRUE)
+usethis::use_data(
+  .ekio_scales,
+  .ekio_palettes,
+  internal = TRUE,
+  overwrite = TRUE
+)

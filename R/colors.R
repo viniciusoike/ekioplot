@@ -3,22 +3,69 @@
 
 # ---- Internal Token Access ----
 
-# Single brand color by scale and shade, e.g. .ekio("blue", 700).
+# Single brand color, e.g. .ekio("blue", 700) or .ekio("basic", "white").
 # Used by theme(), recipes, and gt styling so they never carry literal hex.
-.ekio <- function(scale, shade) {
-  s <- .ekio_scales[[scale]]
-  if (is.null(s)) {
+#
+# `group` is resolved as a scale first, then as a palette. The two never
+# disagree: sequential palettes are their scale, so .ekio("blue", 700) means
+# the same thing either way.
+.ekio <- function(group, n) {
+  if (!rlang::is_string(group)) {
+    cli::cli_abort("{.arg group} must be a single scale or palette name.")
+  }
+  if (length(n) != 1L) {
+    cli::cli_abort("{.arg n} must be a single shade, position, or name.")
+  }
+
+  if (group %in% names(.ekio_scales)) {
+    .get_ekio_scale(group, n)
+  } else if (!is.null(.palette_group(group))) {
+    .get_ekio_palette(group, n)
+  } else {
+    # Local bindings: cli reads a `{.name}` interpolation as a style
+    palettes <- .all_palette_names(tokens = TRUE)
     cli::cli_abort(c(
-      "Unknown color scale {.val {scale}}.",
-      "i" = "Available: {.val {names(.ekio_scales)}}"
+      "Unknown color scale or palette {.val {group}}.",
+      "i" = "Scales: {.val {names(.ekio_scales)}}",
+      "i" = "Palettes: {.val {palettes}}"
     ))
   }
-  # Single-bracket: [[ errors on a missing name instead of returning NULL
+}
+
+# One color from a nine-step brand scale, by shade (100..900). Position and
+# shade are aligned by construction, so 1..9 is accepted as shorthand.
+# .ekio() has already checked that the scale exists.
+.get_ekio_scale <- function(scale, shade) {
+  s <- .ekio_scales[[scale]]
+  if (is.numeric(shade) && shade %in% seq_along(s)) {
+    shade <- shade * 100
+  }
+  # Single-bracket: [[ errors on a missing name instead of returning NA
   hex <- s[as.character(shade)]
   if (is.na(hex)) {
     cli::cli_abort(c(
       "Unknown shade {.val {as.character(shade)}} for scale {.val {scale}}.",
       "i" = "Available: {.val {names(s)}}"
+    ))
+  }
+  unname(hex)
+}
+
+# One color from a palette, by position or — where the palette carries names,
+# as `basic` and the sequential scales do — by name. .ekio() has already
+# checked that the palette exists.
+.get_ekio_palette <- function(palette, n) {
+  pal <- .ekio_palettes[[.palette_group(palette)]][[palette]]
+  # Single-bracket so an out-of-range position or unknown name gives NA
+  hex <- pal[n]
+  if (length(hex) != 1L || is.na(hex)) {
+    cli::cli_abort(c(
+      "Unknown color {.val {as.character(n)}} in palette {.val {palette}}.",
+      "i" = if (is.null(names(pal))) {
+        "Available: positions 1 to {length(pal)}."
+      } else {
+        "Available: {.val {names(pal)}}"
+      }
     ))
   }
   unname(hex)
@@ -35,8 +82,25 @@
   NULL
 }
 
-.all_palette_names <- function() {
-  unlist(lapply(.ekio_palettes, names), use.names = FALSE)
+# Groups that exist only as brand tokens for .ekio(). `basic` is
+# white/offwhite/black: plot surfaces and inverted text, not something data
+# maps onto, so ekio_pal() and list_ekio_palettes() do not offer it.
+.token_groups <- "basic"
+
+.palette_groups <- function(tokens = FALSE) {
+  nms <- names(.ekio_palettes)
+  if (tokens) nms else setdiff(nms, .token_groups)
+}
+
+.all_palette_names <- function(tokens = FALSE) {
+  groups <- .ekio_palettes[.palette_groups(tokens)]
+  unlist(lapply(groups, names), use.names = FALSE)
+}
+
+# A palette a user may ask for by name, as opposed to an internal token group
+.is_user_palette <- function(palette) {
+  group <- .palette_group(palette)
+  !is.null(group) && !group %in% .token_groups
 }
 
 # Sequential and diverging palettes are ramps: asking for n colors should
@@ -81,14 +145,15 @@
 #' ekio_pal("blue")["700"]
 #' ekio_pal("blue")[7]
 ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
-  group <- .palette_group(palette)
-  if (is.null(group)) {
+  if (!.is_user_palette(palette)) {
+    available <- .all_palette_names()
     cli::cli_abort(c(
       "Palette {.val {palette}} not found.",
-      "i" = "Available: {.val {.all_palette_names()}}"
+      "i" = "Available: {.val {available}}"
     ))
   }
 
+  group <- .palette_group(palette)
   pal <- .ekio_palettes[[group]][[palette]]
 
   if (reverse) {
@@ -107,8 +172,9 @@ ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
   structure(pal, class = c("ekio_palette", "character"), palette = palette)
 }
 
-#' @export
-print.ekio_palette <- function(x, ...) {
+# Split from print() so the swatch can be built and tested without opening a
+# graphics device.
+.palette_plot <- function(x) {
   position <- hex <- label <- text_color <- NULL
 
   hex_codes <- as.character(x)
@@ -149,7 +215,12 @@ print.ekio_palette <- function(x, ...) {
       plot.margin = ggplot2::margin(10, 10, 10, 10)
     )
 
-  print(p)
+  p
+}
+
+#' @export
+print.ekio_palette <- function(x, ...) {
+  print(.palette_plot(x))
   invisible(x)
 }
 
@@ -183,7 +254,7 @@ as.character.ekio_palette <- function(x, ...) {
 #' list_ekio_palettes("diverging")
 #' list_ekio_palettes(verbose = TRUE)
 list_ekio_palettes <- function(type = "all", verbose = FALSE) {
-  groups <- lapply(.ekio_palettes, names)
+  groups <- lapply(.ekio_palettes[.palette_groups()], names)
 
   valid_types <- c(names(groups), "all")
   if (!type %in% valid_types) {

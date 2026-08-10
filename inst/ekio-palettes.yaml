@@ -137,3 +137,10 @@ palettes:
     inferno: ["#000004", "#1B0C41", "#4A0C6B", "#781C6D", "#A52C60", "#CF4446", "#ED6925", "#FB9B06", "#F7D03C", "#FCFFA4"]
     plasma: ["#0D0887", "#46039F", "#7201A8", "#9C179E", "#BD3786", "#D8576B", "#ED7953", "#FB9F3A", "#FDCA26", "#F0F921"]
 
+  # Neutrals for backgrounds and inverted text. Named rather than positional:
+  # these are looked up as .ekio("basic", "white"), not by index.
+  basic:
+    basic:
+      white: "#FFFFFF"
+      offwhite: "#FEFEFE"
+      black: "#000000"
