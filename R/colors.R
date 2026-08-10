@@ -289,29 +289,3 @@ list_ekio_palettes <- function(type = "all", verbose = FALSE) {
 
   result
 }
-
-# ---- Deprecated ----
-
-#' Show All Palettes
-#'
-#' @description
-#' Deprecated. Use [list_ekio_palettes()] with `verbose = TRUE` instead.
-#'
-#' @return The palette list, invisibly (as returned by
-#'   [list_ekio_palettes()] with `verbose = TRUE`).
-#' @keywords internal
-#' @export
-#'
-#' @examples
-#' list_ekio_palettes(verbose = TRUE)
-show_all_ekio_palettes <- function() {
-  cli::cli_warn(
-    c(
-      "{.fn show_all_ekio_palettes} was deprecated in ekioplot 0.5.1.",
-      "i" = "Use {.code list_ekio_palettes(verbose = TRUE)} instead."
-    ),
-    .frequency = "once",
-    .frequency_id = "show_all_ekio_palettes"
-  )
-  list_ekio_palettes(verbose = TRUE)
-}

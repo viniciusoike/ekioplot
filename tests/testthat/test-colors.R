@@ -107,14 +107,6 @@ test_that("ekio_pal returns ekio_palette class that auto-prints", {
   expect_null(attr(stripped, "class"))
 })
 
-test_that("show_all_ekio_palettes warns about deprecation but still works", {
-  expect_warning(
-    res <- suppressMessages(show_all_ekio_palettes()),
-    "deprecated"
-  )
-  expect_identical(res, list_ekio_palettes())
-})
-
 test_that("retired color vectors are gone", {
   for (nm in c(
     "ekio_blue", "ekio_gray", "ekio_teal", "ekio_orange", "ekio_accent"
