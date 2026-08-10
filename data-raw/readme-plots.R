@@ -9,7 +9,7 @@
 #
 # then re-knit the README with `devtools::build_readme()`.
 
-# ---- Setup ----
+# Setup ------------------------------------------------------------------
 
 library(ekioplot)
 library(ggplot2)
@@ -31,7 +31,11 @@ save_fig <- function(plot, name, width = 8, height = 5, dpi = 300) {
   )
 }
 
-# ---- Hero: themed scatter ----
+
+# Plots ------------------------------------------------------------------
+
+## Main plot --------------------------------------------------------------
+
 hero <- ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 3) +
   scale_color_ekio_d("contrast") +
@@ -46,7 +50,8 @@ hero <- ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 
 save_fig(hero, "README-hero.png", width = 8, height = 5)
 
-# ---- Palette overview ----
+## Palette overview -------------------------------------------------------
+
 # One row per palette, each normalised to the same width so palettes of
 # different lengths stay visually comparable.
 pal_names <- c(
@@ -106,7 +111,8 @@ palettes <- ggplot(pal_df) +
 
 save_fig(palettes, "README-palettes.png", width = 8, height = 5)
 
-# ---- Recipe grid ----
+## Recipe grid ------------------------------------------------------------
+
 cyl_counts <- as.data.frame(table(cyl = mtcars$cyl))
 world_fuels <- fuels[fuels$entity == "World" & fuels$year >= 1950, ]
 
