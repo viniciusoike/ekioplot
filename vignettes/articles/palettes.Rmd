@@ -1,0 +1,264 @@
+---
+title: "Palette Gallery"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+```{r setup}
+library(ekioplot)
+library(reactable)
+```
+
+Every palette `ekioplot` ships, at full size. Colors are read live from the
+package, so this page is always in sync with
+`inst/ekio-palettes.yaml` — the source of truth for the brand.
+
+Each chip is labelled with its hex code, drawn in black or white by
+`ekio_text_on()`, the same WCAG contrast helper the palette swatches use.
+
+```{r swatch-helpers}
+palette_names <- unlist(list_ekio_palettes(), use.names = FALSE)
+
+type_labels <- c(
+  categorical = "Categorical",
+  small_group = "Small group",
+  sequential = "Sequential",
+  diverging = "Diverging",
+  scientific = "Scientific"
+)
+
+# One palette -> one labelled strip of chips.
+swatch <- function(name) {
+  pal <- ekio_pal(name)
+  hex <- as.character(pal)
+  ink <- unname(ekio_text_on(hex, dark = "#1A202C"))
+
+  chips <- paste0(
+    '<div class="ekio-chip" style="background:', hex, ';color:', ink,
+    '" title="', hex, '">', hex, "</div>",
+    collapse = ""
+  )
+
+  paste0(
+    '<div class="ekio-swatch">',
+    '<div class="ekio-swatch-name"><code>', name, "</code>",
+    '<span class="ekio-swatch-n">', length(hex), " colors</span></div>",
+    '<div class="ekio-swatch-strip">', chips, "</div>",
+    "</div>"
+  )
+}
+
+gallery <- function(type) {
+  strips <- vapply(list_ekio_palettes(type), swatch, character(1))
+  knitr::asis_output(paste0(strips, collapse = "\n"))
+}
+```
+
+## All colors
+
+Every color in one searchable table. Click a hex to copy it; expand a palette
+to see its colors, or click its **copy** button to take the whole thing as an R
+vector.
+
+```{r copy-helpers, results = "asis"}
+# Palettes are handed to the page as JSON so the click handlers can look one up
+# by name - that keeps quoting out of the inline onclick attributes below.
+palette_json <- function() {
+  entries <- vapply(
+    palette_names,
+    function(name) {
+      hex <- as.character(ekio_pal(name))
+      paste0('"', name, '":["', paste(hex, collapse = '","'), '"]')
+    },
+    character(1)
+  )
+  paste0("{", paste(entries, collapse = ","), "}")
+}
+
+knitr::asis_output(paste0(
+  "<script>\n",
+  "window.ekioPalettes = ", palette_json(), ";\n",
+  "function ekioCopy(text, btn) {\n",
+  "  if (!navigator.clipboard) return;\n",
+  "  navigator.clipboard.writeText(text);\n",
+  "  var label = btn.querySelector('.ekio-copy-label');\n",
+  "  if (!label) return;\n",
+  "  if (!btn.dataset.label) btn.dataset.label = label.textContent;\n",
+  "  label.textContent = 'copied';\n",
+  "  btn.classList.add('is-copied');\n",
+  "  setTimeout(function () {\n",
+  "    label.textContent = btn.dataset.label;\n",
+  "    btn.classList.remove('is-copied');\n",
+  "  }, 900);\n",
+  "}\n",
+  "function ekioCopyPalette(name, btn) {\n",
+  "  var hex = window.ekioPalettes[name] || [];\n",
+  "  var vec = 'c(' + hex.map(function (h) { return '\"' + h + '\"'; })",
+  ".join(', ') + ')';\n",
+  "  ekioCopy(vec, btn);\n",
+  "}\n",
+  "</script>"
+))
+```
+
+```{r color-table}
+# One row per color, across every palette
+color_table <- function() {
+  groups <- list_ekio_palettes()
+
+  rows <- lapply(names(groups), function(type) {
+    per_palette <- lapply(groups[[type]], function(name) {
+      pal <- ekio_pal(name)
+      hex <- as.character(pal)
+      data.frame(
+        palette = name,
+        type = type_labels[[type]],
+        position = seq_along(hex),
+        shade = if (is.null(names(pal))) NA_character_ else names(pal),
+        hex = hex
+      )
+    })
+    do.call(rbind, per_palette)
+  })
+
+  do.call(rbind, rows)
+}
+
+copy_hex <- JS("
+function(cellInfo) {
+  var hex = cellInfo.value
+  return '<button type=\"button\" class=\"ekio-copy\" ' +
+    'onclick=\"ekioCopy(\\'' + hex + '\\', this)\" ' +
+    'title=\"Copy ' + hex + '\">' +
+    '<span class=\"ekio-copy-chip\" style=\"background:' + hex + '\"></span>' +
+    '<span class=\"ekio-copy-label\">' + hex + '</span></button>'
+}")
+
+copy_palette <- JS("
+function(cellInfo) {
+  var name = cellInfo.row.palette
+  return '<button type=\"button\" class=\"ekio-copy\" ' +
+    'onclick=\"ekioCopyPalette(\\'' + name + '\\', this)\" ' +
+    'title=\"Copy all colors as an R vector\">' +
+    '<span class=\"ekio-copy-label\">copy c(...)</span></button>'
+}")
+
+reactable(
+  color_table(),
+  groupBy = "palette",
+  searchable = TRUE,
+  pagination = FALSE,
+  highlight = TRUE,
+  compact = TRUE,
+  columns = list(
+    palette = colDef(name = "Palette", minWidth = 150),
+    # Shown once on the palette row rather than repeated down every color
+    type = colDef(
+      name = "Type",
+      aggregate = "unique",
+      cell = JS("function() { return '' }"),
+      minWidth = 110
+    ),
+    # The group row already carries a count, so this only labels color rows
+    position = colDef(name = "#", maxWidth = 60),
+    shade = colDef(name = "Shade", na = "-", maxWidth = 80),
+    hex = colDef(
+      name = "Hex",
+      html = TRUE,
+      cell = copy_hex,
+      aggregated = copy_palette,
+      minWidth = 150
+    )
+  ),
+  theme = reactableTheme(
+    color = "var(--bs-body-color)",
+    backgroundColor = "transparent",
+    borderColor = "var(--ekio-rule)",
+    highlightColor = "rgba(var(--bs-primary-rgb), 0.07)",
+    cellPadding = "6px 8px",
+    style = list(fontSize = "0.875rem"),
+    searchInputStyle = list(width = "100%")
+  )
+)
+```
+
+## Categorical
+
+For unordered groups. `contrast` is the general-purpose default; `cool` and
+`minimal` stay within the primary blues and grays for restrained charts, and
+`binary` and `political` are fixed two-color pairings.
+
+```{r categorical, results = "asis"}
+gallery("categorical")
+```
+
+## Small group
+
+Tuned for a known number of series — reach for these instead of truncating a
+longer palette, which can leave you with two neighbouring hues.
+
+```{r small-group, results = "asis"}
+gallery("small_group")
+```
+
+## Sequential
+
+The eight brand scales, light to dark. Position `i` is shade `i * 100`, so
+`ekio_pal("blue")["700"]` is the primary blue. These work as discrete palettes
+for ordered categories and as the ramp behind `scale_color_ekio_c()`.
+
+```{r sequential, results = "asis"}
+gallery("sequential")
+```
+
+## Diverging
+
+For values with a meaningful midpoint. The pivot is a near-neutral tone,
+lighter than both arms, so the visual center of the scale lands on zero.
+
+```{r diverging, results = "asis"}
+gallery("diverging")
+```
+
+## Scientific
+
+Established palettes included for accessibility and continuity with published
+work: `okabe_ito` is colorblind-safe, and the three matplotlib ramps are
+perceptually uniform.
+
+```{r scientific, results = "asis"}
+gallery("scientific")
+```
+
+## Using a palette
+
+Pass any name above to a scale function, or call `ekio_pal()` directly to pull
+hex codes out.
+
+```{r usage, echo = TRUE, eval = FALSE}
+library(ggplot2)
+
+ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
+  geom_point(size = 3) +
+  scale_color_ekio_d("contrast") +
+  theme_ekio()
+
+# Named access to any brand scale
+ekio_pal("teal")["700"]
+#>     700
+#> "#2C7A7B"
+
+# Interpolated to an arbitrary length
+ekio_pal("blue_orange", n = 15)
+```
+
+`list_ekio_palettes()` returns these names programmatically, and
+`ekio_pal()` prints a swatch when called at the console.

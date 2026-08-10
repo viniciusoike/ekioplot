@@ -1,17 +1,52 @@
 url: https://viniciusoike.github.io/ekioplot/
 
+# Colors below are EKIO brand tokens from inst/ekio-palettes.yaml.
+# If a token changes there, mirror it here.
 template:
   bootstrap: 5
+  light-switch: true
+  # arrow's navy/teal/green code colors sit closer to the brand than github's
+  theme: arrow-light
+  theme-dark: arrow-dark
+  bslib:
+    # Surfaces and ink: offwhite page matches theme_ekio()'s plot background
+    bg: "#FEFEFE"      # basic.offwhite
+    fg: "#1A202C"      # gray.900
+    primary: "#1E3A5F" # blue.700
+    secondary: "#4A5568" # gray.700
+    border-color: "#E2E8F0" # gray.300
+    code-bg: "#F7FAFC"      # gray.100
+    code-color: "#2C7A7B"   # teal.700
+    # Navy bar in both modes; the page flips offwhite <-> blue.900 around it.
+    # Foreground colors for the bar live in pkgdown/extra.scss - with the
+    # light switch on, pkgdown drops the navbar's data-bs-theme attribute.
+    navbar-bg: "#152A44"    # blue.800
+    body-bg-dark: "#0D1B2A"    # blue.900
+    body-color-dark: "#E2E8F0" # gray.300
+    # Type: Lora display / Lato body / Fira Code mono, as in theme_ekio()
+    base_font: {google: "Lato"}
+    heading_font: {google: "Lora"}
+    code_font: {google: "Fira Code"}
+    headings-font-weight: 600
+    navbar-brand-font-family: "Lora"
 
 navbar:
   structure:
-    left: [intro, reference, articles, palettelab]
-    right: [search, github]
+    left: [intro, reference, articles, news, palettelab]
+    right: [search, github, lightswitch]
   components:
     palettelab:
       text: Palette Lab
       href: https://viniciusoike.github.io/ekioplot-palette-lab/
       icon: fa-palette
+      aria-label: Palette Lab
+
+footer:
+  structure:
+    left: [developed_by, package]
+    right: [built_with]
+  components:
+    package: "Part of EKIO's visual identity system."
 
 reference:
   - title: Themes
