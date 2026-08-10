@@ -10,7 +10,18 @@
   x %in% grDevices::colors()
 }
 
-.detect_aesthetic_type <- function(quo, data = NULL) {
+# ggplot2 resolves these at build time, so they cannot be evaluated against
+# the data here. Treat them as mappings of unknown type.
+.is_delayed_aes <- function(expr) {
+  any(all.names(expr) %in% c("after_stat", "after_scale", "stage"))
+}
+
+.detect_aesthetic_type <- function(
+  quo,
+  data = NULL,
+  arg_name = "colour",
+  call = rlang::caller_env()
+) {
   if (rlang::quo_is_null(quo)) {
     return(list(type = "missing"))
   }
@@ -20,22 +31,32 @@
   if (is.character(expr) && length(expr) == 1) {
     if (.is_valid_color(expr)) {
       return(list(type = "static_color", value = expr))
-    } else {
-      cli::cli_abort(
-        "{.val {expr}} is not a valid color. Use a column name or valid color string."
-      )
     }
+    cli::cli_abort(
+      "{.val {expr}} is not a valid color. Use a column name or valid color string.",
+      call = call
+    )
   }
 
   is_continuous <- FALSE
-  if (!is.null(data)) {
-    tryCatch(
-      {
-        var_vals <- rlang::eval_tidy(quo, rlang::as_data_mask(data))
-        is_continuous <- is.numeric(var_vals) && !is.factor(var_vals)
-      },
-      error = function(e) is_continuous <<- FALSE
+  if (!is.null(data) && !.is_delayed_aes(expr)) {
+    # Failing here means a bad column name: report it now rather than letting
+    # ggplot2 raise "object not found" from deep inside the build.
+    values <- tryCatch(
+      rlang::eval_tidy(quo, rlang::as_data_mask(data)),
+      error = function(cnd) {
+        label <- rlang::as_label(expr)
+        cli::cli_abort(
+          c(
+            "Can't evaluate {.arg {arg_name}} = {.code {label}}.",
+            "i" = "Use a column of {.arg data} or a valid color string."
+          ),
+          parent = cnd,
+          call = call
+        )
+      }
     )
+    is_continuous <- is.numeric(values) && !is.factor(values)
   }
 
   list(type = "variable_mapping", is_continuous = is_continuous)
@@ -60,6 +81,115 @@
   invisible(NULL)
 }
 
+# A continuous color or fill reads well on a scatter plot and poorly on the
+# charts that group data into bins, bars or bands. Each recipe declares its
+# policy here instead of branching ad hoc.
+.check_continuous <- function(aesthetic_type, arg_name, continuous, call) {
+  if (continuous == "allow" || !isTRUE(aesthetic_type$is_continuous)) {
+    return(invisible(NULL))
+  }
+
+  if (continuous == "reject") {
+    cli::cli_abort(
+      c(
+        "{.arg {arg_name}} must map a discrete variable, not a continuous one.",
+        "i" = "Bin the variable or wrap it in {.fn factor}."
+      ),
+      call = call
+    )
+  }
+
+  cli::cli_warn(c(
+    "{.arg {arg_name}} maps a continuous variable.",
+    "i" = "A discrete mapping is usually easier to read: bin the variable or
+           wrap it in {.fn factor}."
+  ))
+  invisible(NULL)
+}
+
+# Single entry point for the color/fill argument every recipe shares: detect
+# the type, apply the recipe's continuous policy, and settle the palette.
+.resolve_aes <- function(
+  quo,
+  data,
+  palette,
+  arg_name,
+  continuous = c("allow", "warn", "reject"),
+  call = rlang::caller_env()
+) {
+  continuous <- match.arg(continuous)
+
+  aesthetic_type <- .detect_aesthetic_type(quo, data, arg_name, call)
+  .check_continuous(aesthetic_type, arg_name, continuous, call)
+  .warn_palette_ignored(aesthetic_type, palette, arg_name)
+
+  aesthetic_type$quo <- quo
+  aesthetic_type$palette <- .default_palette(palette, aesthetic_type)
+  aesthetic_type
+}
+
+# ---- Internal Layer Builder ----
+
+# Later entries win, so a user's `...` overrides a recipe default of the same
+# name instead of tripping geom_*()'s duplicate-argument error.
+.merge_args <- function(...) {
+  args <- c(...)
+  arg_names <- rlang::names2(args)
+  arg_names[arg_names == "color"] <- "colour"
+  names(args) <- arg_names
+  args[arg_names == "" | !duplicated(arg_names, fromLast = TRUE)]
+}
+
+.ekio_scale <- function(aes_name, is_continuous, palette) {
+  scale <- switch(
+    aes_name,
+    fill = if (is_continuous) scale_fill_ekio_c else scale_fill_ekio_d,
+    if (is_continuous) scale_color_ekio_c else scale_color_ekio_d
+  )
+  scale(palette = palette)
+}
+
+# Builds the ggplot + geom for one color/fill-aware recipe and attaches the
+# scale the detected aesthetic type calls for. `base_aes` is the mapping every
+# arm shares (x, y, size); `aes_name` is "colour" or "fill"; `aesthetic` is
+# the list returned by .resolve_aes(). Geom arguments are layered: `geom_args`
+# apply to every arm, `mapped_args` only to the variable-mapping arm, and
+# `user_args` (the recipe's `...`) override both.
+.recipe_layer <- function(
+  data,
+  base_aes,
+  aes_name,
+  aesthetic,
+  geom,
+  geom_args = list(),
+  mapped_args = list(),
+  user_args = list()
+) {
+  mapped <- aesthetic$type == "variable_mapping"
+
+  if (mapped) {
+    base_aes[[aes_name]] <- aesthetic$quo
+    args <- .merge_args(geom_args, mapped_args, user_args)
+  } else {
+    defaults <- .merge_args(geom_args)
+    defaults[[aes_name]] <- if (aesthetic$type == "static_color") {
+      aesthetic$value
+    } else {
+      .ekio("blue", 700)
+    }
+    args <- .merge_args(defaults, user_args)
+  }
+
+  p <- ggplot2::ggplot(data, ggplot2::aes(!!!base_aes)) +
+    rlang::exec(geom, !!!args)
+
+  if (mapped) {
+    p <- p + .ekio_scale(aes_name, aesthetic$is_continuous, aesthetic$palette)
+  }
+
+  p
+}
+
 # ---- Recipe Functions ----
 
 #' EKIO Histogram
@@ -68,14 +198,17 @@
 #'
 #' @param data A data frame
 #' @param x Variable to plot (supports data-masking)
-#' @param fill Fill aesthetic. A color string or variable name. NULL uses EKIO blue.
+#' @param fill Fill aesthetic. A color string or a discrete variable. NULL uses
+#'   EKIO blue. A continuous variable is an error: bin it or wrap it in
+#'   `factor()`.
 #' @param palette Character. Palette name for variable mappings.
 #' @param bins Binning method: "sturges", "FD", "scott", or numeric.
 #' @param binwidth Width of bins (overrides bins if specified)
 #' @param add_zero Logical. Add horizontal line at y=0 (default: TRUE)
 #' @param border_color Color for histogram outline (default: "white")
 #' @param title,subtitle,caption Plot labels. NULL (default) draws none.
-#' @param ... Additional arguments passed to [ggplot2::geom_histogram()]
+#' @param ... Additional arguments passed to [ggplot2::geom_histogram()].
+#'   These override the recipe's own geom defaults.
 #'
 #' @return ggplot2 object
 #' @export
@@ -105,11 +238,13 @@ ekio_histogram <- function(
   }
 
   x_var <- rlang::enquo(x)
-  fill_quo <- rlang::enquo(fill)
-  fill_type <- .detect_aesthetic_type(fill_quo, data)
-  .warn_palette_ignored(fill_type, palette, "fill")
-
-  palette <- .default_palette(palette, fill_type)
+  fill_aes <- .resolve_aes(
+    rlang::enquo(fill),
+    data,
+    palette,
+    "fill",
+    continuous = "reject"
+  )
 
   # Bin calculation
   x_values <- stats::na.omit(rlang::eval_tidy(x_var, data))
@@ -125,40 +260,17 @@ ekio_histogram <- function(
     n_bins <- NULL
   }
 
-  if (fill_type$type == "missing") {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var)) +
-      ggplot2::geom_histogram(
-        fill = .ekio("blue", 700),
-        color = border_color,
-        bins = n_bins,
-        binwidth = binwidth,
-        ...
-      )
-  } else if (fill_type$type == "static_color") {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var)) +
-      ggplot2::geom_histogram(
-        fill = fill_type$value,
-        color = border_color,
-        bins = n_bins,
-        binwidth = binwidth,
-        ...
-      )
-  } else {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, fill = {{ fill }})) +
-      ggplot2::geom_histogram(
-        color = border_color,
-        bins = n_bins,
-        binwidth = binwidth,
-        position = "identity",
-        alpha = 0.7,
-        ...
-      )
-    if (fill_type$is_continuous) {
-      p <- p + scale_fill_ekio_c(palette = palette)
-    } else {
-      p <- p + scale_fill_ekio_d(palette = palette)
-    }
-  }
+  p <- .recipe_layer(
+    data = data,
+    base_aes = list(x = x_var),
+    aes_name = "fill",
+    aesthetic = fill_aes,
+    geom = ggplot2::geom_histogram,
+    geom_args = list(colour = border_color, bins = n_bins, binwidth = binwidth),
+    # Groups overlap in a histogram, so the mapped arm keeps them all visible
+    mapped_args = list(position = "identity", alpha = 0.7),
+    user_args = rlang::list2(...)
+  )
 
   if (add_zero) {
     p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
@@ -179,12 +291,14 @@ ekio_histogram <- function(
 #' @param data A data frame
 #' @param x X-axis variable (supports data-masking)
 #' @param y Y-axis variable (supports data-masking)
-#' @param color Color aesthetic. A color string or variable name.
+#' @param color Color aesthetic. A color string or a discrete variable. A
+#'   continuous variable is an error: bin it or wrap it in `factor()`.
 #' @param palette Character. Palette name for variable mappings.
 #' @param add_zero Logical. Add horizontal line at y=0 (default: TRUE)
 #' @param line_width Line thickness (default: 0.8)
 #' @param title,subtitle,caption Plot labels. NULL (default) draws none.
-#' @param ... Additional arguments passed to [ggplot2::geom_line()]
+#' @param ... Additional arguments passed to [ggplot2::geom_line()].
+#'   These override the recipe's own geom defaults.
 #'
 #' @return ggplot2 object
 #' @export
@@ -210,36 +324,23 @@ ekio_lineplot <- function(
     cli::cli_abort("{.arg data} must be a data frame")
   }
 
-  x_var <- rlang::enquo(x)
-  y_var <- rlang::enquo(y)
-  color_quo <- rlang::enquo(color)
+  color_aes <- .resolve_aes(
+    rlang::enquo(color),
+    data,
+    palette,
+    "color",
+    continuous = "reject"
+  )
 
-  color_type <- .detect_aesthetic_type(color_quo, data)
-  .warn_palette_ignored(color_type, palette, "color")
-  palette <- .default_palette(palette, color_type)
-
-  if (color_type$type == "missing") {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
-      ggplot2::geom_line(
-        color = .ekio("blue", 700),
-        linewidth = line_width,
-        ...
-      )
-  } else if (color_type$type == "static_color") {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
-      ggplot2::geom_line(color = color_type$value, linewidth = line_width, ...)
-  } else {
-    p <- ggplot2::ggplot(
-      data,
-      ggplot2::aes(x = !!x_var, y = !!y_var, color = {{ color }})
-    ) +
-      ggplot2::geom_line(linewidth = line_width, ...)
-    if (color_type$is_continuous) {
-      p <- p + scale_color_ekio_c(palette = palette)
-    } else {
-      p <- p + scale_color_ekio_d(palette = palette)
-    }
-  }
+  p <- .recipe_layer(
+    data = data,
+    base_aes = list(x = rlang::enquo(x), y = rlang::enquo(y)),
+    aes_name = "colour",
+    aesthetic = color_aes,
+    geom = ggplot2::geom_line,
+    geom_args = list(linewidth = line_width),
+    user_args = rlang::list2(...)
+  )
 
   if (add_zero) {
     p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
@@ -260,7 +361,8 @@ ekio_lineplot <- function(
 #' @param data A data frame
 #' @param x X-axis variable (supports data-masking)
 #' @param y Y-axis variable (supports data-masking)
-#' @param color Color aesthetic. A color string or variable name.
+#' @param color Color aesthetic. A color string or a variable. A continuous
+#'   variable warns and uses a sequential ramp.
 #' @param size Size aesthetic (optional variable)
 #' @param palette Character. Palette name for variable mappings.
 #' @param add_zero Logical. Add horizontal line at y=0 (default: FALSE)
@@ -269,7 +371,8 @@ ekio_lineplot <- function(
 #' @param point_size Base point size (default: 2.5)
 #' @param point_alpha Point transparency (default: 0.8)
 #' @param title,subtitle,caption Plot labels. NULL (default) draws none.
-#' @param ... Additional arguments passed to [ggplot2::geom_point()]
+#' @param ... Additional arguments passed to [ggplot2::geom_point()].
+#'   These override the recipe's own geom defaults.
 #'
 #' @return ggplot2 object
 #' @export
@@ -300,81 +403,33 @@ ekio_scatterplot <- function(
     cli::cli_abort("{.arg data} must be a data frame")
   }
 
-  x_var <- rlang::enquo(x)
-  y_var <- rlang::enquo(y)
-  color_quo <- rlang::enquo(color)
   size_var <- rlang::enquo(size)
+  color_aes <- .resolve_aes(
+    rlang::enquo(color),
+    data,
+    palette,
+    "color",
+    continuous = "warn"
+  )
 
-  color_type <- .detect_aesthetic_type(color_quo, data)
-  .warn_palette_ignored(color_type, palette, "color")
-  palette <- .default_palette(palette, color_type)
-
-  has_size <- !rlang::quo_is_null(size_var)
-
-  # Build base aesthetics
-  if (color_type$type == "missing" && !has_size) {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
-      ggplot2::geom_point(
-        color = .ekio("blue", 700),
-        size = point_size,
-        alpha = point_alpha,
-        ...
-      )
-  } else if (color_type$type == "static_color" && !has_size) {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
-      ggplot2::geom_point(
-        color = color_type$value,
-        size = point_size,
-        alpha = point_alpha,
-        ...
-      )
-  } else if (color_type$type == "variable_mapping" && !has_size) {
-    p <- ggplot2::ggplot(
-      data,
-      ggplot2::aes(x = !!x_var, y = !!y_var, color = {{ color }})
-    ) +
-      ggplot2::geom_point(size = point_size, alpha = point_alpha, ...)
-    if (color_type$is_continuous) {
-      p <- p + scale_color_ekio_c(palette = palette)
-    } else {
-      p <- p + scale_color_ekio_d(palette = palette)
-    }
+  base_aes <- list(x = rlang::enquo(x), y = rlang::enquo(y))
+  if (rlang::quo_is_null(size_var)) {
+    # Only a constant size when size is not mapped
+    point_args <- list(size = point_size, alpha = point_alpha)
   } else {
-    # Has size mapping
-    if (color_type$type == "missing") {
-      p <- ggplot2::ggplot(
-        data,
-        ggplot2::aes(x = !!x_var, y = !!y_var, size = !!size_var)
-      ) +
-        ggplot2::geom_point(
-          color = .ekio("blue", 700),
-          alpha = point_alpha,
-          ...
-        )
-    } else if (color_type$type == "static_color") {
-      p <- ggplot2::ggplot(
-        data,
-        ggplot2::aes(x = !!x_var, y = !!y_var, size = !!size_var)
-      ) +
-        ggplot2::geom_point(color = color_type$value, alpha = point_alpha, ...)
-    } else {
-      p <- ggplot2::ggplot(
-        data,
-        ggplot2::aes(
-          x = !!x_var,
-          y = !!y_var,
-          color = {{ color }},
-          size = !!size_var
-        )
-      ) +
-        ggplot2::geom_point(alpha = point_alpha, ...)
-      if (color_type$is_continuous) {
-        p <- p + scale_color_ekio_c(palette = palette)
-      } else {
-        p <- p + scale_color_ekio_d(palette = palette)
-      }
-    }
+    base_aes$size <- size_var
+    point_args <- list(alpha = point_alpha)
   }
+
+  p <- .recipe_layer(
+    data = data,
+    base_aes = base_aes,
+    aes_name = "colour",
+    aesthetic = color_aes,
+    geom = ggplot2::geom_point,
+    geom_args = point_args,
+    user_args = rlang::list2(...)
+  )
 
   if (add_zero) {
     p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
@@ -402,13 +457,15 @@ ekio_scatterplot <- function(
 #' @param data A data frame
 #' @param x X-axis variable (supports data-masking)
 #' @param y Y-axis variable (supports data-masking)
-#' @param fill Fill aesthetic. A color string or variable name.
+#' @param fill Fill aesthetic. A color string or a discrete variable. A
+#'   continuous variable is an error: bin it or wrap it in `factor()`.
 #' @param palette Character. Palette name for variable mappings.
 #' @param add_zero Logical. Add horizontal line at y=0 (default: TRUE)
 #' @param horizontal Logical. Create horizontal bar plot (default: FALSE)
 #' @param bar_width Bar width (default: 0.8)
 #' @param title,subtitle,caption Plot labels. NULL (default) draws none.
-#' @param ... Additional arguments passed to [ggplot2::geom_col()]
+#' @param ... Additional arguments passed to [ggplot2::geom_col()].
+#'   These override the recipe's own geom defaults.
 #'
 #' @return ggplot2 object
 #' @export
@@ -437,32 +494,23 @@ ekio_barplot <- function(
     cli::cli_abort("{.arg data} must be a data frame")
   }
 
-  x_var <- rlang::enquo(x)
-  y_var <- rlang::enquo(y)
-  fill_quo <- rlang::enquo(fill)
+  fill_aes <- .resolve_aes(
+    rlang::enquo(fill),
+    data,
+    palette,
+    "fill",
+    continuous = "reject"
+  )
 
-  fill_type <- .detect_aesthetic_type(fill_quo, data)
-  .warn_palette_ignored(fill_type, palette, "fill")
-  palette <- .default_palette(palette, fill_type)
-
-  if (fill_type$type == "missing") {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
-      ggplot2::geom_col(fill = .ekio("blue", 700), width = bar_width, ...)
-  } else if (fill_type$type == "static_color") {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
-      ggplot2::geom_col(fill = fill_type$value, width = bar_width, ...)
-  } else {
-    p <- ggplot2::ggplot(
-      data,
-      ggplot2::aes(x = !!x_var, y = !!y_var, fill = {{ fill }})
-    ) +
-      ggplot2::geom_col(width = bar_width, ...)
-    if (fill_type$is_continuous) {
-      p <- p + scale_fill_ekio_c(palette = palette)
-    } else {
-      p <- p + scale_fill_ekio_d(palette = palette)
-    }
-  }
+  p <- .recipe_layer(
+    data = data,
+    base_aes = list(x = rlang::enquo(x), y = rlang::enquo(y)),
+    aes_name = "fill",
+    aesthetic = fill_aes,
+    geom = ggplot2::geom_col,
+    geom_args = list(width = bar_width),
+    user_args = rlang::list2(...)
+  )
 
   if (add_zero) {
     if (horizontal) {
@@ -492,14 +540,16 @@ ekio_barplot <- function(
 #' @param data A data frame
 #' @param x X-axis variable (supports data-masking)
 #' @param y Y-axis variable (supports data-masking)
-#' @param fill Fill aesthetic. A color string or variable name.
+#' @param fill Fill aesthetic. A color string or a discrete variable. A
+#'   continuous variable is an error: bin it or wrap it in `factor()`.
 #' @param palette Character. Palette name for variable mappings.
 #' @param position Character. Stacking method: `"stack"` (default) or
 #'   `"fill"` for proportional areas.
 #' @param alpha Numeric. Fill transparency (default: 0.8).
 #' @param add_zero Logical. Add horizontal line at y=0 (default: TRUE).
 #' @param title,subtitle,caption Plot labels. NULL (default) draws none.
-#' @param ... Additional arguments passed to [ggplot2::geom_area()]
+#' @param ... Additional arguments passed to [ggplot2::geom_area()].
+#'   These override the recipe's own geom defaults.
 #'
 #' @return ggplot2 object
 #' @export
@@ -531,40 +581,23 @@ ekio_areaplot <- function(
     cli::cli_abort("{.arg data} must be a data frame")
   }
 
-  x_var <- rlang::enquo(x)
-  y_var <- rlang::enquo(y)
-  fill_quo <- rlang::enquo(fill)
+  fill_aes <- .resolve_aes(
+    rlang::enquo(fill),
+    data,
+    palette,
+    "fill",
+    continuous = "reject"
+  )
 
-  fill_type <- .detect_aesthetic_type(fill_quo, data)
-  .warn_palette_ignored(fill_type, palette, "fill")
-  palette <- .default_palette(palette, fill_type)
-
-  if (fill_type$type == "missing") {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
-      ggplot2::geom_area(
-        fill = .ekio("blue", 700),
-        alpha = alpha,
-        ...
-      )
-  } else if (fill_type$type == "static_color") {
-    p <- ggplot2::ggplot(data, ggplot2::aes(x = !!x_var, y = !!y_var)) +
-      ggplot2::geom_area(
-        fill = fill_type$value,
-        alpha = alpha,
-        ...
-      )
-  } else {
-    p <- ggplot2::ggplot(
-      data,
-      ggplot2::aes(x = !!x_var, y = !!y_var, fill = {{ fill }})
-    ) +
-      ggplot2::geom_area(position = position, alpha = alpha, ...)
-    if (fill_type$is_continuous) {
-      p <- p + scale_fill_ekio_c(palette = palette)
-    } else {
-      p <- p + scale_fill_ekio_d(palette = palette)
-    }
-  }
+  p <- .recipe_layer(
+    data = data,
+    base_aes = list(x = rlang::enquo(x), y = rlang::enquo(y)),
+    aes_name = "fill",
+    aesthetic = fill_aes,
+    geom = ggplot2::geom_area,
+    geom_args = list(position = position, alpha = alpha),
+    user_args = rlang::list2(...)
+  )
 
   if (add_zero) {
     p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)

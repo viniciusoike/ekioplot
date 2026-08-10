@@ -26,7 +26,8 @@ ekio_barplot(
 
 \item{y}{Y-axis variable (supports data-masking)}
 
-\item{fill}{Fill aesthetic. A color string or variable name.}
+\item{fill}{Fill aesthetic. A color string or a discrete variable. A
+continuous variable is an error: bin it or wrap it in \code{factor()}.}
 
 \item{palette}{Character. Palette name for variable mappings.}
 
@@ -38,7 +39,8 @@ ekio_barplot(
 
 \item{title, subtitle, caption}{Plot labels. NULL (default) draws none.}
 
-\item{...}{Additional arguments passed to \code{\link[ggplot2:geom_bar]{ggplot2::geom_col()}}}
+\item{...}{Additional arguments passed to \code{\link[ggplot2:geom_bar]{ggplot2::geom_col()}}.
+These override the recipe's own geom defaults.}
 }
 \value{
 ggplot2 object

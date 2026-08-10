@@ -78,49 +78,21 @@ The 0.7.1 fix made all five recipes support continuous mappings *uniformly*,
 which was the right call for a patch release — it removed an inconsistency.
 But uniform is not the same as correct, and a continuous palette rarely makes
 sense on some of these charts. This refactor should decide per chart type
-rather than mechanically supporting everything:
+rather than mechanically supporting everything
 
-- **`ekio_histogram()`** — a continuous `fill` is essentially always a
-  mistake. ggplot2 already rejects it with a "did you forget a `group`
-  aesthetic?" error, which is confusing in a recipe context. Catch it in
-  `.detect_aesthetic_type()`'s caller and emit a `cli_abort()` that names the
+- `ekio_histogram()`, `ekio_barplot()`, `ekio_lineplot()`, `ekio_areaplot()` - rarely does it make sense to map
+a continuous variable to these plots. These should render a `cli_abort()` that names the
   real fix: bin the variable or wrap it in `factor()`.
-- **`ekio_barplot()`** — a continuous `fill` is defensible (shading bars by
-  magnitude) but usually redundant with bar length. Decide between rejecting
-  it and allowing it with no warning; do not warn on every call.
-- **`ekio_scatterplot()`, `ekio_lineplot()`, `ekio_areaplot()`** — continuous
-  mappings are legitimate. Keep them.
+- `ekio_scatterplot`, is a bit of an edge case. This should render a `cli_warn()`
+that suggests a discrete variable instead of continuous one
 
-Whatever is chosen, capture it as a per-recipe capability passed into
+Capture it as a per-recipe capability passed into
 `.recipe_layer()` (e.g. `continuous = c("allow", "reject")`) rather than as
 ad-hoc `if` statements, so the policy is visible in one place.
 
-**This is a behavior change.** `ekio_barplot(df, x, y, fill = <numeric>)`
-works as of 0.7.1. Narrowing it needs a minor-version bump and a NEWS entry,
-not a patch.
+## One open design questions to settle in the same pass
 
-## Two open design questions to settle in the same pass
-
-**1. The forced y expansion.** All of `ekio_histogram()`,
-`ekio_lineplot()`, `ekio_barplot()`, and `ekio_areaplot()` unconditionally
-append `scale_y_continuous(expand = expansion(mult = c(0, 0.05)))`. Zero
-lower expansion is correct for charts anchored at zero and wrong otherwise:
-
-```r
-d <- data.frame(x = 1:5, y = c(100, 102, 101, 103, 104))
-ggplot2::ggplot_build(ekio_lineplot(d, x, y, add_zero = FALSE))$layout$panel_params[[1]]$y.range
-#> [1] 100.0 104.2   -- the lowest point sits on the panel edge
-```
-
-This is the same class of problem fixed for `ekio_scatterplot()` in 0.5.0 by
-flipping `add_zero` to `FALSE`. The expansion should probably be tied to
-`add_zero`: zero-anchored when `TRUE`, symmetric when `FALSE`.
-
-Unconditionally appending the scale also means any user who adds their own
-`scale_y_continuous()` gets a "Scale for y is already present" message. Worth
-deciding whether recipes should own the y scale at all.
-
-**2. `.detect_aesthetic_type()`'s error swallowing.** Lines 24–33 wrap the
+**1. `.detect_aesthetic_type()`'s error swallowing.** Lines 24–33 wrap the
 mapped-variable evaluation in `tryCatch(..., error = function(e)
 is_continuous <<- FALSE)`. A typo'd column name is silently treated as
 discrete, and the user gets ggplot2's later "object not found" instead of a

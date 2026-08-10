@@ -24,7 +24,9 @@ ekio_histogram(
 
 \item{x}{Variable to plot (supports data-masking)}
 
-\item{fill}{Fill aesthetic. A color string or variable name. NULL uses EKIO blue.}
+\item{fill}{Fill aesthetic. A color string or a discrete variable. NULL uses
+EKIO blue. A continuous variable is an error: bin it or wrap it in
+\code{factor()}.}
 
 \item{palette}{Character. Palette name for variable mappings.}
 
@@ -38,7 +40,8 @@ ekio_histogram(
 
 \item{title, subtitle, caption}{Plot labels. NULL (default) draws none.}
 
-\item{...}{Additional arguments passed to \code{\link[ggplot2:geom_histogram]{ggplot2::geom_histogram()}}}
+\item{...}{Additional arguments passed to \code{\link[ggplot2:geom_histogram]{ggplot2::geom_histogram()}}.
+These override the recipe's own geom defaults.}
 }
 \value{
 ggplot2 object

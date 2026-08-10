@@ -191,6 +191,27 @@ test_that("invalid color string produces error", {
   )
 })
 
+test_that("an unknown column errors at the recipe, not at build time", {
+  skip_if_not_installed("ggplot2")
+  expect_error(
+    ekio_scatterplot(mtcars, wt, mpg, color = nope),
+    "Can't evaluate"
+  )
+})
+
+test_that("build-time aesthetics are left for ggplot2 to resolve", {
+  skip_if_not_installed("ggplot2")
+  p <- ekio_histogram(mtcars, mpg, fill = ggplot2::after_stat(count > 5))
+  expect_no_error(ggplot2::ggplot_build(p))
+})
+
+test_that("dots override the recipe's geom defaults", {
+  skip_if_not_installed("ggplot2")
+  # The mapped arm sets alpha = 0.7; the user's value should win
+  p <- ekio_histogram(mtcars, mpg, fill = factor(cyl), alpha = 0.3)
+  expect_equal(unique(ggplot2::layer_data(p)$alpha), 0.3)
+})
+
 # ---- Plot Labels ----
 
 test_that("recipes set title, subtitle, and caption", {
@@ -227,16 +248,23 @@ test_that("label defaults leave axis labels derived from the data", {
 
 # ---- Continuous mappings ----
 
-test_that("continuous mappings get a continuous scale and ramp default", {
+test_that("binned, bar and band recipes reject continuous mappings", {
   skip_if_not_installed("ggplot2")
   df <- data.frame(x = 1:5, y = c(1, 2, 3, 4, 5), v = c(1.5, 2, 3, 4, 5), g = letters[1:5])
 
+  expect_error(ekio_histogram(df, y, fill = v), "must map a discrete variable")
+  expect_error(ekio_lineplot(df, x, y, color = v), "must map a discrete variable")
+  expect_error(ekio_barplot(df, g, y, fill = v), "must map a discrete variable")
+  expect_error(ekio_areaplot(df, x, y, fill = v), "must map a discrete variable")
+})
+
+test_that("scatterplot warns on a continuous mapping but still builds", {
+  skip_if_not_installed("ggplot2")
+  df <- data.frame(x = 1:5, y = c(1, 2, 3, 4, 5), v = c(1.5, 2, 3, 4, 5))
+
   # "contrast" is categorical: defaulting to it errored in scale_*_ekio_c()
-  expect_no_error(ggplot2::ggplot_build(ekio_lineplot(df, x, y, color = v)))
-  expect_no_error(ggplot2::ggplot_build(ekio_scatterplot(df, x, y, color = v)))
-  expect_no_error(ggplot2::ggplot_build(ekio_areaplot(df, x, y, fill = v)))
-  # ekio_barplot() hardcoded the discrete scale regardless of the mapping
-  expect_no_error(ggplot2::ggplot_build(ekio_barplot(df, g, y, fill = v)))
+  expect_warning(p <- ekio_scatterplot(df, x, y, color = v), "continuous")
+  expect_no_error(ggplot2::ggplot_build(p))
 })
 
 test_that("discrete mappings keep the categorical default", {

@@ -25,7 +25,8 @@ ekio_lineplot(
 
 \item{y}{Y-axis variable (supports data-masking)}
 
-\item{color}{Color aesthetic. A color string or variable name.}
+\item{color}{Color aesthetic. A color string or a discrete variable. A
+continuous variable is an error: bin it or wrap it in \code{factor()}.}
 
 \item{palette}{Character. Palette name for variable mappings.}
 
@@ -35,7 +36,8 @@ ekio_lineplot(
 
 \item{title, subtitle, caption}{Plot labels. NULL (default) draws none.}
 
-\item{...}{Additional arguments passed to \code{\link[ggplot2:geom_path]{ggplot2::geom_line()}}}
+\item{...}{Additional arguments passed to \code{\link[ggplot2:geom_path]{ggplot2::geom_line()}}.
+These override the recipe's own geom defaults.}
 }
 \value{
 ggplot2 object

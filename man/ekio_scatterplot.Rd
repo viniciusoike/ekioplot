@@ -29,7 +29,8 @@ ekio_scatterplot(
 
 \item{y}{Y-axis variable (supports data-masking)}
 
-\item{color}{Color aesthetic. A color string or variable name.}
+\item{color}{Color aesthetic. A color string or a variable. A continuous
+variable warns and uses a sequential ramp.}
 
 \item{size}{Size aesthetic (optional variable)}
 
@@ -47,7 +48,8 @@ ekio_scatterplot(
 
 \item{title, subtitle, caption}{Plot labels. NULL (default) draws none.}
 
-\item{...}{Additional arguments passed to \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}}
+\item{...}{Additional arguments passed to \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}.
+These override the recipe's own geom defaults.}
 }
 \value{
 ggplot2 object
