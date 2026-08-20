@@ -66,7 +66,7 @@ scale_fill_ekio_d <- function(palette = "contrast", reverse = FALSE, ...) {
 #'
 #' ggplot(mtcars, aes(wt, mpg, color = hp)) +
 #'   geom_point(size = 3) +
-#'   scale_color_ekio_c("purple")
+#'   scale_color_ekio_c("gold")
 scale_color_ekio_c <- function(palette = "blue", reverse = FALSE, ...) {
   pal <- .continuous_palette(palette)
   if (reverse) pal <- rev(pal)

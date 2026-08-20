@@ -3,6 +3,13 @@
 \name{ekio_pal}
 \alias{ekio_pal}
 \title{Get Color Palette}
+\source{
+The brand scales are generated from one OKLCH specification in
+\code{data-raw/build-ramps.R}: a shared lightness spine anchored on the brand
+navy, a shared chroma arc, and a hue path per family. The scientific
+palettes come from matplotlib (\code{"viridis"}, \code{"inferno"}, \code{"plasma"}) and
+from Okabe & Ito (\code{"okabe_ito"}). Notices are in \code{inst/COPYRIGHTS}.
+}
 \usage{
 ekio_pal(palette = "contrast", n = NULL, reverse = FALSE)
 }
@@ -30,8 +37,8 @@ When printed interactively, displays the palette as a colored swatch with
 hex labels.
 }
 \details{
-Brand scales (\code{"blue"}, \code{"gray"}, \code{"teal"}, \code{"orange"}, \code{"purple"},
-\code{"red"}, \code{"green"}, \code{"amber"}) are nine-step ramps running light to dark,
+Brand scales (\code{"blue"}, \code{"gray"}, \code{"stone"}, \code{"teal"}, \code{"green"},
+\code{"gold"}, \code{"orange"}, \code{"red"}) are nine-step ramps running light to dark,
 named by shade. Position and shade are aligned by construction, so
 \code{ekio_pal("blue")[7]} and \code{ekio_pal("blue")["700"]} are the same color.
 }

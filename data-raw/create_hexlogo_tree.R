@@ -38,10 +38,10 @@ colors_showcase <- c(
   blue["700"], # core brand blue
   ekio_pal("contrast")[2], # orange accent
   ekio_pal("contrast")[3], # teal
-  ekio_pal("contrast")[4], # amber
-  ekio_pal("contrast")[5], # purple
+  ekio_pal("contrast")[4], # gold
+  ekio_pal("contrast")[5], # red
   blue["400"], # mid blue
-  ekio_pal("orange")["400"] # soft orange
+  ekio_pal("orange")["300"] # soft orange
 )
 colors_showcase <- unname(colors_showcase)
 

@@ -36,7 +36,7 @@ ggplot(mtcars, aes(wt, mpg, color = hp)) +
 
 ggplot(mtcars, aes(wt, mpg, color = hp)) +
   geom_point(size = 3) +
-  scale_color_ekio_c("purple")
+  scale_color_ekio_c("gold")
 \dontshow{\}) # examplesIf}
 }
 \seealso{

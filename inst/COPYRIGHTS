@@ -1,0 +1,27 @@
+Third-party color values bundled with ekioplot
+==============================================
+
+Most of ekioplot is copyright (c) 2025 ekioplot authors and released under
+the MIT license (see LICENSE.md). The brand scales in
+inst/ekio-palettes.yaml are generated from the OKLCH specification in
+data-raw/build-ramps.R and are original to EKIO. The color values below come
+from elsewhere and are credited here.
+
+
+viridis, inferno and plasma
+---------------------------
+
+The "viridis", "inferno" and "plasma" palettes are stop samples of the
+matplotlib colormaps of the same name, created by Stefan van der Walt and
+Nathaniel J. Smith and released to the public domain under CC0. The
+originals are 256-step colormaps; ekioplot ships 9- and 10-stop
+approximations. See https://github.com/BIDS/colormap.
+
+
+Okabe-Ito
+---------
+
+The "okabe_ito" palette is the color-universal-design set published by
+Masataka Okabe and Kei Ito, "Color Universal Design (CUD): How to Make
+Figures and Presentations That Are Friendly to Colorblind People" (2008).
+See https://jfly.uni-koeln.de/color/.

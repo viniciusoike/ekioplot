@@ -116,8 +116,8 @@
 #' When printed interactively, displays the palette as a colored swatch with
 #' hex labels.
 #'
-#' Brand scales (`"blue"`, `"gray"`, `"teal"`, `"orange"`, `"purple"`,
-#' `"red"`, `"green"`, `"amber"`) are nine-step ramps running light to dark,
+#' Brand scales (`"blue"`, `"gray"`, `"stone"`, `"teal"`, `"green"`,
+#' `"gold"`, `"orange"`, `"red"`) are nine-step ramps running light to dark,
 #' named by shade. Position and shade are aligned by construction, so
 #' `ekio_pal("blue")[7]` and `ekio_pal("blue")["700"]` are the same color.
 #'
@@ -129,6 +129,12 @@
 #'   first `n` colors are taken, interpolating only if `n` exceeds the palette
 #'   length.
 #' @param reverse Logical. If TRUE, reverses the palette order.
+#'
+#' @source The brand scales are generated from one OKLCH specification in
+#'   `data-raw/build-ramps.R`: a shared lightness spine anchored on the brand
+#'   navy, a shared chroma arc, and a hue path per family. The scientific
+#'   palettes come from matplotlib (`"viridis"`, `"inferno"`, `"plasma"`) and
+#'   from Okabe & Ito (`"okabe_ito"`). Notices are in `inst/COPYRIGHTS`.
 #'
 #' @return Object of class \code{ekio_palette} (a character vector of hex
 #'   codes). Printing displays a visual swatch. Use [as.character()] to
@@ -239,8 +245,8 @@ as.character.ekio_palette <- function(x, ...) {
 #' When \code{verbose = TRUE}, prints a formatted summary to the console.
 #'
 #' @param type Character. Type of palettes to list:
-#'   "categorical", "small_group", "scientific", "sequential", "diverging",
-#'   or "all" (default).
+#'   "categorical", "highlight", "small_group", "scientific", "sequential",
+#'   "diverging", or "all" (default).
 #' @param verbose Logical. If TRUE, prints a formatted summary of the
 #'   selected type(s) and returns the result invisibly (default: FALSE).
 #'
@@ -251,7 +257,7 @@ as.character.ekio_palette <- function(x, ...) {
 #' @examples
 #' list_ekio_palettes()
 #' list_ekio_palettes("categorical")
-#' list_ekio_palettes("diverging")
+#' list_ekio_palettes("highlight")
 #' list_ekio_palettes(verbose = TRUE)
 list_ekio_palettes <- function(type = "all", verbose = FALSE) {
   groups <- lapply(.ekio_palettes[.palette_groups()], names)
@@ -269,6 +275,7 @@ list_ekio_palettes <- function(type = "all", verbose = FALSE) {
   if (verbose) {
     headers <- c(
       categorical = "Categorical",
+      highlight = "Highlight (one accent against receding grays)",
       small_group = "Small Group Variants",
       scientific = "Scientific",
       sequential = "Sequential (brand scales, for continuous fills)",
