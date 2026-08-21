@@ -9,8 +9,7 @@
 #   - ekioplot (devtools::load_all())
 #
 # Output:
-#   - man/figures/logo.png       (light: white fill, blue border)
-#   - man/figures/logo_dark.png  (dark:  blue fill, transparent corners)
+#   - man/figures/logo.png  (white fill, black border, transparent corners)
 #
 # Usage:
 #   1. From the package root, run: devtools::load_all()
@@ -25,7 +24,9 @@ library(showtext)
 
 # Setup fonts for high-quality rendering. Avenir is a system font on macOS;
 # adjust the path if registering it fails on your platform.
+# Lato is the EKIO body font; the wordmark itself draws in Avenir.
 font_add("Avenir", regular = "/System/Library/Fonts/Avenir.ttc")
+sysfonts::font_add_google("Lato", "Lato")
 showtext_opts(dpi = 400)
 showtext_auto()
 
@@ -93,34 +94,11 @@ sticker(
   white_around_sticker = TRUE
 )
 
-# ---- Dark Sticker ----
-# EKIO blue background with darker border, for dark contexts.
-sticker(
-  subplot = subplot,
-  s_x = 1,
-  s_y = 0.8,
-  s_width = 1.05,
-  s_height = 1.05,
-  package = "ekioplot",
-  p_x = 1,
-  p_y = 1.52,
-  p_color = "#FFFFFF",
-  p_family = "Avenir",
-  p_size = 8,
-  h_fill = blue[["700"]],
-  h_color = blue[["900"]],
-  h_size = 1.2,
-  filename = "man/figures/logo_dark.png",
-  dpi = 300,
-  spotlight = FALSE,
-  white_around_sticker = TRUE
-)
-
-# ---- Transparent Corners (dark version) ----
+# ---- Transparent Corners ----
 # Make the white corners around the hexagon transparent.
 library(magick)
 
-p <- image_read("man/figures/logo_dark.png")
+p <- image_read("man/figures/logo.png")
 info <- image_info(p)
 w <- info$width
 h <- info$height
@@ -146,10 +124,6 @@ pp <- p |>
     point = paste0("+", w - 1, "+", h - 1)
   )
 
-image_write(pp, path = "man/figures/logo_dark.png")
+image_write(pp, path = "man/figures/logo.png")
 
-cli::cli_alert_success("Hex logo created")
-cli::cli_ul(c(
-  "man/figures/logo.png (light)",
-  "man/figures/logo_dark.png (dark, transparent corners)"
-))
+cli::cli_alert_success("Hex logo created: man/figures/logo.png")
