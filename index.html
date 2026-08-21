@@ -31,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,6 @@
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
-<li class="nav-item"><a class="nav-link" href="https://viniciusoike.github.io/ekioplot-palette-lab/" aria-label="Palette Lab"><span class="fa fa-palette"></span> Palette Lab</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -97,7 +96,7 @@
 <span>    color <span class="op">=</span> <span class="st">"Cylinders"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/theme_ekio.html">theme_ekio</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-hero.png" width="100%"></p>
+<p><img src="reference/figures/README-hero.png" width="100%" alt="Scatter plot of fuel economy against weight for the mtcars data, points coloured by cylinder count with the contrast palette, drawn in theme_ekio()."></p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -120,10 +119,10 @@
 <div class="section level2">
 <h2 id="color-palettes">Color palettes<a class="anchor" aria-label="anchor" href="#color-palettes"></a>
 </h2>
-<p>ekioplot ships palettes across five categories, all accessible through a single function.</p>
+<p>ekioplot ships palettes across seven groups, all accessible through a single function. The seven brand scales are generated from one OKLCH specification, so a given shade carries the same visual weight in every family.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-palettes.png" width="100%"></p>
+<p><img src="reference/figures/README-palettes.png" width="100%" alt="Nine EKIO palettes drawn as horizontal colour strips, one row each: the categorical, highlight, muted, scientific, sequential and diverging groups."></p>
 </div>
 <div class="section level2">
 <h2 id="scales">Scales<a class="anchor" aria-label="anchor" href="#scales"></a>
@@ -142,7 +141,7 @@
 <h2 id="recipe-functions">Recipe functions<a class="anchor" aria-label="anchor" href="#recipe-functions"></a>
 </h2>
 <p>High-level builders create complete, publication-ready plots with smart defaults.</p>
-<p><img src="reference/figures/README-recipes.png" width="100%"></p>
+<p><img src="reference/figures/README-recipes.png" width="100%" alt="Four panels showing ekio_scatterplot(), ekio_barplot(), ekio_lineplot() and ekio_areaplot(), each labelled with the function that drew it."></p>
 </div>
 <div class="section level2">
 <h2 id="see-more">See more<a class="anchor" aria-label="anchor" href="#see-more"></a>

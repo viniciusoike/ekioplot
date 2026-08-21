@@ -23,7 +23,9 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   theme_ekio()
 ```
 
-![](reference/figures/README-hero.png)
+![Scatter plot of fuel economy against weight for the mtcars data,
+points coloured by cylinder count with the contrast palette, drawn in
+theme_ekio().](reference/figures/README-hero.png)
 
 ## Installation
 
@@ -59,15 +61,19 @@ theme_ekio(grid = "xy")
 
 ## Color palettes
 
-ekioplot ships palettes across five categories, all accessible through a
-single function.
+ekioplot ships palettes across seven groups, all accessible through a
+single function. The seven brand scales are generated from one OKLCH
+specification, so a given shade carries the same visual weight in every
+family.
 
 ``` r
 
 ekio_pal()
 ```
 
-![](reference/figures/README-palettes.png)
+![Nine EKIO palettes drawn as horizontal colour strips, one row each:
+the categorical, highlight, muted, scientific, sequential and diverging
+groups.](reference/figures/README-palettes.png)
 
 ## Scales
 
@@ -89,7 +95,9 @@ scale_fill_ekio_c("blue_orange")
 High-level builders create complete, publication-ready plots with smart
 defaults.
 
-![](reference/figures/README-recipes.png)
+![Four panels showing ekio_scatterplot(), ekio_barplot(),
+ekio_lineplot() and ekio_areaplot(), each labelled with the function
+that drew it.](reference/figures/README-recipes.png)
 
 ## See more
 

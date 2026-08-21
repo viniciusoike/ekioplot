@@ -8,16 +8,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/viniciusoike/ekioplot/blob/v0.8.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/viniciusoike/ekioplot/blob/master/DESCRIPTION)
 
 Oike V (2026). *ekioplot: EKIO Visual Identity System for R Data
-Visualization*. R package version 0.8.0,
+Visualization*. R package version 1.0.0,
 <https://viniciusoike.github.io/ekioplot/>.
 
     @Manual{,
       title = {ekioplot: EKIO Visual Identity System for R Data Visualization},
       author = {Vinicius Oike},
       year = {2026},
-      note = {R package version 0.8.0},
+      note = {R package version 1.0.0},
       url = {https://viniciusoike.github.io/ekioplot/},
     }

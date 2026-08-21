@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,6 @@
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
-<li class="nav-item"><a class="nav-link" href="https://viniciusoike.github.io/ekioplot-palette-lab/" aria-label="Palette Lab"><span class="fa fa-palette"></span> Palette Lab</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -76,7 +75,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Getting Started with ekioplot</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/viniciusoike/ekioplot/blob/v0.8.0/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/viniciusoike/ekioplot/blob/master/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
       <div class="d-none name"><code>getting-started.Rmd</code></div>
     </div>
 
@@ -113,14 +112,16 @@ drawn:</p>
 <div class="section level2">
 <h2 id="color-palettes">Color Palettes<a class="anchor" aria-label="anchor" href="#color-palettes"></a>
 </h2>
-<p>ekioplot ships with ~30 palettes across five categories. Use
+<p>ekioplot ships around thirty palettes across seven groups. Use
 <code><a href="../reference/list_ekio_palettes.html">list_ekio_palettes()</a></code> to explore them:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/list_ekio_palettes.html">list_ekio_palettes</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ categorical: chr [1:7] "cool" "minimal" "contrast" "full" ...</span></span>
+<span><span class="co">#&gt; List of 7</span></span>
+<span><span class="co">#&gt;  $ accent     : chr "gold"</span></span>
+<span><span class="co">#&gt;  $ categorical: chr [1:8] "cool" "minimal" "contrast" "full" ...</span></span>
+<span><span class="co">#&gt;  $ highlight  : chr [1:4] "highlight_blue" "highlight_orange" "highlight_teal" "highlight_red"</span></span>
 <span><span class="co">#&gt;  $ small_group: chr [1:6] "duo_warm" "duo_cool" "trio_bold" "trio_cool" ...</span></span>
-<span><span class="co">#&gt;  $ sequential : chr [1:8] "blue" "gray" "teal" "orange" ...</span></span>
+<span><span class="co">#&gt;  $ sequential : chr [1:7] "blue" "gray" "stone" "teal" ...</span></span>
 <span><span class="co">#&gt;  $ diverging  : chr [1:3] "blue_orange" "blue_red" "teal_orange"</span></span>
 <span><span class="co">#&gt;  $ scientific : chr [1:4] "okabe_ito" "viridis" "inferno" "plasma"</span></span></code></pre></div>
 <p>Access any palette with <code><a href="../reference/ekio_pal.html">ekio_pal()</a></code>:</p>
@@ -137,7 +138,13 @@ drawn:</p>
 <li>
 <strong>Categorical</strong>: <code>contrast</code>,
 <code>cool</code>, <code>minimal</code>, <code>full</code>,
-<code>muted</code>, <code>binary</code>, <code>political</code>
+<code>muted</code>, <code>muted_warm</code>, <code>binary</code>,
+<code>political</code>
+</li>
+<li>
+<strong>Highlight</strong>: <code>highlight_blue</code>,
+<code>highlight_orange</code>, <code>highlight_teal</code>,
+<code>highlight_red</code>
 </li>
 <li>
 <strong>Small-group</strong>: <code>duo_warm</code>,
@@ -149,9 +156,12 @@ drawn:</p>
 <code>viridis</code>, <code>inferno</code>, <code>plasma</code>
 </li>
 <li>
-<strong>Sequential</strong>: <code>blue</code>, <code>teal</code>,
-<code>gray</code>, <code>orange</code>, <code>purple</code>,
-<code>red</code>, <code>green</code>, <code>amber</code>
+<strong>Sequential</strong>: <code>blue</code>, <code>gray</code>,
+<code>stone</code>, <code>teal</code>, <code>green</code>,
+<code>orange</code>, <code>red</code>
+</li>
+<li>
+<strong>Accent</strong>: <code>gold</code>
 </li>
 <li>
 <strong>Diverging</strong>: <code>blue_orange</code>,
@@ -256,10 +266,12 @@ EKIO scale</li>
 <h2 id="brand-scales">Brand Scales<a class="anchor" aria-label="anchor" href="#brand-scales"></a>
 </h2>
 <p>Every brand color is reached through <code><a href="../reference/ekio_pal.html">ekio_pal()</a></code>. The
-eight brand scales — <code>"blue"</code>, <code>"gray"</code>,
-<code>"teal"</code>, <code>"orange"</code>, <code>"purple"</code>,
-<code>"red"</code>, <code>"green"</code>, and <code>"amber"</code> — are
-nine-step ramps running light to dark, named by shade:</p>
+seven brand scales — <code>"blue"</code>, <code>"gray"</code>,
+<code>"stone"</code>, <code>"teal"</code>, <code>"green"</code>,
+<code>"orange"</code>, and <code>"red"</code> — are nine-step ramps
+running light to dark, named by shade. All seven sit on one lightness
+spine, so a given shade carries the same visual weight in every
+family:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"gray"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="getting-started_files/figure-html/brand-scale-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>

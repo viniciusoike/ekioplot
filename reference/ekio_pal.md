@@ -11,6 +11,14 @@ swatch with hex labels.
 ekio_pal(palette = "contrast", n = NULL, reverse = FALSE)
 ```
 
+## Source
+
+The brand scales are generated from one OKLCH specification in
+`data-raw/build-ramps.R`: a shared lightness spine anchored on the brand
+navy, a shared chroma arc, and a hue path per family. The scientific
+palettes come from matplotlib (`"viridis"`, `"inferno"`, `"plasma"`) and
+from Okabe & Ito (`"okabe_ito"`). Notices are in `inst/COPYRIGHTS`.
+
 ## Arguments
 
 - palette:
@@ -40,10 +48,15 @@ class.
 
 ## Details
 
-Brand scales (`"blue"`, `"gray"`, `"teal"`, `"orange"`, `"purple"`,
-`"red"`, `"green"`, `"amber"`) are nine-step ramps running light to
-dark, named by shade. Position and shade are aligned by construction, so
+Brand scales (`"blue"`, `"gray"`, `"stone"`, `"teal"`, `"green"`,
+`"orange"`, `"red"`) are nine-step ramps running light to dark, named by
+shade. Position and shade are aligned by construction, so
 `ekio_pal("blue")[7]` and `ekio_pal("blue")["700"]` are the same color.
+
+`"gold"` is an accent rather than a scale: three colors named `"light"`,
+`"mid"` and `"deep"`, because a nine-step gold ramp turns brown at the
+dark end. They sit on the same lightness rungs as scale shades 300, 400
+and 500.
 
 ## Examples
 
@@ -64,4 +77,9 @@ ekio_pal("blue")["700"]
 ekio_pal("blue")[7]
 #>       700 
 #> "#1E3A5F" 
+
+# gold is an accent, named rather than numbered
+ekio_pal("gold")["mid"]
+#>       mid 
+#> "#B88715" 
 ```

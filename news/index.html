@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,7 +22,6 @@
     <li><a class="dropdown-item" href="../articles/palettes.html">Palette Gallery</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
-<li class="nav-item"><a class="nav-link" href="https://viniciusoike.github.io/ekioplot-palette-lab/" aria-label="Palette Lab"><span class="fa fa-palette"></span> Palette Lab</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/viniciusoike/ekioplot/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -40,9 +39,38 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/viniciusoike/ekioplot/blob/v0.8.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/viniciusoike/ekioplot/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.0" id="ekioplot-100">ekioplot 1.0.0<a class="anchor" aria-label="anchor" href="#ekioplot-100"></a></h2>
+<div class="section level3">
+<h3 id="breaking-changes-1-0-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-0-0"></a></h3>
+<ul><li><p>Every brand scale is regenerated from one OKLCH specification, so every hex code changes except <code>blue.700</code>, <code>blue.800</code> and <code>blue.900</code>. All seven scales now share one lightness spine and one chroma arc, which makes a shade number mean the same visual weight in every family: <code>blue.500</code> and <code>orange.500</code> are interchangeable in weight. The specification lives in <code>data-raw/build-ramps.R</code> and <code>data-raw/palettes.R</code> checks the shipped hex against it.</p></li>
+<li><p>Removed the <code>purple</code> and <code>amber</code> scales and added <code>stone</code>, a warm neutral. The seven scales are now <code>blue</code>, <code>gray</code>, <code>stone</code>, <code>teal</code>, <code>green</code>, <code>orange</code> and <code>red</code>.</p></li>
+<li><p><code>gold</code> replaces <code>amber</code> as an accent rather than a scale: three colors named <code>"light"</code>, <code>"mid"</code> and <code>"deep"</code>, reached as <code>ekio_pal("gold")["mid"]</code>. A nine-step gold ramp turns brown at the dark end, so only the top of it was ever gold. The three sit on the same lightness rungs as scale shades 300, 400 and 500, and <code>deep</code> clears WCAG AA on the off-white surface. There is no <code>gold</code> sequential palette.</p></li>
+<li><p><code>gray</code> is a true cool neutral rather than a blue-tinted one, and its pale steps moved down the ramp. <code>gray.500</code> now clears WCAG AA on the off-white surface at 4.75:1, where it previously sat at 2.1:1 and failed. This is the color <code><a href="../reference/theme_ekio.html">theme_ekio()</a></code> uses for muted text.</p></li>
+<li><p><code>contrast</code> returns five colors rather than six, and each sits on its own rung of the spine so the palette survives grayscale and deuteranopia. <code>full</code> still returns eight, but past five categories it separates by hue rather than lightness.</p></li>
+<li><p>Diverging palettes return nine colors rather than eleven. Both arms step through the even shades, so the halves carry equal weight rung for rung.</p></li>
+<li><p><code><a href="../reference/theme_ekio.html">theme_ekio()</a></code> draws grid lines in <code>gray.200</code> rather than <code>gray.300</code>, following the ramp’s new spacing.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-features-1-0-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-0-0"></a></h3>
+<ul><li><p>Added the <code>highlight</code> palette group: <code>highlight_blue</code>, <code>highlight_orange</code>, <code>highlight_teal</code> and <code>highlight_red</code>, each one accent against three receding grays. Order the factor so the level to emphasise comes first.</p></li>
+<li><p>Added the <code>muted_warm</code> palette, the <code>muted</code> gray series in <code>stone</code>.</p></li>
+<li><p>Added <code>basic.pivot</code>, the neutral shared by the diverging palettes.</p></li>
+<li><p>A palette member can now point at any named token group, not just a scale shade: <code>gold.light</code> and <code>basic.pivot</code> resolve by the same rule as <code>blue.700</code>.</p></li>
+<li><p><code><a href="../reference/list_ekio_palettes.html">list_ekio_palettes()</a></code> accepts <code>type = "accent"</code> and <code>type = "highlight"</code>.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="color-provenance-1-0-0">Color provenance<a class="anchor" aria-label="anchor" href="#color-provenance-1-0-0"></a></h3>
+<ul><li>No shipped brand color derives from Chakra UI any more. <code>inst/COPYRIGHTS</code> now carries only the matplotlib and Okabe &amp; Ito notices, which cover the <code>scientific</code> palettes.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.8.1" id="ekioplot-081">ekioplot 0.8.1<a class="anchor" aria-label="anchor" href="#ekioplot-081"></a></h2>
+<ul><li>Credited the third-party sources of the color scales. The <code>gray</code>, <code>teal</code>, <code>orange</code>, <code>red</code>, <code>green</code>, <code>purple</code> and <code>amber</code> scales derive from Chakra UI v2’s default theme colors (MIT); the scientific palettes come from matplotlib and from Okabe &amp; Ito. Notices are in <code>inst/COPYRIGHTS</code>, reachable as <code>system.file("COPYRIGHTS", package = "ekioplot")</code>. No color values changed.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.0" id="ekioplot-080">ekioplot 0.8.0<a class="anchor" aria-label="anchor" href="#ekioplot-080"></a></h2>
 <div class="section level3">

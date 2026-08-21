@@ -20,21 +20,54 @@ Downstream projects (the `ekio` workspace, `ekio-site`) mirror these —
 update here first.
 
 - **Colors**: defined in `inst/ekio-palettes.yaml` (source of truth),
-  compiled to `R/sysdata.rda` by `data-raw/palettes.R`. Eight nine-step
-  scales named `100`–`900`, light to dark; position `i` == shade
-  `i * 100`. Primary `blue.700` = `#1E3A5F`, ink `gray.900` = `#1A202C`;
-  accents `orange.600` = `#DD6B20`, `teal.700` = `#2C7A7B`. Palettes are
-  defined by `scale.shade` token reference, not literal hex.
+  compiled to `R/sysdata.rda` by `data-raw/palettes.R`. Seven nine-step
+  scales — `blue`, `gray`, `stone`, `teal`, `green`, `orange`, `red` —
+  named `100`–`900`, light to dark; position `i` == shade `i * 100`.
+  Primary `blue.700` = `#1E3A5F`, ink `gray.900` = `#191A1C`; accents
+  `orange.400` = `#D3742A`, `gold.light` = `#D5AA48`, `teal.600` =
+  `#006261`. Palettes are defined by token reference, not literal hex.
+- **Gold is an accent, not a scale**: three named tokens (`light`
+  `#D5AA48`, `mid` `#B88715`, `deep` `#966800`) on spine rungs
+  300/400/500, because a nine-step gold ramp turns brown at the dark
+  end. Reached as `ekio_pal("gold")["mid"]` or `.ekio("gold", "mid")`.
+  `deep` carries the text-safe promise that shade 500 carries for the
+  scales. No `gold` sequential palette exists.
+- **Token references**: a palette member is a literal hex, a
+  `scale.shade` (`blue.700`), or a `group.name` pointing at a named
+  token group (`gold.light`, `basic.pivot`). Any palette written as a
+  YAML mapping rather than a sequence becomes such a group. Scales win
+  on name collision.
+- **Generated, not hand-picked**: the scales come from one OKLCH spec in
+  `data-raw/build-ramps.R` — a shared lightness spine (pinned so
+  `blue.700` is the brand navy), a shared chroma arc, and a hue path
+  plus chroma budget per family. `data-raw/palettes.R` checks the YAML
+  hex against the spec and refuses to build on drift. To change a color,
+  edit the spec, rerun `Rscript data-raw/build-ramps.R`, paste the block
+  into the YAML, then rerun `data-raw/palettes.R`. Never hand-edit a
+  scale.
+- **What the spine buys**: shade number means one visual weight in every
+  family, so `blue.500` and `orange.500` are interchangeable. Shade
+  `500` clears WCAG AA on the off-white surface in all seven scales.
+  Both properties are asserted at build time and in
+  `tests/testthat/test-palette-data.R`.
+- **Categorical palettes vary shade on purpose**: equal lightness
+  balances hues but makes them hard to tell apart, so each series in
+  `contrast` sits on its own rung. `contrast` (5) survives grayscale and
+  deuteranopia; `full` (8) separates by hue past five categories and
+  does not.
 - **Surfaces**: the `basic` token group, not a scale — `offwhite` =
   `#FEFEFE` (the
   [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
-  default background), `white` = `#FFFFFF`, `black` = `#000000`. The
-  `gray.100` tint (`#F7FAFC`) was the default background through 0.7.1
-  and is still reachable as `theme_ekio(background = "gray")`. `basic`
-  is internal to `.ekio()`; it is deliberately absent from
+  default background), `white` = `#FFFFFF`, `pivot` = `#F5F3EF` (the
+  diverging midpoint), `black` = `#000000`. The `gray.100` tint
+  (`#F2F3F5`) is reachable as `theme_ekio(background = "gray")`. White,
+  offwhite and black are the only hand-set hex in the package; the pivot
+  is generated with the scales. `basic` is internal to `.ekio()` and
+  deliberately absent from
   [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
   and
-  [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md)
+  [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md);
+  the `accent` group, by contrast, is user-facing
 - **Type — web (ekio-site)**: Lora (serif display/headings), Lato
   (body), Fira Code (mono).
 
@@ -80,8 +113,8 @@ update here first.
 
 ### Key Design Decisions
 
-- **Unified palette access**: All palette types (categorical,
-  small-group, scientific, sequential, diverging) go through
+- **Unified palette access**: All palette types (accent, categorical,
+  highlight, small-group, scientific, sequential, diverging) go through
   [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md).
   Sequential/diverging palettes are also usable in continuous scales
 - **Smart aesthetic detection**: Recipe functions use
@@ -116,8 +149,8 @@ update here first.
 - **Color references**: Never hardcode hex. Inside the package use
   `.ekio("blue", 700)`; from user code use
   [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md).
-  To change a color, edit `inst/ekio-palettes.yaml` and rerun
-  `data-raw/palettes.R`
+  To change a color, edit the spec in `data-raw/build-ramps.R`,
+  regenerate the YAML `scales:` block, then rerun `data-raw/palettes.R`
 
 ### Dependencies
 
@@ -152,6 +185,8 @@ update here first.
 
 - After making changes, run `check()` and fix only errors and warnings.
   Ignore notes
-- The Palette Lab Shiny app lives in its own repository
-  (`viniciusoike/ekioplot-palette-lab`), not in this package. It depends
-  on `ekioplot`’s stable exported functions
+- The Palette Lab Shiny app is retired. Its repository
+  (`viniciusoike/ekioplot-palette-lab`) is archived and its site is
+  down; it targeted pre-1.0.0 brand colors. The palette gallery in
+  `vignettes/articles/palettes.Rmd` is the reference for browsing
+  palettes. Do not revive it
