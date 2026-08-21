@@ -45,6 +45,6 @@ ekio_text_on(ekio_pal("blue"))
 #>     100     200     300     400     500     600     700     800     900 
 #> "black" "black" "black" "black" "white" "white" "white" "white" "white" 
 ekio_text_on(ekio_pal("full"), dark = ekio_pal("gray")["900"])
-#> [1] "white"   "#191A1C" "white"   "#191A1C" "white"   "white"   "white"  
-#> [8] "#191A1C"
+#> [1] "white"   "#1A202C" "white"   "#1A202C" "white"   "white"   "#1A202C"
+#> [8] "#1A202C"
 ```

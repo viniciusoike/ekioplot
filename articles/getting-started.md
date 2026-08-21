@@ -41,19 +41,17 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ## Color Palettes
 
-ekioplot ships around thirty palettes across seven groups. Use
+ekioplot ships with ~30 palettes across five categories. Use
 [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md)
 to explore them:
 
 ``` r
 
 str(list_ekio_palettes())
-#> List of 7
-#>  $ accent     : chr "gold"
-#>  $ categorical: chr [1:8] "cool" "minimal" "contrast" "full" ...
-#>  $ highlight  : chr [1:4] "highlight_blue" "highlight_orange" "highlight_teal" "highlight_red"
+#> List of 5
+#>  $ categorical: chr [1:7] "cool" "minimal" "contrast" "full" ...
 #>  $ small_group: chr [1:6] "duo_warm" "duo_cool" "trio_bold" "trio_cool" ...
-#>  $ sequential : chr [1:7] "blue" "gray" "stone" "teal" ...
+#>  $ sequential : chr [1:8] "blue" "gray" "teal" "orange" ...
 #>  $ diverging  : chr [1:3] "blue_orange" "blue_red" "teal_orange"
 #>  $ scientific : chr [1:4] "okabe_ito" "viridis" "inferno" "plasma"
 ```
@@ -78,15 +76,12 @@ ekio_pal("blue", n = 5)
 ### Palette types
 
 - **Categorical**: `contrast`, `cool`, `minimal`, `full`, `muted`,
-  `muted_warm`, `binary`, `political`
-- **Highlight**: `highlight_blue`, `highlight_orange`, `highlight_teal`,
-  `highlight_red`
+  `binary`, `political`
 - **Small-group**: `duo_warm`, `duo_cool`, `trio_bold`, `trio_cool`,
   `quad_earth`, `quad_vivid`
 - **Scientific**: `okabe_ito`, `viridis`, `inferno`, `plasma`
-- **Sequential**: `blue`, `gray`, `stone`, `teal`, `green`, `orange`,
-  `red`
-- **Accent**: `gold`
+- **Sequential**: `blue`, `teal`, `gray`, `orange`, `purple`, `red`,
+  `green`, `amber`
 - **Diverging**: `blue_orange`, `blue_red`, `teal_orange`
 
 [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
@@ -201,10 +196,9 @@ ekio_histogram(mtcars, mpg, fill = "coral")
 
 Every brand color is reached through
 [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md).
-The seven brand scales — `"blue"`, `"gray"`, `"stone"`, `"teal"`,
-`"green"`, `"orange"`, and `"red"` — are nine-step ramps running light
-to dark, named by shade. All seven sit on one lightness spine, so a
-given shade carries the same visual weight in every family:
+The eight brand scales — `"blue"`, `"gray"`, `"teal"`, `"orange"`,
+`"purple"`, `"red"`, `"green"`, and `"amber"` — are nine-step ramps
+running light to dark, named by shade:
 
 ``` r
 
