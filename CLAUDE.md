@@ -63,4 +63,4 @@ This package is EKIO's single source of truth for brand color and type. Downstre
 
 ## General observations
 - After making changes, run `check()` and fix only errors and warnings. Ignore notes
-- The Palette Lab Shiny app lives in its own repository (`viniciusoike/ekioplot-palette-lab`), not in this package. It depends on `ekioplot`'s stable exported functions
+- The Palette Lab Shiny app is retired. Its repository (`viniciusoike/ekioplot-palette-lab`) is archived and its site is down; it targeted pre-1.0.0 brand colors. The palette gallery in `vignettes/articles/palettes.Rmd` is the reference for browsing palettes. Do not revive it

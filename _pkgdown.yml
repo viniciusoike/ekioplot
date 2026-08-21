@@ -32,14 +32,8 @@ template:
 
 navbar:
   structure:
-    left: [intro, reference, articles, news, palettelab]
+    left: [intro, reference, articles, news]
     right: [search, github, lightswitch]
-  components:
-    palettelab:
-      text: Palette Lab
-      href: https://viniciusoike.github.io/ekioplot-palette-lab/
-      icon: fa-palette
-      aria-label: Palette Lab
 
 footer:
   structure:
