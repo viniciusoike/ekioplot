@@ -24,11 +24,19 @@ package, so this page is always in sync with
 Each chip is labelled with its hex code, drawn in black or white by
 `ekio_text_on()`, the same WCAG contrast helper the palette swatches use.
 
+The seven brand scales are generated from one OKLCH specification: a shared
+lightness spine anchored on the brand navy, a shared chroma arc, and a hue
+path per family. A given shade therefore carries the same visual weight in
+every family. The scientific palettes are not EKIO color — they come from
+matplotlib and from Okabe & Ito, and `inst/COPYRIGHTS` carries the notices.
+
 ```{r swatch-helpers}
 palette_names <- unlist(list_ekio_palettes(), use.names = FALSE)
 
 type_labels <- c(
+  accent = "Accent",
   categorical = "Categorical",
+  highlight = "Highlight",
   small_group = "Small group",
   sequential = "Sequential",
   diverging = "Diverging",
@@ -39,7 +47,7 @@ type_labels <- c(
 swatch <- function(name) {
   pal <- ekio_pal(name)
   hex <- as.character(pal)
-  ink <- unname(ekio_text_on(hex, dark = "#1A202C"))
+  ink <- unname(ekio_text_on(hex, dark = as.character(ekio_pal("gray")["900"])))
 
   chips <- paste0(
     '<div class="ekio-chip" style="background:', hex, ';color:', ink,
@@ -190,14 +198,38 @@ reactable(
 )
 ```
 
+## Accent
+
+Named tokens rather than a ramp. Gold has no nine-step scale because dark
+yellow is brown — past the middle of the spine a gold ramp stops being gold.
+The three sit on the same lightness rungs as scale shades 300, 400 and 500,
+and `deep` is the one that can carry type.
+
+```{r accent, results = "asis"}
+gallery("accent")
+```
+
 ## Categorical
 
-For unordered groups. `contrast` is the general-purpose default; `cool` and
-`minimal` stay within the primary blues and grays for restrained charts, and
-`binary` and `political` are fixed two-color pairings.
+For unordered groups. Each series sits on its own rung of the lightness
+spine, so `contrast` stays readable in grayscale and under deuteranopia.
+Past five categories `full` separates by hue rather than lightness, so it
+does not survive grayscale printing. `cool` and `minimal` stay within the
+primary blues and grays; `muted` and `muted_warm` are gray-only; `binary` and
+`political` are fixed two-color pairings.
 
 ```{r categorical, results = "asis"}
 gallery("categorical")
+```
+
+## Highlight
+
+One accent against three receding grays. The series carrying the argument
+speaks and the rest stay legible context — order the factor so the level you
+want emphasised comes first.
+
+```{r highlight, results = "asis"}
+gallery("highlight")
 ```
 
 ## Small group
@@ -211,7 +243,7 @@ gallery("small_group")
 
 ## Sequential
 
-The eight brand scales, light to dark. Position `i` is shade `i * 100`, so
+The seven brand scales, light to dark. Position `i` is shade `i * 100`, so
 `ekio_pal("blue")["700"]` is the primary blue. These work as discrete palettes
 for ordered categories and as the ramp behind `scale_color_ekio_c()`.
 
@@ -252,9 +284,9 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   theme_ekio()
 
 # Named access to any brand scale
-ekio_pal("teal")["700"]
-#>     700
-#> "#2C7A7B"
+ekio_pal("teal")["600"]
+#>     600
+#> "#006261"
 
 # Interpolated to an arbitrary length
 ekio_pal("blue_orange", n = 15)

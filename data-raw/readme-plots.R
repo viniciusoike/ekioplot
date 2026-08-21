@@ -56,11 +56,11 @@ save_fig(hero, "README-hero.png", width = 8, height = 5)
 # different lengths stay visually comparable.
 pal_names <- c(
   "contrast",
-  "cool",
+  "highlight_blue",
   "muted",
   "okabe_ito",
   "blue",
-  "teal",
+  "gray",
   "orange",
   "blue_orange",
   "blue_red"

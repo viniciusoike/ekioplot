@@ -1,11 +1,11 @@
-# ---- Tests for Color System v3.0 ----
+# ---- Tests for the Color System ----
 
 test_that("ekio_pal returns correct structure", {
   colors_default <- ekio_pal()
   expect_type(colors_default, "character")
   expect_true(all(grepl("^#[0-9A-Fa-f]{6}$", colors_default)))
 
-  expect_length(ekio_pal("contrast"), 6)
+  expect_length(ekio_pal("contrast"), 5)
   expect_length(ekio_pal("cool"), 3)
   expect_length(ekio_pal("full"), 8)
   expect_length(ekio_pal("binary"), 2)
@@ -59,7 +59,7 @@ test_that("diverging palettes are accessible via ekio_pal", {
   for (pal in div_names) {
     colors <- ekio_pal(pal)
     expect_type(colors, "character")
-    expect_true(length(colors) >= 11)
+    expect_true(length(colors) >= 9)
     expect_true(all(grepl("^#[0-9A-Fa-f]{6}$", colors)))
   }
 })
@@ -72,13 +72,15 @@ test_that("list_ekio_palettes returns correct structure", {
   expect_true("scientific" %in% names(all_palettes))
   expect_true("sequential" %in% names(all_palettes))
   expect_true("diverging" %in% names(all_palettes))
+  expect_true("highlight" %in% names(all_palettes))
 
   expect_true("contrast" %in% list_ekio_palettes("categorical"))
   expect_true("okabe_ito" %in% list_ekio_palettes("scientific"))
   expect_true("duo_warm" %in% list_ekio_palettes("small_group"))
   expect_true("blue" %in% list_ekio_palettes("sequential"))
-  expect_true("purple" %in% list_ekio_palettes("sequential"))
+  expect_true("stone" %in% list_ekio_palettes("sequential"))
   expect_true("blue_orange" %in% list_ekio_palettes("diverging"))
+  expect_true("highlight_blue" %in% list_ekio_palettes("highlight"))
 })
 
 test_that("list_ekio_palettes verbose prints summary and returns invisibly", {
@@ -100,7 +102,7 @@ test_that("ekio_pal returns ekio_palette class that auto-prints", {
   p <- ekio_pal("contrast")
   expect_s3_class(p, "ekio_palette")
   expect_type(p, "character")
-  expect_length(p, 6)
+  expect_length(p, 5)
 
   stripped <- as.character(p)
   expect_type(stripped, "character")

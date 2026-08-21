@@ -51,7 +51,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ## Color Palettes
 
-ekioplot ships with ~30 palettes across five categories. Use
+ekioplot ships around thirty palettes across seven groups. Use
 `list_ekio_palettes()` to explore them:
 
 ```{r list-palettes}
@@ -67,13 +67,15 @@ ekio_pal("blue", n = 5)
 
 ### Palette types
 
-- **Categorical**: `contrast`, `cool`, `minimal`, `full`, `muted`, `binary`,
-  `political`
+- **Categorical**: `contrast`, `cool`, `minimal`, `full`, `muted`,
+  `muted_warm`, `binary`, `political`
+- **Highlight**: `highlight_blue`, `highlight_orange`, `highlight_teal`,
+  `highlight_red`
 - **Small-group**: `duo_warm`, `duo_cool`, `trio_bold`, `trio_cool`,
   `quad_earth`, `quad_vivid`
 - **Scientific**: `okabe_ito`, `viridis`, `inferno`, `plasma`
-- **Sequential**: `blue`, `teal`, `gray`, `orange`, `purple`, `red`, `green`,
-  `amber`
+- **Sequential**: `blue`, `gray`, `stone`, `teal`, `green`, `orange`, `red`
+- **Accent**: `gold`
 - **Diverging**: `blue_orange`, `blue_red`, `teal_orange`
 
 `ekio_pal()` displays a swatch when printed:
@@ -158,9 +160,11 @@ ekio_histogram(mtcars, mpg, fill = "coral")
 
 ## Brand Scales
 
-Every brand color is reached through `ekio_pal()`. The eight brand scales —
-`"blue"`, `"gray"`, `"teal"`, `"orange"`, `"purple"`, `"red"`, `"green"`, and
-`"amber"` — are nine-step ramps running light to dark, named by shade:
+Every brand color is reached through `ekio_pal()`. The seven brand scales —
+`"blue"`, `"gray"`, `"stone"`, `"teal"`, `"green"`, `"orange"`, and `"red"` —
+are nine-step ramps running light to dark, named by shade. All seven sit on one
+lightness spine, so a given shade carries the same visual weight in every
+family:
 
 ```{r brand-scale}
 ekio_pal("gray")

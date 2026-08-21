@@ -11,6 +11,20 @@ read_spec <- function() {
   yaml::read_yaml(path)
 }
 
+# A palette written as a YAML mapping rather than a sequence is a named token
+# group - `basic` and the accent tokens - and other palettes can point at one
+# the same way they point at a scale shade.
+named_token_groups <- function(spec) {
+  out <- list()
+  for (group in names(spec$palettes)) {
+    for (nm in names(spec$palettes[[group]])) {
+      pal <- spec$palettes[[group]][[nm]]
+      if (!is.null(names(pal))) out[[nm]] <- pal
+    }
+  }
+  out
+}
+
 test_that("scales match the YAML source of truth", {
   spec <- read_spec()
   shades <- as.character(seq(100, 900, by = 100))
@@ -36,12 +50,18 @@ test_that("palettes resolve from the YAML source of truth", {
   spec <- read_spec()
   scales <- ekioplot:::.ekio_scales
 
+  token_groups <- named_token_groups(spec)
+
   resolve <- function(tok) {
     if (startsWith(tok, "#")) {
       return(toupper(tok))
     }
     parts <- strsplit(tok, ".", fixed = TRUE)[[1]]
-    scales[[parts[1]]][[parts[2]]]
+    if (parts[1] %in% names(scales)) {
+      scales[[parts[1]]][[parts[2]]]
+    } else {
+      token_groups[[parts[1]]][[parts[2]]]
+    }
   }
 
   for (group in names(spec$palettes)) {
@@ -79,13 +99,76 @@ test_that("every token in the YAML resolves to a real shade", {
   spec <- read_spec()
   scales <- ekioplot:::.ekio_scales
 
+  token_groups <- named_token_groups(spec)
+
   tokens <- unlist(spec$palettes, use.names = FALSE)
   tokens <- tokens[!startsWith(tokens, "#")]
 
   for (tok in unique(tokens)) {
     parts <- strsplit(tok, ".", fixed = TRUE)[[1]]
     expect_length(parts, 2)
-    expect_true(parts[1] %in% names(scales), info = tok)
-    expect_false(is.null(scales[[parts[1]]][[parts[2]]]), info = tok)
+    group <- if (parts[1] %in% names(scales)) {
+      scales[[parts[1]]]
+    } else {
+      token_groups[[parts[1]]]
+    }
+    expect_false(is.null(group), info = tok)
+    expect_false(is.null(group[[parts[2]]]), info = tok)
   }
+})
+
+# ---- The shared spine ----
+#
+# Every scale is generated against one lightness spine, which is what makes
+# shade number mean the same visual weight in every family. Compare against
+# `blue` rather than hard-coded values: the spine is defined in
+# data-raw/build-ramps.R and the invariant is that the families agree.
+
+oklab_l <- function(x) {
+  srgb <- grDevices::col2rgb(x) / 255
+  lin <- ifelse(srgb <= 0.04045, srgb / 12.92, ((srgb + 0.055) / 1.055)^2.4)
+  l <- 0.4122214708 * lin[1, ] + 0.5363325363 * lin[2, ] + 0.0514459929 * lin[3, ]
+  m <- 0.2119034982 * lin[1, ] + 0.6806995451 * lin[2, ] + 0.1073969566 * lin[3, ]
+  s <- 0.0883024619 * lin[1, ] + 0.2817188376 * lin[2, ] + 0.6299787005 * lin[3, ]
+  0.2104542553 * l^(1 / 3) + 0.7936177850 * m^(1 / 3) - 0.0040720468 * s^(1 / 3)
+}
+
+test_that("every scale sits on the same lightness spine as blue", {
+  scales <- ekioplot:::.ekio_scales
+  spine <- oklab_l(scales$blue)
+
+  for (nm in names(scales)) {
+    expect_lt(max(abs(oklab_l(scales[[nm]]) - spine)), 0.015, label = nm)
+  }
+})
+
+test_that("shade 500 clears WCAG AA on the off-white surface", {
+  scales <- ekioplot:::.ekio_scales
+  offwhite <- ekioplot:::.ekio("basic", "offwhite")
+
+  for (nm in names(scales)) {
+    expect_gte(ekio_contrast(scales[[nm]][["500"]], offwhite), 4.5)
+  }
+})
+
+test_that("gold is an accent, reachable by name and safe for type", {
+  gold <- ekio_pal("gold")
+  expect_named(gold, c("light", "mid", "deep"))
+  expect_identical(ekioplot:::.ekio("gold", "mid"), unname(gold[["mid"]]))
+
+  # gold has no scale, so `deep` carries the text-safe promise instead of a 500
+  offwhite <- ekioplot:::.ekio("basic", "offwhite")
+  expect_gte(ekio_contrast(gold[["deep"]], offwhite), 4.5)
+
+  # the accent rungs match scale shades 300, 400 and 500 in weight
+  blue <- ekioplot:::.ekio_scales$blue
+  expect_lt(
+    max(abs(oklab_l(as.character(gold)) - oklab_l(blue[c("300", "400", "500")]))),
+    0.015
+  )
+})
+
+test_that("gold is not a continuous palette", {
+  expect_false("gold" %in% list_ekio_palettes("sequential"))
+  expect_error(scale_color_ekio_c("gold"), "not found")
 })

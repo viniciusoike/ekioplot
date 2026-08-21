@@ -29,7 +29,7 @@ test_that("font options override branded defaults", {
 test_that("theme_ekio grid parameter works", {
   skip_if_not_installed("ggplot2")
 
-  grid_colour <- .ekio("gray", 300)
+  grid_colour <- .ekio("gray", 200)
   theme_y <- theme_ekio(grid = "y")
   theme_x <- theme_ekio(grid = "x")
   theme_xy <- theme_ekio(grid = "xy")

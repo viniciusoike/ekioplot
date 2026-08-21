@@ -1,3 +1,73 @@
+# ekioplot 1.0.0
+
+## Breaking changes
+
+* Every brand scale is regenerated from one OKLCH specification, so every hex
+  code changes except `blue.700`, `blue.800` and `blue.900`. All seven scales
+  now share one lightness spine and one chroma arc, which makes a shade number
+  mean the same visual weight in every family: `blue.500` and `orange.500` are
+  interchangeable in weight. The specification lives in
+  `data-raw/build-ramps.R` and `data-raw/palettes.R` checks the shipped hex
+  against it.
+
+* Removed the `purple` and `amber` scales and added `stone`, a warm neutral.
+  The seven scales are now `blue`, `gray`, `stone`, `teal`, `green`, `orange`
+  and `red`.
+
+* `gold` replaces `amber` as an accent rather than a scale: three colors named
+  `"light"`, `"mid"` and `"deep"`, reached as `ekio_pal("gold")["mid"]`. A
+  nine-step gold ramp turns brown at the dark end, so only the top of it was
+  ever gold. The three sit on the same lightness rungs as scale shades 300,
+  400 and 500, and `deep` clears WCAG AA on the off-white surface. There is no
+  `gold` sequential palette.
+
+* `gray` is a true cool neutral rather than a blue-tinted one, and its pale
+  steps moved down the ramp. `gray.500` now clears WCAG AA on the off-white
+  surface at 4.75:1, where it previously sat at 2.1:1 and failed. This is the
+  color `theme_ekio()` uses for muted text.
+
+* `contrast` returns five colors rather than six, and each sits on its own
+  rung of the spine so the palette survives grayscale and deuteranopia.
+  `full` still returns eight, but past five categories it separates by hue
+  rather than lightness.
+
+* Diverging palettes return nine colors rather than eleven. Both arms step
+  through the even shades, so the halves carry equal weight rung for rung.
+
+* `theme_ekio()` draws grid lines in `gray.200` rather than `gray.300`,
+  following the ramp's new spacing.
+
+## New features
+
+* Added the `highlight` palette group: `highlight_blue`, `highlight_orange`,
+  `highlight_teal` and `highlight_red`, each one accent against three
+  receding grays. Order the factor so the level to emphasise comes first.
+
+* Added the `muted_warm` palette, the `muted` gray series in `stone`.
+
+* Added `basic.pivot`, the neutral shared by the diverging palettes.
+
+* A palette member can now point at any named token group, not just a scale
+  shade: `gold.light` and `basic.pivot` resolve by the same rule as
+  `blue.700`.
+
+* `list_ekio_palettes()` accepts `type = "accent"` and `type = "highlight"`.
+
+## Color provenance
+
+* No shipped brand color derives from Chakra UI any more. `inst/COPYRIGHTS`
+  now carries only the matplotlib and Okabe & Ito notices, which cover the
+  `scientific` palettes.
+
+# ekioplot 0.8.1
+
+* Credited the third-party sources of the color scales. The `gray`, `teal`,
+  `orange`, `red`, `green`, `purple` and `amber` scales derive from Chakra UI
+  v2's default theme colors (MIT); the scientific palettes come from
+  matplotlib and from Okabe & Ito. Notices are in `inst/COPYRIGHTS`, reachable
+  as `system.file("COPYRIGHTS", package = "ekioplot")`. No color values
+  changed.
+
 # ekioplot 0.8.0
 
 ## Breaking changes

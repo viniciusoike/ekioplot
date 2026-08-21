@@ -67,7 +67,7 @@ theme_ekio <- function(
     text_light = .ekio("gray", 600),
     text_muted = .ekio("gray", 500),
     text_invert = .ekio("gray", 100),
-    grid_line = .ekio("gray", 300),
+    grid_line = .ekio("gray", 200),
     primary = .ekio("blue", 700)
   )
 
