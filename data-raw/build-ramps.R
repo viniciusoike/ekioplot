@@ -1,4 +1,4 @@
-# Generate the eight EKIO brand scales from one OKLCH specification.
+# Generate the seven EKIO brand scales from one OKLCH specification.
 #
 # Sourcing this file defines `ekio_ramp_spec`, `ekio_build_scales()` and the
 # OKLCH helpers. data-raw/palettes.R sources it and checks that

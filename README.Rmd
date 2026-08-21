@@ -74,8 +74,8 @@ theme_ekio(grid = "xy")
 
 ## Color palettes
 
-ekioplot ships palettes across six groups, all accessible through a single
-function. The eight brand scales are generated from one OKLCH specification,
+ekioplot ships palettes across seven groups, all accessible through a single
+function. The seven brand scales are generated from one OKLCH specification,
 so a given shade carries the same visual weight in every family.
 
 ```{r}

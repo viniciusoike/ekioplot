@@ -51,7 +51,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ## Color Palettes
 
-ekioplot ships with ~30 palettes across five categories. Use
+ekioplot ships around thirty palettes across seven groups. Use
 `list_ekio_palettes()` to explore them:
 
 ```{r list-palettes}

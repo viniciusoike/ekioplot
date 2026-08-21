@@ -3,7 +3,7 @@
 ## Breaking changes
 
 * Every brand scale is regenerated from one OKLCH specification, so every hex
-  code changes except `blue.700`, `blue.800` and `blue.900`. All eight scales
+  code changes except `blue.700`, `blue.800` and `blue.900`. All seven scales
   now share one lightness spine and one chroma arc, which makes a shade number
   mean the same visual weight in every family: `blue.500` and `orange.500` are
   interchangeable in weight. The specification lives in

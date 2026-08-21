@@ -24,7 +24,7 @@ package, so this page is always in sync with
 Each chip is labelled with its hex code, drawn in black or white by
 `ekio_text_on()`, the same WCAG contrast helper the palette swatches use.
 
-The eight brand scales are generated from one OKLCH specification: a shared
+The seven brand scales are generated from one OKLCH specification: a shared
 lightness spine anchored on the brand navy, a shared chroma arc, and a hue
 path per family. A given shade therefore carries the same visual weight in
 every family. The scientific palettes are not EKIO color — they come from
