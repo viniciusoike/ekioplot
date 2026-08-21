@@ -13,7 +13,7 @@ hex labels."><meta property="og:image" content="https://viniciusoike.github.io/e
 
     <a class="navbar-brand me-2" href="../index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +63,14 @@ hex labels.</p>
     </div>
 
     <div class="section level2">
+    <h2 id="source">Source<a class="anchor" aria-label="anchor" href="#source"></a></h2>
+    <p>The brand scales are generated from one OKLCH specification in
+<code>data-raw/build-ramps.R</code>: a shared lightness spine anchored on the brand
+navy, a shared chroma arc, and a hue path per family. The scientific
+palettes come from matplotlib (<code>"viridis"</code>, <code>"inferno"</code>, <code>"plasma"</code>) and
+from Okabe &amp; Ito (<code>"okabe_ito"</code>). Notices are in <code>inst/COPYRIGHTS</code>.</p>
+    </div>
+    <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
@@ -91,10 +99,14 @@ strip the class.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Brand scales (<code>"blue"</code>, <code>"gray"</code>, <code>"teal"</code>, <code>"orange"</code>, <code>"purple"</code>,
-<code>"red"</code>, <code>"green"</code>, <code>"amber"</code>) are nine-step ramps running light to dark,
-named by shade. Position and shade are aligned by construction, so
+    <p>Brand scales (<code>"blue"</code>, <code>"gray"</code>, <code>"stone"</code>, <code>"teal"</code>, <code>"green"</code>,
+<code>"orange"</code>, <code>"red"</code>) are nine-step ramps running light to dark, named by
+shade. Position and shade are aligned by construction, so
 <code>ekio_pal("blue")[7]</code> and <code>ekio_pal("blue")["700"]</code> are the same color.</p>
+<p><code>"gold"</code> is an accent rather than a scale: three colors named <code>"light"</code>,
+<code>"mid"</code> and <code>"deep"</code>, because a nine-step gold ramp turns brown at the
+dark end. They sit on the same lightness rungs as scale shades 300, 400
+and 500.</p>
     </div>
 
     <div class="section level2">
@@ -115,6 +127,11 @@ named by shade. Position and shade are aligned by construction, so
 <span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span><span class="op">[</span><span class="fl">7</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       700 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> "#1E3A5F" </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># gold is an accent, named rather than numbered</span></span></span>
+<span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"gold"</span><span class="op">)</span><span class="op">[</span><span class="st">"mid"</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       mid </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "#B88715" </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

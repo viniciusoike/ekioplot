@@ -8,89 +8,166 @@ Each chip is labelled with its hex code, drawn in black or white by
 [`ekio_text_on()`](https://viniciusoike.github.io/ekioplot/reference/ekio_text_on.md),
 the same WCAG contrast helper the palette swatches use.
 
+The seven brand scales are generated from one OKLCH specification: a
+shared lightness spine anchored on the brand navy, a shared chroma arc,
+and a hue path per family. A given shade therefore carries the same
+visual weight in every family. The scientific palettes are not EKIO
+color — they come from matplotlib and from Okabe & Ito, and
+`inst/COPYRIGHTS` carries the notices.
+
 ## All colors
 
 Every color in one searchable table. Click a hex to copy it; expand a
 palette to see its colors, or click its **copy** button to take the
 whole thing as an R vector.
 
+## Accent
+
+Named tokens rather than a ramp. Gold has no nine-step scale because
+dark yellow is brown — past the middle of the spine a gold ramp stops
+being gold. The three sit on the same lightness rungs as scale shades
+300, 400 and 500, and `deep` is the one that can carry type.
+
+`gold`3 colors
+
+\#D5AA48
+
+\#B88715
+
+\#966800
+
 ## Categorical
 
-For unordered groups. `contrast` is the general-purpose default; `cool`
-and `minimal` stay within the primary blues and grays for restrained
-charts, and `binary` and `political` are fixed two-color pairings.
+For unordered groups. Each series sits on its own rung of the lightness
+spine, so `contrast` stays readable in grayscale and under deuteranopia.
+Past five categories `full` separates by hue rather than lightness, so
+it does not survive grayscale printing. `cool` and `minimal` stay within
+the primary blues and grays; `muted` and `muted_warm` are gray-only;
+`binary` and `political` are fixed two-color pairings.
 
 `cool`3 colors
 
 \#1E3A5F
 
-\#4A90C2
+\#5597CC
 
-\#2C7A7B
+\#006261
 
 `minimal`3 colors
 
 \#1E3A5F
 
-\#4A5568
+\#6E7378
 
-\#A0AEC0
+\#AEB1B5
 
-`contrast`6 colors
+`contrast`5 colors
 
 \#1E3A5F
 
-\#DD6B20
+\#D3742A
 
-\#2C7A7B
+\#006261
 
-\#D69E2E
+\#D5AA48
 
-\#805AD5
-
-\#C53030
+\#B44D47
 
 `full`8 colors
 
 \#1E3A5F
 
-\#DD6B20
+\#D3742A
 
-\#2C7A7B
+\#006261
 
-\#D69E2E
+\#D5AA48
 
-\#805AD5
+\#B44D47
 
-\#C53030
+\#448255
 
-\#38A169
+\#373A3D
 
-\#718096
+\#B4B0AB
 
-`muted`5 colors
+`muted`4 colors
 
-\#4A5568
+\#191A1C
 
-\#718096
+\#373A3D
 
-\#A0AEC0
+\#6E7378
 
-\#CBD5E0
+\#AEB1B5
 
-\#E2E8F0
+`muted_warm`4 colors
+
+\#1B1A18
+
+\#3C3935
+
+\#76716B
+
+\#B4B0AB
 
 `binary`2 colors
 
 \#1E3A5F
 
-\#DD6B20
+\#D3742A
 
 `political`2 colors
 
 \#1E3A5F
 
-\#C53030
+\#8C3431
+
+## Highlight
+
+One accent against three receding grays. The series carrying the
+argument speaks and the rest stay legible context — order the factor so
+the level you want emphasised comes first.
+
+`highlight_blue`4 colors
+
+\#1E3A5F
+
+\#6E7378
+
+\#8D9197
+
+\#AEB1B5
+
+`highlight_orange`4 colors
+
+\#D3742A
+
+\#6E7378
+
+\#8D9197
+
+\#AEB1B5
+
+`highlight_teal`4 colors
+
+\#006261
+
+\#6E7378
+
+\#8D9197
+
+\#AEB1B5
+
+`highlight_red`4 colors
+
+\#B44D47
+
+\#6E7378
+
+\#8D9197
+
+\#AEB1B5
 
 ## Small group
 
@@ -100,72 +177,72 @@ hues.
 
 `duo_warm`2 colors
 
-\#DD6B20
+\#D3742A
 
-\#D69E2E
+\#D5AA48
 
 `duo_cool`2 colors
 
 \#1E3A5F
 
-\#2C7A7B
+\#158281
 
 `trio_bold`3 colors
 
 \#1E3A5F
 
-\#DD6B20
+\#D3742A
 
-\#2C7A7B
+\#006261
 
 `trio_cool`3 colors
 
-\#3A6EA5
+\#1E3A5F
 
-\#2C7A7B
+\#158281
 
-\#805AD5
+\#8D9197
 
 `quad_earth`4 colors
 
 \#1E3A5F
 
-\#DD6B20
+\#D3742A
 
-\#2C7A7B
+\#006261
 
-\#38A169
+\#D5AA48
 
 `quad_vivid`4 colors
 
-\#3A6EA5
+\#3E76AC
 
-\#DD6B20
+\#D3742A
 
-\#805AD5
+\#8C3431
 
-\#C53030
+\#D5AA48
 
 ## Sequential
 
-The eight brand scales, light to dark. Position `i` is shade `i * 100`,
+The seven brand scales, light to dark. Position `i` is shade `i * 100`,
 so `ekio_pal("blue")["700"]` is the primary blue. These work as discrete
 palettes for ordered categories and as the ramp behind
 [`scale_color_ekio_c()`](https://viniciusoike.github.io/ekioplot/reference/scale_color_ekio_c.md).
 
 `blue`9 colors
 
-\#D4E8F5
+\#E8F6FF
 
-\#A8D0E8
+\#B1D8F2
 
-\#7EB6D8
+\#84B8DD
 
-\#4A90C2
+\#5597CC
 
-\#3A6EA5
+\#3E76AC
 
-\#2B4C7E
+\#305687
 
 \#1E3A5F
 
@@ -175,220 +252,188 @@ palettes for ordered categories and as the ramp behind
 
 `gray`9 colors
 
-\#F7FAFC
+\#F2F3F5
 
-\#EDF2F7
+\#CFD2D5
 
-\#E2E8F0
+\#AEB1B5
 
-\#CBD5E0
+\#8D9197
 
-\#A0AEC0
+\#6E7378
 
-\#718096
+\#52555A
 
-\#4A5568
+\#373A3D
 
-\#2D3748
+\#28292C
 
-\#1A202C
+\#191A1C
+
+`stone`9 colors
+
+\#F5F3F1
+
+\#D4D1CD
+
+\#B4B0AB
+
+\#959089
+
+\#76716B
+
+\#59544F
+
+\#3C3935
+
+\#2B2926
+
+\#1B1A18
 
 `teal`9 colors
 
-\#E6FFFA
+\#E2F9FA
 
-\#B2F5EA
+\#AFDCDD
 
-\#81E6D9
+\#7EBEC0
 
-\#4FD1C5
+\#40A2A3
 
-\#38B2AC
+\#158281
 
-\#319795
+\#006261
 
-\#2C7A7B
+\#004342
 
-\#285E61
+\#013031
 
-\#234E52
-
-`orange`9 colors
-
-\#FFFAF0
-
-\#FEEBC8
-
-\#FBD38D
-
-\#F6AD55
-
-\#ED8936
-
-\#DD6B20
-
-\#C05621
-
-\#9C4221
-
-\#7B341E
-
-`purple`9 colors
-
-\#E9D8FD
-
-\#D6BCFA
-
-\#B794F4
-
-\#9F7AEA
-
-\#805AD5
-
-\#6B46C1
-
-\#553C9A
-
-\#44337A
-
-\#332A5A
-
-`red`9 colors
-
-\#FED7D7
-
-\#FEB2B2
-
-\#FC8181
-
-\#F56565
-
-\#E53E3E
-
-\#C53030
-
-\#9B2C2C
-
-\#742A2A
-
-\#4D2828
+\#051F20
 
 `green`9 colors
 
-\#C6F6D5
+\#E7F9EC
 
-\#9AE6B4
+\#BADCC3
 
-\#68D391
+\#8FBE9C
 
-\#48BB78
+\#62A274
 
-\#38A169
+\#448255
 
-\#2F855A
+\#2E623B
 
-\#276749
+\#1C4326
 
-\#22543D
+\#14301C
 
-\#1D4131
+\#0D1F12
 
-`amber`9 colors
+`orange`9 colors
 
-\#FEFCBF
+\#FFF1E5
 
-\#FAF089
+\#F7C7A0
 
-\#F6E05E
+\#E49F6C
 
-\#ECC94B
+\#D3742A
 
-\#D69E2E
+\#B15400
 
-\#B7791F
+\#893A00
 
-\#975A16
+\#612400
 
-\#744210
+\#471904
 
-\#512A0A
+\#2D1106
+
+`red`9 colors
+
+\#FFEFED
+
+\#FDC1B7
+
+\#E9998E
+
+\#D76D63
+
+\#B44D47
+
+\#8C3431
+
+\#622020
+
+\#461818
+
+\#2D1010
 
 ## Diverging
 
 For values with a meaningful midpoint. The pivot is a near-neutral tone,
 lighter than both arms, so the visual center of the scale lands on zero.
 
-`blue_orange`11 colors
+`blue_orange`9 colors
 
-\#0D1B2A
+\#152A44
 
-\#1E3A5F
+\#305687
 
-\#3A6EA5
+\#5597CC
 
-\#7EB6D8
+\#B1D8F2
 
-\#D4E8F5
+\#F5F3EF
 
-\#FCFAF7
+\#F7C7A0
 
-\#FEEBC8
+\#D3742A
 
-\#F6AD55
+\#893A00
 
-\#DD6B20
+\#471904
 
-\#9C4221
+`blue_red`9 colors
 
-\#7B341E
+\#152A44
 
-`blue_red`11 colors
+\#305687
 
-\#0D1B2A
+\#5597CC
 
-\#1E3A5F
+\#B1D8F2
 
-\#3A6EA5
+\#F5F3EF
 
-\#7EB6D8
+\#FDC1B7
 
-\#D4E8F5
+\#D76D63
 
-\#F5F0F0
+\#8C3431
 
-\#FED7D7
+\#461818
 
-\#FC8181
+`teal_orange`9 colors
 
-\#E53E3E
+\#013031
 
-\#9B2C2C
+\#006261
 
-\#4D2828
+\#40A2A3
 
-`teal_orange`11 colors
+\#AFDCDD
 
-\#234E52
+\#F5F3EF
 
-\#2C7A7B
+\#F7C7A0
 
-\#38B2AC
+\#D3742A
 
-\#81E6D9
+\#893A00
 
-\#B2F5EA
-
-\#FCFAF7
-
-\#FEEBC8
-
-\#F6AD55
-
-\#DD6B20
-
-\#9C4221
-
-\#7B341E
+\#471904
 
 ## Scientific
 
@@ -494,9 +539,9 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   theme_ekio()
 
 # Named access to any brand scale
-ekio_pal("teal")["700"]
-#>     700
-#> "#2C7A7B"
+ekio_pal("teal")["600"]
+#>     600
+#> "#006261"
 
 # Interpolated to an arbitrary length
 ekio_pal("blue_orange", n = 15)

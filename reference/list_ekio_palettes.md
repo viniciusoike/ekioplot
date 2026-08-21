@@ -13,8 +13,9 @@ list_ekio_palettes(type = "all", verbose = FALSE)
 
 - type:
 
-  Character. Type of palettes to list: "categorical", "small_group",
-  "scientific", "sequential", "diverging", or "all" (default).
+  Character. Type of palettes to list: "accent", "categorical",
+  "highlight", "small_group", "scientific", "sequential", "diverging",
+  or "all" (default).
 
 - verbose:
 
@@ -30,16 +31,22 @@ Invisibly returned when `verbose = TRUE`.
 
 ``` r
 list_ekio_palettes()
+#> $accent
+#> [1] "gold"
+#> 
 #> $categorical
-#> [1] "cool"      "minimal"   "contrast"  "full"      "muted"     "binary"   
-#> [7] "political"
+#> [1] "cool"       "minimal"    "contrast"   "full"       "muted"     
+#> [6] "muted_warm" "binary"     "political" 
+#> 
+#> $highlight
+#> [1] "highlight_blue"   "highlight_orange" "highlight_teal"   "highlight_red"   
 #> 
 #> $small_group
 #> [1] "duo_warm"   "duo_cool"   "trio_bold"  "trio_cool"  "quad_earth"
 #> [6] "quad_vivid"
 #> 
 #> $sequential
-#> [1] "blue"   "gray"   "teal"   "orange" "purple" "red"    "green"  "amber" 
+#> [1] "blue"   "gray"   "stone"  "teal"   "green"  "orange" "red"   
 #> 
 #> $diverging
 #> [1] "blue_orange" "blue_red"    "teal_orange"
@@ -48,17 +55,26 @@ list_ekio_palettes()
 #> [1] "okabe_ito" "viridis"   "inferno"   "plasma"   
 #> 
 list_ekio_palettes("categorical")
-#> [1] "cool"      "minimal"   "contrast"  "full"      "muted"     "binary"   
-#> [7] "political"
-list_ekio_palettes("diverging")
-#> [1] "blue_orange" "blue_red"    "teal_orange"
+#> [1] "cool"       "minimal"    "contrast"   "full"       "muted"     
+#> [6] "muted_warm" "binary"     "political" 
+list_ekio_palettes("highlight")
+#> [1] "highlight_blue"   "highlight_orange" "highlight_teal"   "highlight_red"   
 list_ekio_palettes(verbose = TRUE)
 #> 
 #> ── Available Palettes ──────────────────────────────────────────────────────────
 #> 
+#> ── Accent (named tokens, not ramps) ──
+#> 
+#> "gold"
+#> 
 #> ── Categorical ──
 #> 
-#> "cool", "minimal", "contrast", "full", "muted", "binary", and "political"
+#> "cool", "minimal", "contrast", "full", "muted", "muted_warm", "binary", and
+#> "political"
+#> 
+#> ── Highlight (one accent against receding grays) ──
+#> 
+#> "highlight_blue", "highlight_orange", "highlight_teal", and "highlight_red"
 #> 
 #> ── Small Group Variants ──
 #> 
@@ -67,7 +83,7 @@ list_ekio_palettes(verbose = TRUE)
 #> 
 #> ── Sequential (brand scales, for continuous fills) ──
 #> 
-#> "blue", "gray", "teal", "orange", "purple", "red", "green", and "amber"
+#> "blue", "gray", "stone", "teal", "green", "orange", and "red"
 #> 
 #> ── Diverging (for continuous scales) ──
 #> 
