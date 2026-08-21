@@ -36,9 +36,20 @@ stopifnot(
   ))
 )
 
-# The scales are generated from the OKLCH spec in data-raw/build-ramps.R.
-# Hand-editing the YAML would silently break the shared spine, so check the
-# whole block rather than trusting it.
+# The scales and accent tokens are generated from the OKLCH spec in
+# data-raw/build-ramps.R. Hand-editing the YAML would silently break the
+# shared spine, so check the whole block rather than trusting it.
+accents <- ekio_build_accents()
+for (nm in names(accents)) {
+  from_yaml <- unlist(spec$palettes$accent[[nm]])
+  if (!identical(from_yaml[names(accents[[nm]])], accents[[nm]])) {
+    stop(
+      "YAML accent '", nm, "' does not match data-raw/build-ramps.R.",
+      call. = FALSE
+    )
+  }
+}
+
 generated <- ekio_build_scales()
 if (!identical(.ekio_scales, generated)) {
   drift <- names(generated)[!vapply(
@@ -121,9 +132,32 @@ for (nm in names(.ekio_scales)) {
   }
 }
 
+# gold has no scale, so it has no 500 to carry the text-safe promise. Its
+# `deep` token does that job instead.
+gold_deep <- accents$gold[["deep"]]
+if (contrast_ratio(gold_deep, offwhite) < 4.5) {
+  stop(
+    "gold.deep gives only ", round(contrast_ratio(gold_deep, offwhite), 2),
+    ":1 against the off-white surface (AA needs 4.5:1)",
+    call. = FALSE
+  )
+}
+
 # ---- Token resolution ----
 
-basic <- spec$palettes$basic$basic
+# A palette written as a YAML mapping rather than a sequence is a named token
+# group - `basic`, and the accent tokens. Members of other palettes can point
+# at one the same way they point at a scale shade, so `gold.light` and
+# `basic.pivot` resolve by the same rule as `blue.700`.
+token_groups <- list()
+for (group in names(spec$palettes)) {
+  for (nm in names(spec$palettes[[group]])) {
+    pal <- spec$palettes[[group]][[nm]]
+    if (!is.null(names(pal))) {
+      token_groups[[nm]] <- unlist(pal)
+    }
+  }
+}
 
 resolve <- function(x) {
   vapply(
@@ -136,16 +170,18 @@ resolve <- function(x) {
       if (length(parts) != 2) {
         stop("unknown token '", tok, "'", call. = FALSE)
       }
-      # `basic` is a named token group, not a nine-step scale
-      hex <- if (identical(parts[1], "basic")) {
-        basic[[parts[2]]]
-      } else if (parts[1] %in% names(.ekio_scales)) {
-        .ekio_scales[[parts[1]]][[parts[2]]]
+      # Scales win: a sequential palette is its scale, so the two agree
+      group <- if (parts[1] %in% names(.ekio_scales)) {
+        .ekio_scales[[parts[1]]]
       } else {
-        stop("unknown token '", tok, "'", call. = FALSE)
+        token_groups[[parts[1]]]
       }
+      if (is.null(group)) {
+        stop("unknown scale or token group in '", tok, "'", call. = FALSE)
+      }
+      hex <- group[[parts[2]]]
       if (is.null(hex)) {
-        stop("unknown shade in token '", tok, "'", call. = FALSE)
+        stop("unknown member in token '", tok, "'", call. = FALSE)
       }
       hex
     },

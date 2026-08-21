@@ -26,9 +26,22 @@ ekio_ramp_spec <- list(
     stone = list(hue = 75, cmax = 0.012),
     teal = list(hue = c(200, 199, 198, 196, 194, 193, 194, 196, 199), cmax = 0.090),
     green = list(hue = c(155, 154, 153, 152, 151, 150, 150, 151, 152), cmax = 0.095),
-    gold = list(hue = c(95, 92, 88, 84, 80, 76, 72, 70, 68), cmax = 0.125),
     orange = list(hue = c(62, 60, 57, 54, 51, 48, 45, 43, 41), cmax = 0.145),
     red = list(hue = c(30, 29, 28, 27, 26, 25, 24, 23, 22), cmax = 0.135)
+  )
+)
+
+# Accent tokens are single colors, not ramps. Gold has no nine-step scale
+# because dark yellow is brown: past the middle of the spine a gold ramp stops
+# being gold. These three sit on spine rungs 300, 400 and 500, so they stay
+# interchangeable in weight with the scales, and `deep` clears WCAG AA on the
+# off-white surface so gold can carry type.
+
+ekio_accent_spec <- list(
+  gold = list(
+    light = list(rung = 3, cmax = 0.125, hue = 85),
+    mid = list(rung = 4, cmax = 0.130, hue = 82),
+    deep = list(rung = 5, cmax = 0.120, hue = 78)
   )
 )
 
@@ -83,6 +96,17 @@ ekio_build_scales <- function(spec = ekio_ramp_spec) {
   out
 }
 
+ekio_build_accents <- function(spec = ekio_accent_spec,
+                               ramp = ekio_ramp_spec) {
+  lapply(spec, function(tokens) {
+    vapply(
+      tokens,
+      function(t) oklch_hex(ramp$spine[t$rung], t$cmax, t$hue),
+      character(1)
+    )
+  })
+}
+
 # Emit a YAML `scales:` block ready to paste into inst/ekio-palettes.yaml.
 ekio_scales_yaml <- function(scales = ekio_build_scales()) {
   blocks <- vapply(
@@ -101,5 +125,12 @@ ekio_scales_yaml <- function(scales = ekio_build_scales()) {
 .run_as_script <- sub("^--file=", "", grep("^--file=", commandArgs(), value = TRUE))
 if (length(.run_as_script) && basename(.run_as_script[1]) == "build-ramps.R") {
   cat(ekio_scales_yaml())
+  cat("\n# accent tokens\n")
+  accents <- ekio_build_accents()
+  for (nm in names(accents)) {
+    cat("  ", nm, ":\n", sep = "")
+    cat(sprintf('    %s: "%s"', names(accents[[nm]]), accents[[nm]]), sep = "\n")
+    cat("\n")
+  }
 }
 rm(.run_as_script)

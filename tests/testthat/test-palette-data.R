@@ -11,6 +11,20 @@ read_spec <- function() {
   yaml::read_yaml(path)
 }
 
+# A palette written as a YAML mapping rather than a sequence is a named token
+# group - `basic` and the accent tokens - and other palettes can point at one
+# the same way they point at a scale shade.
+named_token_groups <- function(spec) {
+  out <- list()
+  for (group in names(spec$palettes)) {
+    for (nm in names(spec$palettes[[group]])) {
+      pal <- spec$palettes[[group]][[nm]]
+      if (!is.null(names(pal))) out[[nm]] <- pal
+    }
+  }
+  out
+}
+
 test_that("scales match the YAML source of truth", {
   spec <- read_spec()
   shades <- as.character(seq(100, 900, by = 100))
@@ -36,17 +50,17 @@ test_that("palettes resolve from the YAML source of truth", {
   spec <- read_spec()
   scales <- ekioplot:::.ekio_scales
 
-  basic <- spec$palettes$basic$basic
+  token_groups <- named_token_groups(spec)
 
   resolve <- function(tok) {
     if (startsWith(tok, "#")) {
       return(toupper(tok))
     }
     parts <- strsplit(tok, ".", fixed = TRUE)[[1]]
-    if (identical(parts[1], "basic")) {
-      basic[[parts[2]]]
-    } else {
+    if (parts[1] %in% names(scales)) {
       scales[[parts[1]]][[parts[2]]]
+    } else {
+      token_groups[[parts[1]]][[parts[2]]]
     }
   }
 
@@ -85,7 +99,7 @@ test_that("every token in the YAML resolves to a real shade", {
   spec <- read_spec()
   scales <- ekioplot:::.ekio_scales
 
-  basic <- spec$palettes$basic$basic
+  token_groups <- named_token_groups(spec)
 
   tokens <- unlist(spec$palettes, use.names = FALSE)
   tokens <- tokens[!startsWith(tokens, "#")]
@@ -93,7 +107,11 @@ test_that("every token in the YAML resolves to a real shade", {
   for (tok in unique(tokens)) {
     parts <- strsplit(tok, ".", fixed = TRUE)[[1]]
     expect_length(parts, 2)
-    group <- if (identical(parts[1], "basic")) basic else scales[[parts[1]]]
+    group <- if (parts[1] %in% names(scales)) {
+      scales[[parts[1]]]
+    } else {
+      token_groups[[parts[1]]]
+    }
     expect_false(is.null(group), info = tok)
     expect_false(is.null(group[[parts[2]]]), info = tok)
   }
@@ -131,4 +149,26 @@ test_that("shade 500 clears WCAG AA on the off-white surface", {
   for (nm in names(scales)) {
     expect_gte(ekio_contrast(scales[[nm]][["500"]], offwhite), 4.5)
   }
+})
+
+test_that("gold is an accent, reachable by name and safe for type", {
+  gold <- ekio_pal("gold")
+  expect_named(gold, c("light", "mid", "deep"))
+  expect_identical(ekioplot:::.ekio("gold", "mid"), unname(gold[["mid"]]))
+
+  # gold has no scale, so `deep` carries the text-safe promise instead of a 500
+  offwhite <- ekioplot:::.ekio("basic", "offwhite")
+  expect_gte(ekio_contrast(gold[["deep"]], offwhite), 4.5)
+
+  # the accent rungs match scale shades 300, 400 and 500 in weight
+  blue <- ekioplot:::.ekio_scales$blue
+  expect_lt(
+    max(abs(oklab_l(as.character(gold)) - oklab_l(blue[c("300", "400", "500")]))),
+    0.015
+  )
+})
+
+test_that("gold is not a continuous palette", {
+  expect_false("gold" %in% list_ekio_palettes("sequential"))
+  expect_error(scale_color_ekio_c("gold"), "not found")
 })

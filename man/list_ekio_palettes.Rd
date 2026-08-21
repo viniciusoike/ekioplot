@@ -8,8 +8,8 @@ list_ekio_palettes(type = "all", verbose = FALSE)
 }
 \arguments{
 \item{type}{Character. Type of palettes to list:
-"categorical", "highlight", "small_group", "scientific", "sequential",
-"diverging", or "all" (default).}
+"accent", "categorical", "highlight", "small_group", "scientific",
+"sequential", "diverging", or "all" (default).}
 
 \item{verbose}{Logical. If TRUE, prints a formatted summary of the
 selected type(s) and returns the result invisibly (default: FALSE).}

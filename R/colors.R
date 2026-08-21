@@ -117,9 +117,14 @@
 #' hex labels.
 #'
 #' Brand scales (`"blue"`, `"gray"`, `"stone"`, `"teal"`, `"green"`,
-#' `"gold"`, `"orange"`, `"red"`) are nine-step ramps running light to dark,
-#' named by shade. Position and shade are aligned by construction, so
+#' `"orange"`, `"red"`) are nine-step ramps running light to dark, named by
+#' shade. Position and shade are aligned by construction, so
 #' `ekio_pal("blue")[7]` and `ekio_pal("blue")["700"]` are the same color.
+#'
+#' `"gold"` is an accent rather than a scale: three colors named `"light"`,
+#' `"mid"` and `"deep"`, because a nine-step gold ramp turns brown at the
+#' dark end. They sit on the same lightness rungs as scale shades 300, 400
+#' and 500.
 #'
 #' @param palette Character. Name of the palette. See [list_ekio_palettes()]
 #'   for all available options.
@@ -150,6 +155,9 @@
 #' # Brand scales are named by shade; position i is shade i * 100
 #' ekio_pal("blue")["700"]
 #' ekio_pal("blue")[7]
+#'
+#' # gold is an accent, named rather than numbered
+#' ekio_pal("gold")["mid"]
 ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
   if (!.is_user_palette(palette)) {
     available <- .all_palette_names()
@@ -245,8 +253,8 @@ as.character.ekio_palette <- function(x, ...) {
 #' When \code{verbose = TRUE}, prints a formatted summary to the console.
 #'
 #' @param type Character. Type of palettes to list:
-#'   "categorical", "highlight", "small_group", "scientific", "sequential",
-#'   "diverging", or "all" (default).
+#'   "accent", "categorical", "highlight", "small_group", "scientific",
+#'   "sequential", "diverging", or "all" (default).
 #' @param verbose Logical. If TRUE, prints a formatted summary of the
 #'   selected type(s) and returns the result invisibly (default: FALSE).
 #'
@@ -274,6 +282,7 @@ list_ekio_palettes <- function(type = "all", verbose = FALSE) {
 
   if (verbose) {
     headers <- c(
+      accent = "Accent (named tokens, not ramps)",
       categorical = "Categorical",
       highlight = "Highlight (one accent against receding grays)",
       small_group = "Small Group Variants",

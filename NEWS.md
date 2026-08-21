@@ -10,9 +10,16 @@
   `data-raw/build-ramps.R` and `data-raw/palettes.R` checks the shipped hex
   against it.
 
-* Removed the `purple` and `amber` scales. Added `stone`, a warm neutral, and
-  `gold`, an ochre that replaces `amber`. The eight scales are now `blue`,
-  `gray`, `stone`, `teal`, `green`, `gold`, `orange` and `red`.
+* Removed the `purple` and `amber` scales and added `stone`, a warm neutral.
+  The seven scales are now `blue`, `gray`, `stone`, `teal`, `green`, `orange`
+  and `red`.
+
+* `gold` replaces `amber` as an accent rather than a scale: three colors named
+  `"light"`, `"mid"` and `"deep"`, reached as `ekio_pal("gold")["mid"]`. A
+  nine-step gold ramp turns brown at the dark end, so only the top of it was
+  ever gold. The three sit on the same lightness rungs as scale shades 300,
+  400 and 500, and `deep` clears WCAG AA on the off-white surface. There is no
+  `gold` sequential palette.
 
 * `gray` is a true cool neutral rather than a blue-tinted one, and its pale
   steps moved down the ramp. `gray.500` now clears WCAG AA on the off-white
@@ -38,10 +45,13 @@
 
 * Added the `muted_warm` palette, the `muted` gray series in `stone`.
 
-* Added `basic.pivot`, the neutral shared by the diverging palettes. The
-  `basic` token group now holds the only hard-coded hex in the package.
+* Added `basic.pivot`, the neutral shared by the diverging palettes.
 
-* `list_ekio_palettes()` accepts `type = "highlight"`.
+* A palette member can now point at any named token group, not just a scale
+  shade: `gold.light` and `basic.pivot` resolve by the same rule as
+  `blue.700`.
+
+* `list_ekio_palettes()` accepts `type = "accent"` and `type = "highlight"`.
 
 ## Color provenance
 

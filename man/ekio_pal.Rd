@@ -38,9 +38,14 @@ hex labels.
 }
 \details{
 Brand scales (\code{"blue"}, \code{"gray"}, \code{"stone"}, \code{"teal"}, \code{"green"},
-\code{"gold"}, \code{"orange"}, \code{"red"}) are nine-step ramps running light to dark,
-named by shade. Position and shade are aligned by construction, so
+\code{"orange"}, \code{"red"}) are nine-step ramps running light to dark, named by
+shade. Position and shade are aligned by construction, so
 \code{ekio_pal("blue")[7]} and \code{ekio_pal("blue")["700"]} are the same color.
+
+\code{"gold"} is an accent rather than a scale: three colors named \code{"light"},
+\code{"mid"} and \code{"deep"}, because a nine-step gold ramp turns brown at the
+dark end. They sit on the same lightness rungs as scale shades 300, 400
+and 500.
 }
 \examples{
 ekio_pal("contrast")
@@ -51,4 +56,7 @@ ekio_pal("okabe_ito")
 # Brand scales are named by shade; position i is shade i * 100
 ekio_pal("blue")["700"]
 ekio_pal("blue")[7]
+
+# gold is an accent, named rather than numbered
+ekio_pal("gold")["mid"]
 }
