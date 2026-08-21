@@ -7,25 +7,25 @@
 :root {
   --ekio-navy: #152A44;    // blue.800
   --ekio-accent: #1E3A5F;  // blue.700
-  --ekio-rule: #E2E8F0;    // gray.300
-  --ekio-muted: #718096;   // gray.600
-  --ekio-orange: #DD6B20;  // orange.600
+  --ekio-rule: #CFD2D5;    // gray.200
+  --ekio-muted: #6E7378;   // gray.500
+  --ekio-orange: #D3742A;  // orange.400
   --ekio-surface: #FEFEFE; // basic.offwhite
 }
 
 [data-bs-theme="dark"] {
-  --ekio-accent: #4A90C2; // blue.400
-  --ekio-rule: #2D3748;   // gray.800
-  --ekio-muted: #A0AEC0;  // gray.500
+  --ekio-accent: #5597CC; // blue.400
+  --ekio-rule: #28292C;   // gray.800
+  --ekio-muted: #AEB1B5;  // gray.300
 
   // Brand-side dark mode: links, code and borders lift off the navy page
-  --bs-link-color: #7EB6D8;        // blue.300
-  --bs-link-hover-color: #A8D0E8;  // blue.200
-  --bs-primary: #4A90C2;           // blue.400
-  --bs-primary-rgb: 74, 144, 194;
-  --bs-code-color: #81E6D9;        // teal.300
-  --bs-border-color: #2D3748;      // gray.800
-  --bs-secondary-color: #A0AEC0;   // gray.500
+  --bs-link-color: #84B8DD;        // blue.300
+  --bs-link-hover-color: #B1D8F2;  // blue.200
+  --bs-primary: #5597CC;           // blue.400
+  --bs-primary-rgb: 85, 151, 204;
+  --bs-code-color: #7EBEC0;        // teal.300
+  --bs-border-color: #28292C;      // gray.800
+  --bs-secondary-color: #AEB1B5;   // gray.300
 }
 
 /* navbar ------------------------------------------------------------------ */
@@ -100,7 +100,7 @@ h2 {
 // The highlight style ships its own near-gray; use the brand token instead.
 // Dark mode is left to pkgdown, which tints code blocks off the body color.
 pre {
-  background-color: #F7FAFC; // gray.100
+  background-color: #F2F3F5; // gray.100
 }
 
 blockquote {
