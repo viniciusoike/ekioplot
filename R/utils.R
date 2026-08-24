@@ -4,5 +4,5 @@
 #' @importFrom grDevices nclass.Sturges nclass.FD nclass.scott
 #' @importFrom rlang enquo quo_is_null quo_get_expr eval_tidy as_data_mask %||%
 #' @importFrom stats na.omit
-#' @importFrom cli cli_abort cli_warn cli_alert_info cli_h1 cli_h2 cli_text
+#' @importFrom cli cli_abort cli_warn
 NULL

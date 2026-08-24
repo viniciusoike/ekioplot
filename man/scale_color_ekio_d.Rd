@@ -6,14 +6,14 @@
 \alias{scale_fill_ekio_d}
 \title{Discrete Color Scale}
 \usage{
-scale_color_ekio_d(palette = "contrast", reverse = FALSE, ...)
+scale_color_ekio_d(palette = "full", reverse = FALSE, ...)
 
-scale_colour_ekio_d(palette = "contrast", reverse = FALSE, ...)
+scale_colour_ekio_d(palette = "full", reverse = FALSE, ...)
 
-scale_fill_ekio_d(palette = "contrast", reverse = FALSE, ...)
+scale_fill_ekio_d(palette = "full", reverse = FALSE, ...)
 }
 \arguments{
-\item{palette}{Character. Palette name (default: "contrast").
+\item{palette}{Character. Palette name (default: "full").
 See \code{\link[=ekio_pal]{ekio_pal()}} for options.}
 
 \item{reverse}{Logical. If TRUE, reverses the palette order.}

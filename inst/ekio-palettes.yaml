@@ -109,36 +109,11 @@ palettes:
       mid: "#B88715"
       deep: "#966800"
 
-  # Categorical palettes pick a different shade per hue on purpose. Equal
-  # lightness makes hues balanced but hard to tell apart, so each series in
-  # `contrast` sits on its own rung of the spine and the set survives
-  # deuteranopia and desaturation. Past five categories `full` separates by
-  # hue rather than lightness, so it does not survive grayscale printing.
+  # The categorical palette picks a different shade per hue on purpose. Past
+  # five categories `full` separates by hue rather than lightness, so it does
+  # not survive grayscale printing.
   categorical:
-    cool: ["blue.700", "blue.400", "teal.600"]
-    minimal: ["blue.700", "gray.500", "gray.300"]
-    contrast: ["blue.700", "orange.400", "teal.600", "gold.light", "red.500"]
     full: ["blue.700", "orange.400", "teal.600", "gold.light", "red.500", "green.500", "gray.700", "stone.300"]
-    muted: ["gray.900", "gray.700", "gray.500", "gray.300"]
-    muted_warm: ["stone.900", "stone.700", "stone.500", "stone.300"]
-    binary: ["blue.700", "orange.400"]
-    political: ["blue.700", "red.600"]
-
-  # One accent against three receding grays: the series that carries the
-  # argument speaks, the rest stay legible context.
-  highlight:
-    highlight_blue: ["blue.700", "gray.500", "gray.400", "gray.300"]
-    highlight_orange: ["orange.400", "gray.500", "gray.400", "gray.300"]
-    highlight_teal: ["teal.600", "gray.500", "gray.400", "gray.300"]
-    highlight_red: ["red.500", "gray.500", "gray.400", "gray.300"]
-
-  small_group:
-    duo_warm: ["orange.400", "gold.light"]
-    duo_cool: ["blue.700", "teal.500"]
-    trio_bold: ["blue.700", "orange.400", "teal.600"]
-    trio_cool: ["blue.700", "teal.500", "gray.400"]
-    quad_earth: ["blue.700", "orange.400", "teal.600", "gold.light"]
-    quad_vivid: ["blue.500", "orange.400", "red.600", "gold.light"]
 
   sequential:
     blue: ["blue.100", "blue.200", "blue.300", "blue.400", "blue.500", "blue.600", "blue.700", "blue.800", "blue.900"]

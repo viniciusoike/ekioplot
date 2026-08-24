@@ -11,7 +11,7 @@ palettes come from matplotlib (\code{"viridis"}, \code{"inferno"}, \code{"plasma
 from Okabe & Ito (\code{"okabe_ito"}). Notices are in \code{inst/COPYRIGHTS}.
 }
 \usage{
-ekio_pal(palette = "contrast", n = NULL, reverse = FALSE)
+ekio_pal(palette = "full", n = NULL, reverse = FALSE)
 }
 \arguments{
 \item{palette}{Character. Name of the palette. See \code{\link[=list_ekio_palettes]{list_ekio_palettes()}}
@@ -19,9 +19,8 @@ for all available options.}
 
 \item{n}{Integer or NULL. Number of colors to return. If NULL, returns all.
 For sequential and diverging palettes, \code{n} colors are interpolated across
-the full range. For categorical, small-group, and scientific palettes the
-first \code{n} colors are taken, interpolating only if \code{n} exceeds the palette
-length.}
+the full range. For categorical and scientific palettes the first \code{n}
+colors are taken, interpolating only if \code{n} exceeds the palette length.}
 
 \item{reverse}{Logical. If TRUE, reverses the palette order.}
 }
@@ -31,8 +30,8 @@ codes). Printing displays a visual swatch. Use \code{\link[=as.character]{as.cha
 strip the class.
 }
 \description{
-Returns colors for data visualization. Includes EKIO brand scales, curated
-categorical and small-group palettes, and standard scientific palettes.
+Returns colors for data visualization. Includes EKIO brand scales, accent
+and categorical palettes, and standard scientific palettes.
 When printed interactively, displays the palette as a colored swatch with
 hex labels.
 }
@@ -48,9 +47,9 @@ dark end. They sit on the same lightness rungs as scale shades 300, 400
 and 500.
 }
 \examples{
-ekio_pal("contrast")
-ekio_pal("contrast", n = 4)
-ekio_pal("binary", reverse = TRUE)
+ekio_pal("full")
+ekio_pal("full", n = 4)
+ekio_pal("full", reverse = TRUE)
 ekio_pal("okabe_ito")
 
 # Brand scales are named by shade; position i is shade i * 100

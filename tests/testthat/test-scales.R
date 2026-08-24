@@ -6,13 +6,13 @@ test_that("discrete scales work with ggplot2", {
 
   p1 <- ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
     geom_point() +
-    scale_color_ekio_d("contrast")
+    scale_color_ekio_d("full")
   expect_s3_class(p1, "ggplot")
   expect_no_error(ggplot_build(p1))
 
   p2 <- ggplot(mtcars, aes(x = factor(cyl), fill = factor(cyl))) +
     geom_bar() +
-    scale_fill_ekio_d("cool")
+    scale_fill_ekio_d("full")
   expect_s3_class(p2, "ggplot")
   expect_no_error(ggplot_build(p2))
 })
@@ -79,7 +79,7 @@ test_that("scale reverse parameter works", {
 
   p1 <- ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
     geom_point() +
-    scale_color_ekio_d("contrast", reverse = TRUE)
+    scale_color_ekio_d("full", reverse = TRUE)
   expect_no_error(ggplot_build(p1))
 
   p2 <- ggplot(mtcars, aes(x = wt, y = mpg, color = hp)) +

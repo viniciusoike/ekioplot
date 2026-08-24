@@ -4,7 +4,7 @@
 #'
 #' Apply qualitative palettes to discrete/categorical data.
 #'
-#' @param palette Character. Palette name (default: "contrast").
+#' @param palette Character. Palette name (default: "full").
 #'   See [ekio_pal()] for options.
 #' @param reverse Logical. If TRUE, reverses the palette order.
 #' @param ... Additional arguments passed to [ggplot2::discrete_scale()]
@@ -19,7 +19,7 @@
 #' ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 #'   geom_point(size = 3) +
 #'   scale_color_ekio_d()
-scale_color_ekio_d <- function(palette = "contrast", reverse = FALSE, ...) {
+scale_color_ekio_d <- function(palette = "full", reverse = FALSE, ...) {
   ggplot2::discrete_scale(
     aesthetics = "colour",
     palette = function(n) as.character(ekio_pal(palette, n, reverse)),
@@ -33,7 +33,7 @@ scale_colour_ekio_d <- scale_color_ekio_d
 
 #' @rdname scale_color_ekio_d
 #' @export
-scale_fill_ekio_d <- function(palette = "contrast", reverse = FALSE, ...) {
+scale_fill_ekio_d <- function(palette = "full", reverse = FALSE, ...) {
   ggplot2::discrete_scale(
     aesthetics = "fill",
     palette = function(n) as.character(ekio_pal(palette, n, reverse)),
