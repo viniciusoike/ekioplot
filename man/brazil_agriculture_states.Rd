@@ -19,7 +19,7 @@ A tibble with 9,450 rows and 8 variables:
 }
 \source{
 IBGE, Table 1612: Municipal Agricultural Production (PAM).
-\url{https://www.ibge.gov.br/}
+\url{https://sidra.ibge.gov.br/tabela/1612}
 }
 \usage{
 brazil_agriculture_states

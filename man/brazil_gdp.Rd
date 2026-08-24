@@ -18,7 +18,7 @@ A tibble with 5,570 rows and 7 variables:
 }
 \source{
 IBGE, Table 5938: GDP and other aggregates by municipality.
-\url{https://www.ibge.gov.br/}
+\url{https://sidra.ibge.gov.br/tabela/5938}
 }
 \usage{
 brazil_gdp

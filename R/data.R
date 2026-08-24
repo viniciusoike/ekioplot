@@ -1,32 +1,3 @@
-#' IPS Brasil 2025 municipal rankings
-#'
-#' Rankings on eight social-progress indicators for Brazil's 25 most populous
-#' municipalities in 2025. Lower ranks indicate stronger performance.
-#'
-#' @format A tibble with 200 rows and 9 variables:
-#' \describe{
-#'   \item{code_muni}{IBGE municipality code (numeric)}
-#'   \item{name_muni}{Municipality name and state abbreviation (character)}
-#'   \item{abbrev_state}{State abbreviation (character)}
-#'   \item{population}{2022 population (numeric)}
-#'   \item{measure}{Social-progress indicator (factor)}
-#'   \item{rank}{Rank within the 25 municipalities (numeric)}
-#'   \item{highlight}{Highlighted municipality name, otherwise an empty string (character)}
-#'   \item{is_highlight}{Whether the municipality is highlighted (factor)}
-#'   \item{rank_labels}{Labels for selected rank positions (character)}
-#' }
-#'
-#' @details The data are in long form, with one row per municipality and
-#' indicator. Indicators cover social progress, GDP per capita, water and
-#' sanitation, housing, safety, health, education and higher education.
-#'
-#' @source IPS Brasil 2025. \url{https://ipsbrasil.org.br/pt}
-#'
-#' @references Imazon. (2025). Índice de Progresso Social Brasil 2025.
-#' \url{https://imazon.org.br/categorias/indice-de-progresso-social/}
-"ips_brasil"
-
-
 #' Brazilian municipal population, 2025
 #'
 #' Population estimates for Brazil's 338 municipalities with more than 100,000
@@ -45,7 +16,7 @@
 #' (200K–500K) and Small city (100K–200K).
 #'
 #' @source IBGE, Table 6579: Municipal population estimates.
-#' \url{https://www.ibge.gov.br/}
+#' \url{https://sidra.ibge.gov.br/tabela/6579}
 "brazil_population"
 
 
@@ -65,7 +36,7 @@
 #' }
 #'
 #' @source IBGE, Table 5938: GDP and other aggregates by municipality.
-#' \url{https://www.ibge.gov.br/}
+#' \url{https://sidra.ibge.gov.br/tabela/5938}
 #'
 #' @references IBGE. (2023). Produto Interno Bruto dos Municípios - 2021.
 "brazil_gdp"
@@ -93,7 +64,7 @@
 #' }
 #'
 #' @source IBGE, Table 1612: Municipal Agricultural Production (PAM).
-#' \url{https://www.ibge.gov.br/}
+#' \url{https://sidra.ibge.gov.br/tabela/1612}
 #'
 #' @references IBGE. (2023). Produção Agrícola Municipal - PAM 2022.
 "brazil_agriculture"
@@ -119,7 +90,7 @@
 #' @details Crops are beans, corn, cotton, rice, soybeans, sugarcane and wheat.
 #'
 #' @source IBGE, Table 1612: Municipal Agricultural Production (PAM).
-#' \url{https://www.ibge.gov.br/}
+#' \url{https://sidra.ibge.gov.br/tabela/1612}
 #'
 #' @references IBGE. (2023). Produção Agrícola Municipal - PAM 2022.
 "brazil_agriculture_states"
@@ -137,5 +108,5 @@
 #'   \item{consumption_gwh}{Primary energy consumption, gigawatt-hours (numeric)}
 #' }
 #'
-#' @source Our World in Data — Energy. \url{https://ourworldindata.org/energy}
+#' @source Our World in Data, Energy Mix. \url{https://ourworldindata.org/grapher/energy-mix?time=1800..2025&source=fossil_fuels&metric=by_source}
 "fuels"

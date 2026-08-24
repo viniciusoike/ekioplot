@@ -14,7 +14,7 @@ A tibble with 228 rows and 4 variables:
 }
 }
 \source{
-Our World in Data — Energy. \url{https://ourworldindata.org/energy}
+Our World in Data, Energy Mix. \url{https://ourworldindata.org/grapher/energy-mix?time=1800..2025&source=fossil_fuels&metric=by_source}
 }
 \usage{
 fuels

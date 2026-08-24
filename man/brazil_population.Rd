@@ -16,7 +16,7 @@ A tibble with 338 rows and 5 variables:
 }
 \source{
 IBGE, Table 6579: Municipal population estimates.
-\url{https://www.ibge.gov.br/}
+\url{https://sidra.ibge.gov.br/tabela/6579}
 }
 \usage{
 brazil_population

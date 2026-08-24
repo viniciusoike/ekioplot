@@ -2,6 +2,9 @@
 
 ## Breaking changes
 
+* Removed the `ips_brasil` dataset because its source does not state terms
+  permitting redistribution.
+
 * Every brand scale is regenerated from one OKLCH specification, so every hex
   code changes except `blue.700`, `blue.800` and `blue.900`. All seven scales
   now share one lightness spine and one chroma arc, which makes a shade number

@@ -80,7 +80,6 @@ reference:
 
   - title: Datasets
     contents:
-      - ips_brasil
       - brazil_population
       - brazil_gdp
       - brazil_agriculture

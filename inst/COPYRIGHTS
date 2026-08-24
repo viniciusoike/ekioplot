@@ -1,11 +1,41 @@
-Third-party color values bundled with ekioplot
-==============================================
+Third-party material bundled with ekioplot
+===========================================
 
 Most of ekioplot is copyright (c) 2025 ekioplot authors and released under
 the MIT license (see LICENSE.md). The brand scales in
 inst/ekio-palettes.yaml are generated from the OKLCH specification in
 data-raw/build-ramps.R and are original to EKIO. The color values below come
 from elsewhere and are credited here.
+
+
+Brazilian official statistics (IBGE)
+------------------------------------
+
+The `brazil_population`, `brazil_gdp`, `brazil_agriculture`, and
+`brazil_agriculture_states` datasets are derived from publicly available
+official statistics produced by the Instituto Brasileiro de Geografia e
+Estatística (IBGE). They are included as transformed subsets for examples and
+are not endorsed by IBGE.
+
+Sources: SIDRA table 6579 (municipal population estimates), table 5938
+(municipal GDP), and table 1612 (Municipal Agricultural Production, PAM).
+Municipality and state reference fields were obtained from geobr, which
+redistributes official IBGE geographic reference data. See
+https://sidra.ibge.gov.br/tabela/6579,
+https://sidra.ibge.gov.br/tabela/5938, and
+https://sidra.ibge.gov.br/tabela/1612.
+
+
+Global fossil-fuel consumption (Our World in Data)
+--------------------------------------------------
+
+The `fuels` dataset is a transformed subset of Our World in Data's Energy Mix
+Grapher data, limited to World observations for coal, oil, and gas from
+1800 to 2023. The bundled snapshot was added on 2026-03-24. Cite both Our
+World in Data and the underlying data providers, and comply with the
+applicable provider terms. See
+https://ourworldindata.org/grapher/energy-mix?time=1800..2025&source=fossil_fuels&metric=by_source
+and https://ourworldindata.org/faqs.
 
 
 viridis, inferno and plasma
