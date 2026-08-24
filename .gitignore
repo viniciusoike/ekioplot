@@ -1,5 +1,6 @@
 # RStudio files
 .Rproj.user/
+*.Rproj
 .DS_Store
 
 # R specific
@@ -32,3 +33,4 @@ prototypes/*
 .positai
 
 AGENTS.md
+CLAUDE.md
