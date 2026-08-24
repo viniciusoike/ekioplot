@@ -31,18 +31,22 @@ labels <- c(
   "Share College Educ."
 )
 
+cols_rename <- c(
+  "code_muni" = "codigo_ibge",
+  "name_muni" = "municipio",
+  "abbrev_state" = "uf",
+  "population" = "populacao_2022"
+)
+
 subdat <- dat |>
   janitor::clean_names() |>
   select(
-    codigo_ibge,
-    municipio,
-    uf,
-    populacao_2022,
+    all_of(cols_rename),
     all_of(inds)
   )
 
 ranked <- subdat |>
-  slice_max(populacao_2022, n = 25) |>
+  slice_max(population, n = 25) |>
   mutate(
     across(all_of(inds), ~ rank(-.x))
   )
@@ -53,10 +57,10 @@ ips_brasil <- ranked |>
   pivot_longer(all_of(inds), names_to = "measure", values_to = "rank") |>
   mutate(
     measure = factor(measure, levels = inds),
-    highlight = if_else(codigo_ibge %in% codes, municipio, ""),
-    is_highlight = factor(if_else(codigo_ibge %in% codes, 1L, 0L)),
+    highlight = if_else(code_muni %in% codes, name_muni, ""),
+    is_highlight = factor(if_else(code_muni %in% codes, 1L, 0L)),
     rank_labels = if_else(rank %in% c(1, 5, 10, 15, 20, 25), rank, NA),
-    is_highlight = factor(ifelse(codigo_ibge %in% codes, 1L, 0L)),
+    is_highlight = factor(ifelse(code_muni %in% codes, 1L, 0L)),
     rank_labels = if_else(
       rank %in% c(1, 5, 10, 15, 20, 25),
       paste0(rank, "°"),

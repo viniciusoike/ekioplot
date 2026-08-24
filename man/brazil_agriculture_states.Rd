@@ -3,72 +3,35 @@
 \docType{data}
 \name{brazil_agriculture_states}
 \alias{brazil_agriculture_states}
-\title{Brazilian State-Level Agricultural Production Time Series (1974-2023)}
+\title{Brazilian state crop production, 1974–2023}
 \format{
 A tibble with 9,450 rows and 8 variables:
 \describe{
 \item{code_state}{IBGE state code (numeric)}
 \item{name_state}{State name (character)}
-\item{year}{Year of observation (1974-2023, numeric)}
-\item{crop}{Crop name in English (character)}
-\item{production_tonnes}{Production quantity in tonnes (numeric)}
-\item{area_harvested_ha}{Area harvested in hectares (numeric)}
-\item{yield_kg_per_ha}{Productivity in kg per hectare (numeric)}
-\item{production_value_brl_k}{Production value in thousands of BRL (numeric)}
+\item{year}{Observation year (numeric)}
+\item{crop}{Crop name (character)}
+\item{production_tonnes}{Production volume, tonnes (numeric)}
+\item{area_harvested_ha}{Harvested area, hectares (numeric)}
+\item{yield_kg_per_ha}{Productivity, kilograms per hectare (numeric)}
+\item{production_value_brl_k}{Production value, thousands of Brazilian reais (numeric)}
 }
 }
 \source{
-IBGE - Instituto Brasileiro de Geografia e Estatística
-Table 1612: Area, production, yield and value of agricultural production
-(PAM - Produção Agrícola Municipal)
+IBGE, Table 1612: Municipal Agricultural Production (PAM).
 \url{https://www.ibge.gov.br/}
 }
 \usage{
 brazil_agriculture_states
 }
 \description{
-A time series dataset containing agricultural production data for Brazil's
-major crops by state, based on IBGE's Municipal Agricultural Production
-survey (PAM).
+Annual production of seven major crops by Brazilian state from IBGE's
+Municipal Agricultural Production Survey (PAM).
 }
 \details{
-This dataset provides state-level time series for Brazil's seven most
-important crops from 1974 to 2023, enabling analysis of long-term
-agricultural trends and regional specialization patterns.
-
-\strong{Crops included:}
-\itemize{
-\item \strong{Soybeans}: Brazil's top agricultural export
-\item \strong{Corn}: Major grain crop for domestic and export markets
-\item \strong{Sugarcane}: Industrial crop for sugar and ethanol
-\item \strong{Cotton}: Key fiber crop and export commodity
-\item \strong{Rice}: Important food security crop
-\item \strong{Wheat}: Food grain crop, mainly in southern states
-\item \strong{Beans}: Traditional protein source and food security crop
-}
-
-\strong{Time coverage:}
-Nearly 50 years of data (1974-2023) providing comprehensive historical
-perspective on Brazilian agricultural development.
-}
-\examples{
-\dontrun{
-# Load the dataset
-data(brazil_agriculture_states)
-
-# Soybean production trends by top states (recent years)
-brazil_agriculture_states |>
-  filter(crop == "soybeans", year >= 2010, !is.na(production_tonnes)) |>
-  slice_max(production_tonnes, n = 50) |>
-  ggplot(aes(year, production_tonnes, color = name_state)) +
-  geom_line()
-
-# View structure
-str(brazil_agriculture_states)
-}
+Crops are beans, corn, cotton, rice, soybeans, sugarcane and wheat.
 }
 \references{
 IBGE. (2023). Produção Agrícola Municipal - PAM 2022.
-Rio de Janeiro: IBGE.
 }
 \keyword{datasets}
