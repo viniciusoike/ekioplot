@@ -107,6 +107,12 @@
 # span the whole range rather than take the n lightest.
 .continuous_groups <- c("sequential", "diverging")
 
+# Accent palettes keep their main color first and allow a small number of
+# receding grays for charts whose number of series changes.
+.variable_accent_palettes <- c("accent_blue", "accent_orange")
+.variable_accent_default_n <- 4L
+.variable_accent_max_n <- 6L
+
 # ---- Palette Function ----
 
 #' Get Color Palette
@@ -126,12 +132,18 @@
 #' dark end. They sit on the same lightness rungs as scale shades 300, 400
 #' and 500.
 #'
+#' `"accent_blue"` and `"accent_orange"` put one main color before a sequence
+#' of receding grays. They return four colors by default; `n` can be set from
+#' 2 to 6 to match the number of series while keeping the main color first.
+#'
 #' @param palette Character. Name of the palette. See [list_ekio_palettes()]
 #'   for all available options.
-#' @param n Integer or NULL. Number of colors to return. If NULL, returns all.
-#'   For sequential and diverging palettes, `n` colors are interpolated across
-#'   the full range. For categorical and scientific palettes the first `n`
-#'   colors are taken, interpolating only if `n` exceeds the palette length.
+#' @param n Integer or NULL. Number of colors to return. If NULL, returns all,
+#'   except accent palettes, which return four by default. For sequential and
+#'   diverging palettes, `n` colors are interpolated across the full range. For
+#'   accent palettes, `n` can be between 2 and 6. For other categorical and
+#'   scientific palettes the first `n` colors are taken, interpolating only if
+#'   `n` exceeds the palette length.
 #' @param reverse Logical. If TRUE, reverses the palette order.
 #'
 #' @source The brand scales are generated from one OKLCH specification in
@@ -149,6 +161,7 @@
 #' ekio_pal("full")
 #' ekio_pal("full", n = 4)
 #' ekio_pal("full", reverse = TRUE)
+#' ekio_pal("accent_blue", n = 5)
 #' ekio_pal("okabe_ito")
 #'
 #' # Brand scales are named by shade; position i is shade i * 100
@@ -168,6 +181,19 @@ ekio_pal <- function(palette = "full", n = NULL, reverse = FALSE) {
 
   group <- .palette_group(palette)
   pal <- .ekio_palettes[[group]][[palette]]
+  is_variable_accent <- palette %in% .variable_accent_palettes
+
+  if (is_variable_accent) {
+    if (is.null(n)) {
+      n <- .variable_accent_default_n
+    }
+    if (n < 2L || n > .variable_accent_max_n) {
+      cli::cli_abort(
+        "{.arg n} for {.val {palette}} must be between 2 and 6."
+      )
+    }
+    pal <- pal[seq_len(n)]
+  }
 
   if (reverse) {
     pal <- rev(pal)

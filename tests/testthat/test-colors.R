@@ -22,6 +22,76 @@ test_that("ekio_pal n parameter works", {
   expect_length(interp, 10)
 })
 
+test_that("fixed categorical palettes use the current brand colors", {
+  expect_identical(
+    as.character(ekio_pal("cool3")),
+    c(.ekio("blue", 700), .ekio("blue", 400), .ekio("teal", 600))
+  )
+  expect_identical(
+    as.character(ekio_pal("cool4")),
+    c(
+      .ekio("blue", 700),
+      .ekio("blue", 400),
+      .ekio("teal", 600),
+      .ekio("green", 500)
+    )
+  )
+
+  full <- as.character(ekio_pal("full"))
+  muted <- as.character(ekio_pal("full_muted"))
+  expect_length(muted, length(full))
+  expect_identical(
+    muted,
+    c(
+      .ekio("blue", 800),
+      .ekio("orange", 500),
+      .ekio("teal", 700),
+      .ekio("gold", "mid"),
+      .ekio("red", 600),
+      .ekio("green", 600),
+      .ekio("gray", 800),
+      .ekio("stone", 400)
+    )
+  )
+  lum <- function(x) {
+    rgb <- grDevices::col2rgb(x)
+    0.299 * rgb[1, ] + 0.587 * rgb[2, ] + 0.114 * rgb[3, ]
+  }
+  expect_true(all(lum(muted) < lum(full)))
+})
+
+test_that("accent palettes keep their main color while varying in size", {
+  blue <- as.character(ekio_pal("accent_blue"))
+  orange <- as.character(ekio_pal("accent_orange"))
+  gray <- ekio_pal("gray")
+
+  expect_length(blue, 4)
+  expect_length(orange, 4)
+  expect_identical(blue[1], .ekio("blue", 700))
+  expect_identical(orange[1], .ekio("orange", 400))
+  expect_identical(
+    blue[2:4],
+    unname(gray[c("500", "400", "300")])
+  )
+  expect_identical(
+    orange[2:4],
+    unname(gray[c("500", "400", "300")])
+  )
+
+  expect_identical(
+    as.character(ekio_pal("accent_blue", n = 2)),
+    blue[1:2]
+  )
+  expect_length(ekio_pal("accent_blue", n = 6), 6)
+  expect_identical(
+    as.character(ekio_pal("accent_orange", n = 6))[1],
+    orange[1]
+  )
+
+  expect_snapshot(error = TRUE, ekio_pal("accent_blue", n = 1))
+  expect_snapshot(error = TRUE, ekio_pal("accent_orange", n = 7))
+})
+
 test_that("scientific palettes are accessible via ekio_pal", {
   expect_length(ekio_pal("okabe_ito"), 8)
   expect_length(ekio_pal("viridis"), 9)
@@ -61,7 +131,14 @@ test_that("list_ekio_palettes returns correct structure", {
     c("accent", "categorical", "sequential", "diverging", "scientific")
   )
 
-  expect_identical(list_ekio_palettes("categorical"), "full")
+  expect_identical(
+    list_ekio_palettes("categorical"),
+    c("full", "full_muted", "cool3", "cool4")
+  )
+  expect_identical(
+    list_ekio_palettes("accent"),
+    c("gold", "accent_blue", "accent_orange")
+  )
   expect_true("okabe_ito" %in% list_ekio_palettes("scientific"))
   expect_true("blue" %in% list_ekio_palettes("sequential"))
   expect_true("stone" %in% list_ekio_palettes("sequential"))

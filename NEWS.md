@@ -45,6 +45,8 @@
 
 ## New features
 
+* `ekio_pal()` gains the fixed `cool3`, `cool4` and `full_muted` categorical
+  palettes, plus variable-size `accent_blue` and `accent_orange` palettes.
 * Added `basic.pivot`, the neutral shared by the diverging palettes.
 
 * A palette member can now point at any named token group, not just a scale

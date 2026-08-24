@@ -17,10 +17,12 @@ ekio_pal(palette = "full", n = NULL, reverse = FALSE)
 \item{palette}{Character. Name of the palette. See \code{\link[=list_ekio_palettes]{list_ekio_palettes()}}
 for all available options.}
 
-\item{n}{Integer or NULL. Number of colors to return. If NULL, returns all.
-For sequential and diverging palettes, \code{n} colors are interpolated across
-the full range. For categorical and scientific palettes the first \code{n}
-colors are taken, interpolating only if \code{n} exceeds the palette length.}
+\item{n}{Integer or NULL. Number of colors to return. If NULL, returns all,
+except accent palettes, which return four by default. For sequential and
+diverging palettes, \code{n} colors are interpolated across the full range. For
+accent palettes, \code{n} can be between 2 and 6. For other categorical and
+scientific palettes the first \code{n} colors are taken, interpolating only if
+\code{n} exceeds the palette length.}
 
 \item{reverse}{Logical. If TRUE, reverses the palette order.}
 }
@@ -45,11 +47,16 @@ shade. Position and shade are aligned by construction, so
 \code{"mid"} and \code{"deep"}, because a nine-step gold ramp turns brown at the
 dark end. They sit on the same lightness rungs as scale shades 300, 400
 and 500.
+
+\code{"accent_blue"} and \code{"accent_orange"} put one main color before a sequence
+of receding grays. They return four colors by default; \code{n} can be set from
+2 to 6 to match the number of series while keeping the main color first.
 }
 \examples{
 ekio_pal("full")
 ekio_pal("full", n = 4)
 ekio_pal("full", reverse = TRUE)
+ekio_pal("accent_blue", n = 5)
 ekio_pal("okabe_ito")
 
 # Brand scales are named by shade; position i is shade i * 100

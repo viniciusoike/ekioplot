@@ -198,10 +198,14 @@ reactable(
 
 ## Accent
 
-Named tokens rather than a ramp. Gold has no nine-step scale because dark
-yellow is brown — past the middle of the spine a gold ramp stops being gold.
-The three sit on the same lightness rungs as scale shades 300, 400 and 500,
-and `deep` is the one that can carry type.
+Gold is a named token rather than a ramp. It has no nine-step scale because
+dark yellow is brown — past the middle of the spine a gold ramp stops being
+gold. The three tokens sit on the same lightness rungs as scale shades 300,
+400 and 500, and `deep` is the one that can carry type.
+
+`accent_blue` and `accent_orange` put one main color before receding grays.
+They return the original four-color form by default; use `n = 2..6` when the
+number of series changes.
 
 ```{r accent, results = "asis"}
 gallery("accent")
@@ -209,8 +213,9 @@ gallery("accent")
 
 ## Categorical
 
-For unordered groups. Each series sits on its own rung of the lightness
-spine. `full` separates by hue rather than lightness past five categories, so
+For unordered groups. `cool3` and `cool4` are compact cool palettes, while
+`full_muted` follows the same sequence as `full` with each color one rung
+darker. `full` separates by hue rather than lightness past five categories, so
 it does not survive grayscale printing.
 
 ```{r categorical, results = "asis"}
