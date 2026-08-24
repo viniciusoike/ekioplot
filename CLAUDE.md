@@ -1,7 +1,7 @@
 # CLAUDE.md - Project Context
 
 ## Project: ekioplot
-R package implementing EKIO's visual identity system for ggplot2. Table styling lives in the companion `ekiotable` package.
+R package implementing EKIO's visual identity system for ggplot2.
 
 ## Description
 A comprehensive R package that provides EKIO-branded themes, color palettes, scale functions and high-level "recipe" chart functions for professional data visualizations. Follows EKIO design principles of clarity, purposeful color usage, and professional presentation standards.
@@ -15,7 +15,7 @@ This package is EKIO's single source of truth for brand color and type. Downstre
 - **Token references**: a palette member is a literal hex, a `scale.shade` (`blue.700`), or a `group.name` pointing at a named token group (`gold.light`, `basic.pivot`). Any palette written as a YAML mapping rather than a sequence becomes such a group. Scales win on name collision.
 - **Generated, not hand-picked**: the scales come from one OKLCH spec in `data-raw/build-ramps.R` — a shared lightness spine (pinned so `blue.700` is the brand navy), a shared chroma arc, and a hue path plus chroma budget per family. `data-raw/palettes.R` checks the YAML hex against the spec and refuses to build on drift. To change a color, edit the spec, rerun `Rscript data-raw/build-ramps.R`, paste the block into the YAML, then rerun `data-raw/palettes.R`. Never hand-edit a scale.
 - **What the spine buys**: shade number means one visual weight in every family, so `blue.500` and `orange.500` are interchangeable. Shade `500` clears WCAG AA on the off-white surface in all seven scales. Both properties are asserted at build time and in `tests/testthat/test-palette-data.R`.
-- **Categorical palettes vary shade on purpose**: equal lightness balances hues but makes them hard to tell apart, so each series in `contrast` sits on its own rung. `contrast` (5) survives grayscale and deuteranopia; `full` (8) separates by hue past five categories and does not.
+- **Categorical palettes vary shade on purpose**: `full` (8) separates by hue past five categories, so it does not survive grayscale printing
 - **Surfaces**: the `basic` token group, not a scale — `offwhite` = `#FEFEFE` (the `theme_ekio()` default background), `white` = `#FFFFFF`, `pivot` = `#F5F3EF` (the diverging midpoint), `black` = `#000000`. The `gray.100` tint (`#F2F3F5`) is reachable as `theme_ekio(background = "gray")`. White, offwhite and black are the only hand-set hex in the package; the pivot is generated with the scales. `basic` is internal to `.ekio()` and deliberately absent from `ekio_pal()` and `list_ekio_palettes()`; the `accent` group, by contrast, is user-facing
 - **Type — web (ekio-site)**: Lora (serif display/headings), Lato (body), Fira Code (mono).
 
@@ -32,7 +32,7 @@ This package is EKIO's single source of truth for brand color and type. Downstre
 - **utils.R** — Package-level `@importFrom` tags only
 
 ### Key Design Decisions
-- **Unified palette access**: All palette types (accent, categorical, highlight, small-group, scientific, sequential, diverging) go through `ekio_pal()`. Sequential/diverging palettes are also usable in continuous scales
+- **Unified palette access**: All palette types (accent, categorical, scientific, sequential, diverging) go through `ekio_pal()`. Sequential/diverging palettes are also usable in continuous scales
 - **Smart aesthetic detection**: Recipe functions use `rlang::enquo()` + internal `.detect_aesthetic_type()` to distinguish between missing args, static color strings, and variable mappings — auto-selecting appropriate scales
 - **One recipe layer builder**: recipes do not branch on the aesthetic type themselves. `.resolve_aes()` detects the type, applies the recipe's continuous policy and settles the palette; `.recipe_layer()` builds the `ggplot() + geom_*()` call and attaches the scale. Each recipe only supplies its base aesthetics, geom and geom arguments. Adding a recipe means calling these, not copying a branch tree
 - **Continuous policy per chart**: `.resolve_aes(continuous = )` is `"reject"` for histogram, line, bar and area (a continuous color/fill errors, pointing at `factor()` or binning) and `"warn"` for scatter. Change the policy at the call site, never with an ad-hoc `if`
@@ -63,4 +63,4 @@ This package is EKIO's single source of truth for brand color and type. Downstre
 
 ## General observations
 - After making changes, run `check()` and fix only errors and warnings. Ignore notes
-- The Palette Lab Shiny app is retired. Its repository (`viniciusoike/ekioplot-palette-lab`) is archived and its site is down; it targeted pre-1.0.0 brand colors. The palette gallery in `vignettes/articles/palettes.Rmd` is the reference for browsing palettes. Do not revive it
+- The palette gallery in `vignettes/articles/palettes.Rmd` is the reference for browsing palettes.

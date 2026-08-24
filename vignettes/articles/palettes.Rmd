@@ -36,8 +36,6 @@ palette_names <- unlist(list_ekio_palettes(), use.names = FALSE)
 type_labels <- c(
   accent = "Accent",
   categorical = "Categorical",
-  highlight = "Highlight",
-  small_group = "Small group",
   sequential = "Sequential",
   diverging = "Diverging",
   scientific = "Scientific"
@@ -212,33 +210,11 @@ gallery("accent")
 ## Categorical
 
 For unordered groups. Each series sits on its own rung of the lightness
-spine, so `contrast` stays readable in grayscale and under deuteranopia.
-Past five categories `full` separates by hue rather than lightness, so it
-does not survive grayscale printing. `cool` and `minimal` stay within the
-primary blues and grays; `muted` and `muted_warm` are gray-only; `binary` and
-`political` are fixed two-color pairings.
+spine. `full` separates by hue rather than lightness past five categories, so
+it does not survive grayscale printing.
 
 ```{r categorical, results = "asis"}
 gallery("categorical")
-```
-
-## Highlight
-
-One accent against three receding grays. The series carrying the argument
-speaks and the rest stay legible context — order the factor so the level you
-want emphasised comes first.
-
-```{r highlight, results = "asis"}
-gallery("highlight")
-```
-
-## Small group
-
-Tuned for a known number of series — reach for these instead of truncating a
-longer palette, which can leave you with two neighbouring hues.
-
-```{r small-group, results = "asis"}
-gallery("small_group")
 ```
 
 ## Sequential
@@ -280,7 +256,7 @@ library(ggplot2)
 
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 3) +
-  scale_color_ekio_d("contrast") +
+  scale_color_ekio_d("full") +
   theme_ekio()
 
 # Named access to any brand scale

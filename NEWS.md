@@ -26,24 +26,21 @@
   surface at 4.75:1, where it previously sat at 2.1:1 and failed. This is the
   color `theme_ekio()` uses for muted text.
 
-* `contrast` returns five colors rather than six, and each sits on its own
-  rung of the spine so the palette survives grayscale and deuteranopia.
-  `full` still returns eight, but past five categories it separates by hue
-  rather than lightness.
+* The categorical palette set now contains only `full`; the highlight and
+  small-group palette groups have been removed.
 
 * Diverging palettes return nine colors rather than eleven. Both arms step
   through the even shades, so the halves carry equal weight rung for rung.
+
+* `ekio_areaplot()`, `ekio_barplot()` and `ekio_histogram()` no longer accept
+  `add_zero`; `ekio_lineplot()` and `ekio_scatterplot()` retain the argument.
+
+* Removed the `verbose` argument from `list_ekio_palettes()`.
 
 * `theme_ekio()` draws grid lines in `gray.200` rather than `gray.300`,
   following the ramp's new spacing.
 
 ## New features
-
-* Added the `highlight` palette group: `highlight_blue`, `highlight_orange`,
-  `highlight_teal` and `highlight_red`, each one accent against three
-  receding grays. Order the factor so the level to emphasise comes first.
-
-* Added the `muted_warm` palette, the `muted` gray series in `stone`.
 
 * Added `basic.pivot`, the neutral shared by the diverging palettes.
 
@@ -51,7 +48,7 @@
   shade: `gold.light` and `basic.pivot` resolve by the same rule as
   `blue.700`.
 
-* `list_ekio_palettes()` accepts `type = "accent"` and `type = "highlight"`.
+* `list_ekio_palettes()` accepts `type = "accent"`.
 
 ## Color provenance
 
@@ -73,7 +70,7 @@
 ## Breaking changes
 
 * `show_all_ekio_palettes()` is removed. It was deprecated in 0.5.1; use
-  `list_ekio_palettes(verbose = TRUE)` instead.
+  `list_ekio_palettes()` to inspect available palette names instead.
 
 * `theme_ekio()` draws on off-white (`#FEFEFE`) rather than the `gray.100`
   brand tint (`#F7FAFC`). Every plot changes appearance. Pass
@@ -170,9 +167,8 @@ A maintenance release: bug fixes and cleanup, no API changes.
   through the `grid` argument.
 
 * `%||%` is imported from rlang. It was previously resolved from base R,
-  which only gained the operator in 4.4.0, so `scale_color_ekio_c()` and
-  `list_ekio_palettes(verbose = TRUE)` failed on the R 4.1–4.3 that
-  `Depends` claimed to support.
+  which only gained the operator in 4.4.0, so `scale_color_ekio_c()` failed
+  on the R 4.1–4.3 that `Depends` claimed to support.
 
 ## Dependencies
 
@@ -233,11 +229,8 @@ below before upgrading.
   legend; most of what a map needs (`coord_sf(expand = FALSE)`, colorbar
   sizing) cannot be expressed in a theme object.
 
-* `gt_theme_ekio()` has moved to the companion package
-  [ekiotable](https://github.com/viniciusoike/ekiotable). It reads brand
-  tokens from this package via `ekio_pal()`, so tables and charts stay in
-  sync without duplicating color definitions. `gt` is no longer a dependency
-  of ekioplot.
+* `gt_theme_ekio()` is no longer part of `ekioplot`; `gt` is no longer a
+  dependency of the package.
 
 * For sequential and diverging palettes, `n` now interpolates across the
   whole ramp instead of returning the `n` lightest colors.
@@ -303,9 +296,6 @@ below before upgrading.
 
 ## New features
 
-* `list_ekio_palettes()` gains a `verbose` argument that prints a formatted
-  summary of the selected palette type(s).
-
 * `ekio_pal()` now returns an object of class `ekio_palette`, a character
   vector with a custom print method that automatically displays a color
   swatch in interactive sessions. This replaces the need for a separate
@@ -315,8 +305,8 @@ below before upgrading.
 ## Deprecations
 
 * `show_all_ekio_palettes()` is deprecated in favor of
-  `list_ekio_palettes(verbose = TRUE)`. It still works but warns once per
-  session, and is no longer listed on the pkgdown reference index.
+  `list_ekio_palettes()`. It still works but warns once per session, and is
+  no longer listed on the pkgdown reference index.
 
 * `show_ekio_palette()` is deprecated in favor of
   `ekio_pal()` (which auto-displays a swatch on print). It still works
@@ -354,13 +344,9 @@ below before upgrading.
 
 ## Breaking changes
 
-* Removed `run_palette_lab()` and the bundled Shiny app. The Palette Lab now
-  lives in its own repository
-  (<https://github.com/viniciusoike/ekioplot-palette-lab>) and runs entirely in
-  the browser at <https://viniciusoike.github.io/ekioplot-palette-lab/>. This
-  drops 8 app-only `Suggests` (`bslib`, `colorspace`, `colourpicker`,
-  `forcats`, `ggbump`, `patchwork`, `shiny`, `stringr`), leaving `ekioplot` a
-  lean visualization package.
+* Removed the bundled Shiny app, dropping 8 app-only `Suggests` (`bslib`,
+  `colorspace`, `colourpicker`, `forcats`, `ggbump`, `patchwork`, `shiny`,
+  `stringr`) and leaving `ekioplot` a lean visualization package.
 
 # ekioplot 0.3.1
 

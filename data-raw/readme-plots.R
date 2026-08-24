@@ -38,7 +38,7 @@ save_fig <- function(plot, name, width = 8, height = 5, dpi = 300) {
 
 hero <- ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 3) +
-  scale_color_ekio_d("contrast") +
+  scale_color_ekio_d("full") +
   labs(
     title = "Fuel Efficiency vs. Weight",
     subtitle = "Motor Trend Car Road Tests (1974)",
@@ -55,9 +55,8 @@ save_fig(hero, "README-hero.png", width = 8, height = 5)
 # One row per palette, each normalised to the same width so palettes of
 # different lengths stay visually comparable.
 pal_names <- c(
-  "contrast",
-  "highlight_blue",
-  "muted",
+  "full",
+  "gold",
   "okabe_ito",
   "blue",
   "gray",

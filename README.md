@@ -24,7 +24,7 @@ library(ggplot2)
 
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 3) +
-  scale_color_ekio_d("contrast") +
+  scale_color_ekio_d("full") +
   labs(
     title = "Fuel Efficiency vs. Weight",
     subtitle = "Motor Trend Car Road Tests (1974)",
@@ -35,7 +35,7 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   theme_ekio()
 ```
 
-<img src="man/figures/README-hero.png" width="100%" alt="Scatter plot of fuel economy against weight for the mtcars data, points coloured by cylinder count with the contrast palette, drawn in theme_ekio()." />
+<img src="man/figures/README-hero.png" width="100%" alt="Scatter plot of fuel economy against weight for the mtcars data, points coloured by cylinder count with the full palette, drawn in theme_ekio()." />
 
 ## Installation
 
@@ -66,7 +66,7 @@ theme_ekio(grid = "xy")
 
 ## Color palettes
 
-ekioplot ships palettes across seven groups, all accessible through a
+ekioplot ships palettes across five groups, all accessible through a
 single function. The seven brand scales are generated from one OKLCH
 specification, so a given shade carries the same visual weight in every
 family.
@@ -75,7 +75,7 @@ family.
 ekio_pal()
 ```
 
-<img src="man/figures/README-palettes.png" width="100%" alt="Nine EKIO palettes drawn as horizontal colour strips, one row each: the categorical, highlight, muted, scientific, sequential and diverging groups." />
+<img src="man/figures/README-palettes.png" width="100%" alt="Eight EKIO palettes drawn as horizontal colour strips, one row each, from the accent, categorical, scientific, sequential and diverging groups." />
 
 ## Scales
 
@@ -83,8 +83,8 @@ Discrete and continuous scales are provided for both `color` and `fill`.
 
 ``` r
 # Discrete (categorical palettes)
-scale_color_ekio_d("contrast")
-scale_fill_ekio_d("cool")
+scale_color_ekio_d("full")
+scale_fill_ekio_d("full")
 
 # Continuous (sequential / diverging palettes)
 scale_color_ekio_c("blue")
