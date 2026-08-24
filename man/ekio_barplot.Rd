@@ -10,7 +10,6 @@ ekio_barplot(
   y,
   fill = NULL,
   palette = NULL,
-  add_zero = TRUE,
   horizontal = FALSE,
   bar_width = 0.8,
   title = NULL,
@@ -31,8 +30,6 @@ continuous variable is an error: bin it or wrap it in \code{factor()}.}
 
 \item{palette}{Character. Palette name for variable mappings.}
 
-\item{add_zero}{Logical. Add horizontal line at y=0 (default: TRUE)}
-
 \item{horizontal}{Logical. Create horizontal bar plot (default: FALSE)}
 
 \item{bar_width}{Bar width (default: 0.8)}
@@ -49,11 +46,9 @@ ggplot2 object
 Professional bar plot with smart aesthetic detection.
 }
 \examples{
-\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
 \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 cyl_counts <- as.data.frame(table(cyl = mtcars$cyl))
 names(cyl_counts)[2] <- "n"
 ekio_barplot(cyl_counts, cyl, n)
 \dontshow{options(.op)}
-\dontshow{\}) # examplesIf}
 }

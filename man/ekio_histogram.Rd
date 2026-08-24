@@ -11,7 +11,6 @@ ekio_histogram(
   palette = NULL,
   bins = "sturges",
   binwidth = NULL,
-  add_zero = TRUE,
   border_color = "white",
   title = NULL,
   subtitle = NULL,
@@ -34,8 +33,6 @@ EKIO blue. A continuous variable is an error: bin it or wrap it in
 
 \item{binwidth}{Width of bins (overrides bins if specified)}
 
-\item{add_zero}{Logical. Add horizontal line at y=0 (default: TRUE)}
-
 \item{border_color}{Color for histogram outline (default: "white")}
 
 \item{title, subtitle, caption}{Plot labels. NULL (default) draws none.}
@@ -50,11 +47,9 @@ ggplot2 object
 Professional histogram with smart aesthetic detection.
 }
 \examples{
-\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
 \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 ekio_histogram(mtcars, mpg)
 ekio_histogram(mtcars, mpg, fill = "steelblue")
-ekio_histogram(mtcars, mpg, fill = factor(cyl), palette = "cool")
+ekio_histogram(mtcars, mpg, fill = factor(cyl), palette = "full")
 \dontshow{options(.op)}
-\dontshow{\}) # examplesIf}
 }

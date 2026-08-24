@@ -11,8 +11,7 @@ ekio_areaplot(
   fill = NULL,
   palette = NULL,
   position = "stack",
-  alpha = 0.8,
-  add_zero = TRUE,
+  alpha = 1,
   title = NULL,
   subtitle = NULL,
   caption = NULL,
@@ -36,8 +35,6 @@ continuous variable is an error: bin it or wrap it in \code{factor()}.}
 
 \item{alpha}{Numeric. Fill transparency (default: 0.8).}
 
-\item{add_zero}{Logical. Add horizontal line at y=0 (default: TRUE).}
-
 \item{title, subtitle, caption}{Plot labels. NULL (default) draws none.}
 
 \item{...}{Additional arguments passed to \code{\link[ggplot2:geom_ribbon]{ggplot2::geom_area()}}.
@@ -51,7 +48,6 @@ Professional area plot with smart aesthetic detection. Supports stacked
 and filled (proportional) area charts.
 }
 \examples{
-\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
 \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 ekio_areaplot(ggplot2::economics, date, unemploy)
 
@@ -60,5 +56,4 @@ data(fuels)
 world_fuels <- fuels[fuels$entity == "World" & fuels$year >= 1950, ]
 ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel)
 \dontshow{options(.op)}
-\dontshow{\}) # examplesIf}
 }

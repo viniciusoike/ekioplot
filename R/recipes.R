@@ -62,13 +62,13 @@
   list(type = "variable_mapping", is_continuous = is_continuous)
 }
 
-# A continuous mapping needs a ramp: "contrast" is categorical and errors in
-# scale_*_ekio_c(), so it can only be the default for discrete mappings.
+# A continuous mapping needs a ramp, so the categorical default only applies
+# to discrete mappings.
 .default_palette <- function(palette, aesthetic_type) {
   if (!is.null(palette)) {
     return(palette)
   }
-  if (isTRUE(aesthetic_type$is_continuous)) "blue" else "contrast"
+  if (isTRUE(aesthetic_type$is_continuous)) "blue" else "full"
 }
 
 .warn_palette_ignored <- function(aesthetic_type, palette, param_name) {
@@ -204,7 +204,6 @@
 #' @param palette Character. Palette name for variable mappings.
 #' @param bins Binning method: "sturges", "FD", "scott", or numeric.
 #' @param binwidth Width of bins (overrides bins if specified)
-#' @param add_zero Logical. Add horizontal line at y=0 (default: TRUE)
 #' @param border_color Color for histogram outline (default: "white")
 #' @param title,subtitle,caption Plot labels. NULL (default) draws none.
 #' @param ... Additional arguments passed to [ggplot2::geom_histogram()].
@@ -213,11 +212,11 @@
 #' @return ggplot2 object
 #' @export
 #'
-#' @examplesIf rlang::is_interactive()
+#' @examples
 #' \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 #' ekio_histogram(mtcars, mpg)
 #' ekio_histogram(mtcars, mpg, fill = "steelblue")
-#' ekio_histogram(mtcars, mpg, fill = factor(cyl), palette = "cool")
+#' ekio_histogram(mtcars, mpg, fill = factor(cyl), palette = "full")
 #' \dontshow{options(.op)}
 ekio_histogram <- function(
   data,
@@ -226,7 +225,6 @@ ekio_histogram <- function(
   palette = NULL,
   bins = "sturges",
   binwidth = NULL,
-  add_zero = TRUE,
   border_color = "white",
   title = NULL,
   subtitle = NULL,
@@ -272,10 +270,6 @@ ekio_histogram <- function(
     user_args = rlang::list2(...)
   )
 
-  if (add_zero) {
-    p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
-  }
-
   p +
     ggplot2::scale_y_continuous(
       expand = ggplot2::expansion(mult = c(0, 0.05))
@@ -294,7 +288,7 @@ ekio_histogram <- function(
 #' @param color Color aesthetic. A color string or a discrete variable. A
 #'   continuous variable is an error: bin it or wrap it in `factor()`.
 #' @param palette Character. Palette name for variable mappings.
-#' @param add_zero Logical. Add horizontal line at y=0 (default: TRUE)
+#' @param add_zero Logical. Add horizontal line at y=0 (default: FALSE)
 #' @param line_width Line thickness (default: 0.8)
 #' @param title,subtitle,caption Plot labels. NULL (default) draws none.
 #' @param ... Additional arguments passed to [ggplot2::geom_line()].
@@ -303,7 +297,7 @@ ekio_histogram <- function(
 #' @return ggplot2 object
 #' @export
 #'
-#' @examplesIf rlang::is_interactive()
+#' @examples
 #' \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 #' ekio_lineplot(ggplot2::economics, date, unemploy)
 #' \dontshow{options(.op)}
@@ -313,7 +307,7 @@ ekio_lineplot <- function(
   y,
   color = NULL,
   palette = NULL,
-  add_zero = TRUE,
+  add_zero = FALSE,
   line_width = 0.8,
   title = NULL,
   subtitle = NULL,
@@ -347,9 +341,6 @@ ekio_lineplot <- function(
   }
 
   p +
-    ggplot2::scale_y_continuous(
-      expand = ggplot2::expansion(mult = c(0, 0.05))
-    ) +
     ggplot2::labs(title = title, subtitle = subtitle, caption = caption) +
     theme_ekio(grid = "y", ticks = "x")
 }
@@ -377,7 +368,7 @@ ekio_lineplot <- function(
 #' @return ggplot2 object
 #' @export
 #'
-#' @examplesIf rlang::is_interactive()
+#' @examples
 #' \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 #' ekio_scatterplot(mtcars, wt, mpg)
 #' ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl))
@@ -460,7 +451,6 @@ ekio_scatterplot <- function(
 #' @param fill Fill aesthetic. A color string or a discrete variable. A
 #'   continuous variable is an error: bin it or wrap it in `factor()`.
 #' @param palette Character. Palette name for variable mappings.
-#' @param add_zero Logical. Add horizontal line at y=0 (default: TRUE)
 #' @param horizontal Logical. Create horizontal bar plot (default: FALSE)
 #' @param bar_width Bar width (default: 0.8)
 #' @param title,subtitle,caption Plot labels. NULL (default) draws none.
@@ -470,7 +460,7 @@ ekio_scatterplot <- function(
 #' @return ggplot2 object
 #' @export
 #'
-#' @examplesIf rlang::is_interactive()
+#' @examples
 #' \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 #' cyl_counts <- as.data.frame(table(cyl = mtcars$cyl))
 #' names(cyl_counts)[2] <- "n"
@@ -482,7 +472,6 @@ ekio_barplot <- function(
   y,
   fill = NULL,
   palette = NULL,
-  add_zero = TRUE,
   horizontal = FALSE,
   bar_width = 0.8,
   title = NULL,
@@ -512,14 +501,6 @@ ekio_barplot <- function(
     user_args = rlang::list2(...)
   )
 
-  if (add_zero) {
-    if (horizontal) {
-      p <- p + ggplot2::geom_vline(xintercept = 0, linewidth = 0.8)
-    } else {
-      p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
-    }
-  }
-
   if (horizontal) {
     p <- p + ggplot2::coord_flip()
   }
@@ -546,7 +527,6 @@ ekio_barplot <- function(
 #' @param position Character. Stacking method: `"stack"` (default) or
 #'   `"fill"` for proportional areas.
 #' @param alpha Numeric. Fill transparency (default: 0.8).
-#' @param add_zero Logical. Add horizontal line at y=0 (default: TRUE).
 #' @param title,subtitle,caption Plot labels. NULL (default) draws none.
 #' @param ... Additional arguments passed to [ggplot2::geom_area()].
 #'   These override the recipe's own geom defaults.
@@ -554,7 +534,7 @@ ekio_barplot <- function(
 #' @return ggplot2 object
 #' @export
 #'
-#' @examplesIf rlang::is_interactive()
+#' @examples
 #' \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 #' ekio_areaplot(ggplot2::economics, date, unemploy)
 #'
@@ -570,8 +550,7 @@ ekio_areaplot <- function(
   fill = NULL,
   palette = NULL,
   position = "stack",
-  alpha = 0.8,
-  add_zero = TRUE,
+  alpha = 1,
   title = NULL,
   subtitle = NULL,
   caption = NULL,
@@ -598,10 +577,6 @@ ekio_areaplot <- function(
     geom_args = list(position = position, alpha = alpha),
     user_args = rlang::list2(...)
   )
-
-  if (add_zero) {
-    p <- p + ggplot2::geom_hline(yintercept = 0, linewidth = 0.8)
-  }
 
   p +
     ggplot2::scale_y_continuous(
