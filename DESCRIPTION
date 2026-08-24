@@ -1,7 +1,7 @@
 Package: ekioplot
 Type: Package
 Title: EKIO Visual Identity for 'ggplot2'
-Version: 1.0.0
+Version: 1.1.0
 Authors@R:
     person(
       "Vinicius", "Oike",
@@ -9,8 +9,11 @@ Authors@R:
       role = c("aut", "cre", "cph"),
       comment = c(ORCID = "0009-0005-8015-9189")
     )
-Description: Implements EKIO's visual identity in 'ggplot2'. Provides a theme,
-    palettes, scales, contrast helpers, and high-level chart recipes.
+Description: Implements EKIO's visual identity for data visualization with
+    'ggplot2'. Supplies a coordinated theme, color palettes, discrete and
+    continuous scales, and helpers for accessible text contrast. Includes
+    high-level recipes for common charts so analysts can create consistent,
+    publication-ready graphics with concise code.
 URL: https://viniciusoike.github.io/ekioplot/, https://github.com/viniciusoike/ekioplot
 License: MIT + file LICENSE
 Copyright: file inst/COPYRIGHTS

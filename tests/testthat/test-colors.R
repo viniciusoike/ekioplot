@@ -14,6 +14,8 @@ test_that("ekio_pal returns correct structure", {
 })
 
 test_that("ekio_pal n parameter works", {
+  expect_length(ekio_pal("full", n = 0), 0)
+  expect_length(ekio_pal("blue", n = 0), 0)
   expect_length(ekio_pal("full", n = 4), 4)
   expect_length(ekio_pal("full", n = 2), 2)
 
@@ -160,7 +162,11 @@ test_that("ekio_pal returns ekio_palette class that auto-prints", {
 
 test_that("retired color vectors are gone", {
   for (nm in c(
-    "ekio_blue", "ekio_gray", "ekio_teal", "ekio_orange", "ekio_accent"
+    "ekio_blue",
+    "ekio_gray",
+    "ekio_teal",
+    "ekio_orange",
+    "ekio_accent"
   )) {
     expect_false(nm %in% getNamespaceExports("ekioplot"))
   }
@@ -238,6 +244,14 @@ test_that("invalid palette names produce errors", {
   expect_error(ekio_pal("nonexistent_palette"))
 })
 
+test_that("palette arguments require valid scalar values", {
+  expect_snapshot(error = TRUE, ekio_pal(c("full", "blue")))
+  expect_snapshot(error = TRUE, ekio_pal("full", n = 2.5))
+  expect_snapshot(error = TRUE, ekio_pal("full", n = NA_real_))
+  expect_snapshot(error = TRUE, ekio_pal("full", reverse = NA))
+  expect_snapshot(error = TRUE, list_ekio_palettes(c("all", "accent")))
+})
+
 # ---- .ekio token access ----
 
 test_that(".ekio resolves scales by shade and by position", {
@@ -303,7 +317,10 @@ test_that("the swatch fills with the palette and titles with its name", {
   skip_if_not_installed("ggplot2")
   p <- .palette_plot(ekio_pal("okabe_ito"))
 
-  expect_equal(ggplot2::layer_data(p, 1)$fill, as.character(ekio_pal("okabe_ito")))
+  expect_equal(
+    ggplot2::layer_data(p, 1)$fill,
+    as.character(ekio_pal("okabe_ito"))
+  )
   expect_equal(p$labels$title, "Palette: okabe_ito")
   # Labels are picked for contrast against their own tile
   expect_true(all(

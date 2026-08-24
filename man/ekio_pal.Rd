@@ -18,10 +18,11 @@ ekio_pal(palette = "full", n = NULL, reverse = FALSE)
 for all available options.}
 
 \item{n}{Integer or NULL. Number of colors to return. If NULL, returns all,
-except accent palettes, which return four by default. For sequential and
-diverging palettes, \code{n} colors are interpolated across the full range. For
-accent palettes, \code{n} can be between 2 and 6. For other categorical and
-scientific palettes the first \code{n} colors are taken, interpolating only if
+except \code{"accent_blue"} and \code{"accent_orange"}, which return four by
+default. For sequential and diverging palettes, \code{n} colors are interpolated
+across the full range. For the two variable-size accent palettes, \code{n} can
+be between 2 and 6. For \code{"gold"}, other categorical palettes, and
+scientific palettes, the first \code{n} colors are taken, interpolating only if
 \code{n} exceeds the palette length.}
 
 \item{reverse}{Logical. If TRUE, reverses the palette order.}

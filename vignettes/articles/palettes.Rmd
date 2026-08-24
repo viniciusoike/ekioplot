@@ -17,9 +17,9 @@ library(ekioplot)
 library(reactable)
 ```
 
-Every palette `ekioplot` ships, at full size. Colors are read live from the
-package, so this page is always in sync with
-`inst/ekio-palettes.yaml` — the source of truth for the brand.
+Every palette `ekioplot` ships, at full size. Colors are read from the package
+registry, which is generated from `inst/ekio-palettes.yaml` — the source of
+truth for the brand.
 
 Each chip is labelled with its hex code, drawn in black or white by
 `ekio_text_on()`, the same WCAG contrast helper the palette swatches use.
@@ -32,6 +32,15 @@ matplotlib and from Okabe & Ito, and `inst/COPYRIGHTS` carries the notices.
 
 ```{r swatch-helpers}
 palette_names <- unlist(list_ekio_palettes(), use.names = FALSE)
+variable_accent_palettes <- c("accent_blue", "accent_orange")
+
+full_palette <- function(name) {
+  if (name %in% variable_accent_palettes) {
+    ekio_pal(name, n = 6)
+  } else {
+    ekio_pal(name)
+  }
+}
 
 type_labels <- c(
   accent = "Accent",
@@ -43,7 +52,7 @@ type_labels <- c(
 
 # One palette -> one labelled strip of chips.
 swatch <- function(name) {
-  pal <- ekio_pal(name)
+  pal <- full_palette(name)
   hex <- as.character(pal)
   ink <- unname(ekio_text_on(hex, dark = as.character(ekio_pal("gray")["900"])))
 
@@ -81,7 +90,7 @@ palette_json <- function() {
   entries <- vapply(
     palette_names,
     function(name) {
-      hex <- as.character(ekio_pal(name))
+      hex <- as.character(full_palette(name))
       paste0('"', name, '":["', paste(hex, collapse = '","'), '"]')
     },
     character(1)
@@ -122,7 +131,7 @@ color_table <- function() {
 
   rows <- lapply(names(groups), function(type) {
     per_palette <- lapply(groups[[type]], function(name) {
-      pal <- ekio_pal(name)
+      pal <- full_palette(name)
       hex <- as.character(pal)
       data.frame(
         palette = name,
@@ -204,8 +213,8 @@ gold. The three tokens sit on the same lightness rungs as scale shades 300,
 400 and 500, and `deep` is the one that can carry type.
 
 `accent_blue` and `accent_orange` put one main color before receding grays.
-They return the original four-color form by default; use `n = 2..6` when the
-number of series changes.
+They return the original four-color form by default; use `n` from 2 to 6 when
+the number of series changes. The gallery shows all six available positions.
 
 ```{r accent, results = "asis"}
 gallery("accent")
@@ -263,6 +272,11 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 3) +
   scale_color_ekio_d("full") +
   theme_ekio()
+
+# Compact and accent alternatives
+ekio_pal("cool3")
+ekio_pal("full_muted")
+ekio_pal("accent_orange", n = 5)
 
 # Named access to any brand scale
 ekio_pal("teal")["600"]

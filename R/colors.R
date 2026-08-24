@@ -139,10 +139,11 @@
 #' @param palette Character. Name of the palette. See [list_ekio_palettes()]
 #'   for all available options.
 #' @param n Integer or NULL. Number of colors to return. If NULL, returns all,
-#'   except accent palettes, which return four by default. For sequential and
-#'   diverging palettes, `n` colors are interpolated across the full range. For
-#'   accent palettes, `n` can be between 2 and 6. For other categorical and
-#'   scientific palettes the first `n` colors are taken, interpolating only if
+#'   except `"accent_blue"` and `"accent_orange"`, which return four by
+#'   default. For sequential and diverging palettes, `n` colors are interpolated
+#'   across the full range. For the two variable-size accent palettes, `n` can
+#'   be between 2 and 6. For `"gold"`, other categorical palettes, and
+#'   scientific palettes, the first `n` colors are taken, interpolating only if
 #'   `n` exceeds the palette length.
 #' @param reverse Logical. If TRUE, reverses the palette order.
 #'
@@ -171,6 +172,26 @@
 #' # gold is an accent, named rather than numbered
 #' ekio_pal("gold")["mid"]
 ekio_pal <- function(palette = "full", n = NULL, reverse = FALSE) {
+  if (!rlang::is_string(palette)) {
+    cli::cli_abort("{.arg palette} must be a single string.")
+  }
+  if (
+    !is.null(n) &&
+      (!is.numeric(n) ||
+        length(n) != 1L ||
+        is.na(n) ||
+        !is.finite(n) ||
+        n < 0 ||
+        n %% 1 != 0)
+  ) {
+    cli::cli_abort(
+      "{.arg n} must be {.code NULL} or a single non-negative whole number."
+    )
+  }
+  if (!is.logical(reverse) || length(reverse) != 1L || is.na(reverse)) {
+    cli::cli_abort("{.arg reverse} must be {.code TRUE} or {.code FALSE}.")
+  }
+
   if (!.is_user_palette(palette)) {
     available <- .all_palette_names()
     cli::cli_abort(c(
@@ -200,7 +221,9 @@ ekio_pal <- function(palette = "full", n = NULL, reverse = FALSE) {
   }
 
   # n matching the palette length is a no-op, so shade names survive it
-  if (!is.null(n) && n != length(pal)) {
+  if (!is.null(n) && n == 0) {
+    pal <- pal[0]
+  } else if (!is.null(n) && n != length(pal)) {
     if (group %in% .continuous_groups || n > length(pal)) {
       pal <- grDevices::colorRampPalette(unname(pal))(n)
     } else {
@@ -286,6 +309,10 @@ as.character.ekio_palette <- function(x, ...) {
 #' list_ekio_palettes()
 #' list_ekio_palettes("categorical")
 list_ekio_palettes <- function(type = "all") {
+  if (!rlang::is_string(type)) {
+    cli::cli_abort("{.arg type} must be a single string.")
+  }
+
   groups <- lapply(.ekio_palettes[.palette_groups()], names)
 
   valid_types <- c(names(groups), "all")

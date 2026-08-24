@@ -39,14 +39,26 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 
 ## Installation
 
-`ekioplot` is not on CRAN. Install from
+Install the released version from CRAN:
+
+``` r
+install.packages("ekioplot")
+```
+
+Install the development version from
 [r-universe](https://viniciusoike.r-universe.dev/ekioplot):
 
 ``` r
-install.packages("ekioplot", repos = "https://viniciusoike.r-universe.dev")
+install.packages(
+  "ekioplot",
+  repos = c(
+    "https://viniciusoike.r-universe.dev",
+    "https://cloud.r-project.org"
+  )
+)
 ```
 
-Or install the development version from GitHub.
+Alternatively, install the development version from GitHub.
 
 ``` r
 # install.packages("pak")
@@ -71,11 +83,16 @@ single function. The seven brand scales are generated from one OKLCH
 specification, so a given shade carries the same visual weight in every
 family.
 
+Compact categorical palettes (`"cool3"`, `"cool4"`) cover small groups;
+`"full_muted"` provides a quieter eight-color alternative. Variable-size
+accent palettes keep blue or orange prominent against two to six series.
+
 ``` r
 ekio_pal()
+ekio_pal("accent_blue", n = 5)
 ```
 
-<img src="man/figures/README-palettes.png" width="100%" alt="Eight EKIO palettes drawn as horizontal colour strips, one row each, from the accent, categorical, scientific, sequential and diverging groups." />
+<img src="man/figures/README-palettes.png" width="100%" alt="Ten selected EKIO palettes drawn as horizontal colour strips, including the new compact categorical and variable-size accent palettes." />
 
 ## Scales
 
@@ -100,7 +117,8 @@ defaults.
 
 ## See more
 
-See `vignette("getting-started", package = "ekioplot")` and the package
-website at <https://viniciusoike.github.io/ekioplot/>.
+See `vignette("getting-started", package = "ekioplot")`, the [palette
+gallery](https://viniciusoike.github.io/ekioplot/articles/palettes.html),
+and the package website at <https://viniciusoike.github.io/ekioplot/>.
 
 ------------------------------------------------------------------------

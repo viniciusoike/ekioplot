@@ -51,8 +51,8 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ## Color Palettes
 
-ekioplot ships sixteen palettes across five groups. Use
-`list_ekio_palettes()` to explore them:
+ekioplot ships `r length(unlist(list_ekio_palettes()))` palettes across five
+groups. Use `list_ekio_palettes()` to explore them:
 
 ```{r list-palettes}
 str(list_ekio_palettes())
@@ -62,16 +62,22 @@ Access any palette with `ekio_pal()`:
 
 ```{r palette-access}
 ekio_pal("full")
+ekio_pal("cool3")
+ekio_pal("accent_blue", n = 5)
 ekio_pal("blue", n = 5)
 ```
 
 ### Palette types
 
-- **Categorical**: `full`
+- **Categorical**: `full`, `full_muted`, `cool3`, `cool4`
 - **Scientific**: `okabe_ito`, `viridis`, `inferno`, `plasma`
 - **Sequential**: `blue`, `gray`, `stone`, `teal`, `green`, `orange`, `red`
-- **Accent**: `gold`
+- **Accent**: `gold`, `accent_blue`, `accent_orange`
 - **Diverging**: `blue_orange`, `blue_red`, `teal_orange`
+
+`accent_blue` and `accent_orange` return four colors by default. Set `n` from
+2 to 6 to match the number of series while retaining the accent as the first
+color. `gold` remains a fixed three-color named palette.
 
 `ekio_pal()` displays a swatch when printed:
 
@@ -136,9 +142,11 @@ ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl))
 ### Area plot
 
 ```{r recipe-area}
-data(fuels)
-world_fuels <- fuels[fuels$entity == "World" & fuels$year >= 1950, ]
-ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel)
+economic_series <- subset(
+  ggplot2::economics_long,
+  variable %in% c("pce", "psavert", "uempmed")
+)
+ekio_areaplot(economic_series, date, value01, fill = variable)
 ```
 
 ### Smart aesthetic detection

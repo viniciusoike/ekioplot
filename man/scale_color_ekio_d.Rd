@@ -27,12 +27,10 @@ A ggplot2 scale object
 Apply qualitative palettes to discrete/categorical data.
 }
 \examples{
-\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
 library(ggplot2)
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 3) +
   scale_color_ekio_d()
-\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=ekio_pal]{ekio_pal()}}, \code{\link[=scale_fill_ekio_d]{scale_fill_ekio_d()}}

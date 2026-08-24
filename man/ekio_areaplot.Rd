@@ -33,7 +33,7 @@ continuous variable is an error: bin it or wrap it in \code{factor()}.}
 \item{position}{Character. Stacking method: \code{"stack"} (default) or
 \code{"fill"} for proportional areas.}
 
-\item{alpha}{Numeric. Fill transparency (default: 0.8).}
+\item{alpha}{Numeric. Fill transparency (default: 1).}
 
 \item{title, subtitle, caption}{Plot labels. NULL (default) draws none.}
 
@@ -51,9 +51,11 @@ and filled (proportional) area charts.
 \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 ekio_areaplot(ggplot2::economics, date, unemploy)
 
-# Stacked area with groups
-data(fuels)
-world_fuels <- fuels[fuels$entity == "World" & fuels$year >= 1950, ]
-ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel)
+# Stacked area with normalized economic series
+economic_series <- subset(
+  ggplot2::economics_long,
+  variable \%in\% c("pce", "psavert", "uempmed")
+)
+ekio_areaplot(economic_series, date, value01, fill = variable)
 \dontshow{options(.op)}
 }

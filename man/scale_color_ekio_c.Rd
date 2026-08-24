@@ -28,7 +28,6 @@ A ggplot2 scale object
 Apply sequential or diverging palettes to continuous/numeric data.
 }
 \examples{
-\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
 library(ggplot2)
 ggplot(mtcars, aes(wt, mpg, color = hp)) +
   geom_point(size = 3) +
@@ -37,7 +36,6 @@ ggplot(mtcars, aes(wt, mpg, color = hp)) +
 ggplot(mtcars, aes(wt, mpg, color = hp)) +
   geom_point(size = 3) +
   scale_color_ekio_c("stone")
-\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=scale_fill_ekio_c]{scale_fill_ekio_c()}}, \code{\link[=list_ekio_palettes]{list_ekio_palettes()}}

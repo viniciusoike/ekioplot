@@ -94,19 +94,3 @@
 #'
 #' @references IBGE. (2023). Produção Agrícola Municipal - PAM 2022.
 "brazil_agriculture_states"
-
-
-#' Global fuel consumption by source
-#'
-#' Historical primary energy consumption by fuel and entity, from 1800 onward.
-#'
-#' @format A tibble with 228 rows and 4 variables:
-#' \describe{
-#'   \item{entity}{Country, region or aggregate (character)}
-#'   \item{year}{Observation year (numeric)}
-#'   \item{fuel}{Fuel type: \code{"gas"}, \code{"oil"} or \code{"coal"} (character)}
-#'   \item{consumption_gwh}{Primary energy consumption, gigawatt-hours (numeric)}
-#' }
-#'
-#' @source Our World in Data, Energy Mix. \url{https://ourworldindata.org/grapher/energy-mix?time=1800..2025&source=fossil_fuels&metric=by_source}
-"fuels"

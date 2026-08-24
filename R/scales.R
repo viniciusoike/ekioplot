@@ -14,7 +14,7 @@
 #'
 #' @seealso [ekio_pal()], [scale_fill_ekio_d()]
 #'
-#' @examplesIf rlang::is_interactive()
+#' @examples
 #' library(ggplot2)
 #' ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 #'   geom_point(size = 3) +
@@ -58,7 +58,7 @@ scale_fill_ekio_d <- function(palette = "full", reverse = FALSE, ...) {
 #'
 #' @seealso [scale_fill_ekio_c()], [list_ekio_palettes()]
 #'
-#' @examplesIf rlang::is_interactive()
+#' @examples
 #' library(ggplot2)
 #' ggplot(mtcars, aes(wt, mpg, color = hp)) +
 #'   geom_point(size = 3) +
@@ -69,7 +69,9 @@ scale_fill_ekio_d <- function(palette = "full", reverse = FALSE, ...) {
 #'   scale_color_ekio_c("stone")
 scale_color_ekio_c <- function(palette = "blue", reverse = FALSE, ...) {
   pal <- .continuous_palette(palette)
-  if (reverse) pal <- rev(pal)
+  if (reverse) {
+    pal <- rev(pal)
+  }
   ggplot2::scale_color_gradientn(colours = pal, ...)
 }
 
@@ -81,7 +83,9 @@ scale_colour_ekio_c <- scale_color_ekio_c
 #' @export
 scale_fill_ekio_c <- function(palette = "blue", reverse = FALSE, ...) {
   pal <- .continuous_palette(palette)
-  if (reverse) pal <- rev(pal)
+  if (reverse) {
+    pal <- rev(pal)
+  }
   ggplot2::scale_fill_gradientn(colours = pal, ...)
 }
 

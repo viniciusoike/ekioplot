@@ -1,9 +1,13 @@
-# ekioplot 1.0.0
+# ekioplot 1.1.0
 
 ## Breaking changes
 
 * Removed the `ips_brasil` dataset because its source does not state terms
   permitting redistribution.
+
+* Removed the `fuels` dataset because the upstream data combine sources with
+  redistribution terms that are not sufficiently clear for bundling on CRAN.
+  Area-plot examples now use `ggplot2::economics_long` instead.
 
 * Every brand scale is regenerated from one OKLCH specification, so every hex
   code changes except `blue.700`, `blue.800` and `blue.900`. All seven scales
@@ -29,8 +33,9 @@
   surface at 4.75:1, where it previously sat at 2.1:1 and failed. This is the
   color `theme_ekio()` uses for muted text.
 
-* The categorical palette set now contains only `full`; the highlight and
-  small-group palette groups have been removed.
+* The previous `cool`, `minimal`, `contrast`, `muted`, `muted_warm`, `binary`
+  and `political` categorical palettes have been removed, along with the
+  `highlight` and `small_group` palette groups. `full` remains available.
 
 * Diverging palettes return nine colors rather than eleven. Both arms step
   through the even shades, so the halves carry equal weight rung for rung.
@@ -46,7 +51,10 @@
 ## New features
 
 * `ekio_pal()` gains the fixed `cool3`, `cool4` and `full_muted` categorical
-  palettes, plus variable-size `accent_blue` and `accent_orange` palettes.
+  palettes. The new `accent_blue` and `accent_orange` palettes return four
+  colors by default and accept `n` from 2 to 6, keeping the accent first and
+  adding receding grays as needed.
+
 * Added `basic.pivot`, the neutral shared by the diverging palettes.
 
 * A palette member can now point at any named token group, not just a scale
@@ -55,11 +63,16 @@
 
 * `list_ekio_palettes()` accepts `type = "accent"`.
 
+## Improvements
+
+* `ekio_pal()` and `list_ekio_palettes()` now validate scalar arguments and
+  return clear errors for missing, fractional, or vector inputs.
+
 ## Color provenance
 
-* No shipped brand color derives from Chakra UI any more. `inst/COPYRIGHTS`
-  now carries only the matplotlib and Okabe & Ito notices, which cover the
-  `scientific` palettes.
+* No shipped brand color derives from Chakra UI any more. The matplotlib and
+  Okabe & Ito notices remain for the `scientific` palettes, while bundled IBGE
+  datasets are documented separately in `inst/COPYRIGHTS`.
 
 # ekioplot 0.8.1
 
