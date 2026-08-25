@@ -11,7 +11,7 @@ ekio_lineplot(
   y,
   color = NULL,
   palette = NULL,
-  add_zero = TRUE,
+  add_zero = FALSE,
   line_width = 0.8,
   title = NULL,
   subtitle = NULL,
@@ -46,7 +46,7 @@ ekio_lineplot(
 
 - add_zero:
 
-  Logical. Add horizontal line at y=0 (default: TRUE)
+  Logical. Add horizontal line at y=0 (default: FALSE)
 
 - line_width:
 
@@ -69,9 +69,5 @@ ggplot2 object
 ## Examples
 
 ``` r
-if (FALSE) { # rlang::is_interactive()
-DONTSHOW({.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")})
 ekio_lineplot(ggplot2::economics, date, unemploy)
-DONTSHOW({options(.op)})
-}
 ```

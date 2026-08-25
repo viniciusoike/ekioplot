@@ -1,14 +1,14 @@
 # Get Color Palette
 
 Returns colors for data visualization. Includes EKIO brand scales,
-curated categorical and small-group palettes, and standard scientific
-palettes. When printed interactively, displays the palette as a colored
-swatch with hex labels.
+accent and categorical palettes, and standard scientific palettes. When
+printed interactively, displays the palette as a colored swatch with hex
+labels.
 
 ## Usage
 
 ``` r
-ekio_pal(palette = "contrast", n = NULL, reverse = FALSE)
+ekio_pal(palette = "full", n = NULL, reverse = FALSE)
 ```
 
 ## Source
@@ -29,11 +29,13 @@ from Okabe & Ito (`"okabe_ito"`). Notices are in `inst/COPYRIGHTS`.
 
 - n:
 
-  Integer or NULL. Number of colors to return. If NULL, returns all. For
-  sequential and diverging palettes, `n` colors are interpolated across
-  the full range. For categorical, small-group, and scientific palettes
-  the first `n` colors are taken, interpolating only if `n` exceeds the
-  palette length.
+  Integer or NULL. Number of colors to return. If NULL, returns all,
+  except `"accent_blue"` and `"accent_orange"`, which return four by
+  default. For sequential and diverging palettes, `n` colors are
+  interpolated across the full range. For the two variable-size accent
+  palettes, `n` can be between 2 and 6. For `"gold"`, other categorical
+  palettes, and scientific palettes, the first `n` colors are taken,
+  interpolating only if `n` exceeds the palette length.
 
 - reverse:
 
@@ -58,14 +60,21 @@ shade. Position and shade are aligned by construction, so
 dark end. They sit on the same lightness rungs as scale shades 300, 400
 and 500.
 
+`"accent_blue"` and `"accent_orange"` put one main color before a
+sequence of receding grays. They return four colors by default; `n` can
+be set from 2 to 6 to match the number of series while keeping the main
+color first.
+
 ## Examples
 
 ``` r
-ekio_pal("contrast")
+ekio_pal("full")
 
-ekio_pal("contrast", n = 4)
+ekio_pal("full", n = 4)
 
-ekio_pal("binary", reverse = TRUE)
+ekio_pal("full", reverse = TRUE)
+
+ekio_pal("accent_blue", n = 5)
 
 ekio_pal("okabe_ito")
 

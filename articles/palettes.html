@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,7 +83,7 @@
     
     
 <p>Every palette <code>ekioplot</code> ships, at full size. Colors are
-read live from the package, so this page is always in sync with
+read from the package registry, which is generated from
 <code>inst/ekio-palettes.yaml</code> — the source of truth for the
 brand.</p>
 <p>Each chip is labelled with its hex code, drawn in black or white by
@@ -102,7 +102,7 @@ color — they come from matplotlib and from Okabe &amp; Ito, and
 palette to see its colors, or click its <strong>copy</strong> button to
 take the whole thing as an R vector.</p>
 <script>
-window.ekioPalettes = {"gold":["#D5AA48","#B88715","#966800"],"cool":["#1E3A5F","#5597CC","#006261"],"minimal":["#1E3A5F","#6E7378","#AEB1B5"],"contrast":["#1E3A5F","#D3742A","#006261","#D5AA48","#B44D47"],"full":["#1E3A5F","#D3742A","#006261","#D5AA48","#B44D47","#448255","#373A3D","#B4B0AB"],"muted":["#191A1C","#373A3D","#6E7378","#AEB1B5"],"muted_warm":["#1B1A18","#3C3935","#76716B","#B4B0AB"],"binary":["#1E3A5F","#D3742A"],"political":["#1E3A5F","#8C3431"],"highlight_blue":["#1E3A5F","#6E7378","#8D9197","#AEB1B5"],"highlight_orange":["#D3742A","#6E7378","#8D9197","#AEB1B5"],"highlight_teal":["#006261","#6E7378","#8D9197","#AEB1B5"],"highlight_red":["#B44D47","#6E7378","#8D9197","#AEB1B5"],"duo_warm":["#D3742A","#D5AA48"],"duo_cool":["#1E3A5F","#158281"],"trio_bold":["#1E3A5F","#D3742A","#006261"],"trio_cool":["#1E3A5F","#158281","#8D9197"],"quad_earth":["#1E3A5F","#D3742A","#006261","#D5AA48"],"quad_vivid":["#3E76AC","#D3742A","#8C3431","#D5AA48"],"blue":["#E8F6FF","#B1D8F2","#84B8DD","#5597CC","#3E76AC","#305687","#1E3A5F","#152A44","#0D1B2A"],"gray":["#F2F3F5","#CFD2D5","#AEB1B5","#8D9197","#6E7378","#52555A","#373A3D","#28292C","#191A1C"],"stone":["#F5F3F1","#D4D1CD","#B4B0AB","#959089","#76716B","#59544F","#3C3935","#2B2926","#1B1A18"],"teal":["#E2F9FA","#AFDCDD","#7EBEC0","#40A2A3","#158281","#006261","#004342","#013031","#051F20"],"green":["#E7F9EC","#BADCC3","#8FBE9C","#62A274","#448255","#2E623B","#1C4326","#14301C","#0D1F12"],"orange":["#FFF1E5","#F7C7A0","#E49F6C","#D3742A","#B15400","#893A00","#612400","#471904","#2D1106"],"red":["#FFEFED","#FDC1B7","#E9998E","#D76D63","#B44D47","#8C3431","#622020","#461818","#2D1010"],"blue_orange":["#152A44","#305687","#5597CC","#B1D8F2","#F5F3EF","#F7C7A0","#D3742A","#893A00","#471904"],"blue_red":["#152A44","#305687","#5597CC","#B1D8F2","#F5F3EF","#FDC1B7","#D76D63","#8C3431","#461818"],"teal_orange":["#013031","#006261","#40A2A3","#AFDCDD","#F5F3EF","#F7C7A0","#D3742A","#893A00","#471904"],"okabe_ito":["#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#000000"],"viridis":["#440154","#482677","#3F4A8A","#31678E","#26838F","#1F9D8A","#6CCE5A","#B6DE2B","#FEE825"],"inferno":["#000004","#1B0C41","#4A0C6B","#781C6D","#A52C60","#CF4446","#ED6925","#FB9B06","#F7D03C","#FCFFA4"],"plasma":["#0D0887","#46039F","#7201A8","#9C179E","#BD3786","#D8576B","#ED7953","#FB9F3A","#FDCA26","#F0F921"]};
+window.ekioPalettes = {"gold":["#D5AA48","#B88715","#966800"],"accent_blue":["#1E3A5F","#6E7378","#8D9197","#AEB1B5","#CFD2D5","#F2F3F5"],"accent_orange":["#D3742A","#6E7378","#8D9197","#AEB1B5","#CFD2D5","#F2F3F5"],"full":["#1E3A5F","#D3742A","#006261","#D5AA48","#B44D47","#448255","#373A3D","#B4B0AB"],"full_muted":["#152A44","#B15400","#004342","#B88715","#8C3431","#2E623B","#28292C","#959089"],"cool3":["#1E3A5F","#5597CC","#006261"],"cool4":["#1E3A5F","#5597CC","#006261","#448255"],"blue":["#E8F6FF","#B1D8F2","#84B8DD","#5597CC","#3E76AC","#305687","#1E3A5F","#152A44","#0D1B2A"],"gray":["#F2F3F5","#CFD2D5","#AEB1B5","#8D9197","#6E7378","#52555A","#373A3D","#28292C","#191A1C"],"stone":["#F5F3F1","#D4D1CD","#B4B0AB","#959089","#76716B","#59544F","#3C3935","#2B2926","#1B1A18"],"teal":["#E2F9FA","#AFDCDD","#7EBEC0","#40A2A3","#158281","#006261","#004342","#013031","#051F20"],"green":["#E7F9EC","#BADCC3","#8FBE9C","#62A274","#448255","#2E623B","#1C4326","#14301C","#0D1F12"],"orange":["#FFF1E5","#F7C7A0","#E49F6C","#D3742A","#B15400","#893A00","#612400","#471904","#2D1106"],"red":["#FFEFED","#FDC1B7","#E9998E","#D76D63","#B44D47","#8C3431","#622020","#461818","#2D1010"],"blue_orange":["#152A44","#305687","#5597CC","#B1D8F2","#F5F3EF","#F7C7A0","#D3742A","#893A00","#471904"],"blue_red":["#152A44","#305687","#5597CC","#B1D8F2","#F5F3EF","#FDC1B7","#D76D63","#8C3431","#461818"],"teal_orange":["#013031","#006261","#40A2A3","#AFDCDD","#F5F3EF","#F7C7A0","#D3742A","#893A00","#471904"],"okabe_ito":["#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#000000"],"viridis":["#440154","#482677","#3F4A8A","#31678E","#26838F","#1F9D8A","#6CCE5A","#B6DE2B","#FEE825"],"inferno":["#000004","#1B0C41","#4A0C6B","#781C6D","#A52C60","#CF4446","#ED6925","#FB9B06","#F7D03C","#FCFFA4"],"plasma":["#0D0887","#46039F","#7201A8","#9C179E","#BD3786","#D8576B","#ED7953","#FB9F3A","#FDCA26","#F0F921"]};
 function ekioCopy(text, btn) {
   if (!navigator.clipboard) return;
   navigator.clipboard.writeText(text);
@@ -122,16 +122,20 @@ function ekioCopyPalette(name, btn) {
   ekioCopy(vec, btn);
 }
 </script><div class="reactable html-widget html-fill-item" id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"palette":["gold","gold","gold","cool","cool","cool","minimal","minimal","minimal","contrast","contrast","contrast","contrast","contrast","full","full","full","full","full","full","full","full","muted","muted","muted","muted","muted_warm","muted_warm","muted_warm","muted_warm","binary","binary","political","political","highlight_blue","highlight_blue","highlight_blue","highlight_blue","highlight_orange","highlight_orange","highlight_orange","highlight_orange","highlight_teal","highlight_teal","highlight_teal","highlight_teal","highlight_red","highlight_red","highlight_red","highlight_red","duo_warm","duo_warm","duo_cool","duo_cool","trio_bold","trio_bold","trio_bold","trio_cool","trio_cool","trio_cool","quad_earth","quad_earth","quad_earth","quad_earth","quad_vivid","quad_vivid","quad_vivid","quad_vivid","blue","blue","blue","blue","blue","blue","blue","blue","blue","gray","gray","gray","gray","gray","gray","gray","gray","gray","stone","stone","stone","stone","stone","stone","stone","stone","stone","teal","teal","teal","teal","teal","teal","teal","teal","teal","green","green","green","green","green","green","green","green","green","orange","orange","orange","orange","orange","orange","orange","orange","orange","red","red","red","red","red","red","red","red","red","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","viridis","viridis","viridis","viridis","viridis","viridis","viridis","viridis","viridis","inferno","inferno","inferno","inferno","inferno","inferno","inferno","inferno","inferno","inferno","plasma","plasma","plasma","plasma","plasma","plasma","plasma","plasma","plasma","plasma"],"type":["Accent","Accent","Accent","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Highlight","Highlight","Highlight","Highlight","Highlight","Highlight","Highlight","Highlight","Highlight","Highlight","Highlight","Highlight","Highlight","Highlight","Highlight","Highlight","Small group","Small group","Small group","Small group","Small group","Small group","Small group","Small group","Small group","Small group","Small group","Small group","Small group","Small group","Small group","Small group","Small group","Small group","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific"],"position":[1,2,3,1,2,3,1,2,3,1,2,3,4,5,1,2,3,4,5,6,7,8,1,2,3,4,1,2,3,4,1,2,1,2,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,1,2,1,2,3,1,2,3,1,2,3,4,1,2,3,4,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10],"shade":["light","mid","deep",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"hex":["#D5AA48","#B88715","#966800","#1E3A5F","#5597CC","#006261","#1E3A5F","#6E7378","#AEB1B5","#1E3A5F","#D3742A","#006261","#D5AA48","#B44D47","#1E3A5F","#D3742A","#006261","#D5AA48","#B44D47","#448255","#373A3D","#B4B0AB","#191A1C","#373A3D","#6E7378","#AEB1B5","#1B1A18","#3C3935","#76716B","#B4B0AB","#1E3A5F","#D3742A","#1E3A5F","#8C3431","#1E3A5F","#6E7378","#8D9197","#AEB1B5","#D3742A","#6E7378","#8D9197","#AEB1B5","#006261","#6E7378","#8D9197","#AEB1B5","#B44D47","#6E7378","#8D9197","#AEB1B5","#D3742A","#D5AA48","#1E3A5F","#158281","#1E3A5F","#D3742A","#006261","#1E3A5F","#158281","#8D9197","#1E3A5F","#D3742A","#006261","#D5AA48","#3E76AC","#D3742A","#8C3431","#D5AA48","#E8F6FF","#B1D8F2","#84B8DD","#5597CC","#3E76AC","#305687","#1E3A5F","#152A44","#0D1B2A","#F2F3F5","#CFD2D5","#AEB1B5","#8D9197","#6E7378","#52555A","#373A3D","#28292C","#191A1C","#F5F3F1","#D4D1CD","#B4B0AB","#959089","#76716B","#59544F","#3C3935","#2B2926","#1B1A18","#E2F9FA","#AFDCDD","#7EBEC0","#40A2A3","#158281","#006261","#004342","#013031","#051F20","#E7F9EC","#BADCC3","#8FBE9C","#62A274","#448255","#2E623B","#1C4326","#14301C","#0D1F12","#FFF1E5","#F7C7A0","#E49F6C","#D3742A","#B15400","#893A00","#612400","#471904","#2D1106","#FFEFED","#FDC1B7","#E9998E","#D76D63","#B44D47","#8C3431","#622020","#461818","#2D1010","#152A44","#305687","#5597CC","#B1D8F2","#F5F3EF","#F7C7A0","#D3742A","#893A00","#471904","#152A44","#305687","#5597CC","#B1D8F2","#F5F3EF","#FDC1B7","#D76D63","#8C3431","#461818","#013031","#006261","#40A2A3","#AFDCDD","#F5F3EF","#F7C7A0","#D3742A","#893A00","#471904","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#000000","#440154","#482677","#3F4A8A","#31678E","#26838F","#1F9D8A","#6CCE5A","#B6DE2B","#FEE825","#000004","#1B0C41","#4A0C6B","#781C6D","#A52C60","#CF4446","#ED6925","#FB9B06","#F7D03C","#FCFFA4","#0D0887","#46039F","#7201A8","#9C179E","#BD3786","#D8576B","#ED7953","#FB9F3A","#FDCA26","#F0F921"]},"columns":[{"id":"palette","name":"Palette","type":"character","minWidth":150},{"id":"type","name":"Type","type":"character","aggregate":"unique","cell":"function() { return '' }","minWidth":110},{"id":"position","name":"#","type":"numeric","maxWidth":60},{"id":"shade","name":"Shade","type":"character","na":"-","maxWidth":80},{"id":"hex","name":"Hex","type":"character","cell":"\nfunction(cellInfo) {\n  var hex = cellInfo.value\n  return '<button type=\"button\" class=\"ekio-copy\" ' +\n    'onclick=\"ekioCopy(\\'' + hex + '\\', this)\" ' +\n    'title=\"Copy ' + hex + '\">' +\n    '<span class=\"ekio-copy-chip\" style=\"background:' + hex + '\"><\/span>' +\n    '<span class=\"ekio-copy-label\">' + hex + '<\/span><\/button>'\n}","aggregated":"\nfunction(cellInfo) {\n  var name = cellInfo.row.palette\n  return '<button type=\"button\" class=\"ekio-copy\" ' +\n    'onclick=\"ekioCopyPalette(\\'' + name + '\\', this)\" ' +\n    'title=\"Copy all colors as an R vector\">' +\n    '<span class=\"ekio-copy-label\">copy c(...)<\/span><\/button>'\n}","html":true,"minWidth":150}],"groupBy":["palette"],"searchable":true,"pagination":false,"highlight":true,"compact":true,"theme":{"color":"var(--bs-body-color)","backgroundColor":"transparent","borderColor":"var(--ekio-rule)","highlightColor":"rgba(var(--bs-primary-rgb), 0.07)","cellPadding":"6px 8px","style":{"fontSize":"0.875rem"},"searchInputStyle":{"width":"100%"}},"dataKey":"839d157488a3f424310056b12834dd1b"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.1.cell","tag.attribs.columns.4.cell","tag.attribs.columns.4.aggregated"],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"palette":["gold","gold","gold","accent_blue","accent_blue","accent_blue","accent_blue","accent_blue","accent_blue","accent_orange","accent_orange","accent_orange","accent_orange","accent_orange","accent_orange","full","full","full","full","full","full","full","full","full_muted","full_muted","full_muted","full_muted","full_muted","full_muted","full_muted","full_muted","cool3","cool3","cool3","cool4","cool4","cool4","cool4","blue","blue","blue","blue","blue","blue","blue","blue","blue","gray","gray","gray","gray","gray","gray","gray","gray","gray","stone","stone","stone","stone","stone","stone","stone","stone","stone","teal","teal","teal","teal","teal","teal","teal","teal","teal","green","green","green","green","green","green","green","green","green","orange","orange","orange","orange","orange","orange","orange","orange","orange","red","red","red","red","red","red","red","red","red","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","viridis","viridis","viridis","viridis","viridis","viridis","viridis","viridis","viridis","inferno","inferno","inferno","inferno","inferno","inferno","inferno","inferno","inferno","inferno","plasma","plasma","plasma","plasma","plasma","plasma","plasma","plasma","plasma","plasma"],"type":["Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific"],"position":[1,2,3,1,2,3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,1,2,3,4,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10],"shade":["light","mid","deep",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"hex":["#D5AA48","#B88715","#966800","#1E3A5F","#6E7378","#8D9197","#AEB1B5","#CFD2D5","#F2F3F5","#D3742A","#6E7378","#8D9197","#AEB1B5","#CFD2D5","#F2F3F5","#1E3A5F","#D3742A","#006261","#D5AA48","#B44D47","#448255","#373A3D","#B4B0AB","#152A44","#B15400","#004342","#B88715","#8C3431","#2E623B","#28292C","#959089","#1E3A5F","#5597CC","#006261","#1E3A5F","#5597CC","#006261","#448255","#E8F6FF","#B1D8F2","#84B8DD","#5597CC","#3E76AC","#305687","#1E3A5F","#152A44","#0D1B2A","#F2F3F5","#CFD2D5","#AEB1B5","#8D9197","#6E7378","#52555A","#373A3D","#28292C","#191A1C","#F5F3F1","#D4D1CD","#B4B0AB","#959089","#76716B","#59544F","#3C3935","#2B2926","#1B1A18","#E2F9FA","#AFDCDD","#7EBEC0","#40A2A3","#158281","#006261","#004342","#013031","#051F20","#E7F9EC","#BADCC3","#8FBE9C","#62A274","#448255","#2E623B","#1C4326","#14301C","#0D1F12","#FFF1E5","#F7C7A0","#E49F6C","#D3742A","#B15400","#893A00","#612400","#471904","#2D1106","#FFEFED","#FDC1B7","#E9998E","#D76D63","#B44D47","#8C3431","#622020","#461818","#2D1010","#152A44","#305687","#5597CC","#B1D8F2","#F5F3EF","#F7C7A0","#D3742A","#893A00","#471904","#152A44","#305687","#5597CC","#B1D8F2","#F5F3EF","#FDC1B7","#D76D63","#8C3431","#461818","#013031","#006261","#40A2A3","#AFDCDD","#F5F3EF","#F7C7A0","#D3742A","#893A00","#471904","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#000000","#440154","#482677","#3F4A8A","#31678E","#26838F","#1F9D8A","#6CCE5A","#B6DE2B","#FEE825","#000004","#1B0C41","#4A0C6B","#781C6D","#A52C60","#CF4446","#ED6925","#FB9B06","#F7D03C","#FCFFA4","#0D0887","#46039F","#7201A8","#9C179E","#BD3786","#D8576B","#ED7953","#FB9F3A","#FDCA26","#F0F921"]},"columns":[{"id":"palette","name":"Palette","type":"character","minWidth":150},{"id":"type","name":"Type","type":"character","aggregate":"unique","cell":"function() { return '' }","minWidth":110},{"id":"position","name":"#","type":"numeric","maxWidth":60},{"id":"shade","name":"Shade","type":"character","na":"-","maxWidth":80},{"id":"hex","name":"Hex","type":"character","cell":"\nfunction(cellInfo) {\n  var hex = cellInfo.value\n  return '<button type=\"button\" class=\"ekio-copy\" ' +\n    'onclick=\"ekioCopy(\\'' + hex + '\\', this)\" ' +\n    'title=\"Copy ' + hex + '\">' +\n    '<span class=\"ekio-copy-chip\" style=\"background:' + hex + '\"><\/span>' +\n    '<span class=\"ekio-copy-label\">' + hex + '<\/span><\/button>'\n}","aggregated":"\nfunction(cellInfo) {\n  var name = cellInfo.row.palette\n  return '<button type=\"button\" class=\"ekio-copy\" ' +\n    'onclick=\"ekioCopyPalette(\\'' + name + '\\', this)\" ' +\n    'title=\"Copy all colors as an R vector\">' +\n    '<span class=\"ekio-copy-label\">copy c(...)<\/span><\/button>'\n}","html":true,"minWidth":150}],"groupBy":["palette"],"searchable":true,"pagination":false,"highlight":true,"compact":true,"theme":{"color":"var(--bs-body-color)","backgroundColor":"transparent","borderColor":"var(--ekio-rule)","highlightColor":"rgba(var(--bs-primary-rgb), 0.07)","cellPadding":"6px 8px","style":{"fontSize":"0.875rem"},"searchInputStyle":{"width":"100%"}},"dataKey":"69530d8cfcd5b8b1d026f855c90f14e4"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.1.cell","tag.attribs.columns.4.cell","tag.attribs.columns.4.aggregated"],"jsHooks":[]}</script>
 </div>
 <div class="section level2">
 <h2 id="accent">Accent<a class="anchor" aria-label="anchor" href="#accent"></a>
 </h2>
-<p>Named tokens rather than a ramp. Gold has no nine-step scale because
-dark yellow is brown — past the middle of the spine a gold ramp stops
-being gold. The three sit on the same lightness rungs as scale shades
-300, 400 and 500, and <code>deep</code> is the one that can carry
-type.</p>
+<p>Gold is a named token rather than a ramp. It has no nine-step scale
+because dark yellow is brown — past the middle of the spine a gold ramp
+stops being gold. The three tokens sit on the same lightness rungs as
+scale shades 300, 400 and 500, and <code>deep</code> is the one that can
+carry type.</p>
+<p><code>accent_blue</code> and <code>accent_orange</code> put one main
+color before receding grays. They return the original four-color form by
+default; use <code>n</code> from 2 to 6 when the number of series
+changes. The gallery shows all six available positions.</p>
 <div class="ekio-swatch">
 <div class="ekio-swatch-name">
 <code>gold</code><span class="ekio-swatch-n">3 colors</span>
@@ -148,37 +152,9 @@ type.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section level2">
-<h2 id="categorical">Categorical<a class="anchor" aria-label="anchor" href="#categorical"></a>
-</h2>
-<p>For unordered groups. Each series sits on its own rung of the
-lightness spine, so <code>contrast</code> stays readable in grayscale
-and under deuteranopia. Past five categories <code>full</code> separates
-by hue rather than lightness, so it does not survive grayscale printing.
-<code>cool</code> and <code>minimal</code> stay within the primary blues
-and grays; <code>muted</code> and <code>muted_warm</code> are gray-only;
-<code>binary</code> and <code>political</code> are fixed two-color
-pairings.</p>
 <div class="ekio-swatch">
 <div class="ekio-swatch-name">
-<code>cool</code><span class="ekio-swatch-n">3 colors</span>
-</div>
-<div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#1E3A5F;color:white" title="#1E3A5F">
-#1E3A5F
-</div>
-<div class="ekio-chip" style="background:#5597CC;color:#191A1C" title="#5597CC">
-#5597CC
-</div>
-<div class="ekio-chip" style="background:#006261;color:white" title="#006261">
-#006261
-</div>
-</div>
-</div>
-<div class="ekio-swatch">
-<div class="ekio-swatch-name">
-<code>minimal</code><span class="ekio-swatch-n">3 colors</span>
+<code>accent_blue</code><span class="ekio-swatch-n">6 colors</span>
 </div>
 <div class="ekio-swatch-strip">
 <div class="ekio-chip" style="background:#1E3A5F;color:white" title="#1E3A5F">
@@ -187,33 +163,54 @@ pairings.</p>
 <div class="ekio-chip" style="background:#6E7378;color:white" title="#6E7378">
 #6E7378
 </div>
+<div class="ekio-chip" style="background:#8D9197;color:#191A1C" title="#8D9197">
+#8D9197
+</div>
 <div class="ekio-chip" style="background:#AEB1B5;color:#191A1C" title="#AEB1B5">
 #AEB1B5
+</div>
+<div class="ekio-chip" style="background:#CFD2D5;color:#191A1C" title="#CFD2D5">
+#CFD2D5
+</div>
+<div class="ekio-chip" style="background:#F2F3F5;color:#191A1C" title="#F2F3F5">
+#F2F3F5
 </div>
 </div>
 </div>
 <div class="ekio-swatch">
 <div class="ekio-swatch-name">
-<code>contrast</code><span class="ekio-swatch-n">5 colors</span>
+<code>accent_orange</code><span class="ekio-swatch-n">6 colors</span>
 </div>
 <div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#1E3A5F;color:white" title="#1E3A5F">
-#1E3A5F
-</div>
 <div class="ekio-chip" style="background:#D3742A;color:#191A1C" title="#D3742A">
 #D3742A
 </div>
-<div class="ekio-chip" style="background:#006261;color:white" title="#006261">
-#006261
+<div class="ekio-chip" style="background:#6E7378;color:white" title="#6E7378">
+#6E7378
 </div>
-<div class="ekio-chip" style="background:#D5AA48;color:#191A1C" title="#D5AA48">
-#D5AA48
+<div class="ekio-chip" style="background:#8D9197;color:#191A1C" title="#8D9197">
+#8D9197
 </div>
-<div class="ekio-chip" style="background:#B44D47;color:white" title="#B44D47">
-#B44D47
+<div class="ekio-chip" style="background:#AEB1B5;color:#191A1C" title="#AEB1B5">
+#AEB1B5
+</div>
+<div class="ekio-chip" style="background:#CFD2D5;color:#191A1C" title="#CFD2D5">
+#CFD2D5
+</div>
+<div class="ekio-chip" style="background:#F2F3F5;color:#191A1C" title="#F2F3F5">
+#F2F3F5
 </div>
 </div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="categorical">Categorical<a class="anchor" aria-label="anchor" href="#categorical"></a>
+</h2>
+<p>For unordered groups. <code>cool3</code> and <code>cool4</code> are
+compact cool palettes, while <code>full_muted</code> follows the same
+sequence as <code>full</code> with each color one rung darker.
+<code>full</code> separates by hue rather than lightness past five
+categories, so it does not survive grayscale printing.</p>
 <div class="ekio-swatch">
 <div class="ekio-swatch-name">
 <code>full</code><span class="ekio-swatch-n">8 colors</span>
@@ -247,194 +244,45 @@ pairings.</p>
 </div>
 <div class="ekio-swatch">
 <div class="ekio-swatch-name">
-<code>muted</code><span class="ekio-swatch-n">4 colors</span>
+<code>full_muted</code><span class="ekio-swatch-n">8 colors</span>
 </div>
 <div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#191A1C;color:white" title="#191A1C">
-#191A1C
+<div class="ekio-chip" style="background:#152A44;color:white" title="#152A44">
+#152A44
 </div>
-<div class="ekio-chip" style="background:#373A3D;color:white" title="#373A3D">
-#373A3D
+<div class="ekio-chip" style="background:#B15400;color:white" title="#B15400">
+#B15400
 </div>
-<div class="ekio-chip" style="background:#6E7378;color:white" title="#6E7378">
-#6E7378
+<div class="ekio-chip" style="background:#004342;color:white" title="#004342">
+#004342
 </div>
-<div class="ekio-chip" style="background:#AEB1B5;color:#191A1C" title="#AEB1B5">
-#AEB1B5
-</div>
-</div>
-</div>
-<div class="ekio-swatch">
-<div class="ekio-swatch-name">
-<code>muted_warm</code><span class="ekio-swatch-n">4 colors</span>
-</div>
-<div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#1B1A18;color:white" title="#1B1A18">
-#1B1A18
-</div>
-<div class="ekio-chip" style="background:#3C3935;color:white" title="#3C3935">
-#3C3935
-</div>
-<div class="ekio-chip" style="background:#76716B;color:white" title="#76716B">
-#76716B
-</div>
-<div class="ekio-chip" style="background:#B4B0AB;color:#191A1C" title="#B4B0AB">
-#B4B0AB
-</div>
-</div>
-</div>
-<div class="ekio-swatch">
-<div class="ekio-swatch-name">
-<code>binary</code><span class="ekio-swatch-n">2 colors</span>
-</div>
-<div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#1E3A5F;color:white" title="#1E3A5F">
-#1E3A5F
-</div>
-<div class="ekio-chip" style="background:#D3742A;color:#191A1C" title="#D3742A">
-#D3742A
-</div>
-</div>
-</div>
-<div class="ekio-swatch">
-<div class="ekio-swatch-name">
-<code>political</code><span class="ekio-swatch-n">2 colors</span>
-</div>
-<div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#1E3A5F;color:white" title="#1E3A5F">
-#1E3A5F
+<div class="ekio-chip" style="background:#B88715;color:#191A1C" title="#B88715">
+#B88715
 </div>
 <div class="ekio-chip" style="background:#8C3431;color:white" title="#8C3431">
 #8C3431
 </div>
+<div class="ekio-chip" style="background:#2E623B;color:white" title="#2E623B">
+#2E623B
+</div>
+<div class="ekio-chip" style="background:#28292C;color:white" title="#28292C">
+#28292C
+</div>
+<div class="ekio-chip" style="background:#959089;color:#191A1C" title="#959089">
+#959089
 </div>
 </div>
 </div>
-<div class="section level2">
-<h2 id="highlight">Highlight<a class="anchor" aria-label="anchor" href="#highlight"></a>
-</h2>
-<p>One accent against three receding grays. The series carrying the
-argument speaks and the rest stay legible context — order the factor so
-the level you want emphasised comes first.</p>
 <div class="ekio-swatch">
 <div class="ekio-swatch-name">
-<code>highlight_blue</code><span class="ekio-swatch-n">4 colors</span>
+<code>cool3</code><span class="ekio-swatch-n">3 colors</span>
 </div>
 <div class="ekio-swatch-strip">
 <div class="ekio-chip" style="background:#1E3A5F;color:white" title="#1E3A5F">
 #1E3A5F
 </div>
-<div class="ekio-chip" style="background:#6E7378;color:white" title="#6E7378">
-#6E7378
-</div>
-<div class="ekio-chip" style="background:#8D9197;color:#191A1C" title="#8D9197">
-#8D9197
-</div>
-<div class="ekio-chip" style="background:#AEB1B5;color:#191A1C" title="#AEB1B5">
-#AEB1B5
-</div>
-</div>
-</div>
-<div class="ekio-swatch">
-<div class="ekio-swatch-name">
-<code>highlight_orange</code><span class="ekio-swatch-n">4 colors</span>
-</div>
-<div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#D3742A;color:#191A1C" title="#D3742A">
-#D3742A
-</div>
-<div class="ekio-chip" style="background:#6E7378;color:white" title="#6E7378">
-#6E7378
-</div>
-<div class="ekio-chip" style="background:#8D9197;color:#191A1C" title="#8D9197">
-#8D9197
-</div>
-<div class="ekio-chip" style="background:#AEB1B5;color:#191A1C" title="#AEB1B5">
-#AEB1B5
-</div>
-</div>
-</div>
-<div class="ekio-swatch">
-<div class="ekio-swatch-name">
-<code>highlight_teal</code><span class="ekio-swatch-n">4 colors</span>
-</div>
-<div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#006261;color:white" title="#006261">
-#006261
-</div>
-<div class="ekio-chip" style="background:#6E7378;color:white" title="#6E7378">
-#6E7378
-</div>
-<div class="ekio-chip" style="background:#8D9197;color:#191A1C" title="#8D9197">
-#8D9197
-</div>
-<div class="ekio-chip" style="background:#AEB1B5;color:#191A1C" title="#AEB1B5">
-#AEB1B5
-</div>
-</div>
-</div>
-<div class="ekio-swatch">
-<div class="ekio-swatch-name">
-<code>highlight_red</code><span class="ekio-swatch-n">4 colors</span>
-</div>
-<div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#B44D47;color:white" title="#B44D47">
-#B44D47
-</div>
-<div class="ekio-chip" style="background:#6E7378;color:white" title="#6E7378">
-#6E7378
-</div>
-<div class="ekio-chip" style="background:#8D9197;color:#191A1C" title="#8D9197">
-#8D9197
-</div>
-<div class="ekio-chip" style="background:#AEB1B5;color:#191A1C" title="#AEB1B5">
-#AEB1B5
-</div>
-</div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="small-group">Small group<a class="anchor" aria-label="anchor" href="#small-group"></a>
-</h2>
-<p>Tuned for a known number of series — reach for these instead of
-truncating a longer palette, which can leave you with two neighbouring
-hues.</p>
-<div class="ekio-swatch">
-<div class="ekio-swatch-name">
-<code>duo_warm</code><span class="ekio-swatch-n">2 colors</span>
-</div>
-<div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#D3742A;color:#191A1C" title="#D3742A">
-#D3742A
-</div>
-<div class="ekio-chip" style="background:#D5AA48;color:#191A1C" title="#D5AA48">
-#D5AA48
-</div>
-</div>
-</div>
-<div class="ekio-swatch">
-<div class="ekio-swatch-name">
-<code>duo_cool</code><span class="ekio-swatch-n">2 colors</span>
-</div>
-<div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#1E3A5F;color:white" title="#1E3A5F">
-#1E3A5F
-</div>
-<div class="ekio-chip" style="background:#158281;color:white" title="#158281">
-#158281
-</div>
-</div>
-</div>
-<div class="ekio-swatch">
-<div class="ekio-swatch-name">
-<code>trio_bold</code><span class="ekio-swatch-n">3 colors</span>
-</div>
-<div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#1E3A5F;color:white" title="#1E3A5F">
-#1E3A5F
-</div>
-<div class="ekio-chip" style="background:#D3742A;color:#191A1C" title="#D3742A">
-#D3742A
+<div class="ekio-chip" style="background:#5597CC;color:#191A1C" title="#5597CC">
+#5597CC
 </div>
 <div class="ekio-chip" style="background:#006261;color:white" title="#006261">
 #006261
@@ -443,55 +291,20 @@ hues.</p>
 </div>
 <div class="ekio-swatch">
 <div class="ekio-swatch-name">
-<code>trio_cool</code><span class="ekio-swatch-n">3 colors</span>
+<code>cool4</code><span class="ekio-swatch-n">4 colors</span>
 </div>
 <div class="ekio-swatch-strip">
 <div class="ekio-chip" style="background:#1E3A5F;color:white" title="#1E3A5F">
 #1E3A5F
 </div>
-<div class="ekio-chip" style="background:#158281;color:white" title="#158281">
-#158281
-</div>
-<div class="ekio-chip" style="background:#8D9197;color:#191A1C" title="#8D9197">
-#8D9197
-</div>
-</div>
-</div>
-<div class="ekio-swatch">
-<div class="ekio-swatch-name">
-<code>quad_earth</code><span class="ekio-swatch-n">4 colors</span>
-</div>
-<div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#1E3A5F;color:white" title="#1E3A5F">
-#1E3A5F
-</div>
-<div class="ekio-chip" style="background:#D3742A;color:#191A1C" title="#D3742A">
-#D3742A
+<div class="ekio-chip" style="background:#5597CC;color:#191A1C" title="#5597CC">
+#5597CC
 </div>
 <div class="ekio-chip" style="background:#006261;color:white" title="#006261">
 #006261
 </div>
-<div class="ekio-chip" style="background:#D5AA48;color:#191A1C" title="#D5AA48">
-#D5AA48
-</div>
-</div>
-</div>
-<div class="ekio-swatch">
-<div class="ekio-swatch-name">
-<code>quad_vivid</code><span class="ekio-swatch-n">4 colors</span>
-</div>
-<div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#3E76AC;color:white" title="#3E76AC">
-#3E76AC
-</div>
-<div class="ekio-chip" style="background:#D3742A;color:#191A1C" title="#D3742A">
-#D3742A
-</div>
-<div class="ekio-chip" style="background:#8C3431;color:white" title="#8C3431">
-#8C3431
-</div>
-<div class="ekio-chip" style="background:#D5AA48;color:#191A1C" title="#D5AA48">
-#D5AA48
+<div class="ekio-chip" style="background:#448255;color:white" title="#448255">
+#448255
 </div>
 </div>
 </div>
@@ -1007,8 +820,13 @@ matplotlib ramps are perceptually uniform.</p>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_color_ekio_d.html">scale_color_ekio_d</a></span><span class="op">(</span><span class="st">"contrast"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_color_ekio_d.html">scale_color_ekio_d</a></span><span class="op">(</span><span class="st">"full"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_ekio.html">theme_ekio</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compact and accent alternatives</span></span>
+<span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"cool3"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"full_muted"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"accent_orange"</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Named access to any brand scale</span></span>
 <span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"teal"</span><span class="op">)</span><span class="op">[</span><span class="st">"600"</span><span class="op">]</span></span>

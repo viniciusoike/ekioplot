@@ -41,18 +41,16 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ## Color Palettes
 
-ekioplot ships around thirty palettes across seven groups. Use
+ekioplot ships 21 palettes across five groups. Use
 [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md)
 to explore them:
 
 ``` r
 
 str(list_ekio_palettes())
-#> List of 7
-#>  $ accent     : chr "gold"
-#>  $ categorical: chr [1:8] "cool" "minimal" "contrast" "full" ...
-#>  $ highlight  : chr [1:4] "highlight_blue" "highlight_orange" "highlight_teal" "highlight_red"
-#>  $ small_group: chr [1:6] "duo_warm" "duo_cool" "trio_bold" "trio_cool" ...
+#> List of 5
+#>  $ accent     : chr [1:3] "gold" "accent_blue" "accent_orange"
+#>  $ categorical: chr [1:4] "full" "full_muted" "cool3" "cool4"
 #>  $ sequential : chr [1:7] "blue" "gray" "stone" "teal" ...
 #>  $ diverging  : chr [1:3] "blue_orange" "blue_red" "teal_orange"
 #>  $ scientific : chr [1:4] "okabe_ito" "viridis" "inferno" "plasma"
@@ -63,38 +61,51 @@ Access any palette with
 
 ``` r
 
-ekio_pal("contrast")
+ekio_pal("full")
 ```
 
 ![](getting-started_files/figure-html/palette-access-1.png)
 
 ``` r
 
-ekio_pal("blue", n = 5)
+ekio_pal("cool3")
 ```
 
 ![](getting-started_files/figure-html/palette-access-2.png)
 
+``` r
+
+ekio_pal("accent_blue", n = 5)
+```
+
+![](getting-started_files/figure-html/palette-access-3.png)
+
+``` r
+
+ekio_pal("blue", n = 5)
+```
+
+![](getting-started_files/figure-html/palette-access-4.png)
+
 ### Palette types
 
-- **Categorical**: `contrast`, `cool`, `minimal`, `full`, `muted`,
-  `muted_warm`, `binary`, `political`
-- **Highlight**: `highlight_blue`, `highlight_orange`, `highlight_teal`,
-  `highlight_red`
-- **Small-group**: `duo_warm`, `duo_cool`, `trio_bold`, `trio_cool`,
-  `quad_earth`, `quad_vivid`
+- **Categorical**: `full`, `full_muted`, `cool3`, `cool4`
 - **Scientific**: `okabe_ito`, `viridis`, `inferno`, `plasma`
 - **Sequential**: `blue`, `gray`, `stone`, `teal`, `green`, `orange`,
   `red`
-- **Accent**: `gold`
+- **Accent**: `gold`, `accent_blue`, `accent_orange`
 - **Diverging**: `blue_orange`, `blue_red`, `teal_orange`
+
+`accent_blue` and `accent_orange` return four colors by default. Set `n`
+from 2 to 6 to match the number of series while retaining the accent as
+the first color. `gold` remains a fixed three-color named palette.
 
 [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
 displays a swatch when printed:
 
 ``` r
 
-ekio_pal("contrast")
+ekio_pal("full")
 ```
 
 ![](getting-started_files/figure-html/show-palette-1.png)
@@ -109,7 +120,7 @@ ekioplot provides ggplot2 scales for both discrete and continuous data.
 
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 3) +
-  scale_color_ekio_d("contrast") +
+  scale_color_ekio_d("full") +
   labs(color = "Cylinders") +
   theme_ekio(grid = "xy")
 ```
@@ -174,9 +185,11 @@ ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl))
 
 ``` r
 
-data(fuels)
-world_fuels <- fuels[fuels$entity == "World" & fuels$year >= 1950, ]
-ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel)
+economic_series <- subset(
+  ggplot2::economics_long,
+  variable %in% c("pce", "psavert", "uempmed")
+)
+ekio_areaplot(economic_series, date, value01, fill = variable)
 ```
 
 ![](getting-started_files/figure-html/recipe-area-1.png)
@@ -236,12 +249,3 @@ ekio_pal("blue", n = 3)
 ```
 
 ![](getting-started_files/figure-html/brand-interpolate-1.png)
-
-## Tables
-
-gt table styling lives in a companion package,
-[ekiotable](https://github.com/viniciusoike/ekiotable). It reads brand
-tokens from ekioplot via
-[`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md),
-so tables and charts share one palette without either package
-duplicating color definitions.

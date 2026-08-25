@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,28 +43,36 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.0.0" id="ekioplot-100">ekioplot 1.0.0<a class="anchor" aria-label="anchor" href="#ekioplot-100"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.1.0" id="ekioplot-110">ekioplot 1.1.0<a class="anchor" aria-label="anchor" href="#ekioplot-110"></a></h2>
 <div class="section level3">
-<h3 id="breaking-changes-1-0-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-0-0"></a></h3>
-<ul><li><p>Every brand scale is regenerated from one OKLCH specification, so every hex code changes except <code>blue.700</code>, <code>blue.800</code> and <code>blue.900</code>. All seven scales now share one lightness spine and one chroma arc, which makes a shade number mean the same visual weight in every family: <code>blue.500</code> and <code>orange.500</code> are interchangeable in weight. The specification lives in <code>data-raw/build-ramps.R</code> and <code>data-raw/palettes.R</code> checks the shipped hex against it.</p></li>
+<h3 id="breaking-changes-1-1-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-1-0"></a></h3>
+<ul><li><p>Removed the <code>ips_brasil</code> dataset because its source does not state terms permitting redistribution.</p></li>
+<li><p>Removed the <code>fuels</code> dataset because the upstream data combine sources with redistribution terms that are not sufficiently clear for bundling on CRAN. Area-plot examples now use <code><a href="https://ggplot2.tidyverse.org/reference/economics.html" class="external-link">ggplot2::economics_long</a></code> instead.</p></li>
+<li><p>Every brand scale is regenerated from one OKLCH specification, so every hex code changes except <code>blue.700</code>, <code>blue.800</code> and <code>blue.900</code>. All seven scales now share one lightness spine and one chroma arc, which makes a shade number mean the same visual weight in every family: <code>blue.500</code> and <code>orange.500</code> are interchangeable in weight. The specification lives in <code>data-raw/build-ramps.R</code> and <code>data-raw/palettes.R</code> checks the shipped hex against it.</p></li>
 <li><p>Removed the <code>purple</code> and <code>amber</code> scales and added <code>stone</code>, a warm neutral. The seven scales are now <code>blue</code>, <code>gray</code>, <code>stone</code>, <code>teal</code>, <code>green</code>, <code>orange</code> and <code>red</code>.</p></li>
 <li><p><code>gold</code> replaces <code>amber</code> as an accent rather than a scale: three colors named <code>"light"</code>, <code>"mid"</code> and <code>"deep"</code>, reached as <code>ekio_pal("gold")["mid"]</code>. A nine-step gold ramp turns brown at the dark end, so only the top of it was ever gold. The three sit on the same lightness rungs as scale shades 300, 400 and 500, and <code>deep</code> clears WCAG AA on the off-white surface. There is no <code>gold</code> sequential palette.</p></li>
 <li><p><code>gray</code> is a true cool neutral rather than a blue-tinted one, and its pale steps moved down the ramp. <code>gray.500</code> now clears WCAG AA on the off-white surface at 4.75:1, where it previously sat at 2.1:1 and failed. This is the color <code><a href="../reference/theme_ekio.html">theme_ekio()</a></code> uses for muted text.</p></li>
-<li><p><code>contrast</code> returns five colors rather than six, and each sits on its own rung of the spine so the palette survives grayscale and deuteranopia. <code>full</code> still returns eight, but past five categories it separates by hue rather than lightness.</p></li>
+<li><p>The previous <code>cool</code>, <code>minimal</code>, <code>contrast</code>, <code>muted</code>, <code>muted_warm</code>, <code>binary</code> and <code>political</code> categorical palettes have been removed, along with the <code>highlight</code> and <code>small_group</code> palette groups. <code>full</code> remains available.</p></li>
 <li><p>Diverging palettes return nine colors rather than eleven. Both arms step through the even shades, so the halves carry equal weight rung for rung.</p></li>
+<li><p><code><a href="../reference/ekio_areaplot.html">ekio_areaplot()</a></code>, <code><a href="../reference/ekio_barplot.html">ekio_barplot()</a></code> and <code><a href="../reference/ekio_histogram.html">ekio_histogram()</a></code> no longer accept <code>add_zero</code>; <code><a href="../reference/ekio_lineplot.html">ekio_lineplot()</a></code> and <code><a href="../reference/ekio_scatterplot.html">ekio_scatterplot()</a></code> retain the argument.</p></li>
+<li><p>Removed the <code>verbose</code> argument from <code><a href="../reference/list_ekio_palettes.html">list_ekio_palettes()</a></code>.</p></li>
 <li><p><code><a href="../reference/theme_ekio.html">theme_ekio()</a></code> draws grid lines in <code>gray.200</code> rather than <code>gray.300</code>, following the ramp’s new spacing.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-1-0-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-0-0"></a></h3>
-<ul><li><p>Added the <code>highlight</code> palette group: <code>highlight_blue</code>, <code>highlight_orange</code>, <code>highlight_teal</code> and <code>highlight_red</code>, each one accent against three receding grays. Order the factor so the level to emphasise comes first.</p></li>
-<li><p>Added the <code>muted_warm</code> palette, the <code>muted</code> gray series in <code>stone</code>.</p></li>
+<h3 id="new-features-1-1-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-1-0"></a></h3>
+<ul><li><p><code><a href="../reference/ekio_pal.html">ekio_pal()</a></code> gains the fixed <code>cool3</code>, <code>cool4</code> and <code>full_muted</code> categorical palettes. The new <code>accent_blue</code> and <code>accent_orange</code> palettes return four colors by default and accept <code>n</code> from 2 to 6, keeping the accent first and adding receding grays as needed.</p></li>
 <li><p>Added <code>basic.pivot</code>, the neutral shared by the diverging palettes.</p></li>
 <li><p>A palette member can now point at any named token group, not just a scale shade: <code>gold.light</code> and <code>basic.pivot</code> resolve by the same rule as <code>blue.700</code>.</p></li>
-<li><p><code><a href="../reference/list_ekio_palettes.html">list_ekio_palettes()</a></code> accepts <code>type = "accent"</code> and <code>type = "highlight"</code>.</p></li>
+<li><p><code><a href="../reference/list_ekio_palettes.html">list_ekio_palettes()</a></code> accepts <code>type = "accent"</code>.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="color-provenance-1-0-0">Color provenance<a class="anchor" aria-label="anchor" href="#color-provenance-1-0-0"></a></h3>
-<ul><li>No shipped brand color derives from Chakra UI any more. <code>inst/COPYRIGHTS</code> now carries only the matplotlib and Okabe &amp; Ito notices, which cover the <code>scientific</code> palettes.</li>
+<h3 id="improvements-1-1-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-1-1-0"></a></h3>
+<ul><li>
+<code><a href="../reference/ekio_pal.html">ekio_pal()</a></code> and <code><a href="../reference/list_ekio_palettes.html">list_ekio_palettes()</a></code> now validate scalar arguments and return clear errors for missing, fractional, or vector inputs.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="color-provenance-1-1-0">Color provenance<a class="anchor" aria-label="anchor" href="#color-provenance-1-1-0"></a></h3>
+<ul><li>No shipped brand color derives from Chakra UI any more. The matplotlib and Okabe &amp; Ito notices remain for the <code>scientific</code> palettes, while bundled IBGE datasets are documented separately in <code>inst/COPYRIGHTS</code>.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -75,7 +83,7 @@
 <h2 class="pkg-version" data-toc-text="0.8.0" id="ekioplot-080">ekioplot 0.8.0<a class="anchor" aria-label="anchor" href="#ekioplot-080"></a></h2>
 <div class="section level3">
 <h3 id="breaking-changes-0-8-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-8-0"></a></h3>
-<ul><li><p><code>show_all_ekio_palettes()</code> is removed. It was deprecated in 0.5.1; use <code>list_ekio_palettes(verbose = TRUE)</code> instead.</p></li>
+<ul><li><p><code>show_all_ekio_palettes()</code> is removed. It was deprecated in 0.5.1; use <code><a href="../reference/list_ekio_palettes.html">list_ekio_palettes()</a></code> to inspect available palette names instead.</p></li>
 <li><p><code><a href="../reference/theme_ekio.html">theme_ekio()</a></code> draws on off-white (<code>#FEFEFE</code>) rather than the <code>gray.100</code> brand tint (<code>#F7FAFC</code>). Every plot changes appearance. Pass <code>theme_ekio(background = "gray")</code> to keep the old surface.</p></li>
 <li><p>The recipes are now opinionated about continuous color and fill mappings. <code><a href="../reference/ekio_histogram.html">ekio_histogram()</a></code>, <code><a href="../reference/ekio_lineplot.html">ekio_lineplot()</a></code>, <code><a href="../reference/ekio_barplot.html">ekio_barplot()</a></code> and <code><a href="../reference/ekio_areaplot.html">ekio_areaplot()</a></code> error and point at the fix — bin the variable or wrap it in <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor()</a></code>. <code><a href="../reference/ekio_scatterplot.html">ekio_scatterplot()</a></code>, where a ramp does read well, warns and keeps the continuous scale. 0.7.1 made all five support continuous mappings uniformly, which removed an inconsistency but was never the right default for a binned, bar or band chart.</p></li>
 <li><p>A color or fill mapping that cannot be evaluated against <code>data</code> now errors in the recipe, naming the argument and expression. It was previously swallowed and treated as discrete, so a typo’d column surfaced as ggplot2’s “object not found” from inside the build.</p></li>
@@ -111,7 +119,7 @@
 <li><p><code><a href="../reference/ekio_barplot.html">ekio_barplot()</a></code> draws the zero baseline on the correct axis when <code>horizontal = TRUE</code>.</p></li>
 <li><p>Recipe functions now show the axis ticks appropriate to each chart while keeping the requested grid lines independent.</p></li>
 <li><p><code><a href="../reference/theme_ekio.html">theme_ekio()</a></code> no longer restores major grid lines that were not requested through the <code>grid</code> argument.</p></li>
-<li><p><code>%||%</code> is imported from rlang. It was previously resolved from base R, which only gained the operator in 4.4.0, so <code><a href="../reference/scale_color_ekio_c.html">scale_color_ekio_c()</a></code> and <code>list_ekio_palettes(verbose = TRUE)</code> failed on the R 4.1–4.3 that <code>Depends</code> claimed to support.</p></li>
+<li><p><code>%||%</code> is imported from rlang. It was previously resolved from base R, which only gained the operator in 4.4.0, so <code><a href="../reference/scale_color_ekio_c.html">scale_color_ekio_c()</a></code> failed on the R 4.1–4.3 that <code>Depends</code> claimed to support.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="dependencies-0-7-1">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies-0-7-1"></a></h3>
@@ -140,7 +148,7 @@
 <li><p>Brand scales are <strong>nine steps named <code>"100"</code> to <code>"900"</code></strong> instead of ten named <code>"50"</code> to <code>"900"</code>. Position and shade are now aligned by construction, so <code>ekio_pal("blue")[7]</code> and <code>ekio_pal("blue")["700"]</code> return the same color. Code that indexed the old ramps positionally will need updating.</p></li>
 <li><p>The <code>"50"</code> shades are gone. They were near-duplicates of <code>"100"</code> — a luminance gap of 1, 2, and -1 for gray, teal, and orange against a median interior gap of 24 — and orange’s inverted the ramp. <code><a href="../reference/theme_ekio.html">theme_ekio()</a></code>’s background is now <code>gray.100</code>, a change of two luminance points.</p></li>
 <li><p><code>theme_ekio_map()</code> is removed. It only blanked the axes and moved the legend; most of what a map needs (<code>coord_sf(expand = FALSE)</code>, colorbar sizing) cannot be expressed in a theme object.</p></li>
-<li><p><code>gt_theme_ekio()</code> has moved to the companion package <a href="https://github.com/viniciusoike/ekiotable" class="external-link">ekiotable</a>. It reads brand tokens from this package via <code><a href="../reference/ekio_pal.html">ekio_pal()</a></code>, so tables and charts stay in sync without duplicating color definitions. <code>gt</code> is no longer a dependency of ekioplot.</p></li>
+<li><p><code>gt_theme_ekio()</code> is no longer part of <code>ekioplot</code>; <code>gt</code> is no longer a dependency of the package.</p></li>
 <li><p>For sequential and diverging palettes, <code>n</code> now interpolates across the whole ramp instead of returning the <code>n</code> lightest colors. <code>ekio_pal("blue", n = 3)</code> gives a light/mid/dark triple. Categorical, small-group, and scientific palettes still take the first <code>n</code>.</p></li>
 <li><p><code>teal["50"]</code> was <code>#F0FFF4</code> — identical to green’s lightest tint, not a teal — and is removed. <code>blue["800"]</code> changes from <code>#1B3A4B</code> to <code>#152A44</code>; the old value sat 3 luminance points from <code>blue.700</code> and was hue-shifted toward teal.</p></li>
 <li><p>The <code>purple</code>, <code>red</code>, <code>green</code>, and <code>amber</code> scales drop their lightest tint and gain a <code>"900"</code>, so all eight scales now have identical structure.</p></li>
@@ -172,12 +180,12 @@
 <h2 class="pkg-version" data-toc-text="0.5.1" id="ekioplot-051">ekioplot 0.5.1<a class="anchor" aria-label="anchor" href="#ekioplot-051"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-5-1">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-1"></a></h3>
-<ul><li><p><code><a href="../reference/list_ekio_palettes.html">list_ekio_palettes()</a></code> gains a <code>verbose</code> argument that prints a formatted summary of the selected palette type(s).</p></li>
-<li><p><code><a href="../reference/ekio_pal.html">ekio_pal()</a></code> now returns an object of class <code>ekio_palette</code>, a character vector with a custom print method that automatically displays a color swatch in interactive sessions. This replaces the need for a separate <code>show_ekio_palette()</code> function. Use <code><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character()</a></code> to strip the class when only hex codes are needed.</p></li>
+<ul><li>
+<code><a href="../reference/ekio_pal.html">ekio_pal()</a></code> now returns an object of class <code>ekio_palette</code>, a character vector with a custom print method that automatically displays a color swatch in interactive sessions. This replaces the need for a separate <code>show_ekio_palette()</code> function. Use <code><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character()</a></code> to strip the class when only hex codes are needed.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="deprecations-0-5-1">Deprecations<a class="anchor" aria-label="anchor" href="#deprecations-0-5-1"></a></h3>
-<ul><li><p><code>show_all_ekio_palettes()</code> is deprecated in favor of <code>list_ekio_palettes(verbose = TRUE)</code>. It still works but warns once per session, and is no longer listed on the pkgdown reference index.</p></li>
+<ul><li><p><code>show_all_ekio_palettes()</code> is deprecated in favor of <code><a href="../reference/list_ekio_palettes.html">list_ekio_palettes()</a></code>. It still works but warns once per session, and is no longer listed on the pkgdown reference index.</p></li>
 <li><p><code>show_ekio_palette()</code> is deprecated in favor of <code><a href="../reference/ekio_pal.html">ekio_pal()</a></code> (which auto-displays a swatch on print). It still works but warns once per session.</p></li>
 </ul></div>
 </div>
@@ -202,7 +210,7 @@
 <h2 class="pkg-version" data-toc-text="0.4.0" id="ekioplot-040">ekioplot 0.4.0<a class="anchor" aria-label="anchor" href="#ekioplot-040"></a></h2>
 <div class="section level3">
 <h3 id="breaking-changes-0-4-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-4-0"></a></h3>
-<ul><li>Removed <code>run_palette_lab()</code> and the bundled Shiny app. The Palette Lab now lives in its own repository (<a href="https://github.com/viniciusoike/ekioplot-palette-lab" class="external-link uri">https://github.com/viniciusoike/ekioplot-palette-lab</a>) and runs entirely in the browser at <a href="https://viniciusoike.github.io/ekioplot-palette-lab/" class="uri">https://viniciusoike.github.io/ekioplot-palette-lab/</a>. This drops 8 app-only <code>Suggests</code> (<code>bslib</code>, <code>colorspace</code>, <code>colourpicker</code>, <code>forcats</code>, <code>ggbump</code>, <code>patchwork</code>, <code>shiny</code>, <code>stringr</code>), leaving <code>ekioplot</code> a lean visualization package.</li>
+<ul><li>Removed the bundled Shiny app, dropping 8 app-only <code>Suggests</code> (<code>bslib</code>, <code>colorspace</code>, <code>colourpicker</code>, <code>forcats</code>, <code>ggbump</code>, <code>patchwork</code>, <code>shiny</code>, <code>stringr</code>) and leaving <code>ekioplot</code> a lean visualization package.</li>
 </ul></div>
 </div>
     <div class="section level2">

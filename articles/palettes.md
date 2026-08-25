@@ -1,8 +1,8 @@
 # Palette Gallery
 
-Every palette `ekioplot` ships, at full size. Colors are read live from
-the package, so this page is always in sync with
-`inst/ekio-palettes.yaml` — the source of truth for the brand.
+Every palette `ekioplot` ships, at full size. Colors are read from the
+package registry, which is generated from `inst/ekio-palettes.yaml` —
+the source of truth for the brand.
 
 Each chip is labelled with its hex code, drawn in black or white by
 [`ekio_text_on()`](https://viniciusoike.github.io/ekioplot/reference/ekio_text_on.md),
@@ -23,10 +23,16 @@ whole thing as an R vector.
 
 ## Accent
 
-Named tokens rather than a ramp. Gold has no nine-step scale because
-dark yellow is brown — past the middle of the spine a gold ramp stops
-being gold. The three sit on the same lightness rungs as scale shades
-300, 400 and 500, and `deep` is the one that can carry type.
+Gold is a named token rather than a ramp. It has no nine-step scale
+because dark yellow is brown — past the middle of the spine a gold ramp
+stops being gold. The three tokens sit on the same lightness rungs as
+scale shades 300, 400 and 500, and `deep` is the one that can carry
+type.
+
+`accent_blue` and `accent_orange` put one main color before receding
+grays. They return the original four-color form by default; use `n` from
+2 to 6 when the number of series changes. The gallery shows all six
+available positions.
 
 `gold`3 colors
 
@@ -36,42 +42,40 @@ being gold. The three sit on the same lightness rungs as scale shades
 
 \#966800
 
-## Categorical
-
-For unordered groups. Each series sits on its own rung of the lightness
-spine, so `contrast` stays readable in grayscale and under deuteranopia.
-Past five categories `full` separates by hue rather than lightness, so
-it does not survive grayscale printing. `cool` and `minimal` stay within
-the primary blues and grays; `muted` and `muted_warm` are gray-only;
-`binary` and `political` are fixed two-color pairings.
-
-`cool`3 colors
-
-\#1E3A5F
-
-\#5597CC
-
-\#006261
-
-`minimal`3 colors
+`accent_blue`6 colors
 
 \#1E3A5F
 
 \#6E7378
 
+\#8D9197
+
 \#AEB1B5
 
-`contrast`5 colors
+\#CFD2D5
 
-\#1E3A5F
+\#F2F3F5
+
+`accent_orange`6 colors
 
 \#D3742A
 
-\#006261
+\#6E7378
 
-\#D5AA48
+\#8D9197
 
-\#B44D47
+\#AEB1B5
+
+\#CFD2D5
+
+\#F2F3F5
+
+## Categorical
+
+For unordered groups. `cool3` and `cool4` are compact cool palettes,
+while `full_muted` follows the same sequence as `full` with each color
+one rung darker. `full` separates by hue rather than lightness past five
+categories, so it does not survive grayscale printing.
 
 `full`8 colors
 
@@ -91,137 +95,41 @@ the primary blues and grays; `muted` and `muted_warm` are gray-only;
 
 \#B4B0AB
 
-`muted`4 colors
+`full_muted`8 colors
 
-\#191A1C
+\#152A44
 
-\#373A3D
+\#B15400
 
-\#6E7378
+\#004342
 
-\#AEB1B5
-
-`muted_warm`4 colors
-
-\#1B1A18
-
-\#3C3935
-
-\#76716B
-
-\#B4B0AB
-
-`binary`2 colors
-
-\#1E3A5F
-
-\#D3742A
-
-`political`2 colors
-
-\#1E3A5F
+\#B88715
 
 \#8C3431
 
-## Highlight
+\#2E623B
 
-One accent against three receding grays. The series carrying the
-argument speaks and the rest stay legible context — order the factor so
-the level you want emphasised comes first.
+\#28292C
 
-`highlight_blue`4 colors
+\#959089
+
+`cool3`3 colors
 
 \#1E3A5F
 
-\#6E7378
-
-\#8D9197
-
-\#AEB1B5
-
-`highlight_orange`4 colors
-
-\#D3742A
-
-\#6E7378
-
-\#8D9197
-
-\#AEB1B5
-
-`highlight_teal`4 colors
+\#5597CC
 
 \#006261
 
-\#6E7378
-
-\#8D9197
-
-\#AEB1B5
-
-`highlight_red`4 colors
-
-\#B44D47
-
-\#6E7378
-
-\#8D9197
-
-\#AEB1B5
-
-## Small group
-
-Tuned for a known number of series — reach for these instead of
-truncating a longer palette, which can leave you with two neighbouring
-hues.
-
-`duo_warm`2 colors
-
-\#D3742A
-
-\#D5AA48
-
-`duo_cool`2 colors
+`cool4`4 colors
 
 \#1E3A5F
 
-\#158281
-
-`trio_bold`3 colors
-
-\#1E3A5F
-
-\#D3742A
+\#5597CC
 
 \#006261
 
-`trio_cool`3 colors
-
-\#1E3A5F
-
-\#158281
-
-\#8D9197
-
-`quad_earth`4 colors
-
-\#1E3A5F
-
-\#D3742A
-
-\#006261
-
-\#D5AA48
-
-`quad_vivid`4 colors
-
-\#3E76AC
-
-\#D3742A
-
-\#8C3431
-
-\#D5AA48
+\#448255
 
 ## Sequential
 
@@ -535,8 +443,13 @@ library(ggplot2)
 
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 3) +
-  scale_color_ekio_d("contrast") +
+  scale_color_ekio_d("full") +
   theme_ekio()
+
+# Compact and accent alternatives
+ekio_pal("cool3")
+ekio_pal("full_muted")
+ekio_pal("accent_orange", n = 5)
 
 # Named access to any brand scale
 ekio_pal("teal")["600"]

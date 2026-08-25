@@ -10,14 +10,13 @@
 Source:
 [`DESCRIPTION`](https://github.com/viniciusoike/ekioplot/blob/master/DESCRIPTION)
 
-Oike V (2026). *ekioplot: EKIO Visual Identity System for R Data
-Visualization*. R package version 1.0.0,
-<https://viniciusoike.github.io/ekioplot/>.
+Oike V (2026). *ekioplot: EKIO Visual Identity for 'ggplot2'*. R package
+version 1.1.0, <https://viniciusoike.github.io/ekioplot/>.
 
     @Manual{,
-      title = {ekioplot: EKIO Visual Identity System for R Data Visualization},
+      title = {ekioplot: EKIO Visual Identity for 'ggplot2'},
       author = {Vinicius Oike},
       year = {2026},
-      note = {R package version 1.0.0},
+      note = {R package version 1.1.0},
       url = {https://viniciusoike.github.io/ekioplot/},
     }

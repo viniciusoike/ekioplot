@@ -68,9 +68,7 @@ A ggplot2 theme object
 ## Examples
 
 ``` r
-if (FALSE) { # rlang::is_interactive()
 ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg)) +
   ggplot2::geom_point() +
   theme_ekio(font_title = "serif", font_text = "sans")
-}
 ```

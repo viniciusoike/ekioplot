@@ -41,14 +41,13 @@ A ggplot2 scale object
 ## Examples
 
 ``` r
-if (FALSE) { # rlang::is_interactive()
 library(ggplot2)
 ggplot(mtcars, aes(wt, mpg, color = hp)) +
   geom_point(size = 3) +
   scale_color_ekio_c()
 
+
 ggplot(mtcars, aes(wt, mpg, color = hp)) +
   geom_point(size = 3) +
   scale_color_ekio_c("stone")
-}
 ```

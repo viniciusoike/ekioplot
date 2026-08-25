@@ -57,16 +57,11 @@ High-level chart builders with smart defaults
 
 ## Datasets
 
-- [`ips_brasil`](https://viniciusoike.github.io/ekioplot/reference/ips_brasil.md)
-  : IPS Brasil 2025 - Social Progress Index for Brazilian Municipalities
 - [`brazil_population`](https://viniciusoike.github.io/ekioplot/reference/brazil_population.md)
-  : Brazilian Municipal Population Data (2025)
+  : Brazilian municipal population, 2025
 - [`brazil_gdp`](https://viniciusoike.github.io/ekioplot/reference/brazil_gdp.md)
-  : Brazilian Municipal GDP and Economic Structure (2021)
+  : Brazilian municipal GDP, 2021
 - [`brazil_agriculture`](https://viniciusoike.github.io/ekioplot/reference/brazil_agriculture.md)
-  : Brazilian Municipal Agricultural Production (2022)
+  : Brazilian municipal crop production, 2022
 - [`brazil_agriculture_states`](https://viniciusoike.github.io/ekioplot/reference/brazil_agriculture_states.md)
-  : Brazilian State-Level Agricultural Production Time Series
-  (1974-2023)
-- [`fuels`](https://viniciusoike.github.io/ekioplot/reference/fuels.md)
-  : Global Fuel Consumption by Source
+  : Brazilian state crop production, 1974–2023

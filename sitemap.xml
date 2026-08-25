@@ -1,9 +1,7 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://viniciusoike.github.io/ekioplot/404.html</loc></url>
-<url><loc>https://viniciusoike.github.io/ekioplot/CLAUDE.html</loc></url>
 <url><loc>https://viniciusoike.github.io/ekioplot/LICENSE-text.html</loc></url>
 <url><loc>https://viniciusoike.github.io/ekioplot/LICENSE.html</loc></url>
-<url><loc>https://viniciusoike.github.io/ekioplot/RECIPES-REFACTOR.html</loc></url>
 <url><loc>https://viniciusoike.github.io/ekioplot/articles/getting-started.html</loc></url>
 <url><loc>https://viniciusoike.github.io/ekioplot/articles/index.html</loc></url>
 <url><loc>https://viniciusoike.github.io/ekioplot/articles/palettes.html</loc></url>
@@ -22,9 +20,7 @@
 <url><loc>https://viniciusoike.github.io/ekioplot/reference/ekio_pal.html</loc></url>
 <url><loc>https://viniciusoike.github.io/ekioplot/reference/ekio_scatterplot.html</loc></url>
 <url><loc>https://viniciusoike.github.io/ekioplot/reference/ekio_text_on.html</loc></url>
-<url><loc>https://viniciusoike.github.io/ekioplot/reference/fuels.html</loc></url>
 <url><loc>https://viniciusoike.github.io/ekioplot/reference/index.html</loc></url>
-<url><loc>https://viniciusoike.github.io/ekioplot/reference/ips_brasil.html</loc></url>
 <url><loc>https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.html</loc></url>
 <url><loc>https://viniciusoike.github.io/ekioplot/reference/scale_color_ekio_c.html</loc></url>
 <url><loc>https://viniciusoike.github.io/ekioplot/reference/scale_color_ekio_d.html</loc></url>

@@ -88,10 +88,7 @@ ggplot2 object
 ## Examples
 
 ``` r
-if (FALSE) { # rlang::is_interactive()
-DONTSHOW({.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")})
 ekio_scatterplot(mtcars, wt, mpg)
+
 ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl))
-DONTSHOW({options(.op)})
-}
 ```

@@ -5,18 +5,18 @@ Apply qualitative palettes to discrete/categorical data.
 ## Usage
 
 ``` r
-scale_color_ekio_d(palette = "contrast", reverse = FALSE, ...)
+scale_color_ekio_d(palette = "full", reverse = FALSE, ...)
 
-scale_colour_ekio_d(palette = "contrast", reverse = FALSE, ...)
+scale_colour_ekio_d(palette = "full", reverse = FALSE, ...)
 
-scale_fill_ekio_d(palette = "contrast", reverse = FALSE, ...)
+scale_fill_ekio_d(palette = "full", reverse = FALSE, ...)
 ```
 
 ## Arguments
 
 - palette:
 
-  Character. Palette name (default: "contrast"). See
+  Character. Palette name (default: "full"). See
   [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md)
   for options.
 
@@ -41,10 +41,8 @@ A ggplot2 scale object
 ## Examples
 
 ``` r
-if (FALSE) { # rlang::is_interactive()
 library(ggplot2)
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 3) +
   scale_color_ekio_d()
-}
 ```

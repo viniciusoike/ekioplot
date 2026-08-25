@@ -12,7 +12,6 @@ ekio_histogram(
   palette = NULL,
   bins = "sturges",
   binwidth = NULL,
-  add_zero = TRUE,
   border_color = "white",
   title = NULL,
   subtitle = NULL,
@@ -49,10 +48,6 @@ ekio_histogram(
 
   Width of bins (overrides bins if specified)
 
-- add_zero:
-
-  Logical. Add horizontal line at y=0 (default: TRUE)
-
 - border_color:
 
   Color for histogram outline (default: "white")
@@ -74,11 +69,9 @@ ggplot2 object
 ## Examples
 
 ``` r
-if (FALSE) { # rlang::is_interactive()
-DONTSHOW({.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")})
 ekio_histogram(mtcars, mpg)
+
 ekio_histogram(mtcars, mpg, fill = "steelblue")
-ekio_histogram(mtcars, mpg, fill = factor(cyl), palette = "cool")
-DONTSHOW({options(.op)})
-}
+
+ekio_histogram(mtcars, mpg, fill = factor(cyl), palette = "full")
 ```
