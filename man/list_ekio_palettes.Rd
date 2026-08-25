@@ -4,27 +4,20 @@
 \alias{list_ekio_palettes}
 \title{List Available Palettes}
 \usage{
-list_ekio_palettes(type = "all", verbose = FALSE)
+list_ekio_palettes(type = "all")
 }
 \arguments{
 \item{type}{Character. Type of palettes to list:
-"accent", "categorical", "highlight", "small_group", "scientific",
-"sequential", "diverging", or "all" (default).}
-
-\item{verbose}{Logical. If TRUE, prints a formatted summary of the
-selected type(s) and returns the result invisibly (default: FALSE).}
+"accent", "categorical", "scientific", "sequential", "diverging", or
+"all" (default).}
 }
 \value{
 Character vector of palette names, or named list if type = "all".
-Invisibly returned when \code{verbose = TRUE}.
 }
 \description{
 Returns names of all available palettes, optionally filtered by type.
-When \code{verbose = TRUE}, prints a formatted summary to the console.
 }
 \examples{
 list_ekio_palettes()
 list_ekio_palettes("categorical")
-list_ekio_palettes("highlight")
-list_ekio_palettes(verbose = TRUE)
 }

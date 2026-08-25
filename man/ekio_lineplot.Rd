@@ -10,7 +10,7 @@ ekio_lineplot(
   y,
   color = NULL,
   palette = NULL,
-  add_zero = TRUE,
+  add_zero = FALSE,
   line_width = 0.8,
   title = NULL,
   subtitle = NULL,
@@ -30,7 +30,7 @@ continuous variable is an error: bin it or wrap it in \code{factor()}.}
 
 \item{palette}{Character. Palette name for variable mappings.}
 
-\item{add_zero}{Logical. Add horizontal line at y=0 (default: TRUE)}
+\item{add_zero}{Logical. Add horizontal line at y=0 (default: FALSE)}
 
 \item{line_width}{Line thickness (default: 0.8)}
 
@@ -46,9 +46,7 @@ ggplot2 object
 Professional line plot with smart aesthetic detection.
 }
 \examples{
-\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
 \dontshow{.op <- options(ekioplot.font_title = "serif", ekioplot.font_text = "sans")}
 ekio_lineplot(ggplot2::economics, date, unemploy)
 \dontshow{options(.op)}
-\dontshow{\}) # examplesIf}
 }

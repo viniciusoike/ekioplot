@@ -107,12 +107,18 @@
 # span the whole range rather than take the n lightest.
 .continuous_groups <- c("sequential", "diverging")
 
+# Accent palettes keep their main color first and allow a small number of
+# receding grays for charts whose number of series changes.
+.variable_accent_palettes <- c("accent_blue", "accent_orange")
+.variable_accent_default_n <- 4L
+.variable_accent_max_n <- 6L
+
 # ---- Palette Function ----
 
 #' Get Color Palette
 #'
-#' Returns colors for data visualization. Includes EKIO brand scales, curated
-#' categorical and small-group palettes, and standard scientific palettes.
+#' Returns colors for data visualization. Includes EKIO brand scales, accent
+#' and categorical palettes, and standard scientific palettes.
 #' When printed interactively, displays the palette as a colored swatch with
 #' hex labels.
 #'
@@ -126,13 +132,19 @@
 #' dark end. They sit on the same lightness rungs as scale shades 300, 400
 #' and 500.
 #'
+#' `"accent_blue"` and `"accent_orange"` put one main color before a sequence
+#' of receding grays. They return four colors by default; `n` can be set from
+#' 2 to 6 to match the number of series while keeping the main color first.
+#'
 #' @param palette Character. Name of the palette. See [list_ekio_palettes()]
 #'   for all available options.
-#' @param n Integer or NULL. Number of colors to return. If NULL, returns all.
-#'   For sequential and diverging palettes, `n` colors are interpolated across
-#'   the full range. For categorical, small-group, and scientific palettes the
-#'   first `n` colors are taken, interpolating only if `n` exceeds the palette
-#'   length.
+#' @param n Integer or NULL. Number of colors to return. If NULL, returns all,
+#'   except `"accent_blue"` and `"accent_orange"`, which return four by
+#'   default. For sequential and diverging palettes, `n` colors are interpolated
+#'   across the full range. For the two variable-size accent palettes, `n` can
+#'   be between 2 and 6. For `"gold"`, other categorical palettes, and
+#'   scientific palettes, the first `n` colors are taken, interpolating only if
+#'   `n` exceeds the palette length.
 #' @param reverse Logical. If TRUE, reverses the palette order.
 #'
 #' @source The brand scales are generated from one OKLCH specification in
@@ -147,9 +159,10 @@
 #' @export
 #'
 #' @examples
-#' ekio_pal("contrast")
-#' ekio_pal("contrast", n = 4)
-#' ekio_pal("binary", reverse = TRUE)
+#' ekio_pal("full")
+#' ekio_pal("full", n = 4)
+#' ekio_pal("full", reverse = TRUE)
+#' ekio_pal("accent_blue", n = 5)
 #' ekio_pal("okabe_ito")
 #'
 #' # Brand scales are named by shade; position i is shade i * 100
@@ -158,7 +171,27 @@
 #'
 #' # gold is an accent, named rather than numbered
 #' ekio_pal("gold")["mid"]
-ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
+ekio_pal <- function(palette = "full", n = NULL, reverse = FALSE) {
+  if (!rlang::is_string(palette)) {
+    cli::cli_abort("{.arg palette} must be a single string.")
+  }
+  if (
+    !is.null(n) &&
+      (!is.numeric(n) ||
+        length(n) != 1L ||
+        is.na(n) ||
+        !is.finite(n) ||
+        n < 0 ||
+        n %% 1 != 0)
+  ) {
+    cli::cli_abort(
+      "{.arg n} must be {.code NULL} or a single non-negative whole number."
+    )
+  }
+  if (!is.logical(reverse) || length(reverse) != 1L || is.na(reverse)) {
+    cli::cli_abort("{.arg reverse} must be {.code TRUE} or {.code FALSE}.")
+  }
+
   if (!.is_user_palette(palette)) {
     available <- .all_palette_names()
     cli::cli_abort(c(
@@ -169,13 +202,28 @@ ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
 
   group <- .palette_group(palette)
   pal <- .ekio_palettes[[group]][[palette]]
+  is_variable_accent <- palette %in% .variable_accent_palettes
+
+  if (is_variable_accent) {
+    if (is.null(n)) {
+      n <- .variable_accent_default_n
+    }
+    if (n < 2L || n > .variable_accent_max_n) {
+      cli::cli_abort(
+        "{.arg n} for {.val {palette}} must be between 2 and 6."
+      )
+    }
+    pal <- pal[seq_len(n)]
+  }
 
   if (reverse) {
     pal <- rev(pal)
   }
 
   # n matching the palette length is a no-op, so shade names survive it
-  if (!is.null(n) && n != length(pal)) {
+  if (!is.null(n) && n == 0) {
+    pal <- pal[0]
+  } else if (!is.null(n) && n != length(pal)) {
     if (group %in% .continuous_groups || n > length(pal)) {
       pal <- grDevices::colorRampPalette(unname(pal))(n)
     } else {
@@ -192,7 +240,7 @@ ekio_pal <- function(palette = "contrast", n = NULL, reverse = FALSE) {
   position <- hex <- label <- text_color <- NULL
 
   hex_codes <- as.character(x)
-  labels <- if (is.null(names(x))) hex_codes else names(x)
+  labels <- hex_codes
 
   df <- data.frame(
     position = seq_along(hex_codes),
@@ -250,24 +298,21 @@ as.character.ekio_palette <- function(x, ...) {
 #' List Available Palettes
 #'
 #' Returns names of all available palettes, optionally filtered by type.
-#' When \code{verbose = TRUE}, prints a formatted summary to the console.
 #'
 #' @param type Character. Type of palettes to list:
-#'   "accent", "categorical", "highlight", "small_group", "scientific",
-#'   "sequential", "diverging", or "all" (default).
-#' @param verbose Logical. If TRUE, prints a formatted summary of the
-#'   selected type(s) and returns the result invisibly (default: FALSE).
-#'
+#'   "accent", "categorical", "scientific", "sequential", "diverging", or
+#'   "all" (default).
 #' @return Character vector of palette names, or named list if type = "all".
-#'   Invisibly returned when \code{verbose = TRUE}.
 #' @export
 #'
 #' @examples
 #' list_ekio_palettes()
 #' list_ekio_palettes("categorical")
-#' list_ekio_palettes("highlight")
-#' list_ekio_palettes(verbose = TRUE)
-list_ekio_palettes <- function(type = "all", verbose = FALSE) {
+list_ekio_palettes <- function(type = "all") {
+  if (!rlang::is_string(type)) {
+    cli::cli_abort("{.arg type} must be a single string.")
+  }
+
   groups <- lapply(.ekio_palettes[.palette_groups()], names)
 
   valid_types <- c(names(groups), "all")
@@ -279,29 +324,6 @@ list_ekio_palettes <- function(type = "all", verbose = FALSE) {
   }
 
   result <- if (type == "all") groups else groups[[type]]
-
-  if (verbose) {
-    headers <- c(
-      accent = "Accent (named tokens, not ramps)",
-      categorical = "Categorical",
-      highlight = "Highlight (one accent against receding grays)",
-      small_group = "Small Group Variants",
-      scientific = "Scientific",
-      sequential = "Sequential (brand scales, for continuous fills)",
-      diverging = "Diverging (for continuous scales)"
-    )
-    shown <- if (type == "all") names(groups) else type
-
-    cli::cli_h1("Available Palettes")
-    for (nm in shown) {
-      cli::cli_h2(headers[[nm]] %||% nm)
-      cli::cli_text("{.val {groups[[nm]]}}")
-    }
-    cli::cli_text("")
-    cli::cli_alert_info("Print {.fun ekio_pal} to see the palette swatch")
-
-    return(invisible(result))
-  }
 
   result
 }

@@ -17,7 +17,7 @@ test_that("ekio_histogram works with static color", {
 
 test_that("ekio_histogram works with variable mapping", {
   skip_if_not_installed("ggplot2")
-  p <- ekio_histogram(mtcars, mpg, fill = factor(cyl), palette = "cool")
+  p <- ekio_histogram(mtcars, mpg, fill = factor(cyl), palette = "full")
   expect_no_error(ggplot2::ggplot_build(p))
 })
 
@@ -54,7 +54,7 @@ test_that("ekio_lineplot works with variable mapping", {
     y = c(1:10, 10:1),
     g = rep(c("A", "B"), each = 10)
   )
-  p <- ekio_lineplot(df, x, y, color = g, palette = "binary")
+  p <- ekio_lineplot(df, x, y, color = g, palette = "full")
   expect_no_error(ggplot2::ggplot_build(p))
 })
 
@@ -175,10 +175,18 @@ test_that("ekio_areaplot rejects non-data-frame input", {
 
 # ---- Aesthetic Detection ----
 
+test_that("add_zero is only available for line and scatter plots", {
+  expect_identical("add_zero" %in% names(formals(ekio_histogram)), FALSE)
+  expect_identical("add_zero" %in% names(formals(ekio_barplot)), FALSE)
+  expect_identical("add_zero" %in% names(formals(ekio_areaplot)), FALSE)
+  expect_identical("add_zero" %in% names(formals(ekio_lineplot)), TRUE)
+  expect_identical("add_zero" %in% names(formals(ekio_scatterplot)), TRUE)
+})
+
 test_that("palette ignored warning fires for static color + palette", {
   skip_if_not_installed("ggplot2")
   expect_warning(
-    ekio_histogram(mtcars, mpg, fill = "steelblue", palette = "cool"),
+    ekio_histogram(mtcars, mpg, fill = "steelblue", palette = "full"),
     "palette.*ignored"
   )
 })
@@ -262,7 +270,6 @@ test_that("scatterplot warns on a continuous mapping but still builds", {
   skip_if_not_installed("ggplot2")
   df <- data.frame(x = 1:5, y = c(1, 2, 3, 4, 5), v = c(1.5, 2, 3, 4, 5))
 
-  # "contrast" is categorical: defaulting to it errored in scale_*_ekio_c()
   expect_warning(p <- ekio_scatterplot(df, x, y, color = v), "continuous")
   expect_no_error(ggplot2::ggplot_build(p))
 })
@@ -272,9 +279,9 @@ test_that("discrete mappings keep the categorical default", {
   df <- data.frame(x = letters[1:5], y = 1:5)
 
   expect_no_error(ggplot2::ggplot_build(ekio_barplot(df, x, y, fill = x)))
-  expect_equal(.default_palette(NULL, list(is_continuous = FALSE)), "contrast")
+  expect_equal(.default_palette(NULL, list(is_continuous = FALSE)), "full")
   expect_equal(.default_palette(NULL, list(is_continuous = TRUE)), "blue")
-  expect_equal(.default_palette("cool", list(is_continuous = TRUE)), "cool")
+  expect_equal(.default_palette("blue", list(is_continuous = TRUE)), "blue")
 })
 
 test_that("all recipes reject non-data-frame input", {

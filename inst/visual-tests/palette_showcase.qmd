@@ -54,44 +54,52 @@ swatch_strip(list_ekio_palettes("categorical"))
 ### Individual Palette Display
 
 ```{r}
-#| label: show-contrast
-#| fig-height: 2
-ekio_pal("contrast")
-```
-
-```{r}
-#| label: show-cool
-#| fig-height: 2
-ekio_pal("cool")
-```
-
-```{r}
 #| label: show-full
 #| fig-height: 2
 ekio_pal("full")
 ```
 
 ```{r}
-#| label: show-muted
+#| label: show-full-muted
 #| fig-height: 2
-ekio_pal("muted")
+ekio_pal("full_muted")
 ```
 
-## Small-Group Palettes
-
-Curated two-, three-, and four-color sets for plots with few series.
+```{r}
+#| label: show-cool3
+#| fig-height: 2
+ekio_pal("cool3")
+```
 
 ```{r}
-#| label: small-group-palettes
-#| fig-height: 5
+#| label: show-cool4
+#| fig-height: 2
+ekio_pal("cool4")
+```
+
+## Accent Palettes
+
+`gold` is a fixed three-color named accent palette. `accent_blue` and
+`accent_orange` return four colors by default and accept between two and six.
+
+```{r}
+#| label: accent-palettes
+#| fig-height: 3
 #| fig-width: 10
 
-swatch_strip(list_ekio_palettes("small_group"))
+swatch_strip(list_ekio_palettes("accent"))
+```
+
+```{r}
+#| label: show-variable-accent
+#| fig-height: 2
+
+ekio_pal("accent_blue", n = 6)
 ```
 
 ## Sequential Palettes
 
-The eight brand scales, each nine steps named `100`–`900`, light to dark.
+The seven brand scales, each nine steps named `100`–`900`, light to dark.
 Position and shade are aligned: `ekio_pal("blue")[7]` is `"700"`.
 
 ```{r}
@@ -168,7 +176,7 @@ p_base <- ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   labs(title = "Discrete Color Scale", color = "Cylinders") +
   theme_ekio()
 
-p_base + scale_color_ekio_d("contrast")
+p_base + scale_color_ekio_d("cool3")
 ```
 
 ```{r}
@@ -178,8 +186,12 @@ p_base + scale_color_ekio_d("contrast")
 
 ggplot(mtcars, aes(factor(cyl), fill = factor(cyl))) +
   geom_bar() +
-  labs(title = "Discrete Fill Scale: cool", x = "Cylinders", fill = "Cylinders") +
-  scale_fill_ekio_d("cool") +
+  labs(
+    title = "Discrete Fill Scale: full_muted",
+    x = "Cylinders",
+    fill = "Cylinders"
+  ) +
+  scale_fill_ekio_d("full_muted") +
   theme_ekio()
 ```
 
@@ -304,7 +316,7 @@ p + labs(title = "grid = \"none\"") + theme_ekio(grid = "none")
 
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 4) +
-  scale_color_ekio_d("contrast") +
+  scale_color_ekio_d("cool3") +
   labs(
     title = "Larger Base Size",
     subtitle = "base_size = 16 for presentation contexts",
@@ -347,8 +359,13 @@ mpg_by_cyl <- mtcars |>
   summarise(mean_mpg = mean(mpg), .by = cyl) |>
   mutate(cyl = factor(cyl))
 
-ekio_barplot(mpg_by_cyl, x = cyl, y = mean_mpg, fill = cyl,
-             title = "Bar plot with EKIO palette")
+ekio_barplot(
+  mpg_by_cyl,
+  x = cyl,
+  y = mean_mpg,
+  fill = cyl,
+  title = "Bar plot with EKIO palette"
+)
 ```
 
 ## Scatter Plot
@@ -358,8 +375,13 @@ ekio_barplot(mpg_by_cyl, x = cyl, y = mean_mpg, fill = cyl,
 #| fig-height: 4
 #| fig-width: 7
 
-ekio_scatterplot(mtcars, x = wt, y = mpg, color = factor(cyl),
-                 title = "Scatter plot by group")
+ekio_scatterplot(
+  mtcars,
+  x = wt,
+  y = mpg,
+  color = factor(cyl),
+  title = "Scatter plot by group"
+)
 ```
 
 ## Line Plot
@@ -376,8 +398,13 @@ df_line <- data.frame(
   group = rep(c("A", "B", "C"), each = 10)
 )
 
-ekio_lineplot(df_line, x = time, y = value, color = group,
-              title = "Line plot by group")
+ekio_lineplot(
+  df_line,
+  x = time,
+  y = value,
+  color = group,
+  title = "Line plot by group"
+)
 ```
 
 # Brand Scale Access
@@ -394,7 +421,7 @@ as.character(ekio_pal("blue"))
 ekio_pal("blue")["700"]
 ekio_pal("blue")[7]
 
-# The accent set: one color per brand scale
+# The full categorical palette
 as.character(ekio_pal("full"))
 ```
 
@@ -403,7 +430,7 @@ as.character(ekio_pal("full"))
 This document showcases the visual elements of ekioplot:
 
 - **Categorical palettes**: `r length(list_ekio_palettes("categorical"))` palettes for categorical data
-- **Small-group palettes**: `r length(list_ekio_palettes("small_group"))` curated sets for few series
+- **Accent palettes**: `r length(list_ekio_palettes("accent"))` named and variable-length accent sets
 - **Sequential palettes**: `r length(list_ekio_palettes("sequential"))` brand scales for continuous data
 - **Diverging palettes**: `r length(list_ekio_palettes("diverging"))` palettes for centered data
 - **Scientific palettes**: `r length(list_ekio_palettes("scientific"))` colorblind-safe palettes for accessibility

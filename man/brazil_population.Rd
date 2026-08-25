@@ -3,51 +3,30 @@
 \docType{data}
 \name{brazil_population}
 \alias{brazil_population}
-\title{Brazilian Municipal Population Data (2025)}
+\title{Brazilian municipal population, 2025}
 \format{
 A tibble with 338 rows and 5 variables:
 \describe{
-\item{rank}{Population ranking among all municipalities (numeric)}
+\item{rank}{Population rank (numeric)}
 \item{name_muni}{Municipality name (character)}
 \item{abbrev_state}{State abbreviation (character)}
-\item{population}{Total population in 2025 (numeric)}
-\item{category}{City size category based on population (ordered factor)}
+\item{population}{2025 population estimate (numeric)}
+\item{category}{Ordered city-size category (factor)}
 }
 }
 \source{
-IBGE - Instituto Brasileiro de Geografia e Estatística
-Table 6579: Municipal population estimates
-\url{https://www.ibge.gov.br/}
+IBGE, Table 6579: Municipal population estimates.
+\url{https://sidra.ibge.gov.br/tabela/6579}
 }
 \usage{
 brazil_population
 }
 \description{
-A dataset containing population data for Brazilian municipalities with over
-100,000 inhabitants, based on IBGE population estimates for 2025.
+Population estimates for Brazil's 338 municipalities with more than 100,000
+inhabitants.
 }
 \details{
-The dataset focuses on Brazil's 338 largest municipalities (population > 100,000)
-and provides population ranking and size classification for 2025.
-
-\strong{City size categories:}
-\itemize{
-\item \strong{Metropolis (1M+)}: 1 million+ inhabitants
-\item \strong{Large city (500K-1M)}: 500,000 to 1 million inhabitants
-\item \strong{Medium city (200K-500K)}: 200,000 to 500,000 inhabitants
-\item \strong{Small city (100K-200K)}: 100,000 to 200,000 inhabitants
-}
-}
-\examples{
-\dontrun{
-# Load the dataset
-data(brazil_population)
-
-# View the largest cities
-head(brazil_population)
-
-# Count cities by category
-table(brazil_population$category)
-}
+Categories are Metropolis (1M+), Large city (500K–1M), Medium city
+(200K–500K) and Small city (100K–200K).
 }
 \keyword{datasets}

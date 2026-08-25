@@ -38,7 +38,7 @@ save_fig <- function(plot, name, width = 8, height = 5, dpi = 300) {
 
 hero <- ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 3) +
-  scale_color_ekio_d("contrast") +
+  scale_color_ekio_d("full") +
   labs(
     title = "Fuel Efficiency vs. Weight",
     subtitle = "Motor Trend Car Road Tests (1974)",
@@ -55,15 +55,16 @@ save_fig(hero, "README-hero.png", width = 8, height = 5)
 # One row per palette, each normalised to the same width so palettes of
 # different lengths stay visually comparable.
 pal_names <- c(
-  "contrast",
-  "highlight_blue",
-  "muted",
-  "okabe_ito",
+  "full",
+  "full_muted",
+  "cool3",
+  "cool4",
+  "accent_blue",
+  "accent_orange",
+  "gold",
   "blue",
-  "gray",
-  "orange",
   "blue_orange",
-  "blue_red"
+  "okabe_ito"
 )
 
 pal_rows <- lapply(seq_along(pal_names), function(i) {
@@ -101,7 +102,7 @@ palettes <- ggplot(pal_df) +
     expand = expansion(add = 0.3)
   ) +
   scale_x_continuous(expand = expansion(0)) +
-  labs(title = "A few of the ~30 EKIO palettes") +
+  labs(title = "Selected EKIO palettes") +
   theme_ekio(grid = "none") +
   theme(
     axis.title = element_blank(),
@@ -109,12 +110,15 @@ palettes <- ggplot(pal_df) +
     axis.text.y = element_text(family = "mono", hjust = 0)
   )
 
-save_fig(palettes, "README-palettes.png", width = 8, height = 5)
+save_fig(palettes, "README-palettes.png", width = 8, height = 6)
 
 ## Recipe grid ------------------------------------------------------------
 
 cyl_counts <- as.data.frame(table(cyl = mtcars$cyl))
-world_fuels <- fuels[fuels$entity == "World" & fuels$year >= 1950, ]
+economic_series <- subset(
+  ggplot2::economics_long,
+  variable %in% c("pce", "psavert", "uempmed")
+)
 
 ek_scatterplot <- ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl)) +
   labs(title = "ekio_scatterplot()") +
@@ -129,16 +133,21 @@ ek_barplot <- ekio_barplot(cyl_counts, cyl, Freq) +
   )
 
 ek_lineplot <- ekio_lineplot(
-  world_fuels[world_fuels$fuel == "oil", ],
-  year,
-  consumption_gwh
+  ggplot2::economics,
+  date,
+  unemploy
 ) +
   labs(title = "ekio_lineplot()") +
   theme(
     plot.title = element_text(family = "Fira Code", face = "bold", size = 16)
   )
 
-ek_areaplot <- ekio_areaplot(world_fuels, year, consumption_gwh, fill = fuel) +
+ek_areaplot <- ekio_areaplot(
+  economic_series,
+  date,
+  value01,
+  fill = variable
+) +
   labs(title = "ekio_areaplot()") +
   theme(
     plot.title = element_text(family = "Fira Code", face = "bold", size = 16)

@@ -47,9 +47,7 @@ A minimal, professional theme for EKIO visualizations built on
 \code{\link[ggplot2:ggtheme]{ggplot2::theme_minimal()}}.
 }
 \examples{
-\dontshow{if (rlang::is_interactive()) withAutoprint(\{ # examplesIf}
 ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg)) +
   ggplot2::geom_point() +
   theme_ekio(font_title = "serif", font_text = "sans")
-\dontshow{\}) # examplesIf}
 }

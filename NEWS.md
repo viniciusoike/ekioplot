@@ -1,6 +1,13 @@
-# ekioplot 1.0.0
+# ekioplot 1.1.0
 
 ## Breaking changes
+
+* Removed the `ips_brasil` dataset because its source does not state terms
+  permitting redistribution.
+
+* Removed the `fuels` dataset because the upstream data combine sources with
+  redistribution terms that are not sufficiently clear for bundling on CRAN.
+  Area-plot examples now use `ggplot2::economics_long` instead.
 
 * Every brand scale is regenerated from one OKLCH specification, so every hex
   code changes except `blue.700`, `blue.800` and `blue.900`. All seven scales
@@ -26,24 +33,27 @@
   surface at 4.75:1, where it previously sat at 2.1:1 and failed. This is the
   color `theme_ekio()` uses for muted text.
 
-* `contrast` returns five colors rather than six, and each sits on its own
-  rung of the spine so the palette survives grayscale and deuteranopia.
-  `full` still returns eight, but past five categories it separates by hue
-  rather than lightness.
+* The previous `cool`, `minimal`, `contrast`, `muted`, `muted_warm`, `binary`
+  and `political` categorical palettes have been removed, along with the
+  `highlight` and `small_group` palette groups. `full` remains available.
 
 * Diverging palettes return nine colors rather than eleven. Both arms step
   through the even shades, so the halves carry equal weight rung for rung.
+
+* `ekio_areaplot()`, `ekio_barplot()` and `ekio_histogram()` no longer accept
+  `add_zero`; `ekio_lineplot()` and `ekio_scatterplot()` retain the argument.
+
+* Removed the `verbose` argument from `list_ekio_palettes()`.
 
 * `theme_ekio()` draws grid lines in `gray.200` rather than `gray.300`,
   following the ramp's new spacing.
 
 ## New features
 
-* Added the `highlight` palette group: `highlight_blue`, `highlight_orange`,
-  `highlight_teal` and `highlight_red`, each one accent against three
-  receding grays. Order the factor so the level to emphasise comes first.
-
-* Added the `muted_warm` palette, the `muted` gray series in `stone`.
+* `ekio_pal()` gains the fixed `cool3`, `cool4` and `full_muted` categorical
+  palettes. The new `accent_blue` and `accent_orange` palettes return four
+  colors by default and accept `n` from 2 to 6, keeping the accent first and
+  adding receding grays as needed.
 
 * Added `basic.pivot`, the neutral shared by the diverging palettes.
 
@@ -51,13 +61,18 @@
   shade: `gold.light` and `basic.pivot` resolve by the same rule as
   `blue.700`.
 
-* `list_ekio_palettes()` accepts `type = "accent"` and `type = "highlight"`.
+* `list_ekio_palettes()` accepts `type = "accent"`.
+
+## Improvements
+
+* `ekio_pal()` and `list_ekio_palettes()` now validate scalar arguments and
+  return clear errors for missing, fractional, or vector inputs.
 
 ## Color provenance
 
-* No shipped brand color derives from Chakra UI any more. `inst/COPYRIGHTS`
-  now carries only the matplotlib and Okabe & Ito notices, which cover the
-  `scientific` palettes.
+* No shipped brand color derives from Chakra UI any more. The matplotlib and
+  Okabe & Ito notices remain for the `scientific` palettes, while bundled IBGE
+  datasets are documented separately in `inst/COPYRIGHTS`.
 
 # ekioplot 0.8.1
 
@@ -73,7 +88,7 @@
 ## Breaking changes
 
 * `show_all_ekio_palettes()` is removed. It was deprecated in 0.5.1; use
-  `list_ekio_palettes(verbose = TRUE)` instead.
+  `list_ekio_palettes()` to inspect available palette names instead.
 
 * `theme_ekio()` draws on off-white (`#FEFEFE`) rather than the `gray.100`
   brand tint (`#F7FAFC`). Every plot changes appearance. Pass
@@ -170,9 +185,8 @@ A maintenance release: bug fixes and cleanup, no API changes.
   through the `grid` argument.
 
 * `%||%` is imported from rlang. It was previously resolved from base R,
-  which only gained the operator in 4.4.0, so `scale_color_ekio_c()` and
-  `list_ekio_palettes(verbose = TRUE)` failed on the R 4.1–4.3 that
-  `Depends` claimed to support.
+  which only gained the operator in 4.4.0, so `scale_color_ekio_c()` failed
+  on the R 4.1–4.3 that `Depends` claimed to support.
 
 ## Dependencies
 
@@ -233,11 +247,8 @@ below before upgrading.
   legend; most of what a map needs (`coord_sf(expand = FALSE)`, colorbar
   sizing) cannot be expressed in a theme object.
 
-* `gt_theme_ekio()` has moved to the companion package
-  [ekiotable](https://github.com/viniciusoike/ekiotable). It reads brand
-  tokens from this package via `ekio_pal()`, so tables and charts stay in
-  sync without duplicating color definitions. `gt` is no longer a dependency
-  of ekioplot.
+* `gt_theme_ekio()` is no longer part of `ekioplot`; `gt` is no longer a
+  dependency of the package.
 
 * For sequential and diverging palettes, `n` now interpolates across the
   whole ramp instead of returning the `n` lightest colors.
@@ -303,9 +314,6 @@ below before upgrading.
 
 ## New features
 
-* `list_ekio_palettes()` gains a `verbose` argument that prints a formatted
-  summary of the selected palette type(s).
-
 * `ekio_pal()` now returns an object of class `ekio_palette`, a character
   vector with a custom print method that automatically displays a color
   swatch in interactive sessions. This replaces the need for a separate
@@ -315,8 +323,8 @@ below before upgrading.
 ## Deprecations
 
 * `show_all_ekio_palettes()` is deprecated in favor of
-  `list_ekio_palettes(verbose = TRUE)`. It still works but warns once per
-  session, and is no longer listed on the pkgdown reference index.
+  `list_ekio_palettes()`. It still works but warns once per session, and is
+  no longer listed on the pkgdown reference index.
 
 * `show_ekio_palette()` is deprecated in favor of
   `ekio_pal()` (which auto-displays a swatch on print). It still works
@@ -354,13 +362,9 @@ below before upgrading.
 
 ## Breaking changes
 
-* Removed `run_palette_lab()` and the bundled Shiny app. The Palette Lab now
-  lives in its own repository
-  (<https://github.com/viniciusoike/ekioplot-palette-lab>) and runs entirely in
-  the browser at <https://viniciusoike.github.io/ekioplot-palette-lab/>. This
-  drops 8 app-only `Suggests` (`bslib`, `colorspace`, `colourpicker`,
-  `forcats`, `ggbump`, `patchwork`, `shiny`, `stringr`), leaving `ekioplot` a
-  lean visualization package.
+* Removed the bundled Shiny app, dropping 8 app-only `Suggests` (`bslib`,
+  `colorspace`, `colourpicker`, `forcats`, `ggbump`, `patchwork`, `shiny`,
+  `stringr`) and leaving `ekioplot` a lean visualization package.
 
 # ekioplot 0.3.1
 

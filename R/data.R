@@ -1,120 +1,28 @@
-#' IPS Brasil 2025 - Social Progress Index for Brazilian Municipalities
+#' Brazilian municipal population, 2025
 #'
-#' A dataset containing the Social Progress Index
-#' rankings for the top 25 most populated Brazilian municipalities in 2025.
-#' The IPS Brasil is a comprehensive index that measures social and environmental
-#' progress across all 5,570 Brazilian municipalities using 57 indicators.
-#'
-#' @format A data frame with 200 rows (25 municipalities x 8 measures) and 9 variables:
-#' \describe{
-#'   \item{codigo_ibge}{IBGE municipality code (numeric)}
-#'   \item{municipio}{Municipality name (character)}
-#'   \item{uf}{State abbreviation (character)}
-#'   \item{populacao_2022}{Population in 2022 (numeric)}
-#'   \item{measure}{Indicator measured, one of 8 key social progress indicators (factor)}
-#'   \item{rank}{Ranking position among the 25 municipalities for each measure (1-25, numeric)}
-#'   \item{highlight}{Municipality name if it's one of the 7 highlighted cities, empty string otherwise (character)}
-#'   \item{is_highlight}{Factor indicating if municipality is highlighted (0 or 1)}
-#'   \item{rank_labels}{Formatted rank labels showing only positions 1, 5, 10, 15, 20, 25 with ordinal suffix (character)}
-#' }
-#'
-#' @details
-#' The dataset focuses on the 25 most populated Brazilian municipalities and includes
-#' rankings across 8 key social progress indicators:
-#'
-#' \strong{Indicators included:}
-#' \itemize{
-#'   \item \strong{Social Progress Index}: Overall composite score
-#'   \item \strong{GDP per capita}: Economic indicator (2021 data)
-#'   \item \strong{Water and Sanitation}: Access to basic services
-#'   \item \strong{Housing Conditions}: Quality of housing infrastructure
-#'   \item \strong{Safety}: Personal security measures
-#'   \item \strong{Healthcare and Wellbeing}: Health system performance
-#'   \item \strong{Avg. ENEM scores}: Educational outcomes (national exam)
-#'   \item \strong{Share College Educ.}: Percentage of population with higher education
-#' }
-#'
-#' \strong{Highlighted municipalities} (7 cities with special focus):
-#' The dataset highlights 7 specific municipalities for comparison purposes:
-#' Sao Paulo (SP), Brasilia (DF), Rio de Janeiro (RJ), Belem (PA),
-#' Porto Alegre (RS), Fortaleza (CE), and Recife (PE).
-#'
-#' \strong{Data transformation}:
-#' Rankings are calculated where rank 1 = best performance and rank 25 = worst
-#' performance among the top 25 most populated cities. The data is in long format
-#' with one row per municipality-indicator combination.
-#'
-#' @source
-#' IPS Brasil 2025 - Indice de Progresso Social Brasil
-#' \url{https://ipsbrasil.org.br/pt}
-#'
-#' The IPS Brasil is developed by Instituto Imazon and follows the methodology
-#' of the Social Progress Imperative, using 57 indicators across three dimensions:
-#' Basic Human Needs, Foundations of Wellbeing, and Opportunity.
-#'
-#' @references
-#' Imazon. (2025). Indice de Progresso Social Brasil 2025.
-#' \url{https://imazon.org.br/categorias/indice-de-progresso-social/}
-#'
-#' @examples
-#' \dontrun{
-#' # Load the dataset
-#' data(ips_brasil)
-#'
-#' # View structure
-#' str(ips_brasil)
-#' }
-"ips_brasil"
-
-
-#' Brazilian Municipal Population Data (2025)
-#'
-#' A dataset containing population data for Brazilian municipalities with over 
-#' 100,000 inhabitants, based on IBGE population estimates for 2025.
+#' Population estimates for Brazil's 338 municipalities with more than 100,000
+#' inhabitants.
 #'
 #' @format A tibble with 338 rows and 5 variables:
 #' \describe{
-#'   \item{rank}{Population ranking among all municipalities (numeric)}
+#'   \item{rank}{Population rank (numeric)}
 #'   \item{name_muni}{Municipality name (character)}
 #'   \item{abbrev_state}{State abbreviation (character)}
-#'   \item{population}{Total population in 2025 (numeric)}
-#'   \item{category}{City size category based on population (ordered factor)}
+#'   \item{population}{2025 population estimate (numeric)}
+#'   \item{category}{Ordered city-size category (factor)}
 #' }
 #'
-#' @details
-#' The dataset focuses on Brazil's 338 largest municipalities (population > 100,000)
-#' and provides population ranking and size classification for 2025.
+#' @details Categories are Metropolis (1M+), Large city (500K–1M), Medium city
+#' (200K–500K) and Small city (100K–200K).
 #'
-#' \strong{City size categories:}
-#' \itemize{
-#'   \item \strong{Metropolis (1M+)}: 1 million+ inhabitants
-#'   \item \strong{Large city (500K-1M)}: 500,000 to 1 million inhabitants
-#'   \item \strong{Medium city (200K-500K)}: 200,000 to 500,000 inhabitants
-#'   \item \strong{Small city (100K-200K)}: 100,000 to 200,000 inhabitants
-#' }
-#'
-#' @source
-#' IBGE - Instituto Brasileiro de Geografia e Estatística
-#' Table 6579: Municipal population estimates
-#' \url{https://www.ibge.gov.br/}
-#'
-#' @examples
-#' \dontrun{
-#' # Load the dataset
-#' data(brazil_population)
-#' 
-#' # View the largest cities
-#' head(brazil_population)
-#' 
-#' # Count cities by category
-#' table(brazil_population$category)
-#' }
+#' @source IBGE, Table 6579: Municipal population estimates.
+#' \url{https://sidra.ibge.gov.br/tabela/6579}
 "brazil_population"
 
-#' Brazilian Municipal GDP and Economic Structure (2021)
+
+#' Brazilian municipal GDP, 2021
 #'
-#' A dataset containing municipal GDP data for all Brazilian municipalities
-#' based on IBGE's Municipal National Accounts (Contas Nacionais Municipais).
+#' Municipal GDP for all 5,570 Brazilian municipalities, at current prices.
 #'
 #' @format A tibble with 5,570 rows and 7 variables:
 #' \describe{
@@ -122,196 +30,67 @@
 #'   \item{name_muni}{Municipality name (character)}
 #'   \item{code_state}{IBGE state code (numeric)}
 #'   \item{name_state}{State name (character)}
-#'   \item{year}{Year of observation (2021, numeric)}
-#'   \item{gdp_brl_k}{GDP in thousands of Brazilian reais (numeric)}
-#'   \item{gdp_brl_m}{GDP in millions of Brazilian reais (numeric)}
+#'   \item{year}{Observation year (numeric)}
+#'   \item{gdp_brl_k}{GDP, thousands of Brazilian reais (numeric)}
+#'   \item{gdp_brl_m}{GDP, millions of Brazilian reais (numeric)}
 #' }
 #'
-#' @details
-#' The dataset includes GDP data for all 5,570 Brazilian municipalities for 2021,
-#' the most recent year available in IBGE's Municipal National Accounts.
-#' GDP values are provided in both thousands (gdp_brl_k) and millions (gdp_brl_m)
-#' of Brazilian reais at current prices.
+#' @source IBGE, Table 5938: GDP and other aggregates by municipality.
+#' \url{https://sidra.ibge.gov.br/tabela/5938}
 #'
-#' @source
-#' IBGE - Instituto Brasileiro de Geografia e Estatística
-#' Table 5938: GDP and other aggregates by municipality
-#' (Contas Nacionais Municipais)
-#' \url{https://www.ibge.gov.br/}
-#'
-#' @references
-#' IBGE. (2023). Produto Interno Bruto dos Municípios - 2021.
-#' Rio de Janeiro: IBGE.
-#'
-#' @examples
-#' \dontrun{
-#' # Load the dataset
-#' data(brazil_gdp)
-#'
-#' # Top 10 municipalities by GDP in 2021
-#' brazil_gdp |>
-#'   slice_max(gdp_brl_m, n = 10)
-#'
-#' # View structure
-#' str(brazil_gdp)
-#' }
+#' @references IBGE. (2023). Produto Interno Bruto dos Municípios - 2021.
 "brazil_gdp"
 
-#' Brazilian Municipal Agricultural Production (2022)
+
+#' Brazilian municipal crop production, 2022
 #'
-#' A comprehensive dataset containing agricultural production data for Brazil's
-#' three major crops by municipality, based on IBGE's Municipal Agricultural Production
-#' survey (PAM - Produção Agrícola Municipal).
+#' Municipal production of soybeans, corn and sugarcane from IBGE's Municipal
+#' Agricultural Production Survey (PAM).
 #'
 #' @format A tibble with 16,689 rows and 12 variables:
 #' \describe{
 #'   \item{code_muni}{IBGE municipality code (numeric)}
 #'   \item{name_muni}{Municipality name (character)}
 #'   \item{name_state}{State name (character)}
-#'   \item{name_region}{Region name in Portuguese (character)}
-#'   \item{crop}{Crop name in English (character)}
-#'   \item{production_tonnes}{Production quantity in tonnes (numeric)}
-#'   \item{area_harvested_ha}{Area harvested in hectares (numeric)}
-#'   \item{yield}{Calculated productivity in tonnes per hectare (numeric)}
-#'   \item{crop_type}{Crop cultivation type: annual, semi-perennial (character)}
-#'   \item{crop_category}{Crop category: grains, industrial (character)}
-#'   \item{crop_importance}{Economic importance: major (character)}
-#'   \item{production_scale}{Production scale category (integer)}
+#'   \item{name_region}{Brazilian region (character)}
+#'   \item{crop}{Crop name (character)}
+#'   \item{production_tonnes}{Production volume, tonnes (numeric)}
+#'   \item{area_harvested_ha}{Harvested area, hectares (numeric)}
+#'   \item{yield}{Productivity, tonnes per hectare (numeric)}
+#'   \item{crop_type}{Crop cycle (character)}
+#'   \item{crop_category}{Crop category (character)}
+#'   \item{crop_importance}{Economic importance (character)}
+#'   \item{production_scale}{Production-scale category (integer)}
 #' }
 #'
-#' @details
-#' The dataset covers Brazil's three major crops by municipality in 2022:
-#' soybeans, corn, and sugarcane. This represents municipal-level agricultural
-#' production data for analysis of regional agricultural patterns.
+#' @source IBGE, Table 1612: Municipal Agricultural Production (PAM).
+#' \url{https://sidra.ibge.gov.br/tabela/1612}
 #'
-#' \strong{Crops included:}
-#' \itemize{
-#'   \item \strong{Soybeans}: Brazil's top agricultural export (annual grain crop)
-#'   \item \strong{Corn}: Major grain crop for domestic and export markets (annual)
-#'   \item \strong{Sugarcane}: Industrial crop for sugar and ethanol (semi-perennial)
-#' }
-#'
-#' \strong{Geographic coverage:}
-#' All Brazilian municipalities with production data for these crops across
-#' all regions.
-#'
-#' @source
-#' IBGE - Instituto Brasileiro de Geografia e Estatística
-#' Table 1612: Area, production, yield and value of agricultural production
-#' (PAM - Produção Agrícola Municipal)
-#' \url{https://www.ibge.gov.br/}
-#'
-#' @references
-#' IBGE. (2023). Produção Agrícola Municipal - PAM 2022.
-#' Rio de Janeiro: IBGE.
-#'
-#' @examples
-#' \dontrun{
-#' # Load the dataset
-#' data(brazil_agriculture)
-#'
-#' # View top soybean producing municipalities
-#' brazil_agriculture |>
-#'   filter(crop == "soybeans") |>
-#'   slice_max(production_tonnes, n = 10)
-#'
-#' # Check available crops
-#' unique(brazil_agriculture$crop)
-#'
-#' # View structure
-#' str(brazil_agriculture)
-#' }
+#' @references IBGE. (2023). Produção Agrícola Municipal - PAM 2022.
 "brazil_agriculture"
 
-#' Brazilian State-Level Agricultural Production Time Series (1974-2023)
+
+#' Brazilian state crop production, 1974–2023
 #'
-#' A time series dataset containing agricultural production data for Brazil's
-#' major crops by state, based on IBGE's Municipal Agricultural Production
-#' survey (PAM).
+#' Annual production of seven major crops by Brazilian state from IBGE's
+#' Municipal Agricultural Production Survey (PAM).
 #'
 #' @format A tibble with 9,450 rows and 8 variables:
 #' \describe{
 #'   \item{code_state}{IBGE state code (numeric)}
 #'   \item{name_state}{State name (character)}
-#'   \item{year}{Year of observation (1974-2023, numeric)}
-#'   \item{crop}{Crop name in English (character)}
-#'   \item{production_tonnes}{Production quantity in tonnes (numeric)}
-#'   \item{area_harvested_ha}{Area harvested in hectares (numeric)}
-#'   \item{yield_kg_per_ha}{Productivity in kg per hectare (numeric)}
-#'   \item{production_value_brl_k}{Production value in thousands of BRL (numeric)}
+#'   \item{year}{Observation year (numeric)}
+#'   \item{crop}{Crop name (character)}
+#'   \item{production_tonnes}{Production volume, tonnes (numeric)}
+#'   \item{area_harvested_ha}{Harvested area, hectares (numeric)}
+#'   \item{yield_kg_per_ha}{Productivity, kilograms per hectare (numeric)}
+#'   \item{production_value_brl_k}{Production value, thousands of Brazilian reais (numeric)}
 #' }
 #'
-#' @details
-#' This dataset provides state-level time series for Brazil's seven most
-#' important crops from 1974 to 2023, enabling analysis of long-term
-#' agricultural trends and regional specialization patterns.
+#' @details Crops are beans, corn, cotton, rice, soybeans, sugarcane and wheat.
 #'
-#' \strong{Crops included:}
-#' \itemize{
-#'   \item \strong{Soybeans}: Brazil's top agricultural export
-#'   \item \strong{Corn}: Major grain crop for domestic and export markets
-#'   \item \strong{Sugarcane}: Industrial crop for sugar and ethanol
-#'   \item \strong{Cotton}: Key fiber crop and export commodity
-#'   \item \strong{Rice}: Important food security crop
-#'   \item \strong{Wheat}: Food grain crop, mainly in southern states
-#'   \item \strong{Beans}: Traditional protein source and food security crop
-#' }
+#' @source IBGE, Table 1612: Municipal Agricultural Production (PAM).
+#' \url{https://sidra.ibge.gov.br/tabela/1612}
 #'
-#' \strong{Time coverage:}
-#' Nearly 50 years of data (1974-2023) providing comprehensive historical
-#' perspective on Brazilian agricultural development.
-#'
-#' @source
-#' IBGE - Instituto Brasileiro de Geografia e Estatística
-#' Table 1612: Area, production, yield and value of agricultural production
-#' (PAM - Produção Agrícola Municipal)
-#' \url{https://www.ibge.gov.br/}
-#'
-#' @references
-#' IBGE. (2023). Produção Agrícola Municipal - PAM 2022.
-#' Rio de Janeiro: IBGE.
-#'
-#' @examples
-#' \dontrun{
-#' # Load the dataset
-#' data(brazil_agriculture_states)
-#'
-#' # Soybean production trends by top states (recent years)
-#' brazil_agriculture_states |>
-#'   filter(crop == "soybeans", year >= 2010, !is.na(production_tonnes)) |>
-#'   slice_max(production_tonnes, n = 50) |>
-#'   ggplot(aes(year, production_tonnes, color = name_state)) +
-#'   geom_line()
-#'
-#' # View structure
-#' str(brazil_agriculture_states)
-#' }
+#' @references IBGE. (2023). Produção Agrícola Municipal - PAM 2022.
 "brazil_agriculture_states"
-
-#' Global Fuel Consumption by Source
-#'
-#' Historical primary energy consumption data by fuel type and entity,
-#' spanning from 1800 to the present.
-#'
-#' @format A tibble with 4 variables:
-#' \describe{
-#'   \item{entity}{Country, region, or aggregated group name (character)}
-#'   \item{year}{Year of observation (numeric)}
-#'   \item{fuel}{Fuel type: \code{"gas"}, \code{"oil"}, or \code{"coal"} (character)}
-#'   \item{consumption_gwh}{Primary energy consumption in gigawatt-hours (numeric)}
-#' }
-#'
-#' @source Our World in Data — Energy
-#' \url{https://ourworldindata.org/energy}
-#'
-#' @examples
-#' \dontrun{
-#' data(fuels)
-#'
-#' # Global consumption over time by fuel type
-#' fuels |>
-#'   dplyr::filter(entity == "World") |>
-#'   ggplot2::ggplot(ggplot2::aes(year, consumption_gwh, color = fuel)) +
-#'   ggplot2::geom_line()
-#' }
-"fuels"

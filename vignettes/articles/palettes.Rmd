@@ -17,9 +17,9 @@ library(ekioplot)
 library(reactable)
 ```
 
-Every palette `ekioplot` ships, at full size. Colors are read live from the
-package, so this page is always in sync with
-`inst/ekio-palettes.yaml` — the source of truth for the brand.
+Every palette `ekioplot` ships, at full size. Colors are read from the package
+registry, which is generated from `inst/ekio-palettes.yaml` — the source of
+truth for the brand.
 
 Each chip is labelled with its hex code, drawn in black or white by
 `ekio_text_on()`, the same WCAG contrast helper the palette swatches use.
@@ -32,12 +32,19 @@ matplotlib and from Okabe & Ito, and `inst/COPYRIGHTS` carries the notices.
 
 ```{r swatch-helpers}
 palette_names <- unlist(list_ekio_palettes(), use.names = FALSE)
+variable_accent_palettes <- c("accent_blue", "accent_orange")
+
+full_palette <- function(name) {
+  if (name %in% variable_accent_palettes) {
+    ekio_pal(name, n = 6)
+  } else {
+    ekio_pal(name)
+  }
+}
 
 type_labels <- c(
   accent = "Accent",
   categorical = "Categorical",
-  highlight = "Highlight",
-  small_group = "Small group",
   sequential = "Sequential",
   diverging = "Diverging",
   scientific = "Scientific"
@@ -45,7 +52,7 @@ type_labels <- c(
 
 # One palette -> one labelled strip of chips.
 swatch <- function(name) {
-  pal <- ekio_pal(name)
+  pal <- full_palette(name)
   hex <- as.character(pal)
   ink <- unname(ekio_text_on(hex, dark = as.character(ekio_pal("gray")["900"])))
 
@@ -83,7 +90,7 @@ palette_json <- function() {
   entries <- vapply(
     palette_names,
     function(name) {
-      hex <- as.character(ekio_pal(name))
+      hex <- as.character(full_palette(name))
       paste0('"', name, '":["', paste(hex, collapse = '","'), '"]')
     },
     character(1)
@@ -124,7 +131,7 @@ color_table <- function() {
 
   rows <- lapply(names(groups), function(type) {
     per_palette <- lapply(groups[[type]], function(name) {
-      pal <- ekio_pal(name)
+      pal <- full_palette(name)
       hex <- as.character(pal)
       data.frame(
         palette = name,
@@ -200,10 +207,14 @@ reactable(
 
 ## Accent
 
-Named tokens rather than a ramp. Gold has no nine-step scale because dark
-yellow is brown — past the middle of the spine a gold ramp stops being gold.
-The three sit on the same lightness rungs as scale shades 300, 400 and 500,
-and `deep` is the one that can carry type.
+Gold is a named token rather than a ramp. It has no nine-step scale because
+dark yellow is brown — past the middle of the spine a gold ramp stops being
+gold. The three tokens sit on the same lightness rungs as scale shades 300,
+400 and 500, and `deep` is the one that can carry type.
+
+`accent_blue` and `accent_orange` put one main color before receding grays.
+They return the original four-color form by default; use `n` from 2 to 6 when
+the number of series changes. The gallery shows all six available positions.
 
 ```{r accent, results = "asis"}
 gallery("accent")
@@ -211,34 +222,13 @@ gallery("accent")
 
 ## Categorical
 
-For unordered groups. Each series sits on its own rung of the lightness
-spine, so `contrast` stays readable in grayscale and under deuteranopia.
-Past five categories `full` separates by hue rather than lightness, so it
-does not survive grayscale printing. `cool` and `minimal` stay within the
-primary blues and grays; `muted` and `muted_warm` are gray-only; `binary` and
-`political` are fixed two-color pairings.
+For unordered groups. `cool3` and `cool4` are compact cool palettes, while
+`full_muted` follows the same sequence as `full` with each color one rung
+darker. `full` separates by hue rather than lightness past five categories, so
+it does not survive grayscale printing.
 
 ```{r categorical, results = "asis"}
 gallery("categorical")
-```
-
-## Highlight
-
-One accent against three receding grays. The series carrying the argument
-speaks and the rest stay legible context — order the factor so the level you
-want emphasised comes first.
-
-```{r highlight, results = "asis"}
-gallery("highlight")
-```
-
-## Small group
-
-Tuned for a known number of series — reach for these instead of truncating a
-longer palette, which can leave you with two neighbouring hues.
-
-```{r small-group, results = "asis"}
-gallery("small_group")
 ```
 
 ## Sequential
@@ -280,8 +270,13 @@ library(ggplot2)
 
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 3) +
-  scale_color_ekio_d("contrast") +
+  scale_color_ekio_d("full") +
   theme_ekio()
+
+# Compact and accent alternatives
+ekio_pal("cool3")
+ekio_pal("full_muted")
+ekio_pal("accent_orange", n = 5)
 
 # Named access to any brand scale
 ekio_pal("teal")["600"]
