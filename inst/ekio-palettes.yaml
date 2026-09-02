@@ -111,6 +111,19 @@ palettes:
     accent_blue: ["blue.700", "gray.500", "gray.400", "gray.300", "gray.200", "gray.100"]
     accent_orange: ["orange.400", "gray.500", "gray.400", "gray.300", "gray.200", "gray.100"]
 
+  # EKIO identity colors extracted from Hokusai's Inume Pass in Kai Province.
+  # This palette is for brand assets and other identity work, not general data
+  # visualization.
+  brand:
+    ekio_brand:
+      Baltic Blue: "#225A7E"
+      Alabaster Grey: "#D4DED9"
+      Soft Linen: "#EFE8DC"
+      Air Force Blue: "#517A90"
+      Soft Linen 2: "#F2EDE2"
+      white: "#FFFFFF"
+      black: "#000000"
+
   # Categorical palettes pick a different shade per hue on purpose. Past five
   # categories `full` separates by hue rather than lightness, so it does not
   # survive grayscale printing. `full_muted` keeps the same sequence but moves

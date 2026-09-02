@@ -12,7 +12,7 @@ read_spec <- function() {
 }
 
 # A palette written as a YAML mapping rather than a sequence is a named token
-# group - `basic` and the accent tokens - and other palettes can point at one
+# group - `basic`, `brand`, and the accent tokens - and other palettes can point at one
 # the same way they point at a scale shade.
 named_token_groups <- function(spec) {
   out <- list()

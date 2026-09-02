@@ -146,7 +146,7 @@ if (contrast_ratio(gold_deep, offwhite) < 4.5) {
 # ---- Token resolution ----
 
 # A palette written as a YAML mapping rather than a sequence is a named token
-# group - `basic`, and the accent tokens. Members of other palettes can point
+# group - `basic`, `brand`, and the accent tokens. Members of other palettes can point
 # at one the same way they point at a scale shade, so `gold.light` and
 # `basic.pivot` resolve by the same rule as `blue.700`.
 token_groups <- list()

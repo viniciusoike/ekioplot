@@ -97,6 +97,19 @@ swatch_strip(list_ekio_palettes("accent"))
 ekio_pal("accent_blue", n = 6)
 ```
 
+## EKIO Brand Palette
+
+`ekio_brand` contains the Hokusai-derived EKIO identity colors plus white and
+black. It is intended for brand assets rather than general data visualization.
+
+```{r}
+#| label: brand-palettes
+#| fig-height: 2
+#| fig-width: 10
+
+swatch_strip(list_ekio_palettes("brand"))
+```
+
 ## Sequential Palettes
 
 The seven brand scales, each nine steps named `100`–`900`, light to dark.
@@ -430,6 +443,7 @@ as.character(ekio_pal("full"))
 This document showcases the visual elements of ekioplot:
 
 - **Categorical palettes**: `r length(list_ekio_palettes("categorical"))` palettes for categorical data
+- **Brand palette**: `ekio_brand` for EKIO identity assets
 - **Accent palettes**: `r length(list_ekio_palettes("accent"))` named and variable-length accent sets
 - **Sequential palettes**: `r length(list_ekio_palettes("sequential"))` brand scales for continuous data
 - **Diverging palettes**: `r length(list_ekio_palettes("diverging"))` palettes for centered data

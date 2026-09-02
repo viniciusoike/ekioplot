@@ -44,6 +44,7 @@ full_palette <- function(name) {
 
 type_labels <- c(
   accent = "Accent",
+  brand = "Brand",
   categorical = "Categorical",
   sequential = "Sequential",
   diverging = "Diverging",
@@ -229,6 +230,16 @@ it does not survive grayscale printing.
 
 ```{r categorical, results = "asis"}
 gallery("categorical")
+```
+
+## EKIO brand
+
+`ekio_brand` contains the colors extracted from Hokusai's *Inume Pass in Kai
+Province*, together with white and black. It is intended for EKIO identity
+assets and other brand work, rather than general data visualization.
+
+```{r brand, results = "asis"}
+gallery("brand")
 ```
 
 ## Sequential

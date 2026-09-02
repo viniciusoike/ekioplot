@@ -117,8 +117,9 @@
 
 #' Get Color Palette
 #'
-#' Returns colors for data visualization. Includes EKIO brand scales, accent
-#' and categorical palettes, and standard scientific palettes.
+#' Returns colors for data visualization and EKIO identity work. Includes EKIO
+#' brand scales, accent and categorical palettes, the `ekio_brand` identity
+#' palette, and standard scientific palettes.
 #' When printed interactively, displays the palette as a colored swatch with
 #' hex labels.
 #'
@@ -126,6 +127,9 @@
 #' `"orange"`, `"red"`) are nine-step ramps running light to dark, named by
 #' shade. Position and shade are aligned by construction, so
 #' `ekio_pal("blue")[7]` and `ekio_pal("blue")["700"]` are the same color.
+#'
+#' The named `"ekio_brand"` palette contains colors for EKIO identity assets.
+#' It is not intended as a general-purpose data visualization palette.
 #'
 #' `"gold"` is an accent rather than a scale: three colors named `"light"`,
 #' `"mid"` and `"deep"`, because a nine-step gold ramp turns brown at the
@@ -164,6 +168,7 @@
 #' ekio_pal("full", reverse = TRUE)
 #' ekio_pal("accent_blue", n = 5)
 #' ekio_pal("okabe_ito")
+#' ekio_pal("ekio_brand")
 #'
 #' # Brand scales are named by shade; position i is shade i * 100
 #' ekio_pal("blue")["700"]
@@ -300,8 +305,8 @@ as.character.ekio_palette <- function(x, ...) {
 #' Returns names of all available palettes, optionally filtered by type.
 #'
 #' @param type Character. Type of palettes to list:
-#'   "accent", "categorical", "scientific", "sequential", "diverging", or
-#'   "all" (default).
+#'   "accent", "brand", "categorical", "scientific", "sequential",
+#'   "diverging", or "all" (default).
 #' @return Character vector of palette names, or named list if type = "all".
 #' @export
 #'

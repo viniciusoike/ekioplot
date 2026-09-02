@@ -1,7 +1,7 @@
 Package: ekioplot
 Type: Package
 Title: EKIO Visual Identity for 'ggplot2'
-Version: 1.1.0
+Version: 1.1.1
 Authors@R:
     person(
       "Vinicius", "Oike",
