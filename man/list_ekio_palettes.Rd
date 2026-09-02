@@ -8,8 +8,8 @@ list_ekio_palettes(type = "all")
 }
 \arguments{
 \item{type}{Character. Type of palettes to list:
-"accent", "categorical", "scientific", "sequential", "diverging", or
-"all" (default).}
+"accent", "brand", "categorical", "scientific", "sequential",
+"diverging", or "all" (default).}
 }
 \value{
 Character vector of palette names, or named list if type = "all".

@@ -33,8 +33,9 @@ codes). Printing displays a visual swatch. Use \code{\link[=as.character]{as.cha
 strip the class.
 }
 \description{
-Returns colors for data visualization. Includes EKIO brand scales, accent
-and categorical palettes, and standard scientific palettes.
+Returns colors for data visualization and EKIO identity work. Includes EKIO
+brand scales, accent and categorical palettes, the \code{ekio_brand} identity
+palette, and standard scientific palettes.
 When printed interactively, displays the palette as a colored swatch with
 hex labels.
 }
@@ -43,6 +44,9 @@ Brand scales (\code{"blue"}, \code{"gray"}, \code{"stone"}, \code{"teal"}, \code
 \code{"orange"}, \code{"red"}) are nine-step ramps running light to dark, named by
 shade. Position and shade are aligned by construction, so
 \code{ekio_pal("blue")[7]} and \code{ekio_pal("blue")["700"]} are the same color.
+
+The named \code{"ekio_brand"} palette contains colors for EKIO identity assets.
+It is not intended as a general-purpose data visualization palette.
 
 \code{"gold"} is an accent rather than a scale: three colors named \code{"light"},
 \code{"mid"} and \code{"deep"}, because a nine-step gold ramp turns brown at the
@@ -59,6 +63,7 @@ ekio_pal("full", n = 4)
 ekio_pal("full", reverse = TRUE)
 ekio_pal("accent_blue", n = 5)
 ekio_pal("okabe_ito")
+ekio_pal("ekio_brand")
 
 # Brand scales are named by shade; position i is shade i * 100
 ekio_pal("blue")["700"]

@@ -94,6 +94,37 @@ test_that("accent palettes keep their main color while varying in size", {
   expect_snapshot(error = TRUE, ekio_pal("accent_orange", n = 7))
 })
 
+test_that("ekio_brand exposes the EKIO identity colors", {
+  brand <- ekio_pal("ekio_brand")
+
+  expect_identical(list_ekio_palettes("brand"), "ekio_brand")
+  expect_named(
+    brand,
+    c(
+      "Baltic Blue",
+      "Alabaster Grey",
+      "Soft Linen",
+      "Air Force Blue",
+      "Soft Linen 2",
+      "white",
+      "black"
+    )
+  )
+  expect_identical(
+    as.character(brand),
+    c(
+      "#225A7E",
+      "#D4DED9",
+      "#EFE8DC",
+      "#517A90",
+      "#F2EDE2",
+      "#FFFFFF",
+      "#000000"
+    )
+  )
+  expect_error(scale_color_ekio_c("ekio_brand"), "not found")
+})
+
 test_that("scientific palettes are accessible via ekio_pal", {
   expect_length(ekio_pal("okabe_ito"), 8)
   expect_length(ekio_pal("viridis"), 9)
@@ -130,7 +161,7 @@ test_that("list_ekio_palettes returns correct structure", {
   expect_type(all_palettes, "list")
   expect_named(
     all_palettes,
-    c("accent", "categorical", "sequential", "diverging", "scientific")
+    c("accent", "brand", "categorical", "sequential", "diverging", "scientific")
   )
 
   expect_identical(
@@ -141,6 +172,7 @@ test_that("list_ekio_palettes returns correct structure", {
     list_ekio_palettes("accent"),
     c("gold", "accent_blue", "accent_orange")
   )
+  expect_identical(list_ekio_palettes("brand"), "ekio_brand")
   expect_true("okabe_ito" %in% list_ekio_palettes("scientific"))
   expect_true("blue" %in% list_ekio_palettes("sequential"))
   expect_true("stone" %in% list_ekio_palettes("sequential"))
