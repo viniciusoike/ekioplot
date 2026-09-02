@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,12 +112,13 @@ drawn:</p>
 <div class="section level2">
 <h2 id="color-palettes">Color Palettes<a class="anchor" aria-label="anchor" href="#color-palettes"></a>
 </h2>
-<p>ekioplot ships 21 palettes across five groups. Use
+<p>ekioplot ships 22 palettes across six groups. Use
 <code><a href="../reference/list_ekio_palettes.html">list_ekio_palettes()</a></code> to explore them:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/list_ekio_palettes.html">list_ekio_palettes</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; List of 5</span></span>
+<span><span class="co">#&gt; List of 6</span></span>
 <span><span class="co">#&gt;  $ accent     : chr [1:3] "gold" "accent_blue" "accent_orange"</span></span>
+<span><span class="co">#&gt;  $ brand      : chr "ekio_brand"</span></span>
 <span><span class="co">#&gt;  $ categorical: chr [1:4] "full" "full_muted" "cool3" "cool4"</span></span>
 <span><span class="co">#&gt;  $ sequential : chr [1:7] "blue" "gray" "stone" "teal" ...</span></span>
 <span><span class="co">#&gt;  $ diverging  : chr [1:3] "blue_orange" "blue_red" "teal_orange"</span></span>
@@ -143,6 +144,9 @@ drawn:</p>
 <strong>Categorical</strong>: <code>full</code>,
 <code>full_muted</code>, <code>cool3</code>, <code>cool4</code>
 </li>
+<li>
+<strong>Brand</strong>: <code>ekio_brand</code> for EKIO identity
+assets, not general data visualization</li>
 <li>
 <strong>Scientific</strong>: <code>okabe_ito</code>,
 <code>viridis</code>, <code>inferno</code>, <code>plasma</code>

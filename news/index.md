@@ -1,5 +1,12 @@
 # Changelog
 
+## ekioplot 1.1.1
+
+### New features
+
+- Added the named `ekio_brand` palette for EKIO identity assets, with
+  five Hokusai-derived colors plus white and black.
+
 ## ekioplot 1.1.0
 
 ### Breaking changes

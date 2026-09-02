@@ -1,9 +1,9 @@
 # Get Color Palette
 
-Returns colors for data visualization. Includes EKIO brand scales,
-accent and categorical palettes, and standard scientific palettes. When
-printed interactively, displays the palette as a colored swatch with hex
-labels.
+Returns colors for data visualization and EKIO identity work. Includes
+EKIO brand scales, accent and categorical palettes, the `ekio_brand`
+identity palette, and standard scientific palettes. When printed
+interactively, displays the palette as a colored swatch with hex labels.
 
 ## Usage
 
@@ -55,6 +55,10 @@ Brand scales (`"blue"`, `"gray"`, `"stone"`, `"teal"`, `"green"`,
 shade. Position and shade are aligned by construction, so
 `ekio_pal("blue")[7]` and `ekio_pal("blue")["700"]` are the same color.
 
+The named `"ekio_brand"` palette contains colors for EKIO identity
+assets. It is not intended as a general-purpose data visualization
+palette.
+
 `"gold"` is an accent rather than a scale: three colors named `"light"`,
 `"mid"` and `"deep"`, because a nine-step gold ramp turns brown at the
 dark end. They sit on the same lightness rungs as scale shades 300, 400
@@ -77,6 +81,8 @@ ekio_pal("full", reverse = TRUE)
 ekio_pal("accent_blue", n = 5)
 
 ekio_pal("okabe_ito")
+
+ekio_pal("ekio_brand")
 
 
 # Brand scales are named by shade; position i is shade i * 100

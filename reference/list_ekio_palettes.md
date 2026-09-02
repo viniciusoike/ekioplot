@@ -12,7 +12,7 @@ list_ekio_palettes(type = "all")
 
 - type:
 
-  Character. Type of palettes to list: "accent", "categorical",
+  Character. Type of palettes to list: "accent", "brand", "categorical",
   "scientific", "sequential", "diverging", or "all" (default).
 
 ## Value
@@ -25,6 +25,9 @@ Character vector of palette names, or named list if type = "all".
 list_ekio_palettes()
 #> $accent
 #> [1] "gold"          "accent_blue"   "accent_orange"
+#> 
+#> $brand
+#> [1] "ekio_brand"
 #> 
 #> $categorical
 #> [1] "full"       "full_muted" "cool3"      "cool4"     

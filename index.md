@@ -74,7 +74,7 @@ theme_ekio(grid = "xy")
 
 ## Color palettes
 
-ekioplot ships palettes across five groups, all accessible through a
+ekioplot ships palettes across six groups, all accessible through a
 single function. The seven brand scales are generated from one OKLCH
 specification, so a given shade carries the same visual weight in every
 family.
@@ -82,6 +82,8 @@ family.
 Compact categorical palettes (`"cool3"`, `"cool4"`) cover small groups;
 `"full_muted"` provides a quieter eight-color alternative. Variable-size
 accent palettes keep blue or orange prominent against two to six series.
+The named `"ekio_brand"` palette collects EKIO identity colors for brand
+assets; it is not intended for general data visualization.
 
 ``` r
 

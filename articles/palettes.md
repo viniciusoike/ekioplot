@@ -131,6 +131,29 @@ categories, so it does not survive grayscale printing.
 
 \#448255
 
+## EKIO brand
+
+`ekio_brand` contains the colors extracted from Hokusai’s *Inume Pass in
+Kai Province*, together with white and black. It is intended for EKIO
+identity assets and other brand work, rather than general data
+visualization.
+
+`ekio_brand`7 colors
+
+\#225A7E
+
+\#D4DED9
+
+\#EFE8DC
+
+\#517A90
+
+\#F2EDE2
+
+\#FFFFFF
+
+\#000000
+
 ## Sequential
 
 The seven brand scales, light to dark. Position `i` is shade `i * 100`,
