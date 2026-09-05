@@ -1,4 +1,4 @@
-# ekioplot 1.1.1
+# ekioplot 1.1.2
 
 ## Minor improvements
 
@@ -8,6 +8,8 @@
   matches a named vector against the data levels, and shade numbers are never
   those levels, so hand-built palettes previously needed `unname()`. Whole
   palettes keep their names, and `ekio_pal("blue")["700"]` still resolves.
+
+# ekioplot 1.1.1
 
 ## New features
 
