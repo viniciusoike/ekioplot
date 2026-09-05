@@ -45,6 +45,10 @@ Brand scales (\code{"blue"}, \code{"gray"}, \code{"stone"}, \code{"teal"}, \code
 shade. Position and shade are aligned by construction, so
 \code{ekio_pal("blue")[7]} and \code{ekio_pal("blue")["700"]} are the same color.
 
+Subsetting drops the names. A color picked out of a scale goes straight
+into \code{ggplot2::scale_color_manual()}, which reads names as data levels.
+The whole palette keeps its names for \code{\link[=ekio_text_on]{ekio_text_on()}} and for lookup.
+
 The named \code{"ekio_brand"} palette contains colors for EKIO identity assets.
 It is not intended as a general-purpose data visualization palette.
 
@@ -71,4 +75,7 @@ ekio_pal("blue")[7]
 
 # gold is an accent, named rather than numbered
 ekio_pal("gold")["mid"]
+
+# Subsets are unnamed, so a hand-built palette needs no unname()
+c(ekio_pal("blue")["700"], ekio_pal("orange")["500"])
 }

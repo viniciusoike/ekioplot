@@ -128,6 +128,10 @@
 #' shade. Position and shade are aligned by construction, so
 #' `ekio_pal("blue")[7]` and `ekio_pal("blue")["700"]` are the same color.
 #'
+#' Subsetting drops the names. A color picked out of a scale goes straight
+#' into `ggplot2::scale_color_manual()`, which reads names as data levels.
+#' The whole palette keeps its names for [ekio_text_on()] and for lookup.
+#'
 #' The named `"ekio_brand"` palette contains colors for EKIO identity assets.
 #' It is not intended as a general-purpose data visualization palette.
 #'
@@ -176,6 +180,9 @@
 #'
 #' # gold is an accent, named rather than numbered
 #' ekio_pal("gold")["mid"]
+#'
+#' # Subsets are unnamed, so a hand-built palette needs no unname()
+#' c(ekio_pal("blue")["700"], ekio_pal("orange")["500"])
 ekio_pal <- function(palette = "full", n = NULL, reverse = FALSE) {
   if (!rlang::is_string(palette)) {
     cli::cli_abort("{.arg palette} must be a single string.")
@@ -296,6 +303,19 @@ as.character.ekio_palette <- function(x, ...) {
   x <- unclass(x)
   attributes(x) <- NULL
   x
+}
+
+# Subsetting drops the shade names, so a palette picked apart by name feeds
+# scale_*_manual() directly. ggplot2 matches a named vector against the data
+# levels, and shade numbers are never those levels, so keeping the names
+# would blank the scale. Whole palettes stay named: ekio_text_on() labels by
+# name, and `["700"]` needs the names on `x` to resolve.
+#' @export
+`[.ekio_palette` <- function(x, i, ...) {
+  out <- unclass(x)
+  attr(out, "palette") <- NULL
+  out <- if (missing(i)) out else out[i, ...]
+  return(unname(out))
 }
 
 # ---- Palette Listing ----
