@@ -15,7 +15,7 @@ hex labels."><meta property="og:image" content="https://viniciusoike.github.io/e
 
     <a class="navbar-brand me-2" href="../index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -107,6 +107,9 @@ strip the class.</p>
 <code>"orange"</code>, <code>"red"</code>) are nine-step ramps running light to dark, named by
 shade. Position and shade are aligned by construction, so
 <code>ekio_pal("blue")[7]</code> and <code>ekio_pal("blue")["700"]</code> are the same color.</p>
+<p>Subsetting drops the names. A color picked out of a scale goes straight
+into <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">ggplot2::scale_color_manual()</a></code>, which reads names as data levels.
+The whole palette keeps its names for <code><a href="ekio_text_on.html">ekio_text_on()</a></code> and for lookup.</p>
 <p>The named <code>"ekio_brand"</code> palette contains colors for EKIO identity assets.
 It is not intended as a general-purpose data visualization palette.</p>
 <p><code>"gold"</code> is an accent rather than a scale: three colors named <code>"light"</code>,
@@ -135,16 +138,17 @@ of receding grays. They return four colors by default; <code>n</code> can be set
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Brand scales are named by shade; position i is shade i * 100</span></span></span>
 <span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span><span class="op">[</span><span class="st">"700"</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       700 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "#1E3A5F" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "#1E3A5F"</span>
 <span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span><span class="op">[</span><span class="fl">7</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       700 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "#1E3A5F" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "#1E3A5F"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># gold is an accent, named rather than numbered</span></span></span>
 <span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"gold"</span><span class="op">)</span><span class="op">[</span><span class="st">"mid"</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       mid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "#B88715" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "#B88715"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Subsets are unnamed, so a hand-built palette needs no unname()</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span><span class="op">[</span><span class="st">"700"</span><span class="op">]</span>, <span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"orange"</span><span class="op">)</span><span class="op">[</span><span class="st">"500"</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "#1E3A5F" "#B15400"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

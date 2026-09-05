@@ -235,11 +235,9 @@ shade `i * 100`. Index whichever way reads better:
 ``` r
 
 ekio_pal("blue")["700"]
-#>       700 
-#> "#1E3A5F"
+#> [1] "#1E3A5F"
 ekio_pal("blue")[7]
-#>       700 
-#> "#1E3A5F"
+#> [1] "#1E3A5F"
 ```
 
 Because these are the same objects used for continuous fills, asking for

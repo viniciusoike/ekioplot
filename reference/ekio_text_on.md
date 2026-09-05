@@ -39,8 +39,7 @@ for the underlying contrast ratios
 
 ``` r
 ekio_text_on(ekio_pal("blue")["700"])
-#>     700 
-#> "white" 
+#> [1] "white"
 ekio_text_on(ekio_pal("blue"))
 #>     100     200     300     400     500     600     700     800     900 
 #> "black" "black" "black" "black" "white" "white" "white" "white" "white" 

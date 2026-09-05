@@ -55,6 +55,13 @@ Brand scales (`"blue"`, `"gray"`, `"stone"`, `"teal"`, `"green"`,
 shade. Position and shade are aligned by construction, so
 `ekio_pal("blue")[7]` and `ekio_pal("blue")["700"]` are the same color.
 
+Subsetting drops the names. A color picked out of a scale goes straight
+into
+[`ggplot2::scale_color_manual()`](https://ggplot2.tidyverse.org/reference/scale_manual.html),
+which reads names as data levels. The whole palette keeps its names for
+[`ekio_text_on()`](https://viniciusoike.github.io/ekioplot/reference/ekio_text_on.md)
+and for lookup.
+
 The named `"ekio_brand"` palette contains colors for EKIO identity
 assets. It is not intended as a general-purpose data visualization
 palette.
@@ -87,14 +94,15 @@ ekio_pal("ekio_brand")
 
 # Brand scales are named by shade; position i is shade i * 100
 ekio_pal("blue")["700"]
-#>       700 
-#> "#1E3A5F" 
+#> [1] "#1E3A5F"
 ekio_pal("blue")[7]
-#>       700 
-#> "#1E3A5F" 
+#> [1] "#1E3A5F"
 
 # gold is an accent, named rather than numbered
 ekio_pal("gold")["mid"]
-#>       mid 
-#> "#B88715" 
+#> [1] "#B88715"
+
+# Subsets are unnamed, so a hand-built palette needs no unname()
+c(ekio_pal("blue")["700"], ekio_pal("orange")["500"])
+#> [1] "#1E3A5F" "#B15400"
 ```

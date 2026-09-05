@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ekioplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -283,11 +283,9 @@ family:</p>
 reads better:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span><span class="op">[</span><span class="st">"700"</span><span class="op">]</span></span>
-<span><span class="co">#&gt;       700 </span></span>
-<span><span class="co">#&gt; "#1E3A5F"</span></span>
+<span><span class="co">#&gt; [1] "#1E3A5F"</span></span>
 <span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span><span class="op">[</span><span class="fl">7</span><span class="op">]</span></span>
-<span><span class="co">#&gt;       700 </span></span>
-<span><span class="co">#&gt; "#1E3A5F"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "#1E3A5F"</span></span></code></pre></div>
 <p>Because these are the same objects used for continuous fills, asking
 for fewer colors interpolates across the whole ramp rather than
 returning the lightest few:</p>
