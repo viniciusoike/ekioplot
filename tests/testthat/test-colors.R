@@ -359,3 +359,61 @@ test_that("the swatch fills with the palette and titles with its name", {
     ggplot2::layer_data(p, 2)$colour %in% c("white", .ekio("gray", 900))
   ))
 })
+
+# ---- Palette subsetting ----
+
+test_that("subsetting a palette drops names", {
+  blue <- ekio_pal("blue")
+
+  expect_null(names(blue["700"]))
+  expect_null(names(blue[7]))
+  expect_null(names(blue[2:4]))
+  expect_null(names(ekio_pal("gold")["mid"]))
+  expect_null(names(ekio_pal("ekio_brand")["Baltic Blue"]))
+})
+
+test_that("subsetting a palette resolves shade and accent names", {
+  blue <- ekio_pal("blue")
+
+  expect_identical(blue["700"], .ekio("blue", 700))
+  expect_identical(blue["700"], blue[7])
+  expect_identical(ekio_pal("gold")["mid"], .ekio("gold", "mid"))
+})
+
+test_that("subset palettes combine into an unnamed vector for ggplot2", {
+  # The reason names are dropped: scale_*_manual() matches names to data
+  # levels, so a named vector silently mismaps or blanks the scale
+  custom <- c(
+    ekio_pal("blue")["700"],
+    ekio_pal("orange")["500"],
+    ekio_pal("gold")["mid"]
+  )
+
+  expect_null(names(custom))
+  expect_length(custom, 3)
+  expect_true(all(grepl("^#[0-9A-Fa-f]{6}$", custom)))
+})
+
+test_that("subsetting returns a plain character vector", {
+  sub <- ekio_pal("blue")["700"]
+  expect_type(sub, "character")
+  expect_false(inherits(sub, "ekio_palette"))
+  expect_null(attr(sub, "palette"))
+})
+
+test_that("whole palettes keep their names", {
+  # ekio_text_on() labels a palette by name, so the unsubset object keeps them
+  blue <- ekio_pal("blue")
+  expect_named(blue, as.character(seq(100, 900, by = 100)))
+  expect_named(ekio_text_on(blue), names(blue))
+})
+
+test_that("out-of-range subsetting still gives NA", {
+  expect_true(is.na(ekio_pal("blue")["950"]))
+  expect_true(is.na(ekio_pal("full")[99]))
+})
+
+test_that("double-bracket extraction is unchanged", {
+  expect_identical(ekio_pal("blue")[["700"]], .ekio("blue", 700))
+  expect_null(names(ekio_pal("blue")[["700"]]))
+})

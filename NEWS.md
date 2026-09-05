@@ -1,3 +1,14 @@
+# ekioplot 1.1.2
+
+## Minor improvements
+
+* Subsetting a palette now drops its names, so
+  `c(ekio_pal("blue")["700"], ekio_pal("orange")["500"])` returns an unnamed
+  vector that `ggplot2::scale_color_manual()` accepts. `scale_*_manual()`
+  matches a named vector against the data levels, and shade numbers are never
+  those levels, so hand-built palettes previously needed `unname()`. Whole
+  palettes keep their names, and `ekio_pal("blue")["700"]` still resolves.
+
 # ekioplot 1.1.1
 
 ## New features

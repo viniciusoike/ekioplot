@@ -53,3 +53,4 @@
     Condition
       Error in `list_ekio_palettes()`:
       ! `type` must be a single string.
+
