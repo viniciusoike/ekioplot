@@ -14,6 +14,9 @@
 library(ekioplot)
 library(ggplot2)
 library(patchwork)
+library(dplyr)
+
+load("data/brazil_population_forecast.rda")
 
 fig_dir <- "man/figures"
 dir.create(fig_dir, showWarnings = FALSE, recursive = TRUE)
@@ -107,7 +110,9 @@ palettes <- ggplot(pal_df) +
   theme(
     axis.title = element_blank(),
     axis.text.x = element_blank(),
-    axis.text.y = element_text(family = "mono", hjust = 0)
+    axis.text.y = element_text(family = "mono", hjust = 0),
+    axis.line.x = element_blank(),
+    axis.ticks.x = element_blank()
   )
 
 save_fig(palettes, "README-palettes.png", width = 8, height = 6)
@@ -115,21 +120,21 @@ save_fig(palettes, "README-palettes.png", width = 8, height = 6)
 ## Recipe grid ------------------------------------------------------------
 
 cyl_counts <- as.data.frame(table(cyl = mtcars$cyl))
-economic_series <- subset(
-  ggplot2::economics_long,
-  variable %in% c("pce", "psavert", "uempmed")
-)
+
+population_by_ibge_age_group <- brazil_population_forecast |>
+  group_by(year, ibge_age_group) |>
+  summarise(population_millions = sum(population) / 1e6, .groups = "drop")
 
 ek_scatterplot <- ekio_scatterplot(mtcars, wt, mpg, color = factor(cyl)) +
   labs(title = "ekio_scatterplot()") +
   theme(
-    plot.title = element_text(family = "Fira Code", face = "bold", size = 16)
+    plot.title = element_text(family = "Fira Code", face = "bold", size = 14)
   )
 
 ek_barplot <- ekio_barplot(cyl_counts, cyl, Freq) +
   labs(title = "ekio_barplot()") +
   theme(
-    plot.title = element_text(family = "Fira Code", face = "bold", size = 16)
+    plot.title = element_text(family = "Fira Code", face = "bold", size = 14)
   )
 
 ek_lineplot <- ekio_lineplot(
@@ -139,18 +144,23 @@ ek_lineplot <- ekio_lineplot(
 ) +
   labs(title = "ekio_lineplot()") +
   theme(
-    plot.title = element_text(family = "Fira Code", face = "bold", size = 16)
+    plot.title = element_text(family = "Fira Code", face = "bold", size = 14)
   )
 
 ek_areaplot <- ekio_areaplot(
-  economic_series,
-  date,
-  value01,
-  fill = variable
+  population_by_ibge_age_group,
+  year,
+  population_millions,
+  fill = ibge_age_group
 ) +
-  labs(title = "ekio_areaplot()") +
+  labs(
+    title = "ekio_areaplot()",
+    x = NULL,
+    y = "Population (millions)",
+    fill = "Age group"
+  ) +
   theme(
-    plot.title = element_text(family = "Fira Code", face = "bold", size = 16)
+    plot.title = element_text(family = "Fira Code", face = "bold", size = 14)
   )
 
 recipes <- (ek_scatterplot | ek_barplot) / (ek_lineplot | ek_areaplot)
