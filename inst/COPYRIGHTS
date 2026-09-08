@@ -26,6 +26,24 @@ https://sidra.ibge.gov.br/tabela/5938, and
 https://sidra.ibge.gov.br/tabela/1612.
 
 
+World Population Prospects 2024
+-------------------------------
+
+The `brazil_population_forecast` dataset is a filtered and transformed subset
+of population projections from the United Nations, Department of Economic and
+Social Affairs, Population Division (2024), *World Population Prospects 2024,
+Online Edition*. The source data are licensed under the Creative Commons
+Attribution 3.0 IGO license (CC BY 3.0 IGO). The subset is limited to Brazil,
+five-year age groups and projection years 2025–2100; values are converted from
+thousands to persons and rounded to the nearest person. The lower and upper
+columns retain the WPP low and high fertility variants. The `ibge_age_group`
+and `age_group` fields are derived by ekioplot. The United Nations does not
+endorse `ekioplot` or this transformed subset.
+
+Source: https://www.un.org/development/desa/pd/content/world-population-prospects-2024
+License: https://creativecommons.org/licenses/by/3.0/igo/
+
+
 viridis, inferno and plasma
 ---------------------------
 

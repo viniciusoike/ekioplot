@@ -81,6 +81,7 @@ reference:
   - title: Datasets
     contents:
       - brazil_population
+      - brazil_population_forecast
       - brazil_gdp
       - brazil_agriculture
       - brazil_agriculture_states
