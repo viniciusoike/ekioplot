@@ -46,7 +46,8 @@
 <h2 class="pkg-version" data-toc-text="1.1.2" id="ekioplot-112">ekioplot 1.1.2<a class="anchor" aria-label="anchor" href="#ekioplot-112"></a></h2>
 <div class="section level3">
 <h3 id="minor-improvements-1-1-2">Minor improvements<a class="anchor" aria-label="anchor" href="#minor-improvements-1-1-2"></a></h3>
-<ul><li>Subsetting a palette now drops its names, so <code>c(ekio_pal("blue")["700"], ekio_pal("orange")["500"])</code> returns an unnamed vector that <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">ggplot2::scale_color_manual()</a></code> accepts. <code>scale_*_manual()</code> matches a named vector against the data levels, and shade numbers are never those levels, so hand-built palettes previously needed <code><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname()</a></code>. Whole palettes keep their names, and <code>ekio_pal("blue")["700"]</code> still resolves.</li>
+<ul><li><p>Added the <code>brazil_population_forecast</code> dataset with Brazilian population projections by five-year age group from 2025 to 2100.</p></li>
+<li><p>Subsetting a palette now drops its names, so <code>c(ekio_pal("blue")["700"], ekio_pal("orange")["500"])</code> returns an unnamed vector that <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">ggplot2::scale_color_manual()</a></code> accepts. <code>scale_*_manual()</code> matches a named vector against the data levels, and shade numbers are never those levels, so hand-built palettes previously needed <code><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname()</a></code>. Whole palettes keep their names, and <code>ekio_pal("blue")["700"]</code> still resolves.</p></li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -57,7 +58,7 @@
 </ul></div>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.1.0" id="ekioplot-110">ekioplot 1.1.0<a class="anchor" aria-label="anchor" href="#ekioplot-110"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.1.0" id="ekioplot-110">ekioplot 1.1.0<a class="anchor" aria-label="anchor" href="#ekioplot-110"></a></h2><p class="text-muted">CRAN release: 2026-09-08</p>
 <div class="section level3">
 <h3 id="breaking-changes-1-1-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-1-0"></a></h3>
 <ul><li><p>Removed the <code>ips_brasil</code> dataset because its source does not state terms permitting redistribution.</p></li>

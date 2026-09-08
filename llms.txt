@@ -190,6 +190,8 @@ High-level chart builders with smart defaults
 
 - [`brazil_population`](https://viniciusoike.github.io/ekioplot/reference/brazil_population.md)
   : Brazilian municipal population, 2025
+- [`brazil_population_forecast`](https://viniciusoike.github.io/ekioplot/reference/brazil_population_forecast.md)
+  : Brazilian population projections by age and sex, 2025–2100
 - [`brazil_gdp`](https://viniciusoike.github.io/ekioplot/reference/brazil_gdp.md)
   : Brazilian municipal GDP, 2021
 - [`brazil_agriculture`](https://viniciusoike.github.io/ekioplot/reference/brazil_agriculture.md)

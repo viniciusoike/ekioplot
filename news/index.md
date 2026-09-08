@@ -4,6 +4,9 @@
 
 ### Minor improvements
 
+- Added the `brazil_population_forecast` dataset with Brazilian
+  population projections by five-year age group from 2025 to 2100.
+
 - Subsetting a palette now drops its names, so
   `c(ekio_pal("blue")["700"], ekio_pal("orange")["500"])` returns an
   unnamed vector that
@@ -22,6 +25,8 @@
   five Hokusai-derived colors plus white and black.
 
 ## ekioplot 1.1.0
+
+CRAN release: 2026-09-08
 
 ### Breaking changes
 
