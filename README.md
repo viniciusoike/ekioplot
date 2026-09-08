@@ -7,6 +7,7 @@
 
 <!-- badges: start -->
 
+[![](https://www.r-pkg.org/badges/version/ekioplot?color=white)](https://cran.r-project.org/package=ekioplot)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-universe](https://viniciusoike.r-universe.dev/badges/ekioplot)](https://viniciusoike.r-universe.dev/ekioplot)
@@ -86,8 +87,8 @@ family.
 Compact categorical palettes (`"cool3"`, `"cool4"`) cover small groups;
 `"full_muted"` provides a quieter eight-color alternative. Variable-size
 accent palettes keep blue or orange prominent against two to six series.
-The named `"ekio_brand"` palette collects EKIO identity colors for brand assets;
-it is not intended for general data visualization.
+The named `"ekio_brand"` palette collects EKIO identity colors for brand
+assets; it is not intended for general data visualization.
 
 ``` r
 ekio_pal()
