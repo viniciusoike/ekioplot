@@ -1,5 +1,13 @@
 # ekioplot 1.1.2
 
+## New features
+
+* Added the `purple` brand scale, a nine-step ramp on the same lightness spine
+  as the other scales.
+
+* Added the `purple_green` diverging palette, which runs the purple scale and
+  the green scale out from the neutral pivot, following ColorBrewer's PRGn.
+
 ## Minor improvements
 
 * Added the `brazil_population_forecast` dataset with Brazilian population

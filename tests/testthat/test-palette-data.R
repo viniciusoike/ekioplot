@@ -142,6 +142,18 @@ test_that("every scale sits on the same lightness spine as blue", {
   }
 })
 
+# Both arms of a diverging palette step through matching spine rungs, so the
+# scale carries equal weight on either side of the pivot.
+test_that("diverging arms are lightness-symmetric about the pivot", {
+  for (nm in list_ekio_palettes("diverging")) {
+    pal <- as.character(ekio_pal(nm))
+    mid <- (length(pal) + 1) / 2
+    cool <- oklab_l(pal[seq_len(mid - 1)])
+    warm <- oklab_l(rev(pal[seq(mid + 1, length(pal))]))
+    expect_lt(max(abs(cool - warm)), 0.015, label = nm)
+  }
+})
+
 test_that("shade 500 clears WCAG AA on the off-white surface", {
   scales <- ekioplot:::.ekio_scales
   offwhite <- ekioplot:::.ekio("basic", "offwhite")
