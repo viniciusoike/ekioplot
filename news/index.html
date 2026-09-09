@@ -45,6 +45,11 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.2" id="ekioplot-112">ekioplot 1.1.2<a class="anchor" aria-label="anchor" href="#ekioplot-112"></a></h2>
 <div class="section level3">
+<h3 id="new-features-1-1-2">New features<a class="anchor" aria-label="anchor" href="#new-features-1-1-2"></a></h3>
+<ul><li><p>Added the <code>purple</code> brand scale, a nine-step ramp on the same lightness spine as the other scales.</p></li>
+<li><p>Added the <code>purple_green</code> diverging palette, which runs the purple scale and the green scale out from the neutral pivot, following ColorBrewer’s PRGn.</p></li>
+</ul></div>
+<div class="section level3">
 <h3 id="minor-improvements-1-1-2">Minor improvements<a class="anchor" aria-label="anchor" href="#minor-improvements-1-1-2"></a></h3>
 <ul><li><p>Added the <code>brazil_population_forecast</code> dataset with Brazilian population projections by five-year age group from 2025 to 2100.</p></li>
 <li><p>Subsetting a palette now drops its names, so <code>c(ekio_pal("blue")["700"], ekio_pal("orange")["500"])</code> returns an unnamed vector that <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">ggplot2::scale_color_manual()</a></code> accepts. <code>scale_*_manual()</code> matches a named vector against the data levels, and shade numbers are never those levels, so hand-built palettes previously needed <code><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname()</a></code>. Whole palettes keep their names, and <code>ekio_pal("blue")["700"]</code> still resolves.</p></li>

@@ -75,7 +75,7 @@ theme_ekio(grid = "xy")
 ## Color palettes
 
 ekioplot ships palettes across six groups, all accessible through a
-single function. The seven brand scales are generated from one OKLCH
+single function. The brand scales are generated from one OKLCH
 specification, so a given shade carries the same visual weight in every
 family.
 
@@ -91,9 +91,9 @@ ekio_pal()
 ekio_pal("accent_blue", n = 5)
 ```
 
-![Ten selected EKIO palettes drawn as horizontal colour strips,
-including the new compact categorical and variable-size accent
-palettes.](reference/figures/README-palettes.png)
+![Selected EKIO palettes drawn as horizontal colour strips, covering the
+categorical, accent, sequential and diverging
+groups.](reference/figures/README-palettes.png)
 
 ## Scales
 

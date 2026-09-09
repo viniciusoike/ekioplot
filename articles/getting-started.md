@@ -41,7 +41,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ## Color Palettes
 
-ekioplot ships 22 palettes across six groups. Use
+ekioplot ships 24 palettes across six groups. Use
 [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md)
 to explore them:
 
@@ -52,8 +52,8 @@ str(list_ekio_palettes())
 #>  $ accent     : chr [1:3] "gold" "accent_blue" "accent_orange"
 #>  $ brand      : chr "ekio_brand"
 #>  $ categorical: chr [1:4] "full" "full_muted" "cool3" "cool4"
-#>  $ sequential : chr [1:7] "blue" "gray" "stone" "teal" ...
-#>  $ diverging  : chr [1:3] "blue_orange" "blue_red" "teal_orange"
+#>  $ sequential : chr [1:8] "blue" "gray" "stone" "teal" ...
+#>  $ diverging  : chr [1:4] "blue_orange" "blue_red" "teal_orange" "purple_green"
 #>  $ scientific : chr [1:4] "okabe_ito" "viridis" "inferno" "plasma"
 ```
 
@@ -95,9 +95,10 @@ ekio_pal("blue", n = 5)
   visualization
 - **Scientific**: `okabe_ito`, `viridis`, `inferno`, `plasma`
 - **Sequential**: `blue`, `gray`, `stone`, `teal`, `green`, `orange`,
-  `red`
+  `red`, `purple`
 - **Accent**: `gold`, `accent_blue`, `accent_orange`
-- **Diverging**: `blue_orange`, `blue_red`, `teal_orange`
+- **Diverging**: `blue_orange`, `blue_red`, `teal_orange`,
+  `purple_green`
 
 `accent_blue` and `accent_orange` return four colors by default. Set `n`
 from 2 to 6 to match the number of series while retaining the accent as
@@ -217,10 +218,10 @@ ekio_histogram(mtcars, mpg, fill = "coral")
 
 Every brand color is reached through
 [`ekio_pal()`](https://viniciusoike.github.io/ekioplot/reference/ekio_pal.md).
-The seven brand scales — `"blue"`, `"gray"`, `"stone"`, `"teal"`,
-`"green"`, `"orange"`, and `"red"` — are nine-step ramps running light
-to dark, named by shade. All seven sit on one lightness spine, so a
-given shade carries the same visual weight in every family:
+The brand scales — `"blue"`, `"gray"`, `"stone"`, `"teal"`, `"green"`,
+`"orange"`, `"red"`, and `"purple"` — are nine-step ramps running light
+to dark, named by shade. All sit on one lightness spine, so a given
+shade carries the same visual weight in every family:
 
 ``` r
 

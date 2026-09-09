@@ -33,10 +33,10 @@ list_ekio_palettes()
 #> [1] "full"       "full_muted" "cool3"      "cool4"     
 #> 
 #> $sequential
-#> [1] "blue"   "gray"   "stone"  "teal"   "green"  "orange" "red"   
+#> [1] "blue"   "gray"   "stone"  "teal"   "green"  "orange" "red"    "purple"
 #> 
 #> $diverging
-#> [1] "blue_orange" "blue_red"    "teal_orange"
+#> [1] "blue_orange"  "blue_red"     "teal_orange"  "purple_green"
 #> 
 #> $scientific
 #> [1] "okabe_ito" "viridis"   "inferno"   "plasma"   

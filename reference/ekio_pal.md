@@ -51,8 +51,8 @@ class.
 ## Details
 
 Brand scales (`"blue"`, `"gray"`, `"stone"`, `"teal"`, `"green"`,
-`"orange"`, `"red"`) are nine-step ramps running light to dark, named by
-shade. Position and shade are aligned by construction, so
+`"orange"`, `"red"`, `"purple"`) are nine-step ramps running light to
+dark, named by shade. Position and shade are aligned by construction, so
 `ekio_pal("blue")[7]` and `ekio_pal("blue")["700"]` are the same color.
 
 Subsetting drops the names. A color picked out of a scale goes straight

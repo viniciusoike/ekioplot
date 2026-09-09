@@ -8,12 +8,12 @@ Each chip is labelled with its hex code, drawn in black or white by
 [`ekio_text_on()`](https://viniciusoike.github.io/ekioplot/reference/ekio_text_on.md),
 the same WCAG contrast helper the palette swatches use.
 
-The seven brand scales are generated from one OKLCH specification: a
-shared lightness spine anchored on the brand navy, a shared chroma arc,
-and a hue path per family. A given shade therefore carries the same
-visual weight in every family. The scientific palettes are not EKIO
-color — they come from matplotlib and from Okabe & Ito, and
-`inst/COPYRIGHTS` carries the notices.
+The brand scales are generated from one OKLCH specification: a shared
+lightness spine anchored on the brand navy, a shared chroma arc, and a
+hue path per family. A given shade therefore carries the same visual
+weight in every family. The scientific palettes are not EKIO color —
+they come from matplotlib and from Okabe & Ito, and `inst/COPYRIGHTS`
+carries the notices.
 
 ## All colors
 
@@ -156,8 +156,8 @@ visualization.
 
 ## Sequential
 
-The seven brand scales, light to dark. Position `i` is shade `i * 100`,
-so `ekio_pal("blue")["700"]` is the primary blue. These work as discrete
+The brand scales, light to dark. Position `i` is shade `i * 100`, so
+`ekio_pal("blue")["700"]` is the primary blue. These work as discrete
 palettes for ordered categories and as the ramp behind
 [`scale_color_ekio_c()`](https://viniciusoike.github.io/ekioplot/reference/scale_color_ekio_c.md).
 
@@ -301,6 +301,26 @@ palettes for ordered categories and as the ramp behind
 
 \#2D1010
 
+`purple`9 colors
+
+\#FDEEFF
+
+\#E4C6EB
+
+\#C7A0D4
+
+\#AB7AC1
+
+\#8A5CA1
+
+\#6A427C
+
+\#4B2A55
+
+\#361F3C
+
+\#231425
+
 ## Diverging
 
 For values with a meaningful midpoint. The pivot is a near-neutral tone,
@@ -365,6 +385,26 @@ lighter than both arms, so the visual center of the scale lands on zero.
 \#893A00
 
 \#471904
+
+`purple_green`9 colors
+
+\#361F3C
+
+\#6A427C
+
+\#AB7AC1
+
+\#E4C6EB
+
+\#F5F3EF
+
+\#BADCC3
+
+\#62A274
+
+\#2E623B
+
+\#14301C
 
 ## Scientific
 
