@@ -1,5 +1,9 @@
 # ekioplot 1.1.2
 
+## Breaking changes
+
+* Diverging palettes now stop at the lighter shade 600 and use more gradual intermediate steps for better balance in filled graphics. `purple_orange` replaces `blue_orange`, while `blue_red`, `teal_orange`, and `purple_green` retain their names with the lighter construction.
+
 ## New features
 
 * Added the `purple` brand scale, a nine-step ramp on the same lightness spine
