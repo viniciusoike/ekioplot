@@ -88,7 +88,7 @@ theme_ekio(grid = "xy")
 ## Color palettes
 
 ekioplot ships palettes across six groups, all accessible through a single
-function. The seven brand scales are generated from one OKLCH specification,
+function. The brand scales are generated from one OKLCH specification,
 so a given shade carries the same visual weight in every family.
 
 Compact categorical palettes (`"cool3"`, `"cool4"`) cover small groups;
@@ -102,7 +102,7 @@ ekio_pal()
 ekio_pal("accent_blue", n = 5)
 ```
 
-<img src="man/figures/README-palettes.png" width="100%" alt="Ten selected EKIO palettes drawn as horizontal colour strips, including the new compact categorical and variable-size accent palettes." />
+<img src="man/figures/README-palettes.png" width="100%" alt="Selected EKIO palettes drawn as horizontal colour strips, covering the categorical, accent, sequential and diverging groups." />
 
 ## Scales
 

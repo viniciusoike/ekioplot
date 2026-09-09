@@ -1,4 +1,4 @@
-# Generate the seven EKIO brand scales from one OKLCH specification.
+# Generate the EKIO brand scales from one OKLCH specification.
 #
 # Sourcing this file defines `ekio_ramp_spec`, `ekio_build_scales()` and the
 # OKLCH helpers. data-raw/palettes.R sources it and checks that
@@ -27,7 +27,12 @@ ekio_ramp_spec <- list(
     teal = list(hue = c(200, 199, 198, 196, 194, 193, 194, 196, 199), cmax = 0.090),
     green = list(hue = c(155, 154, 153, 152, 151, 150, 150, 151, 152), cmax = 0.095),
     orange = list(hue = c(62, 60, 57, 54, 51, 48, 45, 43, 41), cmax = 0.145),
-    red = list(hue = c(30, 29, 28, 27, 26, 25, 24, 23, 22), cmax = 0.135)
+    red = list(hue = c(30, 29, 28, 27, 26, 25, 24, 23, 22), cmax = 0.135),
+    # Purple exists for the purple_green diverging pair. Its hue path tracks
+    # ColorBrewer PRGn - violet through the middle, redder at both ends - and
+    # its chroma budget sits above green's by the margin PRGn uses between the
+    # same two arms.
+    purple = list(hue = c(322, 320, 317, 315, 314, 315, 318, 320, 321), cmax = 0.115)
   )
 )
 

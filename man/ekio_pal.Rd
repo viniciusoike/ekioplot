@@ -41,8 +41,8 @@ hex labels.
 }
 \details{
 Brand scales (\code{"blue"}, \code{"gray"}, \code{"stone"}, \code{"teal"}, \code{"green"},
-\code{"orange"}, \code{"red"}) are nine-step ramps running light to dark, named by
-shade. Position and shade are aligned by construction, so
+\code{"orange"}, \code{"red"}, \code{"purple"}) are nine-step ramps running light to dark,
+named by shade. Position and shade are aligned by construction, so
 \code{ekio_pal("blue")[7]} and \code{ekio_pal("blue")["700"]} are the same color.
 
 Subsetting drops the names. A color picked out of a scale goes straight

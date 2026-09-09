@@ -24,7 +24,7 @@ truth for the brand.
 Each chip is labelled with its hex code, drawn in black or white by
 `ekio_text_on()`, the same WCAG contrast helper the palette swatches use.
 
-The seven brand scales are generated from one OKLCH specification: a shared
+The brand scales are generated from one OKLCH specification: a shared
 lightness spine anchored on the brand navy, a shared chroma arc, and a hue
 path per family. A given shade therefore carries the same visual weight in
 every family. The scientific palettes are not EKIO color — they come from
@@ -244,7 +244,7 @@ gallery("brand")
 
 ## Sequential
 
-The seven brand scales, light to dark. Position `i` is shade `i * 100`, so
+The brand scales, light to dark. Position `i` is shade `i * 100`, so
 `ekio_pal("blue")["700"]` is the primary blue. These work as discrete palettes
 for ordered categories and as the ramp behind `scale_color_ekio_c()`.
 

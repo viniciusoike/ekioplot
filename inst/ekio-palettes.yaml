@@ -15,8 +15,7 @@
 #
 # Because every scale sits on the same spine, shade number carries the same
 # visual weight in every family: blue.500 and orange.500 are interchangeable
-# in weight, and shade 500 passes WCAG AA for text on the off-white surface
-# in all seven.
+# in weight, and shade 500 passes WCAG AA for text on the off-white surface.
 
 scales:
   blue:
@@ -96,6 +95,17 @@ scales:
     800: "#461818"
     900: "#2D1010"
 
+  purple:
+    100: "#FDEEFF"
+    200: "#E4C6EB"
+    300: "#C7A0D4"
+    400: "#AB7AC1"
+    500: "#8A5CA1"
+    600: "#6A427C"
+    700: "#4B2A55"
+    800: "#361F3C"
+    900: "#231425"
+
 palettes:
   # Accent tokens and categorical palettes. Gold has no nine-step scale
   # because dark yellow is brown - past the middle of the spine a gold ramp
@@ -142,6 +152,7 @@ palettes:
     green: ["green.100", "green.200", "green.300", "green.400", "green.500", "green.600", "green.700", "green.800", "green.900"]
     orange: ["orange.100", "orange.200", "orange.300", "orange.400", "orange.500", "orange.600", "orange.700", "orange.800", "orange.900"]
     red: ["red.100", "red.200", "red.300", "red.400", "red.500", "red.600", "red.700", "red.800", "red.900"]
+    purple: ["purple.100", "purple.200", "purple.300", "purple.400", "purple.500", "purple.600", "purple.700", "purple.800", "purple.900"]
 
   # Both arms step through the even shades, so the two halves carry equal
   # weight rung for rung. The pivot is a neutral one step lighter than either
@@ -151,6 +162,7 @@ palettes:
     blue_orange: ["blue.800", "blue.600", "blue.400", "blue.200", "basic.pivot", "orange.200", "orange.400", "orange.600", "orange.800"]
     blue_red: ["blue.800", "blue.600", "blue.400", "blue.200", "basic.pivot", "red.200", "red.400", "red.600", "red.800"]
     teal_orange: ["teal.800", "teal.600", "teal.400", "teal.200", "basic.pivot", "orange.200", "orange.400", "orange.600", "orange.800"]
+    purple_green: ["purple.800", "purple.600", "purple.400", "purple.200", "basic.pivot", "green.200", "green.400", "green.600", "green.800"]
 
   # Third-party sets, not EKIO color: viridis, inferno and plasma are stop
   # samples of the matplotlib colormaps; okabe_ito is the Okabe & Ito

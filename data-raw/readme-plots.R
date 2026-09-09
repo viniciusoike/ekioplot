@@ -67,6 +67,7 @@ pal_names <- c(
   "gold",
   "blue",
   "blue_orange",
+  "purple_green",
   "okabe_ito"
 )
 
