@@ -181,5 +181,6 @@ palettes:
     basic:
       white: "#FFFFFF"
       offwhite: "#FEFEFE"
+      offwhite-warm: "#fbfbf6"
       pivot: "#F5F3EF"
       black: "#000000"

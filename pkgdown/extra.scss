@@ -5,27 +5,27 @@
 // properties below rather than hardcoding a hex, so each is written once.
 
 :root {
-  --ekio-navy: #152A44;    // blue.800
-  --ekio-accent: #1E3A5F;  // blue.700
-  --ekio-rule: #CFD2D5;    // gray.200
-  --ekio-muted: #6E7378;   // gray.500
-  --ekio-orange: #D3742A;  // orange.400
+  --ekio-navy: #152A44; // blue.800
+  --ekio-accent: #1E3A5F; // blue.700
+  --ekio-rule: #CFD2D5; // gray.200
+  --ekio-muted: #6E7378; // gray.500
+  --ekio-orange: #D3742A; // orange.400
   --ekio-surface: #FEFEFE; // basic.offwhite
 }
 
 [data-bs-theme="dark"] {
   --ekio-accent: #5597CC; // blue.400
-  --ekio-rule: #28292C;   // gray.800
-  --ekio-muted: #AEB1B5;  // gray.300
+  --ekio-rule: #28292C; // gray.800
+  --ekio-muted: #AEB1B5; // gray.300
 
   // Brand-side dark mode: links, code and borders lift off the navy page
-  --bs-link-color: #84B8DD;        // blue.300
-  --bs-link-hover-color: #B1D8F2;  // blue.200
-  --bs-primary: #5597CC;           // blue.400
+  --bs-link-color: #84B8DD; // blue.300
+  --bs-link-hover-color: #B1D8F2; // blue.200
+  --bs-primary: #5597CC; // blue.400
   --bs-primary-rgb: 85, 151, 204;
-  --bs-code-color: #7EBEC0;        // teal.300
-  --bs-border-color: #28292C;      // gray.800
-  --bs-secondary-color: #AEB1B5;   // gray.300
+  --bs-code-color: #7EBEC0; // teal.300
+  --bs-border-color: #28292C; // gray.800
+  --bs-secondary-color: #AEB1B5; // gray.300
 }
 
 /* navbar ------------------------------------------------------------------ */
@@ -45,6 +45,10 @@
   // .text-muted, used by the version number, reads from this
   --bs-secondary-color: rgba(255, 255, 255, 0.6);
   color: rgba(255, 255, 255, 0.82);
+  // Taller bar so the EKIO badge doesn't crowd the line - keep the
+  // pkgdown-nav-height bslib variable in _pkgdown.yml in sync.
+  padding-top: 1.1rem;
+  padding-bottom: 1.1rem;
 }
 
 .navbar-brand {
@@ -71,6 +75,7 @@
   &::placeholder {
     color: rgba(255, 255, 255, 0.55);
   }
+
   &:focus {
     background-color: rgba(255, 255, 255, 0.14);
     border-color: rgba(255, 255, 255, 0.4);
@@ -81,7 +86,10 @@
 
 /* type -------------------------------------------------------------------- */
 
-h1, h2, h3, .page-header h1 {
+h1,
+h2,
+h3,
+.page-header h1 {
   letter-spacing: -0.01em;
 }
 
@@ -112,6 +120,7 @@ blockquote {
 table {
   --bs-table-border-color: var(--ekio-rule);
 }
+
 table thead th {
   border-bottom: 2px solid var(--ekio-accent);
 }
@@ -130,7 +139,8 @@ table thead th {
   opacity: 0.85;
   transition: opacity 250ms ease-in-out;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     opacity: 1;
   }
 }
@@ -160,6 +170,7 @@ table thead th {
     font-size: 0.95rem;
     font-weight: 600;
   }
+
   .ekio-swatch-n {
     color: var(--ekio-muted);
     font-size: 0.8rem;
@@ -209,6 +220,7 @@ table thead th {
     border-color: var(--ekio-rule);
     background: rgba(var(--bs-primary-rgb), 0.07);
   }
+
   &.is-copied {
     border-color: var(--ekio-accent);
     color: var(--ekio-accent);

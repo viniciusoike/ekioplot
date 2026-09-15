@@ -25,8 +25,9 @@ library(showtext)
 # Setup fonts for high-quality rendering. Avenir is a system font on macOS;
 # adjust the path if registering it fails on your platform.
 # Lato is the EKIO body font; the wordmark itself draws in Avenir.
-font_add("Avenir", regular = "/System/Library/Fonts/Avenir.ttc")
-sysfonts::font_add_google("Lato", "Lato")
+# font_add("Avenir", regular = "/System/Library/Fonts/Avenir.ttc")
+sysfonts::font_add_google("Host Grotesk", "Host Grotesk")
+sysfonts::font_add_google("Lora", "Lora")
 showtext_opts(dpi = 400)
 showtext_auto()
 
@@ -83,7 +84,7 @@ sticker(
   p_x = 0.72,
   p_y = 1.33,
   p_color = "#FFFFFF",
-  p_family = "Avenir",
+  p_family = "Host Grotesk",
   p_size = 7,
   h_fill = "#FFFFFF",
   h_color = "#000000",

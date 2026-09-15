@@ -10,7 +10,7 @@ template:
   theme-dark: arrow-dark
   bslib:
     # Surfaces and ink: offwhite page matches theme_ekio()'s plot background
-    bg: "#FEFEFE"      # basic.offwhite
+    bg: "#fbfbf6"      # https://www.i-iro.com/dic/unohana-iro
     fg: "#191A1C"      # gray.900
     primary: "#1E3A5F" # blue.700
     secondary: "#373A3D" # gray.700
