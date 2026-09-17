@@ -154,6 +154,26 @@ test_that("diverging arms are lightness-symmetric about the pivot", {
   }
 })
 
+test_that("diverging palettes use balanced endpoints", {
+  expected <- list(
+    purple_orange = c("purple.600", "orange.600"),
+    blue_red = c("blue.600", "red.600"),
+    teal_orange = c("teal.600", "orange.600"),
+    purple_green = c("purple.600", "green.600")
+  )
+
+  for (nm in names(expected)) {
+    tokens <- strsplit(expected[[nm]], ".", fixed = TRUE)
+    endpoints <- vapply(
+      tokens,
+      \(x) ekioplot:::.ekio_scales[[x[1]]][[x[2]]],
+      character(1)
+    )
+    pal <- as.character(ekio_pal(nm))
+    expect_identical(pal[c(1, length(pal))], unname(endpoints), info = nm)
+  }
+})
+
 test_that("shade 500 clears WCAG AA on the off-white surface", {
   scales <- ekioplot:::.ekio_scales
   offwhite <- ekioplot:::.ekio("basic", "offwhite")

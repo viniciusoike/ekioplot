@@ -154,15 +154,16 @@ palettes:
     red: ["red.100", "red.200", "red.300", "red.400", "red.500", "red.600", "red.700", "red.800", "red.900"]
     purple: ["purple.100", "purple.200", "purple.300", "purple.400", "purple.500", "purple.600", "purple.700", "purple.800", "purple.900"]
 
-  # Both arms step through the even shades, so the two halves carry equal
-  # weight rung for rung. The pivot is a neutral one step lighter than either
-  # arm's innermost color, which puts the visual center of the scale on the
-  # data's zero.
+  # Both arms step through matching shades, so the two halves carry equal
+  # weight rung for rung. Stopping at shade 600 keeps the endpoints balanced
+  # for filled areas rather than reaching the near-black end of each scale.
+  # The pivot is a neutral lighter than either arm's innermost color, which
+  # puts the visual center of the scale on the data's zero.
   diverging:
-    blue_orange: ["blue.800", "blue.600", "blue.400", "blue.200", "basic.pivot", "orange.200", "orange.400", "orange.600", "orange.800"]
-    blue_red: ["blue.800", "blue.600", "blue.400", "blue.200", "basic.pivot", "red.200", "red.400", "red.600", "red.800"]
-    teal_orange: ["teal.800", "teal.600", "teal.400", "teal.200", "basic.pivot", "orange.200", "orange.400", "orange.600", "orange.800"]
-    purple_green: ["purple.800", "purple.600", "purple.400", "purple.200", "basic.pivot", "green.200", "green.400", "green.600", "green.800"]
+    purple_orange: ["purple.600", "purple.500", "purple.300", "purple.200", "basic.pivot", "orange.200", "orange.300", "orange.500", "orange.600"]
+    blue_red: ["blue.600", "blue.500", "blue.300", "blue.200", "basic.pivot", "red.200", "red.300", "red.500", "red.600"]
+    teal_orange: ["teal.600", "teal.500", "teal.300", "teal.200", "basic.pivot", "orange.200", "orange.300", "orange.500", "orange.600"]
+    purple_green: ["purple.600", "purple.500", "purple.300", "purple.200", "basic.pivot", "green.200", "green.300", "green.500", "green.600"]
 
   # Third-party sets, not EKIO color: viridis, inferno and plasma are stop
   # samples of the matplotlib colormaps; okabe_ito is the Okabe & Ito

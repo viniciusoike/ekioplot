@@ -295,7 +295,7 @@ ekio_pal("teal")["600"]
 #> "#006261"
 
 # Interpolated to an arbitrary length
-ekio_pal("blue_orange", n = 15)
+ekio_pal("purple_orange", n = 15)
 ```
 
 `list_ekio_palettes()` returns these names programmatically, and

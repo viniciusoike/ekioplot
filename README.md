@@ -108,7 +108,7 @@ scale_fill_ekio_d("full")
 
 # Continuous (sequential / diverging palettes)
 scale_color_ekio_c("blue")
-scale_fill_ekio_c("blue_orange")
+scale_fill_ekio_c("purple_orange")
 ```
 
 ## Recipe functions

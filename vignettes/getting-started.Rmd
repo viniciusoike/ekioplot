@@ -75,7 +75,7 @@ ekio_pal("blue", n = 5)
 - **Sequential**: `blue`, `gray`, `stone`, `teal`, `green`, `orange`, `red`,
   `purple`
 - **Accent**: `gold`, `accent_blue`, `accent_orange`
-- **Diverging**: `blue_orange`, `blue_red`, `teal_orange`, `purple_green`
+- **Diverging**: `purple_orange`, `blue_red`, `teal_orange`, `purple_green`
 
 `accent_blue` and `accent_orange` return four colors by default. Set `n` from
 2 to 6 to match the number of series while retaining the accent as the first

@@ -160,7 +160,7 @@ swatch_strip(list_ekio_palettes("diverging"))
 ```{r}
 #| label: show-div-blue-orange
 #| fig-height: 2
-ekio_pal("blue_orange")
+ekio_pal("purple_orange")
 ```
 
 ## Scientific Palettes
@@ -251,11 +251,11 @@ ggplot(df, aes(wt, mpg_centered, color = mpg_centered)) +
   geom_point(size = 4) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "gray50") +
   labs(
-    title = "Diverging Color Scale: blue_orange",
+    title = "Diverging Color Scale: purple_orange",
     color = "MPG (centered)",
     y = "MPG (deviation from mean)"
   ) +
-  scale_color_ekio_c("blue_orange") +
+  scale_color_ekio_c("purple_orange") +
   theme_ekio()
 ```
 
