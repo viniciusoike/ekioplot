@@ -60,7 +60,11 @@
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul>
 </li>
-      </ul>
+      <li class="nav-item">
+        <a class="external-link nav-link" href="https://ekio.io" aria-label="Developed by EKIO">
+          <img src="../ekio-badge-developed-by.svg" height="22" alt="Developed by EKIO" class="d-inline-block align-text-middle"></a>
+      </li>
+    </ul>
 </div>
 
 
@@ -102,7 +106,7 @@ they come from matplotlib and from Okabe &amp; Ito, and
 palette to see its colors, or click its <strong>copy</strong> button to
 take the whole thing as an R vector.</p>
 <script>
-window.ekioPalettes = {"gold":["#D5AA48","#B88715","#966800"],"accent_blue":["#1E3A5F","#6E7378","#8D9197","#AEB1B5","#CFD2D5","#F2F3F5"],"accent_orange":["#D3742A","#6E7378","#8D9197","#AEB1B5","#CFD2D5","#F2F3F5"],"ekio_brand":["#225A7E","#D4DED9","#EFE8DC","#517A90","#F2EDE2","#FFFFFF","#000000"],"full":["#1E3A5F","#D3742A","#006261","#D5AA48","#B44D47","#448255","#373A3D","#B4B0AB"],"full_muted":["#152A44","#B15400","#004342","#B88715","#8C3431","#2E623B","#28292C","#959089"],"cool3":["#1E3A5F","#5597CC","#006261"],"cool4":["#1E3A5F","#5597CC","#006261","#448255"],"blue":["#E8F6FF","#B1D8F2","#84B8DD","#5597CC","#3E76AC","#305687","#1E3A5F","#152A44","#0D1B2A"],"gray":["#F2F3F5","#CFD2D5","#AEB1B5","#8D9197","#6E7378","#52555A","#373A3D","#28292C","#191A1C"],"stone":["#F5F3F1","#D4D1CD","#B4B0AB","#959089","#76716B","#59544F","#3C3935","#2B2926","#1B1A18"],"teal":["#E2F9FA","#AFDCDD","#7EBEC0","#40A2A3","#158281","#006261","#004342","#013031","#051F20"],"green":["#E7F9EC","#BADCC3","#8FBE9C","#62A274","#448255","#2E623B","#1C4326","#14301C","#0D1F12"],"orange":["#FFF1E5","#F7C7A0","#E49F6C","#D3742A","#B15400","#893A00","#612400","#471904","#2D1106"],"red":["#FFEFED","#FDC1B7","#E9998E","#D76D63","#B44D47","#8C3431","#622020","#461818","#2D1010"],"purple":["#FDEEFF","#E4C6EB","#C7A0D4","#AB7AC1","#8A5CA1","#6A427C","#4B2A55","#361F3C","#231425"],"blue_orange":["#152A44","#305687","#5597CC","#B1D8F2","#F5F3EF","#F7C7A0","#D3742A","#893A00","#471904"],"blue_red":["#152A44","#305687","#5597CC","#B1D8F2","#F5F3EF","#FDC1B7","#D76D63","#8C3431","#461818"],"teal_orange":["#013031","#006261","#40A2A3","#AFDCDD","#F5F3EF","#F7C7A0","#D3742A","#893A00","#471904"],"purple_green":["#361F3C","#6A427C","#AB7AC1","#E4C6EB","#F5F3EF","#BADCC3","#62A274","#2E623B","#14301C"],"okabe_ito":["#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#000000"],"viridis":["#440154","#482677","#3F4A8A","#31678E","#26838F","#1F9D8A","#6CCE5A","#B6DE2B","#FEE825"],"inferno":["#000004","#1B0C41","#4A0C6B","#781C6D","#A52C60","#CF4446","#ED6925","#FB9B06","#F7D03C","#FCFFA4"],"plasma":["#0D0887","#46039F","#7201A8","#9C179E","#BD3786","#D8576B","#ED7953","#FB9F3A","#FDCA26","#F0F921"]};
+window.ekioPalettes = {"gold":["#D5AA48","#B88715","#966800"],"accent_blue":["#1E3A5F","#6E7378","#8D9197","#AEB1B5","#CFD2D5","#F2F3F5"],"accent_orange":["#D3742A","#6E7378","#8D9197","#AEB1B5","#CFD2D5","#F2F3F5"],"ekio_brand":["#225A7E","#D4DED9","#EFE8DC","#517A90","#F2EDE2","#FFFFFF","#000000"],"full":["#1E3A5F","#D3742A","#006261","#D5AA48","#B44D47","#448255","#373A3D","#B4B0AB"],"full_muted":["#152A44","#B15400","#004342","#B88715","#8C3431","#2E623B","#28292C","#959089"],"cool3":["#1E3A5F","#5597CC","#006261"],"cool4":["#1E3A5F","#5597CC","#006261","#448255"],"blue":["#E8F6FF","#B1D8F2","#84B8DD","#5597CC","#3E76AC","#305687","#1E3A5F","#152A44","#0D1B2A"],"gray":["#F2F3F5","#CFD2D5","#AEB1B5","#8D9197","#6E7378","#52555A","#373A3D","#28292C","#191A1C"],"stone":["#F5F3F1","#D4D1CD","#B4B0AB","#959089","#76716B","#59544F","#3C3935","#2B2926","#1B1A18"],"teal":["#E2F9FA","#AFDCDD","#7EBEC0","#40A2A3","#158281","#006261","#004342","#013031","#051F20"],"green":["#E7F9EC","#BADCC3","#8FBE9C","#62A274","#448255","#2E623B","#1C4326","#14301C","#0D1F12"],"orange":["#FFF1E5","#F7C7A0","#E49F6C","#D3742A","#B15400","#893A00","#612400","#471904","#2D1106"],"red":["#FFEFED","#FDC1B7","#E9998E","#D76D63","#B44D47","#8C3431","#622020","#461818","#2D1010"],"purple":["#FDEEFF","#E4C6EB","#C7A0D4","#AB7AC1","#8A5CA1","#6A427C","#4B2A55","#361F3C","#231425"],"purple_orange":["#6A427C","#8A5CA1","#C7A0D4","#E4C6EB","#F5F3EF","#F7C7A0","#E49F6C","#B15400","#893A00"],"blue_red":["#305687","#3E76AC","#84B8DD","#B1D8F2","#F5F3EF","#FDC1B7","#E9998E","#B44D47","#8C3431"],"teal_orange":["#006261","#158281","#7EBEC0","#AFDCDD","#F5F3EF","#F7C7A0","#E49F6C","#B15400","#893A00"],"purple_green":["#6A427C","#8A5CA1","#C7A0D4","#E4C6EB","#F5F3EF","#BADCC3","#8FBE9C","#448255","#2E623B"],"okabe_ito":["#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#000000"],"viridis":["#440154","#482677","#3F4A8A","#31678E","#26838F","#1F9D8A","#6CCE5A","#B6DE2B","#FEE825"],"inferno":["#000004","#1B0C41","#4A0C6B","#781C6D","#A52C60","#CF4446","#ED6925","#FB9B06","#F7D03C","#FCFFA4"],"plasma":["#0D0887","#46039F","#7201A8","#9C179E","#BD3786","#D8576B","#ED7953","#FB9F3A","#FDCA26","#F0F921"]};
 function ekioCopy(text, btn) {
   if (!navigator.clipboard) return;
   navigator.clipboard.writeText(text);
@@ -122,7 +126,7 @@ function ekioCopyPalette(name, btn) {
   ekioCopy(vec, btn);
 }
 </script><div class="reactable html-widget html-fill-item" id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"palette":["gold","gold","gold","accent_blue","accent_blue","accent_blue","accent_blue","accent_blue","accent_blue","accent_orange","accent_orange","accent_orange","accent_orange","accent_orange","accent_orange","ekio_brand","ekio_brand","ekio_brand","ekio_brand","ekio_brand","ekio_brand","ekio_brand","full","full","full","full","full","full","full","full","full_muted","full_muted","full_muted","full_muted","full_muted","full_muted","full_muted","full_muted","cool3","cool3","cool3","cool4","cool4","cool4","cool4","blue","blue","blue","blue","blue","blue","blue","blue","blue","gray","gray","gray","gray","gray","gray","gray","gray","gray","stone","stone","stone","stone","stone","stone","stone","stone","stone","teal","teal","teal","teal","teal","teal","teal","teal","teal","green","green","green","green","green","green","green","green","green","orange","orange","orange","orange","orange","orange","orange","orange","orange","red","red","red","red","red","red","red","red","red","purple","purple","purple","purple","purple","purple","purple","purple","purple","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_orange","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","purple_green","purple_green","purple_green","purple_green","purple_green","purple_green","purple_green","purple_green","purple_green","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","viridis","viridis","viridis","viridis","viridis","viridis","viridis","viridis","viridis","inferno","inferno","inferno","inferno","inferno","inferno","inferno","inferno","inferno","inferno","plasma","plasma","plasma","plasma","plasma","plasma","plasma","plasma","plasma","plasma"],"type":["Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Brand","Brand","Brand","Brand","Brand","Brand","Brand","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific"],"position":[1,2,3,1,2,3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6,7,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,1,2,3,4,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10],"shade":["light","mid","deep",null,null,null,null,null,null,null,null,null,null,null,null,"Baltic Blue","Alabaster Grey","Soft Linen","Air Force Blue","Soft Linen 2","white","black",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"hex":["#D5AA48","#B88715","#966800","#1E3A5F","#6E7378","#8D9197","#AEB1B5","#CFD2D5","#F2F3F5","#D3742A","#6E7378","#8D9197","#AEB1B5","#CFD2D5","#F2F3F5","#225A7E","#D4DED9","#EFE8DC","#517A90","#F2EDE2","#FFFFFF","#000000","#1E3A5F","#D3742A","#006261","#D5AA48","#B44D47","#448255","#373A3D","#B4B0AB","#152A44","#B15400","#004342","#B88715","#8C3431","#2E623B","#28292C","#959089","#1E3A5F","#5597CC","#006261","#1E3A5F","#5597CC","#006261","#448255","#E8F6FF","#B1D8F2","#84B8DD","#5597CC","#3E76AC","#305687","#1E3A5F","#152A44","#0D1B2A","#F2F3F5","#CFD2D5","#AEB1B5","#8D9197","#6E7378","#52555A","#373A3D","#28292C","#191A1C","#F5F3F1","#D4D1CD","#B4B0AB","#959089","#76716B","#59544F","#3C3935","#2B2926","#1B1A18","#E2F9FA","#AFDCDD","#7EBEC0","#40A2A3","#158281","#006261","#004342","#013031","#051F20","#E7F9EC","#BADCC3","#8FBE9C","#62A274","#448255","#2E623B","#1C4326","#14301C","#0D1F12","#FFF1E5","#F7C7A0","#E49F6C","#D3742A","#B15400","#893A00","#612400","#471904","#2D1106","#FFEFED","#FDC1B7","#E9998E","#D76D63","#B44D47","#8C3431","#622020","#461818","#2D1010","#FDEEFF","#E4C6EB","#C7A0D4","#AB7AC1","#8A5CA1","#6A427C","#4B2A55","#361F3C","#231425","#152A44","#305687","#5597CC","#B1D8F2","#F5F3EF","#F7C7A0","#D3742A","#893A00","#471904","#152A44","#305687","#5597CC","#B1D8F2","#F5F3EF","#FDC1B7","#D76D63","#8C3431","#461818","#013031","#006261","#40A2A3","#AFDCDD","#F5F3EF","#F7C7A0","#D3742A","#893A00","#471904","#361F3C","#6A427C","#AB7AC1","#E4C6EB","#F5F3EF","#BADCC3","#62A274","#2E623B","#14301C","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#000000","#440154","#482677","#3F4A8A","#31678E","#26838F","#1F9D8A","#6CCE5A","#B6DE2B","#FEE825","#000004","#1B0C41","#4A0C6B","#781C6D","#A52C60","#CF4446","#ED6925","#FB9B06","#F7D03C","#FCFFA4","#0D0887","#46039F","#7201A8","#9C179E","#BD3786","#D8576B","#ED7953","#FB9F3A","#FDCA26","#F0F921"]},"columns":[{"id":"palette","name":"Palette","type":"character","minWidth":150},{"id":"type","name":"Type","type":"character","aggregate":"unique","cell":"function() { return '' }","minWidth":110},{"id":"position","name":"#","type":"numeric","maxWidth":60},{"id":"shade","name":"Shade","type":"character","na":"-","maxWidth":80},{"id":"hex","name":"Hex","type":"character","cell":"\nfunction(cellInfo) {\n  var hex = cellInfo.value\n  return '<button type=\"button\" class=\"ekio-copy\" ' +\n    'onclick=\"ekioCopy(\\'' + hex + '\\', this)\" ' +\n    'title=\"Copy ' + hex + '\">' +\n    '<span class=\"ekio-copy-chip\" style=\"background:' + hex + '\"><\/span>' +\n    '<span class=\"ekio-copy-label\">' + hex + '<\/span><\/button>'\n}","aggregated":"\nfunction(cellInfo) {\n  var name = cellInfo.row.palette\n  return '<button type=\"button\" class=\"ekio-copy\" ' +\n    'onclick=\"ekioCopyPalette(\\'' + name + '\\', this)\" ' +\n    'title=\"Copy all colors as an R vector\">' +\n    '<span class=\"ekio-copy-label\">copy c(...)<\/span><\/button>'\n}","html":true,"minWidth":150}],"groupBy":["palette"],"searchable":true,"pagination":false,"highlight":true,"compact":true,"theme":{"color":"var(--bs-body-color)","backgroundColor":"transparent","borderColor":"var(--ekio-rule)","highlightColor":"rgba(var(--bs-primary-rgb), 0.07)","cellPadding":"6px 8px","style":{"fontSize":"0.875rem"},"searchInputStyle":{"width":"100%"}},"dataKey":"35a9ae87ec39039332798e53e6c1c13b"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.1.cell","tag.attribs.columns.4.cell","tag.attribs.columns.4.aggregated"],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"palette":["gold","gold","gold","accent_blue","accent_blue","accent_blue","accent_blue","accent_blue","accent_blue","accent_orange","accent_orange","accent_orange","accent_orange","accent_orange","accent_orange","ekio_brand","ekio_brand","ekio_brand","ekio_brand","ekio_brand","ekio_brand","ekio_brand","full","full","full","full","full","full","full","full","full_muted","full_muted","full_muted","full_muted","full_muted","full_muted","full_muted","full_muted","cool3","cool3","cool3","cool4","cool4","cool4","cool4","blue","blue","blue","blue","blue","blue","blue","blue","blue","gray","gray","gray","gray","gray","gray","gray","gray","gray","stone","stone","stone","stone","stone","stone","stone","stone","stone","teal","teal","teal","teal","teal","teal","teal","teal","teal","green","green","green","green","green","green","green","green","green","orange","orange","orange","orange","orange","orange","orange","orange","orange","red","red","red","red","red","red","red","red","red","purple","purple","purple","purple","purple","purple","purple","purple","purple","purple_orange","purple_orange","purple_orange","purple_orange","purple_orange","purple_orange","purple_orange","purple_orange","purple_orange","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","blue_red","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","teal_orange","purple_green","purple_green","purple_green","purple_green","purple_green","purple_green","purple_green","purple_green","purple_green","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","okabe_ito","viridis","viridis","viridis","viridis","viridis","viridis","viridis","viridis","viridis","inferno","inferno","inferno","inferno","inferno","inferno","inferno","inferno","inferno","inferno","plasma","plasma","plasma","plasma","plasma","plasma","plasma","plasma","plasma","plasma"],"type":["Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Accent","Brand","Brand","Brand","Brand","Brand","Brand","Brand","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Categorical","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Sequential","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Diverging","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific","Scientific"],"position":[1,2,3,1,2,3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6,7,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,1,2,3,4,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10],"shade":["light","mid","deep",null,null,null,null,null,null,null,null,null,null,null,null,"Baltic Blue","Alabaster Grey","Soft Linen","Air Force Blue","Soft Linen 2","white","black",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900","100","200","300","400","500","600","700","800","900",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"hex":["#D5AA48","#B88715","#966800","#1E3A5F","#6E7378","#8D9197","#AEB1B5","#CFD2D5","#F2F3F5","#D3742A","#6E7378","#8D9197","#AEB1B5","#CFD2D5","#F2F3F5","#225A7E","#D4DED9","#EFE8DC","#517A90","#F2EDE2","#FFFFFF","#000000","#1E3A5F","#D3742A","#006261","#D5AA48","#B44D47","#448255","#373A3D","#B4B0AB","#152A44","#B15400","#004342","#B88715","#8C3431","#2E623B","#28292C","#959089","#1E3A5F","#5597CC","#006261","#1E3A5F","#5597CC","#006261","#448255","#E8F6FF","#B1D8F2","#84B8DD","#5597CC","#3E76AC","#305687","#1E3A5F","#152A44","#0D1B2A","#F2F3F5","#CFD2D5","#AEB1B5","#8D9197","#6E7378","#52555A","#373A3D","#28292C","#191A1C","#F5F3F1","#D4D1CD","#B4B0AB","#959089","#76716B","#59544F","#3C3935","#2B2926","#1B1A18","#E2F9FA","#AFDCDD","#7EBEC0","#40A2A3","#158281","#006261","#004342","#013031","#051F20","#E7F9EC","#BADCC3","#8FBE9C","#62A274","#448255","#2E623B","#1C4326","#14301C","#0D1F12","#FFF1E5","#F7C7A0","#E49F6C","#D3742A","#B15400","#893A00","#612400","#471904","#2D1106","#FFEFED","#FDC1B7","#E9998E","#D76D63","#B44D47","#8C3431","#622020","#461818","#2D1010","#FDEEFF","#E4C6EB","#C7A0D4","#AB7AC1","#8A5CA1","#6A427C","#4B2A55","#361F3C","#231425","#6A427C","#8A5CA1","#C7A0D4","#E4C6EB","#F5F3EF","#F7C7A0","#E49F6C","#B15400","#893A00","#305687","#3E76AC","#84B8DD","#B1D8F2","#F5F3EF","#FDC1B7","#E9998E","#B44D47","#8C3431","#006261","#158281","#7EBEC0","#AFDCDD","#F5F3EF","#F7C7A0","#E49F6C","#B15400","#893A00","#6A427C","#8A5CA1","#C7A0D4","#E4C6EB","#F5F3EF","#BADCC3","#8FBE9C","#448255","#2E623B","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#000000","#440154","#482677","#3F4A8A","#31678E","#26838F","#1F9D8A","#6CCE5A","#B6DE2B","#FEE825","#000004","#1B0C41","#4A0C6B","#781C6D","#A52C60","#CF4446","#ED6925","#FB9B06","#F7D03C","#FCFFA4","#0D0887","#46039F","#7201A8","#9C179E","#BD3786","#D8576B","#ED7953","#FB9F3A","#FDCA26","#F0F921"]},"columns":[{"id":"palette","name":"Palette","type":"character","minWidth":150},{"id":"type","name":"Type","type":"character","aggregate":"unique","cell":"function() { return '' }","minWidth":110},{"id":"position","name":"#","type":"numeric","maxWidth":60},{"id":"shade","name":"Shade","type":"character","na":"-","maxWidth":80},{"id":"hex","name":"Hex","type":"character","cell":"\nfunction(cellInfo) {\n  var hex = cellInfo.value\n  return '<button type=\"button\" class=\"ekio-copy\" ' +\n    'onclick=\"ekioCopy(\\'' + hex + '\\', this)\" ' +\n    'title=\"Copy ' + hex + '\">' +\n    '<span class=\"ekio-copy-chip\" style=\"background:' + hex + '\"><\/span>' +\n    '<span class=\"ekio-copy-label\">' + hex + '<\/span><\/button>'\n}","aggregated":"\nfunction(cellInfo) {\n  var name = cellInfo.row.palette\n  return '<button type=\"button\" class=\"ekio-copy\" ' +\n    'onclick=\"ekioCopyPalette(\\'' + name + '\\', this)\" ' +\n    'title=\"Copy all colors as an R vector\">' +\n    '<span class=\"ekio-copy-label\">copy c(...)<\/span><\/button>'\n}","html":true,"minWidth":150}],"groupBy":["palette"],"searchable":true,"pagination":false,"highlight":true,"compact":true,"theme":{"color":"var(--bs-body-color)","backgroundColor":"transparent","borderColor":"var(--ekio-rule)","highlightColor":"rgba(var(--bs-primary-rgb), 0.07)","cellPadding":"6px 8px","style":{"fontSize":"0.875rem"},"searchInputStyle":{"width":"100%"}},"dataKey":"a63c4ee0f0751b2d1027d31cbd9de5d4"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.1.cell","tag.attribs.columns.4.cell","tag.attribs.columns.4.aggregated"],"jsHooks":[]}</script>
 </div>
 <div class="section level2">
 <h2 id="accent">Accent<a class="anchor" aria-label="anchor" href="#accent"></a>
@@ -633,20 +637,20 @@ tone, lighter than both arms, so the visual center of the scale lands on
 zero.</p>
 <div class="ekio-swatch">
 <div class="ekio-swatch-name">
-<code>blue_orange</code><span class="ekio-swatch-n">9 colors</span>
+<code>purple_orange</code><span class="ekio-swatch-n">9 colors</span>
 </div>
 <div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#152A44;color:white" title="#152A44">
-#152A44
+<div class="ekio-chip" style="background:#6A427C;color:white" title="#6A427C">
+#6A427C
 </div>
-<div class="ekio-chip" style="background:#305687;color:white" title="#305687">
-#305687
+<div class="ekio-chip" style="background:#8A5CA1;color:white" title="#8A5CA1">
+#8A5CA1
 </div>
-<div class="ekio-chip" style="background:#5597CC;color:#191A1C" title="#5597CC">
-#5597CC
+<div class="ekio-chip" style="background:#C7A0D4;color:#191A1C" title="#C7A0D4">
+#C7A0D4
 </div>
-<div class="ekio-chip" style="background:#B1D8F2;color:#191A1C" title="#B1D8F2">
-#B1D8F2
+<div class="ekio-chip" style="background:#E4C6EB;color:#191A1C" title="#E4C6EB">
+#E4C6EB
 </div>
 <div class="ekio-chip" style="background:#F5F3EF;color:#191A1C" title="#F5F3EF">
 #F5F3EF
@@ -654,14 +658,14 @@ zero.</p>
 <div class="ekio-chip" style="background:#F7C7A0;color:#191A1C" title="#F7C7A0">
 #F7C7A0
 </div>
-<div class="ekio-chip" style="background:#D3742A;color:#191A1C" title="#D3742A">
-#D3742A
+<div class="ekio-chip" style="background:#E49F6C;color:#191A1C" title="#E49F6C">
+#E49F6C
+</div>
+<div class="ekio-chip" style="background:#B15400;color:white" title="#B15400">
+#B15400
 </div>
 <div class="ekio-chip" style="background:#893A00;color:white" title="#893A00">
 #893A00
-</div>
-<div class="ekio-chip" style="background:#471904;color:white" title="#471904">
-#471904
 </div>
 </div>
 </div>
@@ -670,14 +674,14 @@ zero.</p>
 <code>blue_red</code><span class="ekio-swatch-n">9 colors</span>
 </div>
 <div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#152A44;color:white" title="#152A44">
-#152A44
-</div>
 <div class="ekio-chip" style="background:#305687;color:white" title="#305687">
 #305687
 </div>
-<div class="ekio-chip" style="background:#5597CC;color:#191A1C" title="#5597CC">
-#5597CC
+<div class="ekio-chip" style="background:#3E76AC;color:white" title="#3E76AC">
+#3E76AC
+</div>
+<div class="ekio-chip" style="background:#84B8DD;color:#191A1C" title="#84B8DD">
+#84B8DD
 </div>
 <div class="ekio-chip" style="background:#B1D8F2;color:#191A1C" title="#B1D8F2">
 #B1D8F2
@@ -688,14 +692,14 @@ zero.</p>
 <div class="ekio-chip" style="background:#FDC1B7;color:#191A1C" title="#FDC1B7">
 #FDC1B7
 </div>
-<div class="ekio-chip" style="background:#D76D63;color:#191A1C" title="#D76D63">
-#D76D63
+<div class="ekio-chip" style="background:#E9998E;color:#191A1C" title="#E9998E">
+#E9998E
+</div>
+<div class="ekio-chip" style="background:#B44D47;color:white" title="#B44D47">
+#B44D47
 </div>
 <div class="ekio-chip" style="background:#8C3431;color:white" title="#8C3431">
 #8C3431
-</div>
-<div class="ekio-chip" style="background:#461818;color:white" title="#461818">
-#461818
 </div>
 </div>
 </div>
@@ -704,14 +708,14 @@ zero.</p>
 <code>teal_orange</code><span class="ekio-swatch-n">9 colors</span>
 </div>
 <div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#013031;color:white" title="#013031">
-#013031
-</div>
 <div class="ekio-chip" style="background:#006261;color:white" title="#006261">
 #006261
 </div>
-<div class="ekio-chip" style="background:#40A2A3;color:#191A1C" title="#40A2A3">
-#40A2A3
+<div class="ekio-chip" style="background:#158281;color:white" title="#158281">
+#158281
+</div>
+<div class="ekio-chip" style="background:#7EBEC0;color:#191A1C" title="#7EBEC0">
+#7EBEC0
 </div>
 <div class="ekio-chip" style="background:#AFDCDD;color:#191A1C" title="#AFDCDD">
 #AFDCDD
@@ -722,14 +726,14 @@ zero.</p>
 <div class="ekio-chip" style="background:#F7C7A0;color:#191A1C" title="#F7C7A0">
 #F7C7A0
 </div>
-<div class="ekio-chip" style="background:#D3742A;color:#191A1C" title="#D3742A">
-#D3742A
+<div class="ekio-chip" style="background:#E49F6C;color:#191A1C" title="#E49F6C">
+#E49F6C
+</div>
+<div class="ekio-chip" style="background:#B15400;color:white" title="#B15400">
+#B15400
 </div>
 <div class="ekio-chip" style="background:#893A00;color:white" title="#893A00">
 #893A00
-</div>
-<div class="ekio-chip" style="background:#471904;color:white" title="#471904">
-#471904
 </div>
 </div>
 </div>
@@ -738,14 +742,14 @@ zero.</p>
 <code>purple_green</code><span class="ekio-swatch-n">9 colors</span>
 </div>
 <div class="ekio-swatch-strip">
-<div class="ekio-chip" style="background:#361F3C;color:white" title="#361F3C">
-#361F3C
-</div>
 <div class="ekio-chip" style="background:#6A427C;color:white" title="#6A427C">
 #6A427C
 </div>
-<div class="ekio-chip" style="background:#AB7AC1;color:#191A1C" title="#AB7AC1">
-#AB7AC1
+<div class="ekio-chip" style="background:#8A5CA1;color:white" title="#8A5CA1">
+#8A5CA1
+</div>
+<div class="ekio-chip" style="background:#C7A0D4;color:#191A1C" title="#C7A0D4">
+#C7A0D4
 </div>
 <div class="ekio-chip" style="background:#E4C6EB;color:#191A1C" title="#E4C6EB">
 #E4C6EB
@@ -756,14 +760,14 @@ zero.</p>
 <div class="ekio-chip" style="background:#BADCC3;color:#191A1C" title="#BADCC3">
 #BADCC3
 </div>
-<div class="ekio-chip" style="background:#62A274;color:#191A1C" title="#62A274">
-#62A274
+<div class="ekio-chip" style="background:#8FBE9C;color:#191A1C" title="#8FBE9C">
+#8FBE9C
+</div>
+<div class="ekio-chip" style="background:#448255;color:white" title="#448255">
+#448255
 </div>
 <div class="ekio-chip" style="background:#2E623B;color:white" title="#2E623B">
 #2E623B
-</div>
-<div class="ekio-chip" style="background:#14301C;color:white" title="#14301C">
-#14301C
 </div>
 </div>
 </div>
@@ -938,7 +942,7 @@ matplotlib ramps are perceptually uniform.</p>
 <span><span class="co">#&gt; "#006261"</span></span>
 <span></span>
 <span><span class="co"># Interpolated to an arbitrary length</span></span>
-<span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"blue_orange"</span>, n <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/ekio_pal.html">ekio_pal</a></span><span class="op">(</span><span class="st">"purple_orange"</span>, n <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></code></pre></div>
 <p><code><a href="../reference/list_ekio_palettes.html">list_ekio_palettes()</a></code> returns these names
 programmatically, and <code><a href="../reference/ekio_pal.html">ekio_pal()</a></code> prints a swatch when
 called at the console.</p>

@@ -53,7 +53,7 @@ str(list_ekio_palettes())
 #>  $ brand      : chr "ekio_brand"
 #>  $ categorical: chr [1:4] "full" "full_muted" "cool3" "cool4"
 #>  $ sequential : chr [1:8] "blue" "gray" "stone" "teal" ...
-#>  $ diverging  : chr [1:4] "blue_orange" "blue_red" "teal_orange" "purple_green"
+#>  $ diverging  : chr [1:4] "purple_orange" "blue_red" "teal_orange" "purple_green"
 #>  $ scientific : chr [1:4] "okabe_ito" "viridis" "inferno" "plasma"
 ```
 
@@ -97,7 +97,7 @@ ekio_pal("blue", n = 5)
 - **Sequential**: `blue`, `gray`, `stone`, `teal`, `green`, `orange`,
   `red`, `purple`
 - **Accent**: `gold`, `accent_blue`, `accent_orange`
-- **Diverging**: `blue_orange`, `blue_red`, `teal_orange`,
+- **Diverging**: `purple_orange`, `blue_red`, `teal_orange`,
   `purple_green`
 
 `accent_blue` and `accent_orange` return four colors by default. Set `n`

@@ -31,7 +31,11 @@
     <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
-      </ul></div>
+      <li class="nav-item">
+        <a class="external-link nav-link" href="https://ekio.io" aria-label="Developed by EKIO">
+          <img src="../ekio-badge-developed-by.svg" height="22" alt="Developed by EKIO" class="d-inline-block align-text-middle"></a>
+      </li>
+    </ul></div>
 
 
   </div>
@@ -44,6 +48,10 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.2" id="ekioplot-112">ekioplot 1.1.2<a class="anchor" aria-label="anchor" href="#ekioplot-112"></a></h2>
+<div class="section level3">
+<h3 id="breaking-changes-1-1-2">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-1-2"></a></h3>
+<ul><li>Diverging palettes now stop at the lighter shade 600 and use more gradual intermediate steps for better balance in filled graphics. <code>purple_orange</code> replaces <code>blue_orange</code>, while <code>blue_red</code>, <code>teal_orange</code>, and <code>purple_green</code> retain their names with the lighter construction.</li>
+</ul></div>
 <div class="section level3">
 <h3 id="new-features-1-1-2">New features<a class="anchor" aria-label="anchor" href="#new-features-1-1-2"></a></h3>
 <ul><li><p>Added the <code>purple</code> brand scale, a nine-step ramp on the same lightness spine as the other scales.</p></li>

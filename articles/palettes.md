@@ -326,33 +326,33 @@ palettes for ordered categories and as the ramp behind
 For values with a meaningful midpoint. The pivot is a near-neutral tone,
 lighter than both arms, so the visual center of the scale lands on zero.
 
-`blue_orange`9 colors
+`purple_orange`9 colors
 
-\#152A44
+\#6A427C
 
-\#305687
+\#8A5CA1
 
-\#5597CC
+\#C7A0D4
 
-\#B1D8F2
+\#E4C6EB
 
 \#F5F3EF
 
 \#F7C7A0
 
-\#D3742A
+\#E49F6C
+
+\#B15400
 
 \#893A00
 
-\#471904
-
 `blue_red`9 colors
-
-\#152A44
 
 \#305687
 
-\#5597CC
+\#3E76AC
+
+\#84B8DD
 
 \#B1D8F2
 
@@ -360,19 +360,19 @@ lighter than both arms, so the visual center of the scale lands on zero.
 
 \#FDC1B7
 
-\#D76D63
+\#E9998E
+
+\#B44D47
 
 \#8C3431
 
-\#461818
-
 `teal_orange`9 colors
-
-\#013031
 
 \#006261
 
-\#40A2A3
+\#158281
+
+\#7EBEC0
 
 \#AFDCDD
 
@@ -380,19 +380,19 @@ lighter than both arms, so the visual center of the scale lands on zero.
 
 \#F7C7A0
 
-\#D3742A
+\#E49F6C
+
+\#B15400
 
 \#893A00
 
-\#471904
-
 `purple_green`9 colors
-
-\#361F3C
 
 \#6A427C
 
-\#AB7AC1
+\#8A5CA1
+
+\#C7A0D4
 
 \#E4C6EB
 
@@ -400,11 +400,11 @@ lighter than both arms, so the visual center of the scale lands on zero.
 
 \#BADCC3
 
-\#62A274
+\#8FBE9C
+
+\#448255
 
 \#2E623B
-
-\#14301C
 
 ## Scientific
 
@@ -520,7 +520,7 @@ ekio_pal("teal")["600"]
 #> "#006261"
 
 # Interpolated to an arbitrary length
-ekio_pal("blue_orange", n = 15)
+ekio_pal("purple_orange", n = 15)
 ```
 
 [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md)
