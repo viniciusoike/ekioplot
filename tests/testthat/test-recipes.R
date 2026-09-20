@@ -23,9 +23,21 @@ test_that("ekio_histogram works with variable mapping", {
 
 test_that("ekio_histogram bin methods work", {
   skip_if_not_installed("ggplot2")
-  expect_no_error(ggplot2::ggplot_build(ekio_histogram(mtcars, mpg, bins = "FD")))
-  expect_no_error(ggplot2::ggplot_build(ekio_histogram(mtcars, mpg, bins = "scott")))
-  expect_no_error(ggplot2::ggplot_build(ekio_histogram(mtcars, mpg, binwidth = 2)))
+  expect_no_error(ggplot2::ggplot_build(ekio_histogram(
+    mtcars,
+    mpg,
+    bins = "FD"
+  )))
+  expect_no_error(ggplot2::ggplot_build(ekio_histogram(
+    mtcars,
+    mpg,
+    bins = "scott"
+  )))
+  expect_no_error(ggplot2::ggplot_build(ekio_histogram(
+    mtcars,
+    mpg,
+    binwidth = 2
+  )))
 })
 
 test_that("ekio_histogram rejects non-data-frame input", {
@@ -258,12 +270,23 @@ test_that("label defaults leave axis labels derived from the data", {
 
 test_that("binned, bar and band recipes reject continuous mappings", {
   skip_if_not_installed("ggplot2")
-  df <- data.frame(x = 1:5, y = c(1, 2, 3, 4, 5), v = c(1.5, 2, 3, 4, 5), g = letters[1:5])
+  df <- data.frame(
+    x = 1:5,
+    y = c(1, 2, 3, 4, 5),
+    v = c(1.5, 2, 3, 4, 5),
+    g = letters[1:5]
+  )
 
   expect_error(ekio_histogram(df, y, fill = v), "must map a discrete variable")
-  expect_error(ekio_lineplot(df, x, y, color = v), "must map a discrete variable")
+  expect_error(
+    ekio_lineplot(df, x, y, color = v),
+    "must map a discrete variable"
+  )
   expect_error(ekio_barplot(df, g, y, fill = v), "must map a discrete variable")
-  expect_error(ekio_areaplot(df, x, y, fill = v), "must map a discrete variable")
+  expect_error(
+    ekio_areaplot(df, x, y, fill = v),
+    "must map a discrete variable"
+  )
 })
 
 test_that("scatterplot warns on a continuous mapping but still builds", {

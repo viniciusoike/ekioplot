@@ -66,7 +66,10 @@ test_that("palettes resolve from the YAML source of truth", {
 
   for (group in names(spec$palettes)) {
     for (nm in names(spec$palettes[[group]])) {
-      expected <- vapply(spec$palettes[[group]][[nm]], resolve, character(1),
+      expected <- vapply(
+        spec$palettes[[group]][[nm]],
+        resolve,
+        character(1),
         USE.NAMES = FALSE
       )
       expect_identical(
@@ -127,9 +130,18 @@ test_that("every token in the YAML resolves to a real shade", {
 oklab_l <- function(x) {
   srgb <- grDevices::col2rgb(x) / 255
   lin <- ifelse(srgb <= 0.04045, srgb / 12.92, ((srgb + 0.055) / 1.055)^2.4)
-  l <- 0.4122214708 * lin[1, ] + 0.5363325363 * lin[2, ] + 0.0514459929 * lin[3, ]
-  m <- 0.2119034982 * lin[1, ] + 0.6806995451 * lin[2, ] + 0.1073969566 * lin[3, ]
-  s <- 0.0883024619 * lin[1, ] + 0.2817188376 * lin[2, ] + 0.6299787005 * lin[3, ]
+  l <- 0.4122214708 *
+    lin[1, ] +
+    0.5363325363 * lin[2, ] +
+    0.0514459929 * lin[3, ]
+  m <- 0.2119034982 *
+    lin[1, ] +
+    0.6806995451 * lin[2, ] +
+    0.1073969566 * lin[3, ]
+  s <- 0.0883024619 *
+    lin[1, ] +
+    0.2817188376 * lin[2, ] +
+    0.6299787005 * lin[3, ]
   0.2104542553 * l^(1 / 3) + 0.7936177850 * m^(1 / 3) - 0.0040720468 * s^(1 / 3)
 }
 
@@ -209,7 +221,9 @@ test_that("gold is an accent, reachable by name and safe for type", {
   # the accent rungs match scale shades 300, 400 and 500 in weight
   blue <- ekioplot:::.ekio_scales$blue
   expect_lt(
-    max(abs(oklab_l(as.character(gold)) - oklab_l(blue[c("300", "400", "500")]))),
+    max(abs(
+      oklab_l(as.character(gold)) - oklab_l(blue[c("300", "400", "500")])
+    )),
     0.015
   )
 })

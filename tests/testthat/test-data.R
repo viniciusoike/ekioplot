@@ -23,14 +23,14 @@ test_that("brazil_population_forecast classifies age-group boundaries", {
   data(brazil_population_forecast, package = "ekioplot")
 
   expected_groups <- tibble::tribble(
-    ~age, ~ibge_age_group, ~age_group,
-    "10-14", "0-14", "0-19",
-    "15-19", "15-64", "0-19",
-    "20-24", "15-64", "20-29",
-    "60-64", "15-64", "60-69",
-    "65-69", "65+", "60-69",
-    "80-84", "65+", "80+",
-    "100+", "65+", "80+"
+    ~age    , ~ibge_age_group , ~age_group ,
+    "10-14" , "0-14"          , "0-19"     ,
+    "15-19" , "15-64"         , "0-19"     ,
+    "20-24" , "15-64"         , "20-29"    ,
+    "60-64" , "15-64"         , "60-69"    ,
+    "65-69" , "65+"           , "60-69"    ,
+    "80-84" , "65+"           , "80+"      ,
+    "100+"  , "65+"           , "80+"
   )
 
   actual_groups <- brazil_population_forecast |>
