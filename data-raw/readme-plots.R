@@ -11,7 +11,7 @@
 
 # Setup ------------------------------------------------------------------
 
-library(ekioplot)
+load_all()
 library(ggplot2)
 library(patchwork)
 library(dplyr)
@@ -29,8 +29,7 @@ save_fig <- function(plot, name, width = 8, height = 5, dpi = 300) {
     width = width,
     height = height,
     dpi = dpi,
-    device = ragg::agg_png,
-    bg = "white"
+    device = ragg::agg_png
   )
 }
 
@@ -165,6 +164,8 @@ ek_areaplot <- ekio_areaplot(
   )
 
 recipes <- (ek_scatterplot | ek_barplot) / (ek_lineplot | ek_areaplot)
+
+recipes <- recipes + plot_annotation(theme = theme_ekio())
 
 save_fig(recipes, "README-recipes.png", width = 9, height = 6.5)
 

@@ -15,93 +15,94 @@
 #
 # Because every scale sits on the same spine, shade number carries the same
 # visual weight in every family: blue.500 and orange.500 are interchangeable
-# in weight, and shade 500 passes WCAG AA for text on the off-white surface.
+# in weight, and shade 500 passes WCAG AA for text on every surface
+# theme_ekio() names, except the `gray` alias.
 
 scales:
   blue:
     100: "#E8F6FF"
-    200: "#B1D8F2"
-    300: "#84B8DD"
-    400: "#5597CC"
-    500: "#3E76AC"
-    600: "#305687"
+    200: "#B0D6F0"
+    300: "#82B5DA"
+    400: "#5194C8"
+    500: "#3A71A8"
+    600: "#2E5485"
     700: "#1E3A5F"
     800: "#152A44"
     900: "#0D1B2A"
 
   gray:
     100: "#F2F3F5"
-    200: "#CFD2D5"
-    300: "#AEB1B5"
-    400: "#8D9197"
-    500: "#6E7378"
-    600: "#52555A"
+    200: "#CED0D4"
+    300: "#ABAEB3"
+    400: "#898E93"
+    500: "#6A6E74"
+    600: "#505358"
     700: "#373A3D"
     800: "#28292C"
     900: "#191A1C"
 
   stone:
     100: "#F5F3F1"
-    200: "#D4D1CD"
-    300: "#B4B0AB"
-    400: "#959089"
-    500: "#76716B"
-    600: "#59544F"
+    200: "#D3D0CC"
+    300: "#B2AEA8"
+    400: "#928C85"
+    500: "#726D66"
+    600: "#56524D"
     700: "#3C3935"
     800: "#2B2926"
     900: "#1B1A18"
 
   teal:
     100: "#E2F9FA"
-    200: "#AFDCDD"
-    300: "#7EBEC0"
-    400: "#40A2A3"
-    500: "#158281"
-    600: "#006261"
+    200: "#ADDADC"
+    300: "#7BBBBD"
+    400: "#3C9E9F"
+    500: "#097E7D"
+    600: "#00605E"
     700: "#004342"
     800: "#013031"
     900: "#051F20"
 
   green:
     100: "#E7F9EC"
-    200: "#BADCC3"
-    300: "#8FBE9C"
-    400: "#62A274"
-    500: "#448255"
-    600: "#2E623B"
+    200: "#B8DAC2"
+    300: "#8DBC9A"
+    400: "#5F9E70"
+    500: "#407D51"
+    600: "#2C6039"
     700: "#1C4326"
     800: "#14301C"
     900: "#0D1F12"
 
   orange:
     100: "#FFF1E5"
-    200: "#F7C7A0"
-    300: "#E49F6C"
-    400: "#D3742A"
-    500: "#B15400"
-    600: "#893A00"
+    200: "#F6C59F"
+    300: "#E19D6A"
+    400: "#CF7126"
+    500: "#AB5000"
+    600: "#863900"
     700: "#612400"
     800: "#471904"
     900: "#2D1106"
 
   red:
     100: "#FFEFED"
-    200: "#FDC1B7"
-    300: "#E9998E"
-    400: "#D76D63"
-    500: "#B44D47"
-    600: "#8C3431"
+    200: "#FBC0B6"
+    300: "#E6968B"
+    400: "#D3695F"
+    500: "#AF4942"
+    600: "#89322F"
     700: "#622020"
     800: "#461818"
     900: "#2D1010"
 
   purple:
     100: "#FDEEFF"
-    200: "#E4C6EB"
-    300: "#C7A0D4"
-    400: "#AB7AC1"
-    500: "#8A5CA1"
-    600: "#6A427C"
+    200: "#E2C4E9"
+    300: "#C49ED2"
+    400: "#A877BD"
+    500: "#86589C"
+    600: "#684079"
     700: "#4B2A55"
     800: "#361F3C"
     900: "#231425"
@@ -113,9 +114,9 @@ palettes:
   # while the blue and orange accents pair one main color with receding grays.
   accent:
     gold:
-      light: "#D5AA48"
-      mid: "#B88715"
-      deep: "#966800"
+      light: "#D2A745"
+      mid: "#B4840C"
+      deep: "#916400"
     # The first four colors reproduce the original four-color accent palettes.
     # The additional gray positions make `n = 2..6` useful in small multiples.
     accent_blue: ["blue.700", "gray.500", "gray.400", "gray.300", "gray.200", "gray.100"]
@@ -176,12 +177,21 @@ palettes:
 
   # Surfaces, inverted text and the diverging pivot: chrome, not something
   # data maps onto. Named rather than positional, looked up as
-  # .ekio("basic", "white"). White, offwhite and black are the only hand-set
+  # .ekio("basic", "white"). The surfaces and black are the only hand-set
   # EKIO hex codes; the pivot is generated with the scales.
+  #
+  # The three surfaces span one axis, warm to cold, and no two of them sit
+  # closer than dE2000 1.7. offwhite is unohana-iro and cold is enpaku, both
+  # traditional Japanese whites:
+  #   https://www.i-iro.com/dic/unohana-iro
+  #   https://www.i-iro.com/dic/enpaku
+  # Two further candidates were dropped as duplicates of colors already here:
+  # gofun-iro #FFFFFC and nyuhakushoku #FFFFFB land within dE2000 1 of each
+  # other, within 2 of white, and within 1 of offwhite.
   basic:
     basic:
       white: "#FFFFFF"
-      offwhite: "#FEFEFE"
-      offwhite-warm: "#FBFBF6"
+      offwhite: "#FBFBF6"
+      cold: "#F6F7F8"
       pivot: "#F5F3EF"
       black: "#000000"

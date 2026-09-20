@@ -8,8 +8,10 @@
 # ---- Specification ---------------------------------------------------------
 
 # One lightness spine for every scale. blue.700 is pinned to the brand navy
-# #1E3A5F (L .346); 100-700 are evenly spaced, and 800/900 tighten because
-# dark shades need finer discrimination.
+# #1E3A5F (L .346), and 800/900 tighten because dark shades need finer
+# discrimination. The steps above 500 are even at .107 and the two below it
+# at .0955: shade 500 carries the WCAG AA promise for text, and the tighter
+# lower half is what buys it enough contrast on the warm and cold surfaces.
 #
 # One chroma arc, normalized to its peak at 400-500, taken from the blue ramp.
 # Each scale scales the arc by its own cmax, so shade number carries the same
@@ -17,22 +19,34 @@
 
 ekio_ramp_spec <- list(
   shades = seq(100, 900, by = 100),
-  spine = c(0.965, 0.862, 0.759, 0.655, 0.552, 0.449, 0.346, 0.282, 0.218),
+  spine = c(0.965, 0.858, 0.751, 0.644, 0.537, 0.4415, 0.346, 0.282, 0.218),
   arc = c(0.27, 0.52, 0.73, 1.00, 1.00, 0.89, 0.71, 0.53, 0.35),
   scales = list(
     # hue: one OKLCH angle, or nine (one per shade) to let a ramp drift
-    blue = list(hue = c(236, 238, 240, 244, 250, 256, 256, 255, 252), cmax = 0.104),
+    blue = list(
+      hue = c(236, 238, 240, 244, 250, 256, 256, 255, 252),
+      cmax = 0.104
+    ),
     gray = list(hue = 255, cmax = 0.010),
     stone = list(hue = 75, cmax = 0.012),
-    teal = list(hue = c(200, 199, 198, 196, 194, 193, 194, 196, 199), cmax = 0.090),
-    green = list(hue = c(155, 154, 153, 152, 151, 150, 150, 151, 152), cmax = 0.095),
+    teal = list(
+      hue = c(200, 199, 198, 196, 194, 193, 194, 196, 199),
+      cmax = 0.090
+    ),
+    green = list(
+      hue = c(155, 154, 153, 152, 151, 150, 150, 151, 152),
+      cmax = 0.095
+    ),
     orange = list(hue = c(62, 60, 57, 54, 51, 48, 45, 43, 41), cmax = 0.145),
     red = list(hue = c(30, 29, 28, 27, 26, 25, 24, 23, 22), cmax = 0.135),
     # Purple exists for the purple_green diverging pair. Its hue path tracks
     # ColorBrewer PRGn - violet through the middle, redder at both ends - and
     # its chroma budget sits above green's by the margin PRGn uses between the
     # same two arms.
-    purple = list(hue = c(322, 320, 317, 315, 314, 315, 318, 320, 321), cmax = 0.115)
+    purple = list(
+      hue = c(322, 320, 317, 315, 314, 315, 318, 320, 321),
+      cmax = 0.115
+    )
   )
 )
 
@@ -40,7 +54,7 @@ ekio_ramp_spec <- list(
 # because dark yellow is brown: past the middle of the spine a gold ramp stops
 # being gold. These three sit on spine rungs 300, 400 and 500, so they stay
 # interchangeable in weight with the scales, and `deep` clears WCAG AA on the
-# off-white surface so gold can carry type.
+# theme surfaces so gold can carry type.
 
 ekio_accent_spec <- list(
   gold = list(
@@ -101,8 +115,7 @@ ekio_build_scales <- function(spec = ekio_ramp_spec) {
   out
 }
 
-ekio_build_accents <- function(spec = ekio_accent_spec,
-                               ramp = ekio_ramp_spec) {
+ekio_build_accents <- function(spec = ekio_accent_spec, ramp = ekio_ramp_spec) {
   lapply(spec, function(tokens) {
     vapply(
       tokens,
@@ -127,14 +140,21 @@ ekio_scales_yaml <- function(scales = ekio_build_scales()) {
 
 # Print the block only when this file is the script being run, not when
 # data-raw/palettes.R sources it.
-.run_as_script <- sub("^--file=", "", grep("^--file=", commandArgs(), value = TRUE))
+.run_as_script <- sub(
+  "^--file=",
+  "",
+  grep("^--file=", commandArgs(), value = TRUE)
+)
 if (length(.run_as_script) && basename(.run_as_script[1]) == "build-ramps.R") {
   cat(ekio_scales_yaml())
   cat("\n# accent tokens\n")
   accents <- ekio_build_accents()
   for (nm in names(accents)) {
     cat("  ", nm, ":\n", sep = "")
-    cat(sprintf('    %s: "%s"', names(accents[[nm]]), accents[[nm]]), sep = "\n")
+    cat(
+      sprintf('    %s: "%s"', names(accents[[nm]]), accents[[nm]]),
+      sep = "\n"
+    )
     cat("\n")
   }
 }

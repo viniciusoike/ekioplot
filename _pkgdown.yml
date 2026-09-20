@@ -14,15 +14,15 @@ template:
     fg: "#191A1C"      # gray.900
     primary: "#1E3A5F" # blue.700
     secondary: "#373A3D" # gray.700
-    border-color: "#CFD2D5" # gray.200
+    border-color: "#CED0D4" # gray.200
     code-bg: "#F2F3F5"      # gray.100
-    code-color: "#006261"   # teal.600
+    code-color: "#00605E"   # teal.600
     # Navy bar in both modes; the page flips offwhite <-> blue.900 around it.
     # Foreground colors for the bar live in pkgdown/extra.scss - with the
     # light switch on, pkgdown drops the navbar's data-bs-theme attribute.
     navbar-bg: "#152A44"    # blue.800
     body-bg-dark: "#0D1B2A"    # blue.900
-    body-color-dark: "#CFD2D5" # gray.200
+    body-color-dark: "#CED0D4" # gray.200
     # Type: Lora display / Lato body / Fira Code mono, as in theme_ekio()
     base_font: {google: "Lato"}
     heading_font: {google: "Lora"}

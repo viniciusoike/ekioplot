@@ -297,7 +297,7 @@ test_that(".ekio resolves scales by shade and by position", {
 
 test_that(".ekio resolves palettes by name and by position", {
   expect_identical(.ekio("basic", "white"), "#FFFFFF")
-  expect_identical(.ekio("basic", "offwhite"), "#FEFEFE")
+  expect_identical(.ekio("basic", "offwhite"), "#FBFBF6")
   expect_identical(.ekio("basic", 1), .ekio("basic", "white"))
   expect_identical(.ekio("full", 2), as.character(ekio_pal("full"))[2])
 })
@@ -325,7 +325,7 @@ test_that("basic is a token group, not a user-facing palette", {
   expect_error(list_ekio_palettes("basic"), "Unknown palette type")
 
   # ...but it stays reachable as a brand token
-  expect_identical(.ekio("basic", "offwhite"), "#FEFEFE")
+  expect_identical(.ekio("basic", "offwhite"), "#FBFBF6")
 })
 
 # ---- Palette swatch ----

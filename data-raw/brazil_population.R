@@ -78,8 +78,13 @@ population <- population |>
     # Convert category to ordered factor
     category = factor(
       category,
-      levels = c("Metropolis (1M+)", "Large city (500K-1M)", 
-                 "Medium city (200K-500K)", "Small city (100K-200K)", "Other"),
+      levels = c(
+        "Metropolis (1M+)",
+        "Large city (500K-1M)",
+        "Medium city (200K-500K)",
+        "Small city (100K-200K)",
+        "Other"
+      ),
       ordered = TRUE
     )
   )

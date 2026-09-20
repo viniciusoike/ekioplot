@@ -44,7 +44,9 @@ for (nm in names(accents)) {
   from_yaml <- unlist(spec$palettes$accent[[nm]])
   if (!identical(from_yaml[names(accents[[nm]])], accents[[nm]])) {
     stop(
-      "YAML accent '", nm, "' does not match data-raw/build-ramps.R.",
+      "YAML accent '",
+      nm,
+      "' does not match data-raw/build-ramps.R.",
       call. = FALSE
     )
   }
@@ -52,14 +54,17 @@ for (nm in names(accents)) {
 
 generated <- ekio_build_scales()
 if (!identical(.ekio_scales, generated)) {
-  drift <- names(generated)[!vapply(
-    names(generated),
-    function(nm) identical(.ekio_scales[[nm]], generated[[nm]]),
-    logical(1)
-  )]
+  drift <- names(generated)[
+    !vapply(
+      names(generated),
+      function(nm) identical(.ekio_scales[[nm]], generated[[nm]]),
+      logical(1)
+    )
+  ]
   stop(
     "YAML scales do not match data-raw/build-ramps.R: ",
-    paste(union(drift, setdiff(names(.ekio_scales), names(generated))),
+    paste(
+      union(drift, setdiff(names(.ekio_scales), names(generated))),
       collapse = ", "
     ),
     ". Edit the spec and paste the regenerated block.",
@@ -72,9 +77,18 @@ if (!identical(.ekio_scales, generated)) {
 oklab_l <- function(x) {
   srgb <- grDevices::col2rgb(x) / 255
   lin <- ifelse(srgb <= 0.04045, srgb / 12.92, ((srgb + 0.055) / 1.055)^2.4)
-  l <- 0.4122214708 * lin[1, ] + 0.5363325363 * lin[2, ] + 0.0514459929 * lin[3, ]
-  m <- 0.2119034982 * lin[1, ] + 0.6806995451 * lin[2, ] + 0.1073969566 * lin[3, ]
-  s <- 0.0883024619 * lin[1, ] + 0.2817188376 * lin[2, ] + 0.6299787005 * lin[3, ]
+  l <- 0.4122214708 *
+    lin[1, ] +
+    0.5363325363 * lin[2, ] +
+    0.0514459929 * lin[3, ]
+  m <- 0.2119034982 *
+    lin[1, ] +
+    0.6806995451 * lin[2, ] +
+    0.1073969566 * lin[3, ]
+  s <- 0.0883024619 *
+    lin[1, ] +
+    0.2817188376 * lin[2, ] +
+    0.6299787005 * lin[3, ]
   0.2104542553 * l^(1 / 3) + 0.7936177850 * m^(1 / 3) - 0.0040720468 * s^(1 / 3)
 }
 
@@ -111,36 +125,56 @@ for (nm in names(.ekio_scales)) {
   off <- abs(oklab_l(.ekio_scales[[nm]]) - ekio_ramp_spec$spine)
   if (any(off > 0.015)) {
     stop(
-      "scale '", nm, "' departs from the lightness spine at shade ",
-      shades[which.max(off)], " (off by ", round(max(off), 3), ")",
+      "scale '",
+      nm,
+      "' departs from the lightness spine at shade ",
+      shades[which.max(off)],
+      " (off by ",
+      round(max(off), 3),
+      ")",
       call. = FALSE
     )
   }
 }
 
-# Shade 500 is the text-safe tier: it must clear WCAG AA on the off-white
-# surface, because theme_ekio() uses gray.500 for muted text.
-offwhite <- spec$palettes$basic$basic$offwhite
+# Shade 500 is the text-safe tier: it must clear WCAG AA on every surface
+# theme_ekio() names, because theme_ekio() uses gray.500 for muted text.
+# Checking all of them, rather than the default alone, is what stops a new
+# surface from quietly breaking the promise.
+surfaces <- unlist(spec$palettes$basic$basic[c("white", "offwhite", "cold")])
 for (nm in names(.ekio_scales)) {
-  cr <- contrast_ratio(.ekio_scales[[nm]][["500"]], offwhite)
-  if (cr < 4.5) {
-    stop(
-      "scale '", nm, "' shade 500 gives only ", round(cr, 2),
-      ":1 against the off-white surface (AA needs 4.5:1)",
-      call. = FALSE
-    )
+  for (surface in names(surfaces)) {
+    cr <- contrast_ratio(.ekio_scales[[nm]][["500"]], surfaces[[surface]])
+    if (cr < 4.5) {
+      stop(
+        "scale '",
+        nm,
+        "' shade 500 gives only ",
+        round(cr, 2),
+        ":1 against the ",
+        surface,
+        " surface (AA needs 4.5:1)",
+        call. = FALSE
+      )
+    }
   }
 }
 
 # gold has no scale, so it has no 500 to carry the text-safe promise. Its
 # `deep` token does that job instead.
 gold_deep <- accents$gold[["deep"]]
-if (contrast_ratio(gold_deep, offwhite) < 4.5) {
-  stop(
-    "gold.deep gives only ", round(contrast_ratio(gold_deep, offwhite), 2),
-    ":1 against the off-white surface (AA needs 4.5:1)",
-    call. = FALSE
-  )
+for (surface in names(surfaces)) {
+  cr <- contrast_ratio(gold_deep, surfaces[[surface]])
+  if (cr < 4.5) {
+    stop(
+      "gold.deep gives only ",
+      round(cr, 2),
+      ":1 against the ",
+      surface,
+      " surface (AA needs 4.5:1)",
+      call. = FALSE
+    )
+  }
 }
 
 # ---- Token resolution ----

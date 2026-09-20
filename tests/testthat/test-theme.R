@@ -106,6 +106,8 @@ test_that("background sets paper, plot and panel together", {
   expected <- c(
     offwhite = .ekio("basic", "offwhite"),
     white = .ekio("basic", "white"),
+    cold = .ekio("basic", "cold"),
+    # `gray` predates the named surfaces and still resolves
     gray = .ekio("gray", 100)
   )
   for (nm in names(expected)) {
@@ -120,4 +122,17 @@ test_that("background sets paper, plot and panel together", {
   expect_true(is.na(th$panel.background$fill))
 
   expect_error(theme_ekio(background = "bogus"))
+})
+
+test_that("background takes a hex code for surfaces the package does not name", {
+  th <- theme_ekio(background = "#F0EAD6")
+  expect_equal(th$rect$fill, "#F0EAD6")
+  expect_equal(th$plot.background$fill, "#F0EAD6")
+
+  expect_equal(theme_ekio(background = "#EEE")$rect$fill, "#EEE")
+
+  # a color name is not a hex code, and R color names are not supported
+  expect_error(theme_ekio(background = "ivory"), "must be one of")
+  expect_error(theme_ekio(background = "#GGGGGG"), "must be one of")
+  expect_error(theme_ekio(background = c("white", "cold")), "single string")
 })

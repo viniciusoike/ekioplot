@@ -4,6 +4,16 @@
 
 * Diverging palettes now stop at the lighter shade 600 and use more gradual intermediate steps for better balance in filled graphics. `purple_orange` replaces `blue_orange`, while `blue_red`, `teal_orange`, and `purple_green` retain their names with the lighter construction.
 
+* `theme_ekio(background = "offwhite")` now draws on `#FBFBF6`, the warm white
+  unohana-iro, rather than `#FEFEFE`. The old value sat within dE2000 0.2 of
+  pure white, so the two surfaces were indistinguishable. Plots on the default
+  background change appearance, and the pkgdown site already used this color.
+
+* Shades 200 to 600 of every brand scale shifted by dE2000 2.1 or less. The
+  lightness spine now compresses slightly below shade 500 so that 500 clears
+  WCAG AA for text on the warm and cold surfaces. Shades 100, 700, 800 and
+  900 are unchanged, and `blue.700` still pins the brand navy `#1E3A5F`.
+
 ## New features
 
 * Added the `purple` brand scale, a nine-step ramp on the same lightness spine
@@ -11,6 +21,14 @@
 
 * Added the `purple_green` diverging palette, which runs the purple scale and
   the green scale out from the neutral pivot, following ColorBrewer's PRGn.
+
+* Added `theme_ekio(background = "cold")`, the cool white enpaku `#F6F7F8`.
+  With `"white"` and `"offwhite"` it gives three surfaces on one warm-to-cold
+  axis.
+
+* `theme_ekio(background = )` now accepts a hex code, so a surface the package
+  does not name is one argument away. Only the named surfaces are checked for
+  contrast against the brand scales.
 
 ## Minor improvements
 
