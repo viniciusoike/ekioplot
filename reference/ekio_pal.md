@@ -100,9 +100,9 @@ ekio_pal("blue")[7]
 
 # gold is an accent, named rather than numbered
 ekio_pal("gold")["mid"]
-#> [1] "#B88715"
+#> [1] "#B4840C"
 
 # Subsets are unnamed, so a hand-built palette needs no unname()
 c(ekio_pal("blue")["700"], ekio_pal("orange")["500"])
-#> [1] "#1E3A5F" "#B15400"
+#> [1] "#1E3A5F" "#AB5000"
 ```

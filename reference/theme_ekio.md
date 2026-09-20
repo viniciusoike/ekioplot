@@ -53,8 +53,10 @@ theme_ekio(
 - background:
 
   Character. Plot and panel background: `"offwhite"` (default,
-  `#FEFEFE`), `"white"` (`#FFFFFF`), `"gray"` (the brand `gray.100`), or
-  `"transparent"`.
+  `#FBFBF6`, a warm white), `"white"` (`#FFFFFF`), `"cold"` (`#F6F7F8`),
+  or `"transparent"`. A hex code such as `"#F0EAD6"` is also accepted,
+  though only the named surfaces are checked for contrast against the
+  brand scales.
 
 - ...:
 

@@ -50,12 +50,16 @@
 <h2 class="pkg-version" data-toc-text="1.1.2" id="ekioplot-112">ekioplot 1.1.2<a class="anchor" aria-label="anchor" href="#ekioplot-112"></a></h2>
 <div class="section level3">
 <h3 id="breaking-changes-1-1-2">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-1-2"></a></h3>
-<ul><li>Diverging palettes now stop at the lighter shade 600 and use more gradual intermediate steps for better balance in filled graphics. <code>purple_orange</code> replaces <code>blue_orange</code>, while <code>blue_red</code>, <code>teal_orange</code>, and <code>purple_green</code> retain their names with the lighter construction.</li>
+<ul><li><p>Diverging palettes now stop at the lighter shade 600 and use more gradual intermediate steps for better balance in filled graphics. <code>purple_orange</code> replaces <code>blue_orange</code>, while <code>blue_red</code>, <code>teal_orange</code>, and <code>purple_green</code> retain their names with the lighter construction.</p></li>
+<li><p><code>theme_ekio(background = "offwhite")</code> now draws on <code>#FBFBF6</code>, the warm white unohana-iro, rather than <code>#FEFEFE</code>. The old value sat within dE2000 0.2 of pure white, so the two surfaces were indistinguishable. Plots on the default background change appearance, and the pkgdown site already used this color.</p></li>
+<li><p>Shades 200 to 600 of every brand scale shifted by dE2000 2.1 or less. The lightness spine now compresses slightly below shade 500 so that 500 clears WCAG AA for text on the warm and cold surfaces. Shades 100, 700, 800 and 900 are unchanged, and <code>blue.700</code> still pins the brand navy <code>#1E3A5F</code>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-1-1-2">New features<a class="anchor" aria-label="anchor" href="#new-features-1-1-2"></a></h3>
 <ul><li><p>Added the <code>purple</code> brand scale, a nine-step ramp on the same lightness spine as the other scales.</p></li>
 <li><p>Added the <code>purple_green</code> diverging palette, which runs the purple scale and the green scale out from the neutral pivot, following ColorBrewer’s PRGn.</p></li>
+<li><p>Added <code>theme_ekio(background = "cold")</code>, the cool white enpaku <code>#F6F7F8</code>. With <code>"white"</code> and <code>"offwhite"</code> it gives three surfaces on one warm-to-cold axis.</p></li>
+<li><p><code>theme_ekio(background = )</code> now accepts a hex code, so a surface the package does not name is one argument away. Only the named surfaces are checked for contrast against the brand scales.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="minor-improvements-1-1-2">Minor improvements<a class="anchor" aria-label="anchor" href="#minor-improvements-1-1-2"></a></h3>

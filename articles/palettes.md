@@ -36,37 +36,37 @@ available positions.
 
 `gold`3 colors
 
-\#D5AA48
+\#D2A745
 
-\#B88715
+\#B4840C
 
-\#966800
+\#916400
 
 `accent_blue`6 colors
 
 \#1E3A5F
 
-\#6E7378
+\#6A6E74
 
-\#8D9197
+\#898E93
 
-\#AEB1B5
+\#ABAEB3
 
-\#CFD2D5
+\#CED0D4
 
 \#F2F3F5
 
 `accent_orange`6 colors
 
-\#D3742A
+\#CF7126
 
-\#6E7378
+\#6A6E74
 
-\#8D9197
+\#898E93
 
-\#AEB1B5
+\#ABAEB3
 
-\#CFD2D5
+\#CED0D4
 
 \#F2F3F5
 
@@ -81,55 +81,55 @@ categories, so it does not survive grayscale printing.
 
 \#1E3A5F
 
-\#D3742A
+\#CF7126
 
-\#006261
+\#00605E
 
-\#D5AA48
+\#D2A745
 
-\#B44D47
+\#AF4942
 
-\#448255
+\#407D51
 
 \#373A3D
 
-\#B4B0AB
+\#B2AEA8
 
 `full_muted`8 colors
 
 \#152A44
 
-\#B15400
+\#AB5000
 
 \#004342
 
-\#B88715
+\#B4840C
 
-\#8C3431
+\#89322F
 
-\#2E623B
+\#2C6039
 
 \#28292C
 
-\#959089
+\#928C85
 
 `cool3`3 colors
 
 \#1E3A5F
 
-\#5597CC
+\#5194C8
 
-\#006261
+\#00605E
 
 `cool4`4 colors
 
 \#1E3A5F
 
-\#5597CC
+\#5194C8
 
-\#006261
+\#00605E
 
-\#448255
+\#407D51
 
 ## EKIO brand
 
@@ -165,15 +165,15 @@ palettes for ordered categories and as the ramp behind
 
 \#E8F6FF
 
-\#B1D8F2
+\#B0D6F0
 
-\#84B8DD
+\#82B5DA
 
-\#5597CC
+\#5194C8
 
-\#3E76AC
+\#3A71A8
 
-\#305687
+\#2E5485
 
 \#1E3A5F
 
@@ -185,15 +185,15 @@ palettes for ordered categories and as the ramp behind
 
 \#F2F3F5
 
-\#CFD2D5
+\#CED0D4
 
-\#AEB1B5
+\#ABAEB3
 
-\#8D9197
+\#898E93
 
-\#6E7378
+\#6A6E74
 
-\#52555A
+\#505358
 
 \#373A3D
 
@@ -205,15 +205,15 @@ palettes for ordered categories and as the ramp behind
 
 \#F5F3F1
 
-\#D4D1CD
+\#D3D0CC
 
-\#B4B0AB
+\#B2AEA8
 
-\#959089
+\#928C85
 
-\#76716B
+\#726D66
 
-\#59544F
+\#56524D
 
 \#3C3935
 
@@ -225,15 +225,15 @@ palettes for ordered categories and as the ramp behind
 
 \#E2F9FA
 
-\#AFDCDD
+\#ADDADC
 
-\#7EBEC0
+\#7BBBBD
 
-\#40A2A3
+\#3C9E9F
 
-\#158281
+\#097E7D
 
-\#006261
+\#00605E
 
 \#004342
 
@@ -245,15 +245,15 @@ palettes for ordered categories and as the ramp behind
 
 \#E7F9EC
 
-\#BADCC3
+\#B8DAC2
 
-\#8FBE9C
+\#8DBC9A
 
-\#62A274
+\#5F9E70
 
-\#448255
+\#407D51
 
-\#2E623B
+\#2C6039
 
 \#1C4326
 
@@ -265,15 +265,15 @@ palettes for ordered categories and as the ramp behind
 
 \#FFF1E5
 
-\#F7C7A0
+\#F6C59F
 
-\#E49F6C
+\#E19D6A
 
-\#D3742A
+\#CF7126
 
-\#B15400
+\#AB5000
 
-\#893A00
+\#863900
 
 \#612400
 
@@ -285,15 +285,15 @@ palettes for ordered categories and as the ramp behind
 
 \#FFEFED
 
-\#FDC1B7
+\#FBC0B6
 
-\#E9998E
+\#E6968B
 
-\#D76D63
+\#D3695F
 
-\#B44D47
+\#AF4942
 
-\#8C3431
+\#89322F
 
 \#622020
 
@@ -305,15 +305,15 @@ palettes for ordered categories and as the ramp behind
 
 \#FDEEFF
 
-\#E4C6EB
+\#E2C4E9
 
-\#C7A0D4
+\#C49ED2
 
-\#AB7AC1
+\#A877BD
 
-\#8A5CA1
+\#86589C
 
-\#6A427C
+\#684079
 
 \#4B2A55
 
@@ -328,83 +328,83 @@ lighter than both arms, so the visual center of the scale lands on zero.
 
 `purple_orange`9 colors
 
-\#6A427C
+\#684079
 
-\#8A5CA1
+\#86589C
 
-\#C7A0D4
+\#C49ED2
 
-\#E4C6EB
+\#E2C4E9
 
 \#F5F3EF
 
-\#F7C7A0
+\#F6C59F
 
-\#E49F6C
+\#E19D6A
 
-\#B15400
+\#AB5000
 
-\#893A00
+\#863900
 
 `blue_red`9 colors
 
-\#305687
+\#2E5485
 
-\#3E76AC
+\#3A71A8
 
-\#84B8DD
+\#82B5DA
 
-\#B1D8F2
+\#B0D6F0
 
 \#F5F3EF
 
-\#FDC1B7
+\#FBC0B6
 
-\#E9998E
+\#E6968B
 
-\#B44D47
+\#AF4942
 
-\#8C3431
+\#89322F
 
 `teal_orange`9 colors
 
-\#006261
+\#00605E
 
-\#158281
+\#097E7D
 
-\#7EBEC0
+\#7BBBBD
 
-\#AFDCDD
+\#ADDADC
 
 \#F5F3EF
 
-\#F7C7A0
+\#F6C59F
 
-\#E49F6C
+\#E19D6A
 
-\#B15400
+\#AB5000
 
-\#893A00
+\#863900
 
 `purple_green`9 colors
 
-\#6A427C
+\#684079
 
-\#8A5CA1
+\#86589C
 
-\#C7A0D4
+\#C49ED2
 
-\#E4C6EB
+\#E2C4E9
 
 \#F5F3EF
 
-\#BADCC3
+\#B8DAC2
 
-\#8FBE9C
+\#8DBC9A
 
-\#448255
+\#407D51
 
-\#2E623B
+\#2C6039
 
 ## Scientific
 
