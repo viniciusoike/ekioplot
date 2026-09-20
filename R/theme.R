@@ -25,6 +25,7 @@
 #'   theme_sub_strip
 #' @param ... Additional arguments passed to [ggplot2::theme_minimal()].
 #' @return A ggplot2 theme object
+#' @seealso [ekio_surface()]
 #' @export
 #'
 #' @examples
@@ -43,7 +44,7 @@ theme_ekio <- function(
 ) {
   grid <- match.arg(grid, c("y", "x", "xy", "none"))
   ticks <- match.arg(ticks, c("x", "y", "xy", "none"))
-  bg <- resolve_background(background)
+  bg <- ekio_surface(background, arg = "background", call = current_env())
   if (missing(font_title)) {
     font_title <- getOption("ekioplot.font_title", font_title)
   }
@@ -184,34 +185,57 @@ theme_ekio <- function(
 # the documented set.
 .theme_backgrounds <- c("offwhite", "white", "cold", "transparent")
 
-#' @keywords internal
-#' @noRd
-resolve_background <- function(background) {
-  if (!is.character(background) || length(background) != 1L) {
+#' Brand surfaces
+#'
+#' Resolve an EKIO brand surface name to a hex code. `ekio_surface()` takes the
+#' same vocabulary as `theme_ekio(background = )`: `"offwhite"` (`#FBFBF6`),
+#' `"white"` (`#FFFFFF`) and `"cold"` (`#F6F7F8`). A hex code such as
+#' `"#F0EAD6"` is passed through unchanged, and `"transparent"` returns
+#' `NA_character_` so [ggplot2::element_rect()] draws nothing.
+#'
+#' @param surface Character. A brand surface name or a hex code.
+#' @param arg,call The argument name and the calling environment used to build
+#'   error messages. See [rlang::args_error_context()].
+#' @return A single hex code, or `NA_character_` for `"transparent"`.
+#' @seealso [theme_ekio()]
+#' @export
+#' @examples
+#' ekio_surface("cold")
+#' ekio_surface("#F0EAD6")
+ekio_surface <- function(
+  surface = "offwhite",
+  arg = "surface",
+  call = current_env()
+) {
+  if (!is.character(surface) || length(surface) != 1L) {
     cli_abort(
-      "{.arg background} must be a single string, not {.obj_type_friendly
-       {background}}."
+      "{.arg {arg}} must be a single string, not {.obj_type_friendly
+       {surface}}.",
+      call = call
     )
   }
 
   # A hex code is an escape hatch for surfaces the package does not name
-  if (grepl("^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$", background)) {
-    return(background)
+  if (grepl("^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$", surface)) {
+    return(surface)
   }
 
   # NA rather than "transparent" so element_rect() draws nothing at all
   switch(
-    background,
+    surface,
     offwhite = .ekio("basic", "offwhite"),
     white = .ekio("basic", "white"),
     cold = .ekio("basic", "cold"),
     gray = .ekio("gray", 100),
-    transparent = NA,
-    cli_abort(c(
-      "{.arg background} must be one of {.val {(.theme_backgrounds)}}, or a
-       hex code.",
-      "x" = "Got {.val {background}}."
-    ))
+    transparent = NA_character_,
+    cli_abort(
+      c(
+        "{.arg {arg}} must be one of {.val {(.theme_backgrounds)}}, or a
+         hex code.",
+        "x" = "Got {.val {surface}}."
+      ),
+      call = call
+    )
   )
 }
 

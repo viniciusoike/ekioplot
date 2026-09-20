@@ -47,6 +47,7 @@ reference:
     desc: Apply EKIO visual identity to plots
     contents:
       - theme_ekio
+      - ekio_surface
 
   - title: Scales
     desc: >

@@ -136,3 +136,11 @@ test_that("background takes a hex code for surfaces the package does not name", 
   expect_error(theme_ekio(background = "#GGGGGG"), "must be one of")
   expect_error(theme_ekio(background = c("white", "cold")), "single string")
 })
+
+test_that("surface errors name the argument the caller passed", {
+  expect_error(theme_ekio(background = "ivory"), "`background`")
+  expect_error(theme_ekio(background = list(1)), "`background`")
+
+  expect_error(ekio_surface("ivory"), "`surface`")
+  expect_error(ekio_surface(list(1)), "`surface`")
+})

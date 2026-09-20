@@ -53,3 +53,6 @@ ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg)) +
   ggplot2::geom_point() +
   theme_ekio(font_title = "serif", font_text = "sans")
 }
+\seealso{
+\code{\link[=ekio_surface]{ekio_surface()}}
+}
