@@ -15,8 +15,10 @@
 #' @param ticks Character. Which axis ticks and lines to show: `"x"` (default),
 #'   `"y"`, `"xy"`, or `"none"`. This is independent of `grid`.
 #' @param background Character. Plot and panel background: `"offwhite"`
-#'   (default, `#FEFEFE`), `"white"` (`#FFFFFF`), `"gray"` (the brand
-#'   `gray.100`), or `"transparent"`.
+#'   (default, `#FBFBF6`, a warm white), `"white"` (`#FFFFFF`), `"cold"`
+#'   (`#F6F7F8`), or `"transparent"`. A hex code such as `"#F0EAD6"` is also
+#'   accepted, though only the named surfaces are checked for contrast
+#'   against the brand scales.
 #' @importFrom ggplot2 theme_minimal theme %+replace% element_blank element_line
 #'   element_rect element_text margin rel theme_sub_plot theme_sub_panel
 #'   theme_sub_axis theme_sub_axis_x theme_sub_axis_y theme_sub_legend
@@ -41,25 +43,13 @@ theme_ekio <- function(
 ) {
   grid <- match.arg(grid, c("y", "x", "xy", "none"))
   ticks <- match.arg(ticks, c("x", "y", "xy", "none"))
-  background <- match.arg(
-    background,
-    c("offwhite", "white", "gray", "transparent")
-  )
+  bg <- resolve_background(background)
   if (missing(font_title)) {
     font_title <- getOption("ekioplot.font_title", font_title)
   }
   if (missing(font_text)) {
     font_text <- getOption("ekioplot.font_text", font_text)
   }
-
-  # NA rather than "transparent" so element_rect() draws nothing at all
-  bg <- switch(
-    background,
-    offwhite = .ekio("basic", "offwhite"),
-    white = .ekio("basic", "white"),
-    gray = .ekio("gray", 100),
-    transparent = NA
-  )
 
   colors <- list(
     text_dark = .ekio("gray", 900),
@@ -187,6 +177,43 @@ theme_ekio <- function(
     )
 }
 
+
+# Named surfaces, warm to cold, plus the transparent sentinel. `gray` is kept
+# as an alias for the surface theme_ekio() used to offer under that name; it
+# is the one background whose shade 500 misses WCAG AA, so it stays out of
+# the documented set.
+.theme_backgrounds <- c("offwhite", "white", "cold", "transparent")
+
+#' @keywords internal
+#' @noRd
+resolve_background <- function(background) {
+  if (!is.character(background) || length(background) != 1L) {
+    cli_abort(
+      "{.arg background} must be a single string, not {.obj_type_friendly
+       {background}}."
+    )
+  }
+
+  # A hex code is an escape hatch for surfaces the package does not name
+  if (grepl("^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$", background)) {
+    return(background)
+  }
+
+  # NA rather than "transparent" so element_rect() draws nothing at all
+  switch(
+    background,
+    offwhite = .ekio("basic", "offwhite"),
+    white = .ekio("basic", "white"),
+    cold = .ekio("basic", "cold"),
+    gray = .ekio("gray", 100),
+    transparent = NA,
+    cli_abort(c(
+      "{.arg background} must be one of {.val {(.theme_backgrounds)}}, or a
+       hex code.",
+      "x" = "Got {.val {background}}."
+    ))
+  )
+}
 
 #' @keywords internal
 #' @noRd

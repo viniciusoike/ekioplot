@@ -174,12 +174,21 @@ test_that("diverging palettes use balanced endpoints", {
   }
 })
 
-test_that("shade 500 clears WCAG AA on the off-white surface", {
+test_that("shade 500 clears WCAG AA on every named surface", {
   scales <- ekioplot:::.ekio_scales
-  offwhite <- ekioplot:::.ekio("basic", "offwhite")
+  surfaces <- c("white", "offwhite", "cold")
 
   for (nm in names(scales)) {
-    expect_gte(ekio_contrast(scales[[nm]][["500"]], offwhite), 4.5)
+    for (surface in surfaces) {
+      expect_gte(
+        ekio_contrast(
+          scales[[nm]][["500"]],
+          ekioplot:::.ekio("basic", surface)
+        ),
+        4.5,
+        label = paste(nm, "500 on", surface)
+      )
+    }
   }
 })
 
@@ -189,8 +198,13 @@ test_that("gold is an accent, reachable by name and safe for type", {
   expect_identical(ekioplot:::.ekio("gold", "mid"), unname(gold[["mid"]]))
 
   # gold has no scale, so `deep` carries the text-safe promise instead of a 500
-  offwhite <- ekioplot:::.ekio("basic", "offwhite")
-  expect_gte(ekio_contrast(gold[["deep"]], offwhite), 4.5)
+  for (surface in c("white", "offwhite", "cold")) {
+    expect_gte(
+      ekio_contrast(gold[["deep"]], ekioplot:::.ekio("basic", surface)),
+      4.5,
+      label = paste("gold.deep on", surface)
+    )
+  }
 
   # the accent rungs match scale shades 300, 400 and 500 in weight
   blue <- ekioplot:::.ekio_scales$blue

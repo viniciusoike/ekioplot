@@ -118,29 +118,36 @@ for (nm in names(.ekio_scales)) {
   }
 }
 
-# Shade 500 is the text-safe tier: it must clear WCAG AA on the off-white
-# surface, because theme_ekio() uses gray.500 for muted text.
-offwhite <- spec$palettes$basic$basic$offwhite
+# Shade 500 is the text-safe tier: it must clear WCAG AA on every surface
+# theme_ekio() names, because theme_ekio() uses gray.500 for muted text.
+# Checking all of them, rather than the default alone, is what stops a new
+# surface from quietly breaking the promise.
+surfaces <- unlist(spec$palettes$basic$basic[c("white", "offwhite", "cold")])
 for (nm in names(.ekio_scales)) {
-  cr <- contrast_ratio(.ekio_scales[[nm]][["500"]], offwhite)
-  if (cr < 4.5) {
-    stop(
-      "scale '", nm, "' shade 500 gives only ", round(cr, 2),
-      ":1 against the off-white surface (AA needs 4.5:1)",
-      call. = FALSE
-    )
+  for (surface in names(surfaces)) {
+    cr <- contrast_ratio(.ekio_scales[[nm]][["500"]], surfaces[[surface]])
+    if (cr < 4.5) {
+      stop(
+        "scale '", nm, "' shade 500 gives only ", round(cr, 2),
+        ":1 against the ", surface, " surface (AA needs 4.5:1)",
+        call. = FALSE
+      )
+    }
   }
 }
 
 # gold has no scale, so it has no 500 to carry the text-safe promise. Its
 # `deep` token does that job instead.
 gold_deep <- accents$gold[["deep"]]
-if (contrast_ratio(gold_deep, offwhite) < 4.5) {
-  stop(
-    "gold.deep gives only ", round(contrast_ratio(gold_deep, offwhite), 2),
-    ":1 against the off-white surface (AA needs 4.5:1)",
-    call. = FALSE
-  )
+for (surface in names(surfaces)) {
+  cr <- contrast_ratio(gold_deep, surfaces[[surface]])
+  if (cr < 4.5) {
+    stop(
+      "gold.deep gives only ", round(cr, 2),
+      ":1 against the ", surface, " surface (AA needs 4.5:1)",
+      call. = FALSE
+    )
+  }
 }
 
 # ---- Token resolution ----

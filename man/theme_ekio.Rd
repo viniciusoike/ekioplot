@@ -34,8 +34,10 @@ Can be one of 'plot' or 'panel'.}
 \code{"y"}, \code{"xy"}, or \code{"none"}. This is independent of \code{grid}.}
 
 \item{background}{Character. Plot and panel background: \code{"offwhite"}
-(default, \verb{#FEFEFE}), \code{"white"} (\verb{#FFFFFF}), \code{"gray"} (the brand
-\code{gray.100}), or \code{"transparent"}.}
+(default, \verb{#FBFBF6}, a warm white), \code{"white"} (\verb{#FFFFFF}), \code{"cold"}
+(\verb{#F6F7F8}), or \code{"transparent"}. A hex code such as \code{"#F0EAD6"} is also
+accepted, though only the named surfaces are checked for contrast
+against the brand scales.}
 
 \item{...}{Additional arguments passed to \code{\link[ggplot2:ggtheme]{ggplot2::theme_minimal()}}.}
 }

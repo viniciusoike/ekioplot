@@ -7,25 +7,25 @@
 :root {
   --ekio-navy: #152A44; // blue.800
   --ekio-accent: #1E3A5F; // blue.700
-  --ekio-rule: #CFD2D5; // gray.200
-  --ekio-muted: #6E7378; // gray.500
-  --ekio-orange: #D3742A; // orange.400
-  --ekio-surface: #FEFEFE; // basic.offwhite
+  --ekio-rule: #CED0D4; // gray.200
+  --ekio-muted: #6A6E74; // gray.500
+  --ekio-orange: #CF7126; // orange.400
+  --ekio-surface: #FBFBF6; // basic.offwhite (unohana-iro)
 }
 
 [data-bs-theme="dark"] {
-  --ekio-accent: #5597CC; // blue.400
+  --ekio-accent: #5194C8; // blue.400
   --ekio-rule: #28292C; // gray.800
-  --ekio-muted: #AEB1B5; // gray.300
+  --ekio-muted: #ABAEB3; // gray.300
 
   // Brand-side dark mode: links, code and borders lift off the navy page
-  --bs-link-color: #84B8DD; // blue.300
-  --bs-link-hover-color: #B1D8F2; // blue.200
-  --bs-primary: #5597CC; // blue.400
-  --bs-primary-rgb: 85, 151, 204;
-  --bs-code-color: #7EBEC0; // teal.300
+  --bs-link-color: #82B5DA; // blue.300
+  --bs-link-hover-color: #B0D6F0; // blue.200
+  --bs-primary: #5194C8; // blue.400
+  --bs-primary-rgb: 81, 148, 200;
+  --bs-code-color: #7BBBBD; // teal.300
   --bs-border-color: #28292C; // gray.800
-  --bs-secondary-color: #AEB1B5; // gray.300
+  --bs-secondary-color: #ABAEB3; // gray.300
 }
 
 /* navbar ------------------------------------------------------------------ */

@@ -8,8 +8,10 @@
 # ---- Specification ---------------------------------------------------------
 
 # One lightness spine for every scale. blue.700 is pinned to the brand navy
-# #1E3A5F (L .346); 100-700 are evenly spaced, and 800/900 tighten because
-# dark shades need finer discrimination.
+# #1E3A5F (L .346), and 800/900 tighten because dark shades need finer
+# discrimination. The steps above 500 are even at .107 and the two below it
+# at .0955: shade 500 carries the WCAG AA promise for text, and the tighter
+# lower half is what buys it enough contrast on the warm and cold surfaces.
 #
 # One chroma arc, normalized to its peak at 400-500, taken from the blue ramp.
 # Each scale scales the arc by its own cmax, so shade number carries the same
@@ -17,7 +19,7 @@
 
 ekio_ramp_spec <- list(
   shades = seq(100, 900, by = 100),
-  spine = c(0.965, 0.862, 0.759, 0.655, 0.552, 0.449, 0.346, 0.282, 0.218),
+  spine = c(0.965, 0.858, 0.751, 0.644, 0.537, 0.4415, 0.346, 0.282, 0.218),
   arc = c(0.27, 0.52, 0.73, 1.00, 1.00, 0.89, 0.71, 0.53, 0.35),
   scales = list(
     # hue: one OKLCH angle, or nine (one per shade) to let a ramp drift
@@ -40,7 +42,7 @@ ekio_ramp_spec <- list(
 # because dark yellow is brown: past the middle of the spine a gold ramp stops
 # being gold. These three sit on spine rungs 300, 400 and 500, so they stay
 # interchangeable in weight with the scales, and `deep` clears WCAG AA on the
-# off-white surface so gold can carry type.
+# theme surfaces so gold can carry type.
 
 ekio_accent_spec <- list(
   gold = list(
