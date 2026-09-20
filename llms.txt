@@ -137,6 +137,8 @@ Apply EKIO visual identity to plots
 
 - [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
   : Apply EKIO Theme to ggplot2 Plots
+- [`ekio_surface()`](https://viniciusoike.github.io/ekioplot/reference/ekio_surface.md)
+  : Brand surfaces
 
 ## Scales
 

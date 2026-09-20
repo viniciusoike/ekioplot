@@ -67,6 +67,10 @@ theme_ekio(
 
 A ggplot2 theme object
 
+## See also
+
+[`ekio_surface()`](https://viniciusoike.github.io/ekioplot/reference/ekio_surface.md)
+
 ## Examples
 
 ``` r

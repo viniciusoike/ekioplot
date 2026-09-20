@@ -39,6 +39,11 @@
   package does not name is one argument away. Only the named surfaces
   are checked for contrast against the brand scales.
 
+- Added
+  [`ekio_surface()`](https://viniciusoike.github.io/ekioplot/reference/ekio_surface.md),
+  which resolves a brand surface name or hex code to a single hex code,
+  taking the same vocabulary as `theme_ekio(background = )`.
+
 ### Minor improvements
 
 - Added the `brazil_population_forecast` dataset with Brazilian
