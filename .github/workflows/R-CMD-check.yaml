@@ -34,11 +34,11 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
       # CRAN's R 4.6 macOS binaries are zstd/xz-compressed and pak cannot
-      # extract them yet (r-lib/pkgdepends#485). Posit Package Manager still
-      # serves gzip binaries. Pointing CRAN at PPM makes setup-r write it into
-      # the repos option, which pak::lockfile_create() resolves against; the
-      # RSPM env var alone does not affect that resolution.
-      CRAN: https://packagemanager.posit.co/cran/latest
+      # extract them yet (r-lib/pkgdepends#485); Posit Package Manager still
+      # serves gzip binaries. pak resolves from the repos option, not the RSPM
+      # env var, and the project .Rprofile in the repo root shadows the
+      # profile setup-r writes to $HOME, so point R at a profile that sets PPM.
+      R_PROFILE_USER: ${{ github.workspace }}/.github/ci.Rprofile
 
     steps:
       - uses: actions/checkout@v4
@@ -49,23 +49,7 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
-          # 'always' forces Posit Package Manager on macOS too. CRAN's R 4.6
-          # macOS binaries are zstd/xz-compressed and pak cannot extract them
-          # yet (r-lib/pkgdepends#485); PPM still serves gzip binaries.
           use-public-rspm: always
-
-      - name: Debug repos
-        if: runner.os == 'macOS'
-        run: |
-          echo "HOME=$HOME"
-          echo "R_PROFILE_USER=$R_PROFILE_USER"
-          ls -la "$HOME/.Rprofile" || true
-          echo "===== .Rprofile ====="
-          cat "$HOME/.Rprofile" || true
-          echo "===== getOption repos ====="
-          Rscript -e 'print(getOption("repos"))'
-          echo "===== repo_status ====="
-          Rscript -e 'print(unique(as.data.frame(pak::repo_status())[,c("name","url")]))' 2>&1 || true
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
