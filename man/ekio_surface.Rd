@@ -4,10 +4,13 @@
 \alias{ekio_surface}
 \title{Brand surfaces}
 \usage{
-ekio_surface(surface = "offwhite")
+ekio_surface(surface = "offwhite", arg = "surface", call = current_env())
 }
 \arguments{
 \item{surface}{Character. A brand surface name or a hex code.}
+
+\item{arg, call}{The argument name and the calling environment used to build
+error messages. See \code{\link[rlang:args_error_context]{rlang::args_error_context()}}.}
 }
 \value{
 A single hex code, or \code{NA_character_} for \code{"transparent"}.

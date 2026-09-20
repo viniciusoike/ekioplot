@@ -44,7 +44,7 @@ theme_ekio <- function(
 ) {
   grid <- match.arg(grid, c("y", "x", "xy", "none"))
   ticks <- match.arg(ticks, c("x", "y", "xy", "none"))
-  bg <- ekio_surface(background)
+  bg <- ekio_surface(background, arg = "background", call = current_env())
   if (missing(font_title)) {
     font_title <- getOption("ekioplot.font_title", font_title)
   }
@@ -194,17 +194,24 @@ theme_ekio <- function(
 #' `NA_character_` so [ggplot2::element_rect()] draws nothing.
 #'
 #' @param surface Character. A brand surface name or a hex code.
+#' @param arg,call The argument name and the calling environment used to build
+#'   error messages. See [rlang::args_error_context()].
 #' @return A single hex code, or `NA_character_` for `"transparent"`.
 #' @seealso [theme_ekio()]
 #' @export
 #' @examples
 #' ekio_surface("cold")
 #' ekio_surface("#F0EAD6")
-ekio_surface <- function(surface = "offwhite") {
+ekio_surface <- function(
+  surface = "offwhite",
+  arg = "surface",
+  call = current_env()
+) {
   if (!is.character(surface) || length(surface) != 1L) {
     cli_abort(
-      "{.arg surface} must be a single string, not {.obj_type_friendly
-       {surface}}."
+      "{.arg {arg}} must be a single string, not {.obj_type_friendly
+       {surface}}.",
+      call = call
     )
   }
 
@@ -221,11 +228,14 @@ ekio_surface <- function(surface = "offwhite") {
     cold = .ekio("basic", "cold"),
     gray = .ekio("gray", 100),
     transparent = NA_character_,
-    cli_abort(c(
-      "{.arg surface} must be one of {.val {(.theme_backgrounds)}}, or a
-       hex code.",
-      "x" = "Got {.val {surface}}."
-    ))
+    cli_abort(
+      c(
+        "{.arg {arg}} must be one of {.val {(.theme_backgrounds)}}, or a
+         hex code.",
+        "x" = "Got {.val {surface}}."
+      ),
+      call = call
+    )
   )
 }
 
