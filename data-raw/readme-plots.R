@@ -106,7 +106,7 @@ palettes <- ggplot(pal_df) +
   ) +
   scale_x_continuous(expand = expansion(0)) +
   labs(title = "Selected EKIO palettes") +
-  theme_ekio(grid = "none") +
+  theme_ekio(grid = "none", background = "white") +
   theme(
     axis.title = element_blank(),
     axis.text.x = element_blank(),
