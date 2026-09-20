@@ -39,6 +39,11 @@ jobs:
       - name: Install ekioplot (local source)
         run: R CMD INSTALL --no-build-vignettes .
 
+      # pkgdown renders every root-level .md into the site, ignoring
+      # .Rbuildignore (r-lib/pkgdown#2959); drop internal agent docs first.
+      - name: Remove internal agent docs
+        run: rm -f AGENTS.md CLAUDE.md
+
       - name: Build pkgdown site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
