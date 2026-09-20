@@ -54,6 +54,15 @@ jobs:
           # yet (r-lib/pkgdepends#485); PPM still serves gzip binaries.
           use-public-rspm: always
 
+      - name: Debug repos
+        if: runner.os == 'macOS'
+        run: |
+          echo "HOME=$HOME"
+          echo "R_PROFILE_USER=$R_PROFILE_USER"
+          ls -la "$HOME/.Rprofile" || true
+          Rscript -e 'print(getOption("repos"))'
+          Rscript -e 'print(Sys.getenv(c("CRAN","RSPM")))'
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
