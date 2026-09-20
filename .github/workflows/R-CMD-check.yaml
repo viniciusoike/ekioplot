@@ -60,8 +60,12 @@ jobs:
           echo "HOME=$HOME"
           echo "R_PROFILE_USER=$R_PROFILE_USER"
           ls -la "$HOME/.Rprofile" || true
+          echo "===== .Rprofile ====="
+          cat "$HOME/.Rprofile" || true
+          echo "===== getOption repos ====="
           Rscript -e 'print(getOption("repos"))'
-          Rscript -e 'print(Sys.getenv(c("CRAN","RSPM")))'
+          echo "===== repo_status ====="
+          Rscript -e 'print(unique(as.data.frame(pak::repo_status())[,c("name","url")]))' 2>&1 || true
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
