@@ -43,7 +43,10 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
-          use-public-rspm: true
+          # 'always' forces Posit Package Manager on macOS too. CRAN's R 4.6
+          # macOS binaries are zstd/xz-compressed and pak cannot extract them
+          # yet (r-lib/pkgdepends#485); PPM still serves gzip binaries.
+          use-public-rspm: always
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
