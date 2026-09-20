@@ -33,6 +33,12 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      # CRAN's R 4.6 macOS binaries are zstd/xz-compressed and pak cannot
+      # extract them yet (r-lib/pkgdepends#485). Posit Package Manager still
+      # serves gzip binaries. Pointing CRAN at PPM makes setup-r write it into
+      # the repos option, which pak::lockfile_create() resolves against; the
+      # RSPM env var alone does not affect that resolution.
+      CRAN: https://packagemanager.posit.co/cran/latest
 
     steps:
       - uses: actions/checkout@v4
