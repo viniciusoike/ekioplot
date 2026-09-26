@@ -16,6 +16,11 @@
 
 ## New features
 
+* Added the `full_light` and `spectrum_light` categorical palettes for filled
+  marks such as bars, boxplots, and areas. `full_light` lifts the dark colors
+  of `full` and keeps its order. `spectrum_light` orders its colors around the
+  color wheel, from blue to purple.
+
 * Added the `purple` brand scale, a nine-step ramp on the same lightness spine
   as the other scales.
 

@@ -135,6 +135,12 @@
 #' The named `"ekio_brand"` palette contains colors for EKIO identity assets.
 #' It is not intended as a general-purpose data visualization palette.
 #'
+#' `"full_light"` and `"spectrum_light"` are lighter categorical palettes for
+#' filled marks such as bars, boxplots, and areas. `"full_light"` keeps the
+#' order of `"full"`, so neighboring colors differ in hue. `"spectrum_light"`
+#' follows the color wheel from blue to purple, which suits ordered
+#' categories.
+#'
 #' `"gold"` is an accent rather than a scale: three colors named `"light"`,
 #' `"mid"` and `"deep"`, because a nine-step gold ramp turns brown at the
 #' dark end. They sit on the same lightness rungs as scale shades 300, 400
@@ -170,6 +176,8 @@
 #' ekio_pal("full")
 #' ekio_pal("full", n = 4)
 #' ekio_pal("full", reverse = TRUE)
+#' ekio_pal("full_light")
+#' ekio_pal("spectrum_light")
 #' ekio_pal("accent_blue", n = 5)
 #' ekio_pal("okabe_ito")
 #' ekio_pal("ekio_brand")

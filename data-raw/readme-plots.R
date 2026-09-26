@@ -59,6 +59,8 @@ save_fig(hero, "README-hero.png", width = 8, height = 5)
 pal_names <- c(
   "full",
   "full_muted",
+  "full_light",
+  "spectrum_light",
   "cool3",
   "cool4",
   "accent_blue",
@@ -115,7 +117,7 @@ palettes <- ggplot(pal_df) +
     axis.ticks.x = element_blank()
   )
 
-save_fig(palettes, "README-palettes.png", width = 8, height = 6)
+save_fig(palettes, "README-palettes.png", width = 8, height = 7)
 
 ## Recipe grid ------------------------------------------------------------
 

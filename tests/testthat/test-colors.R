@@ -62,6 +62,47 @@ test_that("fixed categorical palettes use the current brand colors", {
   expect_true(all(lum(muted) < lum(full)))
 })
 
+test_that("light categorical palettes suit filled marks", {
+  lum <- function(x) {
+    rgb <- grDevices::col2rgb(x)
+    0.299 * rgb[1, ] + 0.587 * rgb[2, ] + 0.114 * rgb[3, ]
+  }
+  full <- as.character(ekio_pal("full"))
+
+  light <- as.character(ekio_pal("full_light"))
+  expect_identical(
+    light,
+    c(
+      .ekio("blue", 500),
+      .ekio("orange", 400),
+      .ekio("teal", 500),
+      .ekio("gold", "light"),
+      .ekio("red", 400),
+      .ekio("green", 500),
+      .ekio("gray", 600),
+      .ekio("stone", 300)
+    )
+  )
+  expect_true(all(lum(light) >= lum(full)))
+  expect_gt(mean(lum(light)), mean(lum(full)))
+
+  spectrum <- as.character(ekio_pal("spectrum_light"))
+  expect_identical(
+    spectrum,
+    c(
+      .ekio("blue", 500),
+      .ekio("teal", 500),
+      .ekio("green", 400),
+      .ekio("gold", "light"),
+      .ekio("orange", 400),
+      .ekio("red", 300),
+      .ekio("purple", 400),
+      .ekio("stone", 300)
+    )
+  )
+  expect_gt(mean(lum(spectrum)), mean(lum(full)))
+})
+
 test_that("accent palettes keep their main color while varying in size", {
   blue <- as.character(ekio_pal("accent_blue"))
   orange <- as.character(ekio_pal("accent_orange"))
@@ -166,7 +207,7 @@ test_that("list_ekio_palettes returns correct structure", {
 
   expect_identical(
     list_ekio_palettes("categorical"),
-    c("full", "full_muted", "cool3", "cool4")
+    c("full", "full_muted", "full_light", "spectrum_light", "cool3", "cool4")
   )
   expect_identical(
     list_ekio_palettes("accent"),

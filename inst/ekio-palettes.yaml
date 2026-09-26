@@ -139,9 +139,19 @@ palettes:
   # categories `full` separates by hue rather than lightness, so it does not
   # survive grayscale printing. `full_muted` keeps the same sequence but moves
   # each color one rung darker.
+  #
+  # The two light palettes are for filled marks - bars, boxplots, areas -
+  # where `full` reads too dark. `full_light` lifts the dark members of `full`
+  # and keeps its hue jumps. `spectrum_light` walks the color wheel from blue
+  # to purple, so neighbors are closer in hue: suited to ordered categories
+  # and a calmer look, less so where each category must stand apart. Orange
+  # stays at 400 in both, since orange.300 collapses into gold.light under
+  # deuteranopia.
   categorical:
     full: ["blue.700", "orange.400", "teal.600", "gold.light", "red.500", "green.500", "gray.700", "stone.300"]
     full_muted: ["blue.800", "orange.500", "teal.700", "gold.mid", "red.600", "green.600", "gray.800", "stone.400"]
+    full_light: ["blue.500", "orange.400", "teal.500", "gold.light", "red.400", "green.500", "gray.600", "stone.300"]
+    spectrum_light: ["blue.500", "teal.500", "green.400", "gold.light", "orange.400", "red.300", "purple.400", "stone.300"]
     cool3: ["blue.700", "blue.400", "teal.600"]
     cool4: ["blue.700", "blue.400", "teal.600", "green.500"]
 
