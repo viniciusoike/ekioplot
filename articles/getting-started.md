@@ -41,7 +41,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ## Color Palettes
 
-ekioplot ships 24 palettes across six groups. Use
+ekioplot ships 26 palettes across six groups. Use
 [`list_ekio_palettes()`](https://viniciusoike.github.io/ekioplot/reference/list_ekio_palettes.md)
 to explore them:
 
@@ -51,7 +51,7 @@ str(list_ekio_palettes())
 #> List of 6
 #>  $ accent     : chr [1:3] "gold" "accent_blue" "accent_orange"
 #>  $ brand      : chr "ekio_brand"
-#>  $ categorical: chr [1:4] "full" "full_muted" "cool3" "cool4"
+#>  $ categorical: chr [1:6] "full" "full_muted" "full_light" "spectrum_light" ...
 #>  $ sequential : chr [1:8] "blue" "gray" "stone" "teal" ...
 #>  $ diverging  : chr [1:4] "purple_orange" "blue_red" "teal_orange" "purple_green"
 #>  $ scientific : chr [1:4] "okabe_ito" "viridis" "inferno" "plasma"
@@ -90,7 +90,8 @@ ekio_pal("blue", n = 5)
 
 ### Palette types
 
-- **Categorical**: `full`, `full_muted`, `cool3`, `cool4`
+- **Categorical**: `full`, `full_muted`, `full_light`, `spectrum_light`,
+  `cool3`, `cool4`
 - **Brand**: `ekio_brand` for EKIO identity assets, not general data
   visualization
 - **Scientific**: `okabe_ito`, `viridis`, `inferno`, `plasma`

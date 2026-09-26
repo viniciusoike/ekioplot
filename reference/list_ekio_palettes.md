@@ -30,7 +30,8 @@ list_ekio_palettes()
 #> [1] "ekio_brand"
 #> 
 #> $categorical
-#> [1] "full"       "full_muted" "cool3"      "cool4"     
+#> [1] "full"           "full_muted"     "full_light"     "spectrum_light"
+#> [5] "cool3"          "cool4"         
 #> 
 #> $sequential
 #> [1] "blue"   "gray"   "stone"  "teal"   "green"  "orange" "red"    "purple"
@@ -42,5 +43,6 @@ list_ekio_palettes()
 #> [1] "okabe_ito" "viridis"   "inferno"   "plasma"   
 #> 
 list_ekio_palettes("categorical")
-#> [1] "full"       "full_muted" "cool3"      "cool4"     
+#> [1] "full"           "full_muted"     "full_light"     "spectrum_light"
+#> [5] "cool3"          "cool4"         
 ```

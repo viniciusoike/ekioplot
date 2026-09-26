@@ -116,14 +116,14 @@ drawn:</p>
 <div class="section level2">
 <h2 id="color-palettes">Color Palettes<a class="anchor" aria-label="anchor" href="#color-palettes"></a>
 </h2>
-<p>ekioplot ships 24 palettes across six groups. Use
+<p>ekioplot ships 26 palettes across six groups. Use
 <code><a href="../reference/list_ekio_palettes.html">list_ekio_palettes()</a></code> to explore them:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/list_ekio_palettes.html">list_ekio_palettes</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 6</span></span>
 <span><span class="co">#&gt;  $ accent     : chr [1:3] "gold" "accent_blue" "accent_orange"</span></span>
 <span><span class="co">#&gt;  $ brand      : chr "ekio_brand"</span></span>
-<span><span class="co">#&gt;  $ categorical: chr [1:4] "full" "full_muted" "cool3" "cool4"</span></span>
+<span><span class="co">#&gt;  $ categorical: chr [1:6] "full" "full_muted" "full_light" "spectrum_light" ...</span></span>
 <span><span class="co">#&gt;  $ sequential : chr [1:8] "blue" "gray" "stone" "teal" ...</span></span>
 <span><span class="co">#&gt;  $ diverging  : chr [1:4] "purple_orange" "blue_red" "teal_orange" "purple_green"</span></span>
 <span><span class="co">#&gt;  $ scientific : chr [1:4] "okabe_ito" "viridis" "inferno" "plasma"</span></span></code></pre></div>
@@ -146,7 +146,8 @@ drawn:</p>
 <ul>
 <li>
 <strong>Categorical</strong>: <code>full</code>,
-<code>full_muted</code>, <code>cool3</code>, <code>cool4</code>
+<code>full_muted</code>, <code>full_light</code>,
+<code>spectrum_light</code>, <code>cool3</code>, <code>cool4</code>
 </li>
 <li>
 <strong>Brand</strong>: <code>ekio_brand</code> for EKIO identity

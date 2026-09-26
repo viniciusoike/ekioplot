@@ -116,6 +116,11 @@ into <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" c
 The whole palette keeps its names for <code><a href="ekio_text_on.html">ekio_text_on()</a></code> and for lookup.</p>
 <p>The named <code>"ekio_brand"</code> palette contains colors for EKIO identity assets.
 It is not intended as a general-purpose data visualization palette.</p>
+<p><code>"full_light"</code> and <code>"spectrum_light"</code> are lighter categorical palettes for
+filled marks such as bars, boxplots, and areas. <code>"full_light"</code> keeps the
+order of <code>"full"</code>, so neighboring colors differ in hue. <code>"spectrum_light"</code>
+follows the color wheel from blue to purple, which suits ordered
+categories.</p>
 <p><code>"gold"</code> is an accent rather than a scale: three colors named <code>"light"</code>,
 <code>"mid"</code> and <code>"deep"</code>, because a nine-step gold ramp turns brown at the
 dark end. They sit on the same lightness rungs as scale shades 300, 400
@@ -133,12 +138,16 @@ of receding grays. They return four colors by default; <code>n</code> can be set
 <span class="r-plt img"><img src="ekio_pal-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"full"</span>, reverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ekio_pal-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"accent_blue"</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"full_light"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ekio_pal-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"okabe_ito"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"spectrum_light"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ekio_pal-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"ekio_brand"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"accent_blue"</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ekio_pal-6.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"okabe_ito"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="ekio_pal-7.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"ekio_brand"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="ekio_pal-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Brand scales are named by shade; position i is shade i * 100</span></span></span>
 <span class="r-in"><span><span class="fu">ekio_pal</span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span><span class="op">[</span><span class="st">"700"</span><span class="op">]</span></span></span>

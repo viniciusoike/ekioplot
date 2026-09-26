@@ -113,6 +113,42 @@ categories, so it does not survive grayscale printing.
 
 \#928C85
 
+`full_light`8 colors
+
+\#3A71A8
+
+\#CF7126
+
+\#097E7D
+
+\#D2A745
+
+\#D3695F
+
+\#407D51
+
+\#505358
+
+\#B2AEA8
+
+`spectrum_light`8 colors
+
+\#3A71A8
+
+\#097E7D
+
+\#5F9E70
+
+\#D2A745
+
+\#CF7126
+
+\#E6968B
+
+\#A877BD
+
+\#B2AEA8
+
 `cool3`3 colors
 
 \#1E3A5F
