@@ -69,7 +69,8 @@ ekio_pal("blue", n = 5)
 
 ### Palette types
 
-- **Categorical**: `full`, `full_muted`, `cool3`, `cool4`
+- **Categorical**: `full`, `full_muted`, `full_light`, `spectrum_light`,
+  `cool3`, `cool4`
 - **Brand**: `ekio_brand` for EKIO identity assets, not general data visualization
 - **Scientific**: `okabe_ito`, `viridis`, `inferno`, `plasma`
 - **Sequential**: `blue`, `gray`, `stone`, `teal`, `green`, `orange`, `red`,

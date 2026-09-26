@@ -52,6 +52,12 @@ The whole palette keeps its names for \code{\link[=ekio_text_on]{ekio_text_on()}
 The named \code{"ekio_brand"} palette contains colors for EKIO identity assets.
 It is not intended as a general-purpose data visualization palette.
 
+\code{"full_light"} and \code{"spectrum_light"} are lighter categorical palettes for
+filled marks such as bars, boxplots, and areas. \code{"full_light"} keeps the
+order of \code{"full"}, so neighboring colors differ in hue. \code{"spectrum_light"}
+follows the color wheel from blue to purple, which suits ordered
+categories.
+
 \code{"gold"} is an accent rather than a scale: three colors named \code{"light"},
 \code{"mid"} and \code{"deep"}, because a nine-step gold ramp turns brown at the
 dark end. They sit on the same lightness rungs as scale shades 300, 400
@@ -65,6 +71,8 @@ of receding grays. They return four colors by default; \code{n} can be set from
 ekio_pal("full")
 ekio_pal("full", n = 4)
 ekio_pal("full", reverse = TRUE)
+ekio_pal("full_light")
+ekio_pal("spectrum_light")
 ekio_pal("accent_blue", n = 5)
 ekio_pal("okabe_ito")
 ekio_pal("ekio_brand")
