@@ -39,6 +39,26 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ![](getting-started_files/figure-html/theme-grid-1.png)
 
+### Plot surfaces
+
+[`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
+supports three named surfaces: the default warm off-white, `"white"`,
+and the cool white `"cold"`. You can also supply a hex color.
+[`ekio_surface()`](https://viniciusoike.github.io/ekioplot/reference/ekio_surface.md)
+resolves a named surface to its hex code for use elsewhere.
+
+``` r
+
+ekio_surface("cold")
+#> [1] "#F6F7F8"
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point(color = ekio_pal("blue")["700"], size = 2.5) +
+  theme_ekio(background = "#F6F7F8")
+```
+
+![](getting-started_files/figure-html/theme-surfaces-1.png)
+
 ## Color Palettes
 
 ekioplot ships 26 palettes across six groups. Use

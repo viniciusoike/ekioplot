@@ -361,6 +361,8 @@ palettes for ordered categories and as the ramp behind
 
 For values with a meaningful midpoint. The pivot is a near-neutral tone,
 lighter than both arms, so the visual center of the scale lands on zero.
+The arms use the lighter brand shades through 600, which keeps filled
+graphics balanced while preserving clear separation from the pivot.
 
 `purple_orange`9 colors
 

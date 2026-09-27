@@ -65,11 +65,16 @@ applies EKIO’s visual identity to any ggplot2 plot, building on
 [`theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html)
 with curated typography, spacing, and color. The `grid` argument
 controls which major grid lines are drawn (`"y"`, `"x"`, `"xy"`, or
-`"none"`).
+`"none"`). Choose the warm off-white, white, or cool-white surface with
+the `background` argument, or pass a custom hex color.
+[`ekio_surface()`](https://viniciusoike.github.io/ekioplot/reference/ekio_surface.md)
+resolves a named surface to its hex code.
 
 ``` r
 
 theme_ekio(grid = "xy")
+theme_ekio(background = "cold")
+ekio_surface("offwhite")
 ```
 
 ## Color palettes
