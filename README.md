@@ -7,7 +7,8 @@
 
 <!-- badges: start -->
 
-[![](https://www.r-pkg.org/badges/version/ekioplot?color=white)](https://cran.r-project.org/package=ekioplot)
+[![CRAN
+version](https://www.r-pkg.org/badges/version/ekioplot?color=white)](https://cran.r-project.org/package=ekioplot)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-universe](https://viniciusoike.r-universe.dev/badges/ekioplot)](https://viniciusoike.r-universe.dev/ekioplot)
@@ -71,10 +72,14 @@ pak::pak("viniciusoike/ekioplot")
 `theme_ekio()` applies EKIO’s visual identity to any ggplot2 plot,
 building on `theme_minimal()` with curated typography, spacing, and
 color. The `grid` argument controls which major grid lines are drawn
-(`"y"`, `"x"`, `"xy"`, or `"none"`).
+(`"y"`, `"x"`, `"xy"`, or `"none"`). Choose the warm off-white, white,
+or cool-white surface with the `background` argument, or pass a custom
+hex color. `ekio_surface()` resolves a named surface to its hex code.
 
 ``` r
 theme_ekio(grid = "xy")
+theme_ekio(background = "cold")
+ekio_surface("offwhite")
 ```
 
 ## Color palettes

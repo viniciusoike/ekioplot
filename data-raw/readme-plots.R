@@ -11,7 +11,7 @@
 
 # Setup ------------------------------------------------------------------
 
-load_all()
+pkgload::load_all()
 library(ggplot2)
 library(patchwork)
 library(dplyr)
@@ -166,8 +166,6 @@ ek_areaplot <- ekio_areaplot(
   )
 
 recipes <- (ek_scatterplot | ek_barplot) / (ek_lineplot | ek_areaplot)
-
-recipes <- recipes + plot_annotation(theme = theme_ekio())
 
 save_fig(recipes, "README-recipes.png", width = 9, height = 6.5)
 
