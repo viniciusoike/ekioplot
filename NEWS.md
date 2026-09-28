@@ -16,6 +16,8 @@
 
 ## New features
 
+* Added `theme_patchwork()` to style patchwork's outer background and annotations with the plot-level settings from `theme_ekio()`.
+
 * Added the `full_light` and `spectrum_light` categorical palettes for filled
   marks such as bars, boxplots, and areas. `full_light` lifts the dark colors
   of `full` and keeps its order. `spectrum_light` orders its colors around the
