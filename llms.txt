@@ -145,6 +145,8 @@ Apply EKIO visual identity to plots
 
 - [`theme_ekio()`](https://viniciusoike.github.io/ekioplot/reference/theme_ekio.md)
   : Apply EKIO Theme to ggplot2 Plots
+- [`theme_patchwork()`](https://viniciusoike.github.io/ekioplot/reference/theme_patchwork.md)
+  : Theme for patchwork annotations
 - [`ekio_surface()`](https://viniciusoike.github.io/ekioplot/reference/ekio_surface.md)
   : Brand surfaces
 
