@@ -38,8 +38,8 @@ colors_showcase <- unname(c(
 fib <- 1 / c(1, 2, 3, 5, 8, 13, 21)
 
 # ---- Voronoi Layout ----
-# The seed fixes the cell layout; seed 3 puts the largest cell at the top.
-vm <- voronoi_map(fib, clip = clip_hexagon(), seed = 3)
+# The seed fixes the cell layout; seed 2 puts the largest cell at the top.
+vm <- voronoi_map(fib, clip = clip_hexagon(), seed = 2)
 
 # Wordmark sits on the largest cell's centroid
 cent <- vm_centroids(vm)
