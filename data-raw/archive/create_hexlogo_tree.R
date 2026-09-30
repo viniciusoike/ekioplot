@@ -14,6 +14,9 @@
 # Usage:
 #   1. From the package root, run: devtools::load_all()
 #   2. Source this entire script.
+#
+# Archived: replaced by data-raw/create_hexlogo_voronoi.R. Kept for reference;
+# running it overwrites man/figures/logo.png.
 
 # ---- Packages ----
 library(ggplot2)
