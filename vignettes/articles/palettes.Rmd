@@ -45,6 +45,7 @@ full_palette <- function(name) {
 type_labels <- c(
   accent = "Accent",
   brand = "Brand",
+  academy = "Academy",
   categorical = "Categorical",
   sequential = "Sequential",
   diverging = "Diverging",
@@ -240,6 +241,20 @@ assets and other brand work, rather than general data visualization.
 
 ```{r brand, results = "asis"}
 gallery("brand")
+```
+
+## EKIO Academy
+
+`yoro_blue` and `yoro_green` take the Prussian blue of the falls and the green
+of the foliage from Hokusai's *Yoro Waterfall in Mino Province*. They are for
+EKIO Academy tutorials and books, and are tuned for
+`theme_ekio(background = "cold")`. Each is a five-step ramp, light to dark,
+and the two share one lightness per step, so `yoro_blue[4]` and
+`yoro_green[4]` carry the same weight. Steps 4 and 5 are dark enough for text
+on the cold surface.
+
+```{r academy, results = "asis"}
+gallery("academy")
 ```
 
 ## Sequential

@@ -110,6 +110,20 @@ black. It is intended for brand assets rather than general data visualization.
 swatch_strip(list_ekio_palettes("brand"))
 ```
 
+## EKIO Academy Palettes
+
+`yoro_blue` and `yoro_green` come from Hokusai's *Yoro Waterfall in Mino
+Province*. They are five-step ramps for EKIO Academy tutorials and books,
+tuned for the cold background.
+
+```{r}
+#| label: academy-palettes
+#| fig-height: 2
+#| fig-width: 10
+
+swatch_strip(list_ekio_palettes("academy"))
+```
+
 ## Sequential Palettes
 
 The seven brand scales, each nine steps named `100`–`900`, light to dark.
@@ -444,6 +458,7 @@ This document showcases the visual elements of ekioplot:
 
 - **Categorical palettes**: `r length(list_ekio_palettes("categorical"))` palettes for categorical data
 - **Brand palette**: `ekio_brand` for EKIO identity assets
+- **Academy palettes**: `yoro_blue` and `yoro_green` for EKIO Academy materials
 - **Accent palettes**: `r length(list_ekio_palettes("accent"))` named and variable-length accent sets
 - **Sequential palettes**: `r length(list_ekio_palettes("sequential"))` brand scales for continuous data
 - **Diverging palettes**: `r length(list_ekio_palettes("diverging"))` palettes for centered data

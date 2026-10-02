@@ -45,11 +45,11 @@ scale_fill_ekio_d <- function(palette = "full", reverse = FALSE, ...) {
 
 #' Continuous Color Scale
 #'
-#' Apply sequential or diverging palettes to continuous/numeric data.
+#' Apply sequential, diverging or academy palettes to continuous/numeric data.
 #'
 #' @param palette Character. Palette name (default: "blue").
-#'   See `list_ekio_palettes("sequential")` and `list_ekio_palettes("diverging")`
-#'   for options.
+#'   See `list_ekio_palettes("sequential")`, `list_ekio_palettes("diverging")`
+#'   and `list_ekio_palettes("academy")` for options.
 #' @param reverse Logical. If TRUE, reverses the color order.
 #' @param ... Additional arguments passed to [ggplot2::scale_color_gradientn()]
 #'
@@ -94,11 +94,13 @@ scale_fill_ekio_c <- function(palette = "blue", reverse = FALSE, ...) {
 .continuous_palette <- function(palette) {
   seq_pals <- .ekio_palettes$sequential
   div_pals <- .ekio_palettes$diverging
-  pal <- seq_pals[[palette]] %||% div_pals[[palette]]
+  aca_pals <- .ekio_palettes$academy
+  pal <- seq_pals[[palette]] %||% div_pals[[palette]] %||% aca_pals[[palette]]
   if (is.null(pal)) {
+    available <- c(names(seq_pals), names(div_pals), names(aca_pals))
     cli::cli_abort(c(
       "Continuous palette {.val {palette}} not found.",
-      "i" = "Available: {.val {c(names(seq_pals), names(div_pals))}}"
+      "i" = "Available: {.val {available}}"
     ))
   }
   unname(pal)

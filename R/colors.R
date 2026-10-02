@@ -103,9 +103,9 @@
   !is.null(group) && !group %in% .token_groups
 }
 
-# Sequential and diverging palettes are ramps: asking for n colors should
-# span the whole range rather than take the n lightest.
-.continuous_groups <- c("sequential", "diverging")
+# Sequential, diverging and academy palettes are ramps: asking for n colors
+# should span the whole range rather than take the n lightest.
+.continuous_groups <- c("sequential", "diverging", "academy")
 
 # Accent palettes keep their main color first and allow a small number of
 # receding grays for charts whose number of series changes.
@@ -119,7 +119,7 @@
 #'
 #' Returns colors for data visualization and EKIO identity work. Includes EKIO
 #' brand scales, accent and categorical palettes, the `ekio_brand` identity
-#' palette, and standard scientific palettes.
+#' palette, the EKIO Academy palettes, and standard scientific palettes.
 #' When printed interactively, displays the palette as a colored swatch with
 #' hex labels.
 #'
@@ -134,6 +134,12 @@
 #'
 #' The named `"ekio_brand"` palette contains colors for EKIO identity assets.
 #' It is not intended as a general-purpose data visualization palette.
+#'
+#' The `"academy"` palettes, `"yoro_blue"` and `"yoro_green"`, are for EKIO
+#' Academy tutorials and books. They come from Hokusai's *Yoro Waterfall in
+#' Mino Province* and are tuned for `theme_ekio(background = "cold")`. Each is
+#' a five-step ramp, light to dark, and the two share one lightness per step.
+#' Steps 4 and 5 are dark enough for text on the cold surface.
 #'
 #' `"full_light"` and `"spectrum_light"` are lighter categorical palettes for
 #' filled marks such as bars, boxplots, and areas. `"full_light"` keeps the
@@ -154,9 +160,9 @@
 #'   for all available options.
 #' @param n Integer or NULL. Number of colors to return. If NULL, returns all,
 #'   except `"accent_blue"` and `"accent_orange"`, which return four by
-#'   default. For sequential and diverging palettes, `n` colors are interpolated
-#'   across the full range. For the two variable-size accent palettes, `n` can
-#'   be between 2 and 6. For `"gold"`, other categorical palettes, and
+#'   default. For sequential, diverging and academy palettes, `n` colors are
+#'   interpolated across the full range. For the two variable-size accent
+#'   palettes, `n` can be between 2 and 6. For `"gold"`, other categorical palettes, and
 #'   scientific palettes, the first `n` colors are taken, interpolating only if
 #'   `n` exceeds the palette length.
 #' @param reverse Logical. If TRUE, reverses the palette order.
@@ -181,6 +187,7 @@
 #' ekio_pal("accent_blue", n = 5)
 #' ekio_pal("okabe_ito")
 #' ekio_pal("ekio_brand")
+#' ekio_pal("yoro_blue")
 #'
 #' # Brand scales are named by shade; position i is shade i * 100
 #' ekio_pal("blue")["700"]
@@ -333,8 +340,8 @@ as.character.ekio_palette <- function(x, ...) {
 #' Returns names of all available palettes, optionally filtered by type.
 #'
 #' @param type Character. Type of palettes to list:
-#'   "accent", "brand", "categorical", "scientific", "sequential",
-#'   "diverging", or "all" (default).
+#'   "accent", "brand", "academy", "categorical", "scientific",
+#'   "sequential", "diverging", or "all" (default).
 #' @return Character vector of palette names, or named list if type = "all".
 #' @export
 #'

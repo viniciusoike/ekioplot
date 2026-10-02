@@ -18,6 +18,11 @@
 
 * Added `theme_patchwork()` to style patchwork's outer background and annotations with the plot-level settings from `theme_ekio()`.
 
+* Added the `academy` palette group with `yoro_blue` and `yoro_green`, two
+  five-step ramps for EKIO Academy tutorials and books. They come from
+  Hokusai's *Yoro Waterfall in Mino Province* and are tuned for the cold
+  background. Both work with `ekio_pal()` and `scale_*_ekio_c()`.
+
 * Added the `full_light` and `spectrum_light` categorical palettes for filled
   marks such as bars, boxplots, and areas. `full_light` lifts the dark colors
   of `full` and keeps its order. `spectrum_light` orders its colors around the

@@ -19,9 +19,9 @@ for all available options.}
 
 \item{n}{Integer or NULL. Number of colors to return. If NULL, returns all,
 except \code{"accent_blue"} and \code{"accent_orange"}, which return four by
-default. For sequential and diverging palettes, \code{n} colors are interpolated
-across the full range. For the two variable-size accent palettes, \code{n} can
-be between 2 and 6. For \code{"gold"}, other categorical palettes, and
+default. For sequential, diverging and academy palettes, \code{n} colors are
+interpolated across the full range. For the two variable-size accent
+palettes, \code{n} can be between 2 and 6. For \code{"gold"}, other categorical palettes, and
 scientific palettes, the first \code{n} colors are taken, interpolating only if
 \code{n} exceeds the palette length.}
 
@@ -35,7 +35,7 @@ strip the class.
 \description{
 Returns colors for data visualization and EKIO identity work. Includes EKIO
 brand scales, accent and categorical palettes, the \code{ekio_brand} identity
-palette, and standard scientific palettes.
+palette, the EKIO Academy palettes, and standard scientific palettes.
 When printed interactively, displays the palette as a colored swatch with
 hex labels.
 }
@@ -51,6 +51,12 @@ The whole palette keeps its names for \code{\link[=ekio_text_on]{ekio_text_on()}
 
 The named \code{"ekio_brand"} palette contains colors for EKIO identity assets.
 It is not intended as a general-purpose data visualization palette.
+
+The \code{"academy"} palettes, \code{"yoro_blue"} and \code{"yoro_green"}, are for EKIO
+Academy tutorials and books. They come from Hokusai's \emph{Yoro Waterfall in
+Mino Province} and are tuned for \code{theme_ekio(background = "cold")}. Each is
+a five-step ramp, light to dark, and the two share one lightness per step.
+Steps 4 and 5 are dark enough for text on the cold surface.
 
 \code{"full_light"} and \code{"spectrum_light"} are lighter categorical palettes for
 filled marks such as bars, boxplots, and areas. \code{"full_light"} keeps the
@@ -76,6 +82,7 @@ ekio_pal("spectrum_light")
 ekio_pal("accent_blue", n = 5)
 ekio_pal("okabe_ito")
 ekio_pal("ekio_brand")
+ekio_pal("yoro_blue")
 
 # Brand scales are named by shade; position i is shade i * 100
 ekio_pal("blue")["700"]
