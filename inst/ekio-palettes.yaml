@@ -135,6 +135,17 @@ palettes:
       white: "#FFFFFF"
       black: "#000000"
 
+  # EKIO Academy colors extracted from Hokusai's Yoro Waterfall in Mino
+  # Province: the Prussian blue of the falls and the green of the foliage,
+  # drifting toward the yellow-green of the cliffs at the light end. Each is a
+  # five-step ramp, light to dark, tuned for the cold surface. The two ramps
+  # share one OKLCH lightness per step, so yoro_blue[i] and yoro_green[i]
+  # carry the same weight. Steps 4 and 5 clear WCAG AA for text on cold.
+  # Hand-derived from the print rather than generated on the brand spine.
+  academy:
+    yoro_blue: ["#CFE2E9", "#97BACB", "#6590A7", "#40667C", "#284355"]
+    yoro_green: ["#E1E1B8", "#ABBC8E", "#78936B", "#4C694D", "#2F4633"]
+
   # Categorical palettes pick a different shade per hue on purpose. Past five
   # categories `full` separates by hue rather than lightness, so it does not
   # survive grayscale printing. `full_muted` keeps the same sequence but moves

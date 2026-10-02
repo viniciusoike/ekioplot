@@ -166,6 +166,34 @@ test_that("ekio_brand exposes the EKIO identity colors", {
   expect_error(scale_color_ekio_c("ekio_brand"), "not found")
 })
 
+test_that("academy palettes expose the Yoro ramps", {
+  expect_identical(list_ekio_palettes("academy"), c("yoro_blue", "yoro_green"))
+  expect_identical(
+    as.character(ekio_pal("yoro_blue")),
+    c("#CFE2E9", "#97BACB", "#6590A7", "#40667C", "#284355")
+  )
+  expect_identical(
+    as.character(ekio_pal("yoro_green")),
+    c("#E1E1B8", "#ABBC8E", "#78936B", "#4C694D", "#2F4633")
+  )
+
+  # Ramps: n spans the range instead of taking the lightest colors
+  expect_identical(
+    as.character(ekio_pal("yoro_blue", n = 3)),
+    c("#CFE2E9", "#6590A7", "#284355")
+  )
+
+  # Both ramps darken monotonically, and steps 4 and 5 are text-safe on the
+  # cold surface the Academy materials use
+  for (pal in c("yoro_blue", "yoro_green")) {
+    contrast <- ekio_contrast(as.character(ekio_pal(pal)), ekio_surface("cold"))
+    expect_true(all(diff(contrast) > 0), info = pal)
+    expect_true(all(contrast[4:5] >= 4.5), info = pal)
+  }
+
+  expect_s3_class(scale_fill_ekio_c("yoro_green"), "ScaleContinuous")
+})
+
 test_that("scientific palettes are accessible via ekio_pal", {
   expect_length(ekio_pal("okabe_ito"), 8)
   expect_length(ekio_pal("viridis"), 9)
@@ -202,7 +230,15 @@ test_that("list_ekio_palettes returns correct structure", {
   expect_type(all_palettes, "list")
   expect_named(
     all_palettes,
-    c("accent", "brand", "categorical", "sequential", "diverging", "scientific")
+    c(
+      "accent",
+      "brand",
+      "academy",
+      "categorical",
+      "sequential",
+      "diverging",
+      "scientific"
+    )
   )
 
   expect_identical(

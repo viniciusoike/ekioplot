@@ -14,8 +14,8 @@ scale_fill_ekio_c(palette = "blue", reverse = FALSE, ...)
 }
 \arguments{
 \item{palette}{Character. Palette name (default: "blue").
-See \code{list_ekio_palettes("sequential")} and \code{list_ekio_palettes("diverging")}
-for options.}
+See \code{list_ekio_palettes("sequential")}, \code{list_ekio_palettes("diverging")}
+and \code{list_ekio_palettes("academy")} for options.}
 
 \item{reverse}{Logical. If TRUE, reverses the color order.}
 
@@ -25,7 +25,7 @@ for options.}
 A ggplot2 scale object
 }
 \description{
-Apply sequential or diverging palettes to continuous/numeric data.
+Apply sequential, diverging or academy palettes to continuous/numeric data.
 }
 \examples{
 library(ggplot2)
