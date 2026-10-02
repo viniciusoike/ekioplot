@@ -12,8 +12,9 @@ list_ekio_palettes(type = "all")
 
 - type:
 
-  Character. Type of palettes to list: "accent", "brand", "categorical",
-  "scientific", "sequential", "diverging", or "all" (default).
+  Character. Type of palettes to list: "accent", "brand", "academy",
+  "categorical", "scientific", "sequential", "diverging", or "all"
+  (default).
 
 ## Value
 
@@ -28,6 +29,9 @@ list_ekio_palettes()
 #> 
 #> $brand
 #> [1] "ekio_brand"
+#> 
+#> $academy
+#> [1] "yoro_blue"  "yoro_green"
 #> 
 #> $categorical
 #> [1] "full"           "full_muted"     "full_light"     "spectrum_light"

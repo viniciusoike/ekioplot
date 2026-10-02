@@ -79,7 +79,7 @@ ekio_surface("offwhite")
 
 ## Color palettes
 
-ekioplot ships palettes across six groups, all accessible through a
+ekioplot ships palettes across seven groups, all accessible through a
 single function. The brand scales are generated from one OKLCH
 specification, so a given shade carries the same visual weight in every
 family.
@@ -91,7 +91,9 @@ boxplots, and areas, `"full_light"` lightens `"full"`, and
 Variable-size accent palettes keep blue or orange prominent against two
 to six series. The named `"ekio_brand"` palette collects EKIO identity
 colors for brand assets; it is not intended for general data
-visualization.
+visualization. The `"academy"` palettes, `"yoro_blue"` and
+`"yoro_green"`, are five-step ramps for EKIO Academy tutorials and
+books, tuned for the cold background.
 
 ``` r
 

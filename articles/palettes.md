@@ -190,6 +190,40 @@ visualization.
 
 \#000000
 
+## EKIO Academy
+
+`yoro_blue` and `yoro_green` take the Prussian blue of the falls and the
+green of the foliage from Hokusai’s *Yoro Waterfall in Mino Province*.
+They are for EKIO Academy tutorials and books, and are tuned for
+`theme_ekio(background = "cold")`. Each is a five-step ramp, light to
+dark, and the two share one lightness per step, so `yoro_blue[4]` and
+`yoro_green[4]` carry the same weight. Steps 4 and 5 are dark enough for
+text on the cold surface.
+
+`yoro_blue`5 colors
+
+\#CFE2E9
+
+\#97BACB
+
+\#6590A7
+
+\#40667C
+
+\#284355
+
+`yoro_green`5 colors
+
+\#E1E1B8
+
+\#ABBC8E
+
+\#78936B
+
+\#4C694D
+
+\#2F4633
+
 ## Sequential
 
 The brand scales, light to dark. Position `i` is shade `i * 100`, so

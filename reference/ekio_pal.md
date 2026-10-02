@@ -2,8 +2,9 @@
 
 Returns colors for data visualization and EKIO identity work. Includes
 EKIO brand scales, accent and categorical palettes, the `ekio_brand`
-identity palette, and standard scientific palettes. When printed
-interactively, displays the palette as a colored swatch with hex labels.
+identity palette, the EKIO Academy palettes, and standard scientific
+palettes. When printed interactively, displays the palette as a colored
+swatch with hex labels.
 
 ## Usage
 
@@ -31,11 +32,11 @@ from Okabe & Ito (`"okabe_ito"`). Notices are in `inst/COPYRIGHTS`.
 
   Integer or NULL. Number of colors to return. If NULL, returns all,
   except `"accent_blue"` and `"accent_orange"`, which return four by
-  default. For sequential and diverging palettes, `n` colors are
-  interpolated across the full range. For the two variable-size accent
-  palettes, `n` can be between 2 and 6. For `"gold"`, other categorical
-  palettes, and scientific palettes, the first `n` colors are taken,
-  interpolating only if `n` exceeds the palette length.
+  default. For sequential, diverging and academy palettes, `n` colors
+  are interpolated across the full range. For the two variable-size
+  accent palettes, `n` can be between 2 and 6. For `"gold"`, other
+  categorical palettes, and scientific palettes, the first `n` colors
+  are taken, interpolating only if `n` exceeds the palette length.
 
 - reverse:
 
@@ -65,6 +66,12 @@ and for lookup.
 The named `"ekio_brand"` palette contains colors for EKIO identity
 assets. It is not intended as a general-purpose data visualization
 palette.
+
+The `"academy"` palettes, `"yoro_blue"` and `"yoro_green"`, are for EKIO
+Academy tutorials and books. They come from Hokusai's *Yoro Waterfall in
+Mino Province* and are tuned for `theme_ekio(background = "cold")`. Each
+is a five-step ramp, light to dark, and the two share one lightness per
+step. Steps 4 and 5 are dark enough for text on the cold surface.
 
 `"full_light"` and `"spectrum_light"` are lighter categorical palettes
 for filled marks such as bars, boxplots, and areas. `"full_light"` keeps
@@ -100,6 +107,8 @@ ekio_pal("accent_blue", n = 5)
 ekio_pal("okabe_ito")
 
 ekio_pal("ekio_brand")
+
+ekio_pal("yoro_blue")
 
 
 # Brand scales are named by shade; position i is shade i * 100

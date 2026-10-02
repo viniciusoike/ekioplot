@@ -1,6 +1,7 @@
 # Continuous Color Scale
 
-Apply sequential or diverging palettes to continuous/numeric data.
+Apply sequential, diverging or academy palettes to continuous/numeric
+data.
 
 ## Usage
 
@@ -17,8 +18,8 @@ scale_fill_ekio_c(palette = "blue", reverse = FALSE, ...)
 - palette:
 
   Character. Palette name (default: "blue"). See
-  `list_ekio_palettes("sequential")` and
-  `list_ekio_palettes("diverging")` for options.
+  `list_ekio_palettes("sequential")`, `list_ekio_palettes("diverging")`
+  and `list_ekio_palettes("academy")` for options.
 
 - reverse:
 
