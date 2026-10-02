@@ -188,7 +188,7 @@ test_that("diverging palettes use balanced endpoints", {
 
 test_that("shade 500 clears WCAG AA on every named surface", {
   scales <- ekioplot:::.ekio_scales
-  surfaces <- c("white", "offwhite", "cold")
+  surfaces <- c("white", "offwhite", "card", "cold")
 
   for (nm in names(scales)) {
     for (surface in surfaces) {
@@ -204,13 +204,27 @@ test_that("shade 500 clears WCAG AA on every named surface", {
   }
 })
 
+test_that("sunk_text clears WCAG AA on the interface surfaces", {
+  # gray.500 misses AA on the sunk band, which is why sunk_text exists
+  for (surface in c("offwhite", "card", "nav", "sunk")) {
+    expect_gte(
+      ekio_contrast(
+        ekioplot:::.ekio("basic", "sunk_text"),
+        ekioplot:::.ekio("basic", surface)
+      ),
+      4.5,
+      label = paste("sunk_text on", surface)
+    )
+  }
+})
+
 test_that("gold is an accent, reachable by name and safe for type", {
   gold <- ekio_pal("gold")
   expect_named(gold, c("light", "mid", "deep"))
   expect_identical(ekioplot:::.ekio("gold", "mid"), unname(gold[["mid"]]))
 
   # gold has no scale, so `deep` carries the text-safe promise instead of a 500
-  for (surface in c("white", "offwhite", "cold")) {
+  for (surface in c("white", "offwhite", "card", "cold")) {
     expect_gte(
       ekio_contrast(gold[["deep"]], ekioplot:::.ekio("basic", surface)),
       4.5,

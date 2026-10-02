@@ -82,9 +82,9 @@
   NULL
 }
 
-# Groups that exist only as brand tokens for .ekio(). `basic` is
-# white/offwhite/black: plot surfaces and inverted text, not something data
-# maps onto, so ekio_pal() and list_ekio_palettes() do not offer it.
+# Groups that exist only as brand tokens for .ekio(). `basic` holds plot and
+# interface surfaces, inverted text and the diverging pivot, not something
+# data maps onto, so ekio_pal() and list_ekio_palettes() do not offer it.
 .token_groups <- "basic"
 
 .palette_groups <- function(tokens = FALSE) {

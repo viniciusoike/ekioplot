@@ -198,21 +198,30 @@ palettes:
 
   # Surfaces, inverted text and the diverging pivot: chrome, not something
   # data maps onto. Named rather than positional, looked up as
-  # .ekio("basic", "white"). The surfaces and black are the only hand-set
-  # EKIO hex codes; the pivot is generated with the scales.
+  # .ekio("basic", "white"). The surfaces, sunk_text and black are the only
+  # hand-set EKIO hex codes; the pivot is generated with the scales.
   #
-  # The three surfaces span one axis, warm to cold, and no two of them sit
-  # closer than dE2000 1.7. offwhite is unohana-iro and cold is enpaku, both
-  # traditional Japanese whites:
+  # white, offwhite and cold are plot backgrounds. They span one axis, warm
+  # to cold, and no two of them sit closer than dE2000 1.7. offwhite is
+  # unohana-iro and cold is enpaku, both traditional Japanese whites:
   #   https://www.i-iro.com/dic/unohana-iro
   #   https://www.i-iro.com/dic/enpaku
-  # Two further candidates were dropped as duplicates of colors already here:
-  # gofun-iro #FFFFFC and nyuhakushoku #FFFFFB land within dE2000 1 of each
-  # other, within 2 of white, and within 1 of offwhite.
+  #
+  # The interface surfaces stack around the offwhite page in sites and
+  # dashboards. card (gofun-iro, https://www.i-iro.com/dic/gofun-iro) sits
+  # one step above the page for cards, tables, inputs and the charts inside
+  # them - dE2000 1.3 from offwhite, so the border does most of the work.
+  # nav (light navigation bars) and sunk (bands and filter bars) sit below
+  # it. gray.500 gives only 4.46:1 on sunk, so small text there uses
+  # sunk_text, which clears AA on every interface surface.
   basic:
     basic:
       white: "#FFFFFF"
       offwhite: "#FBFBF6"
       cold: "#F6F7F8"
+      card: "#FFFFFC"
+      nav: "#F7F5EE"
+      sunk: "#F3EFE4"
+      sunk_text: "#63676C"
       pivot: "#F5F3EF"
       black: "#000000"

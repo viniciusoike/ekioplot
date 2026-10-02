@@ -379,6 +379,13 @@ test_that(".ekio resolves palettes by name and by position", {
   expect_identical(.ekio("full", 2), as.character(ekio_pal("full"))[2])
 })
 
+test_that("basic holds the interface surfaces and their text color", {
+  expect_identical(.ekio("basic", "card"), "#FFFFFC")
+  expect_identical(.ekio("basic", "sunk"), "#F3EFE4")
+  expect_identical(.ekio("basic", "nav"), "#F7F5EE")
+  expect_identical(.ekio("basic", "sunk_text"), "#63676C")
+})
+
 test_that(".ekio prefers the scale when a palette shares its name", {
   # Sequential palettes are their scale, so both routes must agree
   expect_identical(.ekio("blue", 700), unname(ekio_pal("blue")[["700"]]))
