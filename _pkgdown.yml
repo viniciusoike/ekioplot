@@ -43,6 +43,12 @@ footer:
     package: "Part of EKIO's visual identity system."
 
 reference:
+  - title: Package announcements
+    contents:
+      - promo_brand
+      - promo_cover
+      - render_promo
+
   - title: Themes
     desc: Apply EKIO visual identity to plots
     contents:

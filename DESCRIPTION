@@ -28,8 +28,11 @@ Imports:
     rlang,
     systemfonts
 Suggests:
+    chromote,
     dplyr,
+    jsonlite,
     knitr,
+    pdftools,
     rmarkdown,
     testthat (>= 3.0.0),
     tibble,

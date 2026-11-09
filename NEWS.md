@@ -1,3 +1,7 @@
+# ekioplot (development version)
+
+* Added `promo_brand()`, card constructors, and `render_promo()` for HTML, PDF, and PNG package announcement carousels.
+
 # ekioplot 1.1.2
 
 ## Breaking changes
