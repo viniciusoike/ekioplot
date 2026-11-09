@@ -2,9 +2,10 @@ pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
+  articles/gallery: gallery.html
   getting-started: getting-started.html
   articles/palettes: palettes.html
-last_built: 2026-10-02T13:25Z
+last_built: 2026-11-09T13:28Z
 urls:
   reference: https://viniciusoike.github.io/ekioplot/reference
   article: https://viniciusoike.github.io/ekioplot/articles
