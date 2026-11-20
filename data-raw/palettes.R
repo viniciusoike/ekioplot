@@ -141,7 +141,8 @@ for (nm in names(.ekio_scales)) {
 # theme_ekio() names, because theme_ekio() uses gray.500 for muted text.
 # Checking all of them, rather than the default alone, is what stops a new
 # surface from quietly breaking the promise.
-surfaces <- unlist(spec$palettes$basic$basic[c("white", "offwhite", "cold")])
+basic <- spec$palettes$basic$basic
+surfaces <- unlist(basic[c("white", "offwhite", "card", "cold")])
 for (nm in names(.ekio_scales)) {
   for (surface in names(surfaces)) {
     cr <- contrast_ratio(.ekio_scales[[nm]][["500"]], surfaces[[surface]])
@@ -168,6 +169,22 @@ for (surface in names(surfaces)) {
   if (cr < 4.5) {
     stop(
       "gold.deep gives only ",
+      round(cr, 2),
+      ":1 against the ",
+      surface,
+      " surface (AA needs 4.5:1)",
+      call. = FALSE
+    )
+  }
+}
+
+# The sunk band is the one surface where gray.500 misses AA, so small text
+# there takes sunk_text. It has to clear AA on every interface surface.
+for (surface in c("offwhite", "card", "nav", "sunk")) {
+  cr <- contrast_ratio(basic$sunk_text, basic[[surface]])
+  if (cr < 4.5) {
+    stop(
+      "sunk_text gives only ",
       round(cr, 2),
       ":1 against the ",
       surface,
