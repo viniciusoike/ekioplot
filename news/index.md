@@ -49,6 +49,11 @@
   scale and the green scale out from the neutral pivot, following
   ColorBrewer’s PRGn.
 
+- Added the `card`, `nav` and `sunk` interface surfaces and the
+  `sunk_text` color to the brand tokens in `inst/ekio-palettes.yaml`.
+  Cards sit one step above the offwhite page; light navigation bars and
+  recessed bands sit below it.
+
 - Added `theme_ekio(background = "cold")`, the cool white enpaku
   `#F6F7F8`. With `"white"` and `"offwhite"` it gives three surfaces on
   one warm-to-cold axis.

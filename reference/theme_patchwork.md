@@ -36,7 +36,7 @@ A partial ggplot2 theme.
 
 ``` r
 theme_patchwork(background = "offwhite")
-#> <theme> List of 5
+#> <theme>List of 5
 #>  $ plot.background: <ggplot2::element_rect>
 #>   ..@ fill         : chr "#FBFBF6"
 #>   ..@ colour       : logi NA
@@ -56,7 +56,8 @@ theme_patchwork(background = "offwhite")
 #>   ..@ vjust        : NULL
 #>   ..@ angle        : NULL
 #>   ..@ lineheight   : NULL
-#>   ..@ margin       : <ggplot2::margin> num [1:4] 0 0 4 0
+#>   ..@ margin       : <ggplot2::margin> 'simpleUnit' num [1:4] 0points 0points 4points 0points
+#>  .. .. - attr(*, "unit")= int 8
 #>   ..@ debug        : NULL
 #>   ..@ inherit.blank: logi FALSE
 #>  $ plot.subtitle  : <ggplot2::element_text>
@@ -71,7 +72,8 @@ theme_patchwork(background = "offwhite")
 #>   ..@ vjust        : NULL
 #>   ..@ angle        : NULL
 #>   ..@ lineheight   : NULL
-#>   ..@ margin       : <ggplot2::margin> num [1:4] 0 0 8 0
+#>   ..@ margin       : <ggplot2::margin> 'simpleUnit' num [1:4] 0points 0points 8points 0points
+#>  .. .. - attr(*, "unit")= int 8
 #>   ..@ debug        : NULL
 #>   ..@ inherit.blank: logi FALSE
 #>  $ plot.caption   : <ggplot2::element_text>
@@ -86,10 +88,13 @@ theme_patchwork(background = "offwhite")
 #>   ..@ vjust        : NULL
 #>   ..@ angle        : NULL
 #>   ..@ lineheight   : NULL
-#>   ..@ margin       : <ggplot2::margin> num [1:4] 8 0 0 0
+#>   ..@ margin       : <ggplot2::margin> 'simpleUnit' num [1:4] 8points 0points 0points 0points
+#>  .. .. - attr(*, "unit")= int 8
 #>   ..@ debug        : NULL
 #>   ..@ inherit.blank: logi FALSE
-#>  $ plot.margin    : <ggplot2::margin> num [1:4] 15 10 15 10
+#>  $ plot.margin    : <ggplot2::margin> 'simpleUnit' num [1:4] 15points 10points 15points 10points
+#>  .. - attr(*, "unit")= int 8
+#>  - attr(*, "class")= chr "gg"
 #>  @ complete: logi FALSE
 #>  @ validate: logi TRUE
 ```
